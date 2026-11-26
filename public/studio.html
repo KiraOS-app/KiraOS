@@ -243,6 +243,20 @@ body[data-view=plugins] #vplugins,body[data-view=docs] #vdocs{display:block}
 .avrow{display:flex;align-items:center;gap:14px;margin-bottom:16px}
 
 /* KIRA identity layer */
+.bk{margin:14px 12px 0;padding:12px;border:2px dashed var(--line)}
+.bk p{margin:0 0 10px;font-size:13px;color:var(--mute);line-height:1.5}
+.bk .row{display:flex;flex-wrap:wrap;gap:6px}
+.bk .err{display:block;margin-top:8px;font-size:12.5px;color:var(--ok)}
+.lsrch{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:10px;padding:10px 0;margin:6px 0 14px;background:var(--bg)}
+.lsrch .inp{flex:1;margin:0;border:2px solid var(--line);border-radius:0;font-size:16px}
+.lsrch .inp:focus{border-color:#ff4f8b;outline:0}
+.lsrch span{font-size:13px;color:var(--mute);white-space:nowrap}
+.lhit{display:block;padding:14px 16px;margin-bottom:8px;border:2px solid var(--line);text-decoration:none;color:var(--ink)}
+.lhit:hover{border-color:#ff4f8b}
+.lhit b{display:block;font-size:17px;color:var(--ink)}
+.lhit small{display:block;font-family:"JetBrains Mono",monospace;font-size:12px;color:#ff4f8b;margin:2px 0 6px}
+.lhit span{display:block;font-size:14px;color:var(--mute);line-height:1.5}
+.lhit mark{background:rgba(255,79,139,.25);color:var(--ink);padding:0 2px}
 .btn.pri{background:#ff4f8b;border-color:#ff4f8b;color:#0b0710}
 .btn.pri:hover{background:#ff6c9f;border-color:#ff6c9f}
 body{font-family:"Space Grotesk","Inter Tight",system-ui,sans-serif}
@@ -268,7 +282,10 @@ code,.mono{font-family:"JetBrains Mono","IBM Plex Mono",ui-monospace,monospace}
  <aside class="pane" id="list">
   <div class="ph"><h2>Agents</h2><button class="btn sm pri" id="new">+ New agent</button></div>
   <div id="agents"></div>
-  <p class="note">Each agent loads a set of plugins: actions it can do, providers it reads, evaluators that learn from replies, services, routes and events. Saved in this browser.</p>
+  <div class="bk"><p id="savenote">Saved only in this browser. Back up your agents, or sign in to keep them on every device.</p>
+   <div class="row"><button class="btn sm" id="bkdl" title="Download every agent as one file">Backup all</button><button class="btn sm" id="bkup" title="Add agents from a backup file">Restore</button><button class="btn sm pri" id="bksign" hidden>Sign in</button></div>
+   <input type="file" id="bkfile" accept=".json,application/json" hidden><span class="err" id="bkmsg"></span></div>
+  <p class="note">Each agent loads a set of plugins: actions it can do, providers it reads, evaluators that learn from replies, services, routes and events.</p>
  </aside>
  <section class="pane" id="chat">
   <div class="ch" id="chead"></div>
@@ -723,7 +740,7 @@ interface Route { type: "GET"|"POST"|"PUT"|"PATCH"|"DELETE"|"STATIC"; path: stri
 interface Message { id: string; entityId: string; roomId: string; content: { text: string; source: string } }
 interface State { text: string; values: object; data: Record<string, unknown> }
 type ModelType = "TEXT_SMALL" | "TEXT_LARGE" | "TEXT_REASONING" | "OBJECT_SMALL";`)}`,
- llms:()=>`<h1>Docs for LLMs</h1>${EZ?'<div id="llmall" class="ezb"></div><div id="llmmore" style="height:1px"></div>':''}`,
+ llms:()=>`<h1>Docs for LLMs</h1>${EZ?`<div class="lsrch"><input id="llmq" class="inp" type="search" placeholder="Search ${EZ.length} pages…" autocomplete="off" aria-label="Search the docs"><span id="llmn"></span></div><div id="llmres"></div><div id="llmall" class="ezb"></div><div id="llmmore" style="height:1px"></div>`:''}`,
  tokenomics:()=>`<h1>Tokenomics</h1><p class="lede">KIRA OS has no token. Nothing in this app is tied to a coin, a chain or a sale.</p>
  <p>If you launch a token for a project built on KIRA OS, this page is where its tokenomics would go. A complete page usually covers:</p>
  <ul><li>Token name, ticker, chain and contract address</li><li>Total and circulating supply</li><li>Allocation by group (team, community, liquidity, treasury), with percentages that add up to 100</li><li>Vesting and unlock schedule</li><li>What the token is used for inside the product</li><li>Risks, and a clear note that it is not investment advice</li></ul>
@@ -744,7 +761,7 @@ async function renderDocs(){
  ${NAV.map(([g,ps])=>`<div class="dg">${esc(g)}</div>${ps.map(([k,n])=>`<a href="#docs-${k}" data-doc="${k}" class="${k===DOC?'on':''}">${esc(n)}</a>`).join('')}`).join('')}</aside>
  <div class="dmain" id="dmain"><article class="dart">${body}<nav class="pn">${prev?`<a href="#docs-${prev.k}" data-doc="${prev.k}"><span>Previous</span>${esc(prev.n)}</a>`:'<i></i>'}${next?`<a href="#docs-${next.k}" data-doc="${next.k}" style="text-align:right"><span>Next</span>${esc(next.n)}</a>`:''}</nav></article></div></div>`;
  $('#dmain').scrollTop=0;
- if(DOC==='llms'&&EZ)llmRender();
+ if(DOC==='llms'&&EZ){llmRender();const qi=$('#llmq');let tm;if(qi)qi.addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(()=>llmSearch(qi.value),180)})}
 }
 let RD=null;
 function ezLink(u,label){const path=u.split('#')[0].replace(/\/$/,'');if(EZ&&path.startsWith('/')){const i=EZ.findIndex(p=>p.src.replace('https://docs.elizaos.ai','')===path||(path===''&&p.seg==='index'));if(i>=0)return`<a href="#docs-ez-${i}" data-doc="ez-${i}">${label}</a>`}const url=u.startsWith('/')?'https://docs.elizaos.ai'+u:u;return /^https:\/\//.test(url)?`<a href="${esc(url)}" target="_blank" rel="noopener">${label}</a>`:label}
@@ -791,6 +808,25 @@ function llmRender(){const box=$('#llmall'),sen=$('#llmmore');if(!box)return;let
  const more=()=>{const end=Math.min(EZ.length,n+6);let h='';for(;n<end;n++){const p=EZ[n];h+=`<section class="llmp"><h2>${esc(p.title)}</h2><p class="note n0">Source: ${/^https:\/\//.test(p.src)?`<a href="${esc(p.src)}" target="_blank" rel="noopener">${esc(p.src)}</a>`:esc(p.src)}</p>${renderMD(p.lines)}</section>`}box.insertAdjacentHTML('beforeend',h);if(n>=EZ.length&&llmObs){llmObs.disconnect();sen.remove()}};
  if(llmObs)llmObs.disconnect();more();
  llmObs=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting))more()},{root:$('#dmain'),rootMargin:'1200px'});llmObs.observe(sen);}
+let EZTXT=null;
+function llmSearch(q){
+ const res=$('#llmres'),all=$('#llmall'),more=$('#llmmore'),cnt=$('#llmn');if(!res)return;
+ q=q.trim().toLowerCase();
+ if(q.length<2){res.innerHTML='';cnt.textContent='';all.hidden=false;if(more)more.hidden=false;return}
+ if(!EZTXT)EZTXT=EZ.map(p=>p.lines.join('\n').replace(/<[^>]*>/g,' ').replace(/[`*#|]/g,' ').replace(/[ \t]+/g,' '));
+ const words=q.split(/\s+/).filter(Boolean),hits=[],low=EZTXT.map(x=>x.toLowerCase());
+ const idf=words.map(w=>{const df=EZ.reduce((n,p,i)=>n+(p.title.toLowerCase().includes(w)||low[i].includes(w)?1:0),0);return Math.log(1+EZ.length/(1+df))});
+ EZ.forEach((p,i)=>{const t=p.title.toLowerCase(),b=low[i];let sc=0;
+  for(let k=0;k<words.length;k++){const w=words[k],inT=t.includes(w),c=b.split(w).length-1;if(!inT&&!c)return;sc+=idf[k]*((inT?30:0)+Math.min(12,c))}
+  if(t.includes(q))sc+=60;
+  const at=b.indexOf(words[0]);const snip=at>=0?esc(EZTXT[i].slice(Math.max(0,at-70),at+130).replace(/\s+/g,' ').trim()):'';
+  hits.push({i,sc,snip})});
+ hits.sort((a,b)=>b.sc-a.sc);
+ const mark=h=>words.reduce((x,w)=>x.replace(new RegExp('('+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>'),h);
+ cnt.textContent=hits.length?hits.length+' found':'';
+ all.hidden=true;if(more)more.hidden=true;
+ res.innerHTML=hits.length?hits.slice(0,40).map(h=>`<a class="lhit" href="#docs-ez-${h.i}" data-doc="ez-${h.i}"><b>${mark(esc(EZ[h.i].title))}</b><small>${esc(EZ[h.i].src.replace('https://docs.elizaos.ai/',''))}</small>${h.snip?`<span>…${mark(h.snip)}…</span>`:''}</a>`).join(''):'<p class="note n0">No pages match. Try fewer or different words.</p>';
+}
 function openDoc(k){DOC=k;try{history.replaceState(null,'','#docs-'+k)}catch(e){}renderDocs()}
 function applyTheme(k){try{localStorage.setItem('loom-theme',k)}catch(e){}if(k==='system')delete document.documentElement.dataset.theme;else document.documentElement.dataset.theme=k}
 
@@ -847,6 +883,8 @@ document.addEventListener('click',async e=>{
  if(t.dataset.rd){RD.i=Math.max(0,Math.min(RD.pages.length-1,RD.i+ +t.dataset.rd));renderReader();$('#reader').scrollIntoView();return}
  if(t.dataset.llm){const txt='# KIRA OS documentation\n\n'+docText();const old=t.textContent;navigator.clipboard.writeText(txt).then(()=>{t.textContent='Copied'},()=>{t.textContent='Copy blocked'});setTimeout(()=>{t.textContent=old},1600);return}
  if(t.dataset.tpl){const n=mk(JSON.parse(JSON.stringify(TEMPLATES[t.dataset.tpl])));S.agents.push(n);S.active=n.id;save();renderAll();setView('studio');if(innerWidth<=1100)$('#tabs [data-p=chat]').click();return}
+ if(t.id==='bkdl'){const j=JSON.stringify({kira:1,saved:new Date().toISOString(),agents:S.agents.map(x=>({...x,chat:[]})),custom:S.custom||[]},null,2);const u=URL.createObjectURL(new Blob([j],{type:'application/json'}));const l=document.createElement('a');l.href=u;l.download='kira-agents-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);$('#bkmsg').style.color='';$('#bkmsg').textContent='Backup downloaded ('+S.agents.length+' agents).';return}
+ if(t.id==='bkup'){$('#bkfile').click();return}
  if(t.id==='pcopy'){const j=JSON.stringify({loom:1,agents:S.agents.map(x=>({...x,chat:[]})),custom:S.custom||[]},null,2);navigator.clipboard.writeText(j).then(()=>{t.textContent='Copied'},()=>{t.textContent='Copy blocked'});return}
  if(t.id==='pimpb'){try{const o=JSON.parse($('#pimp').value);if(!Array.isArray(o.agents))throw 0;let n=0;o.agents.forEach(x=>{if(x&&typeof x==='object'){S.agents.push(migrate({...mk({}),...x,id:uid(),chat:[]}));n++}});let cn=0;(o.custom||[]).forEach(d=>{try{compileCustom(d);if(!(S.custom||[]).some(c=>c.name===d.name)){S.custom.push(d);cn++}}catch(e){}});save();RT={};renderAll();$('#pimpm').textContent=`Imported ${n} agents, ${cn} plugins.`;$('#pimpm').style.color='var(--ok)'}catch(err){$('#pimpm').textContent='Not a valid project JSON.'}return}
  if(t.id==='menu'){const o=$('#drop').classList.toggle('open');t.setAttribute('aria-expanded',String(o));return}
@@ -901,6 +939,12 @@ $('#inp').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&innerW
 
 try{const k=localStorage.getItem('aiko-pending');if(k){localStorage.removeItem('aiko-pending');if(TEMPLATES[k]){const n=mk(JSON.parse(JSON.stringify(TEMPLATES[k])));S.agents.push(n);S.active=n.id;S.tab='char';save()}}}catch(e){}
 renderAll();boot(A());
+$('#bkfile').addEventListener('change',async e=>{const f=e.target.files[0];e.target.value='';const m=$('#bkmsg');if(!f)return;
+ try{if(f.size>5e6)throw new Error('File is too big');const o=JSON.parse(await f.text());if(!o||!Array.isArray(o.agents))throw new Error('This is not a KIRA OS backup');
+  let n=0;o.agents.forEach(x=>{if(x&&typeof x==='object'&&typeof x.name==='string'){S.agents.push(migrate({...mk({}),...x,id:uid(),chat:[]}));n++}});
+  let cn=0;(o.custom||[]).forEach(d=>{try{compileCustom(d);if(!(S.custom||[]).some(c=>c.name===d.name)){S.custom.push(d);cn++}}catch(err){}});
+  save();RT={};renderAll();boot(A());m.style.color='';m.textContent='Restored '+n+' agents'+(cn?' and '+cn+' plugins':'')+'.'}
+ catch(err){m.style.color='#ff8fb3';m.textContent=err.message||'Could not read that file'}});
 
 /* ============ ACCOUNTS: X · wallet · email (server: /api/auth/*, /api/data) ============ */
 const Account=(()=>{
@@ -908,7 +952,7 @@ const Account=(()=>{
  const btn=$('#acct'),modal=$('#amodal'),body=$('#abody');
  const toast=(m,ms=4500)=>{const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,ms)};
  const api=async(path,opt={})=>{const r=await fetch(path,{credentials:'same-origin',...opt,headers:{'content-type':'application/json',...(opt.headers||{})}});const j=await r.json().catch(()=>({}));if(!r.ok){const e=new Error(j.reply||j.error||('HTTP '+r.status));e.code=j.error;throw e}return j};
- function paint(){btn.hidden=!methods;btn.classList.toggle('on',!!user);btn.textContent=user?user.name:'Sign in';btn.title=user?'Signed in with '+user.method:'Save your agents to an account'}
+ function paint(){const sn=$('#savenote'),sb=$('#bksign');if(sn)sn.textContent=user?'Saved to your account ('+user.name+'). A backup file is still a good idea.':'Saved only in this browser. Back up your agents'+(methods?', or sign in to keep them on every device.':'.');if(sb){sb.hidden=!methods||!!user;sb.onclick=()=>btn.click()}btn.hidden=!methods;btn.classList.toggle('on',!!user);btn.textContent=user?user.name:'Sign in';btn.title=user?'Signed in with '+user.method:'Save your agents to an account'}
  const ICON={x:'<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg>',
   w:'<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7zm0 0V6a2 2 0 0 1 2-2h11M16 13.5h2"/></svg>',
   e:'<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>'};
