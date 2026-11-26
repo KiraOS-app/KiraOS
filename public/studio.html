@@ -221,6 +221,25 @@ body[data-view=plugins] #vplugins,body[data-view=docs] #vdocs{display:block}
 }
 @media(max-width:600px){.stack thead{display:none}.stack tr{display:grid;padding-block:8px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:2px 0;padding-inline-start:6.5em}.stack td::before{content:attr(data-l);float:inline-start;width:6em;margin-inline-start:-6.5em;color:var(--mute)}.brand small{display:none}.m{max-width:92%}.ch h1{font-size:18px}}
 .wm{display:inline-flex;align-items:center;gap:.42em;line-height:1}.wm-a{font-family:"Archivo Black",sans-serif;font-weight:400;letter-spacing:.01em;color:#f1f1ef}
+.acct{margin-left:auto;min-height:36px;padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:var(--panel);font-size:13px;font-weight:600;white-space:nowrap;max-width:46vw;overflow:hidden;text-overflow:ellipsis}
+.acct.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.acct+.pill{margin-left:8px}
+.amodal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:16px}
+.amodal[hidden]{display:none}
+.abg{position:absolute;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(4px)}
+.apanel{position:relative;width:min(420px,100%);background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 30px 100px rgba(0,0,0,.7)}
+.ahead{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}.ahead h2{font-size:20px}
+.aopt{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;padding:10px 14px;margin-top:8px;border-radius:12px;border:1px solid var(--line);background:var(--soft);font-size:15px;font-weight:600;text-align:left}
+.aopt:hover:not(:disabled){border-color:var(--ink)}
+.aopt span{margin-left:auto;font-weight:400;font-size:12px;color:var(--mute)}
+.aopt svg{flex:none}
+.aform{display:flex;gap:8px;margin-top:10px}.aform input{flex:1;margin:0}
+.aerr{color:var(--brick2);font-size:13px;margin-top:8px;min-height:18px}
+.amenu{position:absolute;top:56px;right:max(2vw,14px);z-index:40;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px;min-width:220px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.amenu p{padding:8px 10px;font-size:13px;color:var(--mute)}.amenu button{display:block;width:100%;text-align:left;border:0;background:none;padding:10px;border-radius:8px;font-size:14px;min-height:40px}
+.amenu button:hover{background:var(--soft)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;max-width:min(520px,calc(100vw - 28px));padding:12px 18px;border-radius:12px;background:var(--panel);border:1px solid var(--line);font-size:14px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+@media(max-width:600px){.acct+.pill{display:none}}
 </style>
 </head>
 <body data-pane="chat" data-view="studio">
@@ -228,6 +247,7 @@ body[data-view=plugins] #vplugins,body[data-view=docs] #vdocs{display:block}
  <button class="menu" id="menu" aria-label="Menu" aria-expanded="false">☰</button>
  <a class="brand" href="index.html" style="color:inherit;text-decoration:none" aria-label="KIRA OS home"><span class="wm"><span class="wm-a" style="font-size:28px">KIRA</span><svg class="wm-os" viewBox="0 0 15 7" height="20" width="43" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#f1f1ef" d="M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM5 1h1v1h-1zM6 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM13 3h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1z"/></svg></span></a>
  <nav class="nav" id="nav"><button data-v="studio" class="on">Studio</button><button data-v="plugins">Plugins</button><button data-v="docs">Docs</button><a class="navlink" href="index.html">← Site</a></nav>
+ <button class="acct" id="acct" hidden>Sign in</button>
  <span class="pill" id="status"><b></b>Connecting…</span>
 </header>
 <div class="drop" id="drop"><button data-v="studio" class="on">Studio<span>Agents, chat and setup</span></button><button data-v="plugins">Plugins<span>Every plugin and its manifest</span></button><button data-v="docs">Docs<span>Plugin architecture guide</span></button><a class="dlink" href="index.html">← Home<span>KIRA OS home page</span></a></div>
@@ -250,6 +270,15 @@ body[data-view=plugins] #vplugins,body[data-view=docs] #vdocs{display:block}
   <div class="sb" id="sbody"></div>
  </aside>
 </main>
+<div class="amodal" id="amodal" hidden>
+ <div class="abg" data-aclose></div>
+ <div class="apanel" role="dialog" aria-modal="true" aria-labelledby="atitle">
+  <div class="ahead"><h2 id="atitle">Sign in to KIRA OS</h2><button class="x" data-aclose aria-label="Close">×</button></div>
+  <p class="note n0">Your agents are saved to your account and follow you to every device.</p>
+  <div id="abody"></div>
+ </div>
+</div>
+<div class="toast" id="toast" hidden></div>
 <script>
 {
 const $=s=>document.querySelector(s);
@@ -415,6 +444,7 @@ function save(){clearTimeout(saveT);saveT=setTimeout(async()=>{
  S.agents.forEach(a=>{if(a.chat.length>40)a.chat=a.chat.slice(-40)});
  const j=JSON.stringify(S);try{localStorage.setItem('inkbot-studio',j)}catch(e){}
  if(ref){try{await ref.set({v:2,state:j})}catch(e){}}
+ if(typeof Account!=='undefined')Account.push(j);
 },700)}
 
 async function boot(a){
@@ -863,6 +893,87 @@ $('#inp').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&innerW
 
 try{const k=localStorage.getItem('aiko-pending');if(k){localStorage.removeItem('aiko-pending');if(TEMPLATES[k]){const n=mk(JSON.parse(JSON.stringify(TEMPLATES[k])));S.agents.push(n);S.active=n.id;S.tab='char';save()}}}catch(e){}
 renderAll();boot(A());
+
+/* ============ ACCOUNTS: X · wallet · email (server: /api/auth/*, /api/data) ============ */
+const Account=(()=>{
+ let user=null,methods=null,pushT=null,pending=null,ready=false;
+ const btn=$('#acct'),modal=$('#amodal'),body=$('#abody');
+ const toast=(m,ms=4500)=>{const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,ms)};
+ const api=async(path,opt={})=>{const r=await fetch(path,{credentials:'same-origin',...opt,headers:{'content-type':'application/json',...(opt.headers||{})}});const j=await r.json().catch(()=>({}));if(!r.ok){const e=new Error(j.reply||j.error||('HTTP '+r.status));e.code=j.error;throw e}return j};
+ function paint(){btn.hidden=!methods;btn.classList.toggle('on',!!user);btn.textContent=user?user.name:'Sign in';btn.title=user?'Signed in with '+user.method:'Save your agents to an account'}
+ const ICON={x:'<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg>',
+  w:'<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7zm0 0V6a2 2 0 0 1 2-2h11M16 13.5h2"/></svg>',
+  e:'<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>'};
+ function home(){
+  const hasEth=!!window.ethereum;
+  body.innerHTML=`<button class="aopt" id="ax" ${methods.x?'':'disabled'}>${ICON.x}Continue with X${methods.x?'':'<span>not set up yet</span>'}</button>
+  <button class="aopt" id="aw">${ICON.w}Connect wallet<span>${hasEth?'MetaMask, Rabby…':'open in wallet app'}</span></button>
+  <button class="aopt" id="ae" ${methods.email?'':'disabled'}>${ICON.e}Continue with email${methods.email?'':'<span>not set up yet</span>'}</button>
+  <div class="aerr" id="aerr"></div><p class="note n0" style="margin-top:6px">By signing in you agree to the <a href="legal.html" style="color:inherit">Terms &amp; Privacy</a>.</p>`;
+ }
+ function open(){if(!methods)return;home();modal.hidden=false}
+ function close(){modal.hidden=true}
+ const err=m=>{const e=$('#aerr');if(e)e.textContent=m||''};
+ async function wallet(){
+  if(!window.ethereum){location.href='https://metamask.app.link/dapp/'+location.host+location.pathname;return}
+  try{err('Check your wallet…');
+   const [address]=await window.ethereum.request({method:'eth_requestAccounts'});
+   const {message}=await api('/api/auth/wallet-nonce');
+   const hexMsg='0x'+Array.from(new TextEncoder().encode(message)).map(b=>b.toString(16).padStart(2,'0')).join('');
+   const signature=await window.ethereum.request({method:'personal_sign',params:[hexMsg,address]});
+   const r=await api('/api/auth/wallet-verify',{method:'POST',body:JSON.stringify({address,signature})});
+   await signedIn(r.user);
+  }catch(e){err(e&&e.code===4001?'Signature cancelled.':(e.message||'Wallet sign-in failed.'))}
+ }
+ function email(){
+  body.innerHTML=`<form class="aform" id="aef"><input class="inp" id="aem" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required aria-label="Email"><button class="btn pri">Send code</button></form><div class="aerr" id="aerr"></div><button class="btn sm" id="aback" style="margin-top:6px">← Other options</button>`;
+  setTimeout(()=>{const i=$('#aem');i&&i.focus()},30);
+ }
+ function code(em){
+  body.innerHTML=`<p class="note n0">We sent a 6-digit code to <b>${esc(em)}</b>. It expires in 10 minutes.</p><form class="aform" id="acf"><input class="inp" id="acode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="\\d{6}" placeholder="123456" required aria-label="Code"><button class="btn pri">Sign in</button></form><div class="aerr" id="aerr"></div><button class="btn sm" id="aback" style="margin-top:6px">← Other options</button>`;
+  body.dataset.email=em;setTimeout(()=>{const i=$('#acode');i&&i.focus()},30);
+ }
+ async function signedIn(u){user=u;paint();close();toast('Signed in as '+u.name);await pull(true)}
+ async function pull(fresh){
+  try{const r=await api('/api/data');
+   if(r.state){const st=JSON.parse(r.state);if(st&&st.agents&&st.agents.length){st.agents.forEach(migrate);st.custom=st.custom||[];S=st;RT={};try{localStorage.setItem('inkbot-studio',r.state)}catch(e){}renderAll();boot(A());if(fresh)toast('Loaded '+st.agents.length+' agents from your account')}}
+   else{push(JSON.stringify(S),true);if(fresh)toast('Your agents are now saved to your account')}
+  }catch(e){toast('Could not load your saved agents: '+e.message)}
+ }
+ function push(j,now){if(!user)return;pending=j;clearTimeout(pushT);pushT=setTimeout(async()=>{const st=pending;pending=null;try{await api('/api/data',{method:'PUT',body:JSON.stringify({state:st})})}catch(e){if(e.code==='login_required'){user=null;paint()}else toast('Saving to your account failed: '+e.message)}},now?0:1500)}
+ function menu(){
+  let m=$('#amenu');if(m){m.remove();return}
+  m=document.createElement('div');m.className='amenu';m.id='amenu';
+  m.innerHTML=`<p>Signed in with ${esc(user.method)} as <b>${esc(user.name)}</b></p><button id="aout">Sign out</button>`;
+  document.body.append(m);
+ }
+ document.addEventListener('click',async e=>{
+  const t=e.target.closest('button,[data-aclose]');
+  if(!e.target.closest('#amenu,#acct')){const m=$('#amenu');m&&m.remove()}
+  if(!t)return;
+  if(t.id==='acct'){user?menu():open();return}
+  if(t.dataset.aclose!==undefined){close();return}
+  if(t.id==='ax'){location.href='/api/auth/x-login';return}
+  if(t.id==='aw'){wallet();return}
+  if(t.id==='ae'){email();return}
+  if(t.id==='aback'){home();return}
+  if(t.id==='aout'){try{await api('/api/auth/logout',{method:'POST'})}catch(e){}user=null;paint();$('#amenu')&&$('#amenu').remove();toast('Signed out. Agents stay in this browser.')}
+ });
+ document.addEventListener('submit',async e=>{
+  if(e.target.id==='aef'){e.preventDefault();e.stopImmediatePropagation();const em=$('#aem').value.trim();err('Sending…');try{await api('/api/auth/email-start',{method:'POST',body:JSON.stringify({email:em})});code(em)}catch(x){err(x.message)}}
+  if(e.target.id==='acf'){e.preventDefault();e.stopImmediatePropagation();err('Checking…');try{const r=await api('/api/auth/email-verify',{method:'POST',body:JSON.stringify({email:body.dataset.email,code:$('#acode').value.trim()})});await signedIn(r.user)}catch(x){err(x.message)}}
+ },true);
+ addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)close()});
+ async function init(){
+  const h=location.hash.slice(1),msgs={'signed-in':'','auth-failed':'Sign-in with X failed. Try again.','auth-cancelled':'Sign-in with X was cancelled.','auth-x-off':'Sign-in with X is not set up on this site yet.'};
+  if(h in msgs){try{history.replaceState(null,'',location.pathname)}catch(e){}if(msgs[h])toast(msgs[h])}
+  try{const r=await api('/api/auth/me');methods=r.methods&&r.methods.on?r.methods:null;user=r.user;paint();if(user)await pull(h==='signed-in')}catch(e){methods=null;paint()}
+  ready=true;
+ }
+ return{init,push,get user(){return user}};
+})();
+Account.init();
+
 function fromHash(){const h=location.hash.slice(1);if(h.startsWith('docs')){const k=h.slice(5);if(PAGES[k]||/^ez-\d+$/.test(k))DOC=k;setView('docs')}else setView(h==='plugins'?'plugins':'studio')}
 loadEZ().then(()=>{if(location.hash)fromHash()});if(location.hash)fromHash();
 addEventListener('hashchange',fromHash);

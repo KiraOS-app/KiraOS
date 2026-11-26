@@ -2,6 +2,7 @@
 // Vercel serves /public and runs the functions in /api automatically.
 //   GET  /            → files from ./public
 //   POST /api/studio  → one Claude call for the Studio and the home chat (needs ANTHROPIC_API_KEY)
+//   /api/auth/*, /api/data → accounts (X, wallet, email) and saved agents
 // Zero dependencies. Requires Node.js 18 or newer.
 import http from 'node:http';
 import fs from 'node:fs';
@@ -16,6 +17,7 @@ try {
   }
 } catch { /* no .env file */ }
 const { handleStudio } = await import('./lib/studio.js');
+const { handleAuth } = await import('./lib/auth.js');
 
 const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC = path.join(ROOT, 'public');
@@ -28,6 +30,15 @@ http.createServer(async (req, res) => {
       const chunks = []; for await (const c of req) chunks.push(c);
       const r = await handleStudio(new Request('http://localhost/api/studio', { method: 'POST', body: Buffer.concat(chunks), headers: { origin: req.headers.origin || '' } }), req.socket.remoteAddress || 'anon');
       res.writeHead(r.status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }); return res.end(await r.text());
+    }
+    const am = url.pathname.match(/^\/api\/auth\/([a-z-]+)$/), isData = url.pathname === '/api/data';
+    if (am || isData) {
+      const chunks = []; for await (const c of req) chunks.push(c);
+      const headers = new Headers(); for (const h of ['cookie', 'origin', 'content-type']) if (req.headers[h]) headers.set(h, req.headers[h]);
+      const r = await handleAuth(new Request('http://localhost:' + PORT + url.pathname + url.search, { method: req.method, headers, body: ['GET', 'HEAD'].includes(req.method) ? undefined : Buffer.concat(chunks) }), isData ? 'data' : am[1], req.socket.remoteAddress || 'anon');
+      const out = {}; r.headers.forEach((v, k) => { if (k !== 'set-cookie') out[k] = v; });
+      const sc = r.headers.getSetCookie ? r.headers.getSetCookie() : []; if (sc.length) out['set-cookie'] = sc;
+      res.writeHead(r.status, out); return res.end(Buffer.from(await r.arrayBuffer()));
     }
     if (req.method !== 'GET' && req.method !== 'HEAD') { res.writeHead(405); return res.end(); }
     let p = decodeURIComponent(url.pathname); if (p.endsWith('/')) p += 'index.html';

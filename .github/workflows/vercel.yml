@@ -2,6 +2,8 @@
 # Needs two repository secrets (GitHub → Settings → Secrets and variables → Actions):
 #   VERCEL_TOKEN       – from https://vercel.com/account/tokens
 #   ANTHROPIC_API_KEY  – from https://console.anthropic.com
+# Optional (accounts): SESSION_SECRET, UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN,
+#   X_CLIENT_ID, X_CLIENT_SECRET, RESEND_API_KEY, EMAIL_FROM
 name: Deploy to Vercel
 on:
   push:
@@ -25,9 +27,20 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+          UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
+          UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
+          X_CLIENT_ID: ${{ secrets.X_CLIENT_ID }}
+          X_CLIENT_SECRET: ${{ secrets.X_CLIENT_SECRET }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
         run: |
+          ENVS=()
+          for v in SESSION_SECRET UPSTASH_REDIS_REST_URL UPSTASH_REDIS_REST_TOKEN X_CLIENT_ID X_CLIENT_SECRET RESEND_API_KEY EMAIL_FROM; do
+            if [ -n "${!v}" ]; then ENVS+=(--env "$v=${!v}"); fi
+          done
           npx --yes vercel@latest deploy --prod --yes --token "$VERCEL_TOKEN" \
             --name kira-os \
-            --env ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY" \
+            --env ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY" --env SITE_URL=https://getkira.xyz "${ENVS[@]}" \
             --build-env ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY" | tee deploy.txt
           echo "### Deployed: $(tail -n1 deploy.txt)" >> "$GITHUB_STEP_SUMMARY"
