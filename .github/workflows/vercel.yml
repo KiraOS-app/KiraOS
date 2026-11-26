@@ -19,11 +19,18 @@ jobs:
         with:
           node-version: 20
       - name: Check secrets
+        id: check
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          if [ -z "$VERCEL_TOKEN" ]; then echo "::error::Add the VERCEL_TOKEN repository secret first."; exit 1; fi
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "::notice::Skipped: add the VERCEL_TOKEN repository secret to deploy from GitHub Actions (not needed if Vercel deploys this repo through its Git integration)."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Deploy
+        if: steps.check.outputs.ready == 'true'
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
