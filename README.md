@@ -14,7 +14,8 @@ add plugins (actions, providers, evaluators, services, routes, events, models) a
   - Plugins: built-in store, bootstrap, claude-models, knowledge, memory, calculator, outbox, x, discord, telegram,
     plus custom plugins written as JSON manifests. Runtime tab with load order, services, models,
     composed state, routes console, event emitter and live event log.
-  - Docs: 25-page guide, plus "Docs for LLMs" (the whole guide as plain text to copy).
+  - Docs: 25-page guide. The "Docs for LLMs" page shows `public/llms-full.txt` (elizaOS documentation, MIT License,
+    © elizaOS contributors — see `public/llms-full.NOTICE.txt`).
 
 Agents and chats are stored in the visitor's browser and, after signing in, in their account.
 Each agent can have its own photo (resized to 128 px in the browser).

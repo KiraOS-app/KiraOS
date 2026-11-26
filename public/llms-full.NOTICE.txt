@@ -1,0 +1,6 @@
+llms-full.txt is the elizaOS documentation, downloaded from https://docs.elizaos.ai/llms-full.txt
+
+Source: https://github.com/elizaOS/docs — part of the elizaOS project (https://github.com/elizaOS/eliza),
+licensed under the MIT License. Copyright (c) elizaOS contributors.
+
+KIRA OS is an independent project and is not affiliated with elizaOS.

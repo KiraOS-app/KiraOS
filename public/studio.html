@@ -714,7 +714,7 @@ interface Route { type: "GET"|"POST"|"PUT"|"PATCH"|"DELETE"|"STATIC"; path: stri
 interface Message { id: string; entityId: string; roomId: string; content: { text: string; source: string } }
 interface State { text: string; values: object; data: Record<string, unknown> }
 type ModelType = "TEXT_SMALL" | "TEXT_LARGE" | "TEXT_REASONING" | "OBJECT_SMALL";`)}`,
- llms:()=>`<h1>Docs for LLMs</h1><p class="lede">The whole KIRA OS guide as one plain-text file, ready to paste into an AI assistant or coding agent.</p><p class="row"><button class="btn pri" data-llm="loom">Copy KIRA OS docs</button></p><h3>Preview</h3><pre style="max-height:420px;white-space:pre-wrap">${esc(docText().slice(0,6000))}…</pre>`,
+ llms:()=>`<h1>Docs for LLMs</h1>${EZ?'<div id="llmall" class="ezb"></div><div id="llmmore" style="height:1px"></div>':''}`,
  tokenomics:()=>`<h1>Tokenomics</h1><p class="lede">KIRA OS has no token. Nothing in this app is tied to a coin, a chain or a sale.</p>
  <p>If you launch a token for a project built on KIRA OS, this page is where its tokenomics would go. A complete page usually covers:</p>
  <ul><li>Token name, ticker, chain and contract address</li><li>Total and circulating supply</li><li>Allocation by group (team, community, liquidity, treasury), with percentages that add up to 100</li><li>Vesting and unlock schedule</li><li>What the token is used for inside the product</li><li>Risks, and a clear note that it is not investment advice</li></ul>
@@ -752,7 +752,7 @@ let EZ=null;
 function ezNav(){if(!EZ)return[];const used=new Set();const out=EZ_GROUPS.map(([g,segs])=>[g,EZ.map((p,i)=>({p,i})).filter(({p})=>segs.includes(p.seg)).map(({p,i})=>{used.add(i);return['ez-'+i,p.title]})]).filter(([,x])=>x.length);const rest=EZ.map((p,i)=>({p,i})).filter(({i})=>!used.has(i));if(rest.length)out.push(['More',rest.map(({p,i})=>['ez-'+i,p.title])]);return out}
 function setEZ(pages,save){EZ=pages;if(save)idb('set',pages).catch(()=>{});if(document.body.dataset.view==='docs')renderDocs()}
 function idb(op,val){return new Promise((res,rej)=>{try{const r=indexedDB.open('loom-docs',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onerror=()=>rej(r.error);r.onsuccess=()=>{const tx=r.result.transaction('kv',op==='get'?'readonly':'readwrite');const st=tx.objectStore('kv');const q=op==='get'?st.get('ez'):op==='del'?st.delete('ez'):st.put(val,'ez');q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)}}catch(e){rej(e)}})}
-async function loadEZ(){ EZ=null; try{await idb('del')}catch(e){} }
+async function loadEZ(){ try{await idb('del')}catch(e){} try{const r=await fetch('llms-full.txt');if(r.ok){const p=parseLLM(await r.text());if(p.length)setEZ(p,false)}}catch(e){} }
 function renderMD(lines){
  const o=[];let i=0,list=null;const close=()=>{if(list){o.push('</ul>');list=null}};
  const tagAttr=(l,k)=>{const m=l.match(new RegExp(k+'="([^"]*)"'));return m?m[1]:''};
