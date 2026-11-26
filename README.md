@@ -1,5 +1,7 @@
 # KIRA OS
 
+Live at **https://getkira.xyz**
+
 Build AI agents in the browser. KIRA OS follows the elizaOS plugin architecture: write a character,
 add plugins (actions, providers, evaluators, services, routes, events, models) and talk to your agent.
 
