@@ -32,7 +32,9 @@ runs the agent runtime and its tools itself.
 Every message costs API usage on your key (each tool step is one call, max 1,024 output tokens).
 
 ## Run
-- **Vercel**: import the repo, set `ANTHROPIC_API_KEY`, deploy. Vercel serves `public/` and runs `api/`.
+- **Vercel (Git import)**: import the repo, set `ANTHROPIC_API_KEY`, deploy. Vercel serves `public/` and runs `api/`.
+- **Vercel (GitHub Actions)**: add repository secrets `VERCEL_TOKEN` and `ANTHROPIC_API_KEY`; every push to `main`
+  deploys through `.github/workflows/vercel.yml` (or run it from the Actions tab).
 - **Local**: `cp .env.example .env`, fill in the key, `npm start`, open http://localhost:3000
 
 ## Notes
