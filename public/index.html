@@ -23,7 +23,7 @@
 <meta name="theme-color" content="#030303">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter+Tight:wght@200;300;400;500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@300;400&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#030303;
@@ -229,6 +229,87 @@ html.intro-lock{overflow:hidden}
 .kfoot{margin-top:auto;display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
 .kfoot a:hover{color:var(--fg)}
 @media (prefers-reduced-motion:reduce){.kmenu,.klist a{transition:none}}
+
+/* ================= KIRA identity layer: sakura terminal ================= */
+:root{--bg:#0b0710;--fg:#f7efe6;--dim:rgba(247,239,230,.66);--mute:rgba(247,239,230,.42);--faint:rgba(247,239,230,.14);
+  --kira:#ff4f8b;--kira-d:#c2185b;--kira-s:rgba(255,79,139,.16);--blue:#ff4f8b;
+  --sans:"Space Grotesk","Inter Tight",Helvetica,Arial,sans-serif;--mono:"JetBrains Mono","IBM Plex Mono",ui-monospace,monospace;--px:"Silkscreen","JetBrains Mono",monospace}
+html,body{background:var(--bg)}
+body{font-weight:400}
+::selection{background:var(--kira);color:#0b0710}
+.atmos{background:
+  radial-gradient(70% 55% at 50% 38%,rgba(255,79,139,.10),transparent 70%),
+  linear-gradient(rgba(247,239,230,.035) 1px,transparent 1px) 0 0/28px 28px,
+  linear-gradient(90deg,rgba(247,239,230,.035) 1px,transparent 1px) 0 0/28px 28px!important}
+.atmos::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px);opacity:.5}
+.veil{background:linear-gradient(to bottom,transparent,rgba(11,7,16,.72) 12%,rgba(11,7,16,.8))}
+.wm-a{color:var(--fg)!important}
+.wm-os path,.wm-os rect{fill:var(--kira)}
+.hero .display .line:nth-child(2) svg path{fill:var(--kira)}
+.hero .display .line:first-child svg path{fill:var(--fg)}
+/* buttons: square, hard offset shadow */
+.cta{border-radius:0;border:2px solid var(--fg);background:transparent;color:var(--fg);box-shadow:4px 4px 0 var(--fg);font-family:var(--mono);font-weight:500;text-transform:uppercase;letter-spacing:.08em;font-size:13px;padding:15px 22px;backdrop-filter:none;-webkit-backdrop-filter:none;transition:transform .15s,box-shadow .15s,background .2s,color .2s}
+.cta:hover{background:var(--fg);color:#0b0710;border-color:var(--fg);transform:translate(2px,2px);box-shadow:2px 2px 0 var(--fg)}
+.cta-blue{background:var(--kira);border-color:var(--kira);color:#0b0710;box-shadow:4px 4px 0 var(--fg)}
+.cta-blue:hover{background:var(--kira);color:#0b0710;border-color:var(--kira)}
+.cta i{height:2px}
+.nav .menu-btn{border-radius:0;border:2px solid var(--fg);background:rgba(11,7,16,.6);box-shadow:3px 3px 0 var(--kira)}
+.nav .menu-btn path{stroke:var(--fg);stroke-linecap:square}
+.cursor{border-radius:0;border-color:var(--kira)}
+.cursor.hover{background:var(--kira-s);border-color:var(--kira)}
+/* section labels and headlines */
+.eyebrow{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:#0b0710;background:var(--kira);padding:6px 10px 5px;font-weight:600}
+.headline{font-family:"Archivo Black",sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:-.01em;line-height:.98;font-size:clamp(34px,5vw,78px)}
+.headline br+*,.headline{color:var(--fg)}
+.body{color:var(--dim)}
+/* hero status line */
+.kstat{display:flex;align-items:center;gap:10px;margin-bottom:18px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.kstat i{width:9px;height:9px;background:#5dffa8;box-shadow:0 0 12px #5dffa8;animation:kblink 1.6s steps(2) infinite}
+@keyframes kblink{50%{opacity:.25}}
+/* ticker */
+.kticker{position:relative;z-index:2;overflow:hidden;border-block:2px solid var(--fg);background:var(--kira);color:#0b0710;transform:rotate(-1.2deg);margin:10px -10px 0}
+.kticker div{display:flex;gap:34px;width:max-content;padding:12px 0;font-family:"Archivo Black",sans-serif;font-size:18px;text-transform:uppercase;animation:ktick 38s linear infinite}
+.kticker span::after{content:"✦";margin-left:34px}
+@keyframes ktick{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.kticker div{animation:none}}
+/* chat window */
+.chat{border-radius:0;border:2px solid var(--fg);background:rgba(14,9,20,.92);box-shadow:8px 8px 0 var(--kira)}
+.kbar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:2px solid var(--fg);background:var(--fg);color:#0b0710;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.06em}
+.kbar b{flex:1;font-weight:600}
+.kbar i{width:10px;height:10px;border:2px solid #0b0710}
+.kbar i:first-of-type{background:var(--kira)}
+.cm.ai{border-left:3px solid var(--kira)}
+.cm.me{background:var(--kira);color:#0b0710;border-radius:0}
+.chat-sug button{border-radius:0;border:1px dashed rgba(247,239,230,.3);font-family:var(--mono);font-size:12px}
+.chat-sug button:hover{border-style:solid;border-color:var(--kira);color:var(--kira)}
+.chat-form{border-radius:0;border:2px solid rgba(247,239,230,.25)}
+.chat-form:focus-within{border-color:var(--kira)}
+.chat-form button{border-radius:0;background:var(--kira);color:#0b0710}
+/* template cards */
+.tpl-grid{counter-reset:tp;gap:16px}
+.tpl{counter-increment:tp;position:relative;border-radius:0;border:2px solid var(--faint);background:rgba(14,9,20,.88);backdrop-filter:none;-webkit-backdrop-filter:none}
+.tpl::before{content:"#0" counter(tp);position:absolute;top:18px;right:18px;font-family:var(--mono);font-size:12px;color:var(--kira);font-weight:600}
+.tpl:hover{border-color:var(--kira);transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--kira)}
+.tpl img{border-radius:0!important;border:2px solid var(--fg)!important}
+.tpl b{font-family:"Archivo Black",sans-serif;font-weight:400;text-transform:uppercase;font-size:24px;letter-spacing:0}
+.tpl em{color:var(--kira)}
+.tpl .chips i{border-radius:0;background:rgba(247,239,230,.06)}
+.tpl .go{font-family:var(--mono);text-transform:uppercase;font-size:12px;letter-spacing:.1em;border-top:1px dashed var(--faint)}
+.tpl:hover .go{color:var(--kira)}
+/* steps */
+.steps article{position:relative;padding:22px;border:2px solid var(--faint);background:rgba(14,9,20,.8)}
+.steps span{display:inline-grid;place-items:center;width:46px;height:46px;border:2px solid var(--kira);color:var(--kira);font-family:"Archivo Black",sans-serif;font-size:18px;letter-spacing:0}
+.steps h3{font-family:"Archivo Black",sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:0;font-size:clamp(22px,2.2vw,32px)}
+/* menu */
+.kmenu{background:#0e0914;border-left:2px solid var(--kira)}
+.kme,.klist a{border-radius:0}
+.kme{border:2px solid var(--fg);background:var(--fg);color:#0b0710}
+.kme span{color:rgba(11,7,16,.65)!important}
+.kme img{border-radius:0}
+.klist a{border:2px solid var(--faint)}
+.klist a:hover,.klist a:focus-visible{background:var(--kira);color:#0b0710;border-color:var(--kira)}
+.hfoot{background:rgba(11,7,16,.92);border-top:2px solid var(--kira)}
+.hfoot a:hover{color:var(--kira)}
 </style>
 </head>
 <body>
@@ -266,6 +347,7 @@ html.intro-lock{overflow:hidden}
   <section class="hero hs" id="home" data-s="0">
     <div class="hero-inner">
       <div>
+        <p class="kstat"><i></i>Online · 3 agents ready</p>
         <h1 class="display" aria-label="Your agent studio">
           <span class="line"><span><svg class="px" viewBox="0 0 75 7" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#f1f1ef" d="M0 0h1v1h-1zM1 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM5 1h1v1h-1zM6 1h1v1h-1zM1 2h1v1h-1zM2 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM2 5h1v1h-1zM3 5h1v1h-1zM4 5h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM13 1h1v1h-1zM14 1h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM13 2h1v1h-1zM14 2h1v1h-1zM8 3h1v1h-1zM9 3h1v1h-1zM13 3h1v1h-1zM14 3h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM8 5h1v1h-1zM9 5h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1zM16 0h1v1h-1zM17 0h1v1h-1zM21 0h1v1h-1zM22 0h1v1h-1zM16 1h1v1h-1zM17 1h1v1h-1zM21 1h1v1h-1zM22 1h1v1h-1zM16 2h1v1h-1zM17 2h1v1h-1zM21 2h1v1h-1zM22 2h1v1h-1zM16 3h1v1h-1zM17 3h1v1h-1zM21 3h1v1h-1zM22 3h1v1h-1zM16 4h1v1h-1zM17 4h1v1h-1zM21 4h1v1h-1zM22 4h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM21 5h1v1h-1zM22 5h1v1h-1zM17 6h1v1h-1zM18 6h1v1h-1zM19 6h1v1h-1zM20 6h1v1h-1zM21 6h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM29 0h1v1h-1zM24 1h1v1h-1zM25 1h1v1h-1zM29 1h1v1h-1zM30 1h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM29 2h1v1h-1zM30 2h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM27 3h1v1h-1zM28 3h1v1h-1zM29 3h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM27 4h1v1h-1zM28 4h1v1h-1zM24 5h1v1h-1zM25 5h1v1h-1zM28 5h1v1h-1zM29 5h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM29 6h1v1h-1zM30 6h1v1h-1zM37 0h1v1h-1zM38 0h1v1h-1zM39 0h1v1h-1zM40 0h1v1h-1zM41 0h1v1h-1zM36 1h1v1h-1zM37 1h1v1h-1zM41 1h1v1h-1zM42 1h1v1h-1zM36 2h1v1h-1zM37 2h1v1h-1zM41 2h1v1h-1zM42 2h1v1h-1zM36 3h1v1h-1zM37 3h1v1h-1zM38 3h1v1h-1zM39 3h1v1h-1zM40 3h1v1h-1zM41 3h1v1h-1zM42 3h1v1h-1zM36 4h1v1h-1zM37 4h1v1h-1zM41 4h1v1h-1zM42 4h1v1h-1zM36 5h1v1h-1zM37 5h1v1h-1zM41 5h1v1h-1zM42 5h1v1h-1zM36 6h1v1h-1zM37 6h1v1h-1zM41 6h1v1h-1zM42 6h1v1h-1zM45 0h1v1h-1zM46 0h1v1h-1zM47 0h1v1h-1zM48 0h1v1h-1zM49 0h1v1h-1zM50 0h1v1h-1zM44 1h1v1h-1zM45 1h1v1h-1zM44 2h1v1h-1zM45 2h1v1h-1zM44 3h1v1h-1zM45 3h1v1h-1zM48 3h1v1h-1zM49 3h1v1h-1zM50 3h1v1h-1zM44 4h1v1h-1zM45 4h1v1h-1zM49 4h1v1h-1zM50 4h1v1h-1zM44 5h1v1h-1zM45 5h1v1h-1zM49 5h1v1h-1zM50 5h1v1h-1zM45 6h1v1h-1zM46 6h1v1h-1zM47 6h1v1h-1zM48 6h1v1h-1zM49 6h1v1h-1zM52 0h1v1h-1zM53 0h1v1h-1zM54 0h1v1h-1zM55 0h1v1h-1zM56 0h1v1h-1zM57 0h1v1h-1zM58 0h1v1h-1zM52 1h1v1h-1zM53 1h1v1h-1zM52 2h1v1h-1zM53 2h1v1h-1zM52 3h1v1h-1zM53 3h1v1h-1zM54 3h1v1h-1zM55 3h1v1h-1zM56 3h1v1h-1zM57 3h1v1h-1zM52 4h1v1h-1zM53 4h1v1h-1zM52 5h1v1h-1zM53 5h1v1h-1zM52 6h1v1h-1zM53 6h1v1h-1zM54 6h1v1h-1zM55 6h1v1h-1zM56 6h1v1h-1zM57 6h1v1h-1zM58 6h1v1h-1zM60 0h1v1h-1zM61 0h1v1h-1zM65 0h1v1h-1zM66 0h1v1h-1zM60 1h1v1h-1zM61 1h1v1h-1zM62 1h1v1h-1zM65 1h1v1h-1zM66 1h1v1h-1zM60 2h1v1h-1zM61 2h1v1h-1zM62 2h1v1h-1zM63 2h1v1h-1zM65 2h1v1h-1zM66 2h1v1h-1zM60 3h1v1h-1zM61 3h1v1h-1zM63 3h1v1h-1zM64 3h1v1h-1zM65 3h1v1h-1zM66 3h1v1h-1zM60 4h1v1h-1zM61 4h1v1h-1zM64 4h1v1h-1zM65 4h1v1h-1zM66 4h1v1h-1zM60 5h1v1h-1zM61 5h1v1h-1zM65 5h1v1h-1zM66 5h1v1h-1zM60 6h1v1h-1zM61 6h1v1h-1zM65 6h1v1h-1zM66 6h1v1h-1zM68 0h1v1h-1zM69 0h1v1h-1zM70 0h1v1h-1zM71 0h1v1h-1zM72 0h1v1h-1zM73 0h1v1h-1zM74 0h1v1h-1zM70 1h1v1h-1zM71 1h1v1h-1zM72 1h1v1h-1zM70 2h1v1h-1zM71 2h1v1h-1zM72 2h1v1h-1zM70 3h1v1h-1zM71 3h1v1h-1zM72 3h1v1h-1zM70 4h1v1h-1zM71 4h1v1h-1zM72 4h1v1h-1zM70 5h1v1h-1zM71 5h1v1h-1zM72 5h1v1h-1zM70 6h1v1h-1zM71 6h1v1h-1zM72 6h1v1h-1z"/></svg></span></span>
           <span class="line"><span><svg class="px" viewBox="0 0 46 7" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#c9c9c6" d="M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM1 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM5 3h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM10 1h1v1h-1zM11 1h1v1h-1zM12 1h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM12 2h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM10 4h1v1h-1zM11 4h1v1h-1zM12 4h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM16 0h1v1h-1zM17 0h1v1h-1zM21 0h1v1h-1zM22 0h1v1h-1zM16 1h1v1h-1zM17 1h1v1h-1zM21 1h1v1h-1zM22 1h1v1h-1zM16 2h1v1h-1zM17 2h1v1h-1zM21 2h1v1h-1zM22 2h1v1h-1zM16 3h1v1h-1zM17 3h1v1h-1zM21 3h1v1h-1zM22 3h1v1h-1zM16 4h1v1h-1zM17 4h1v1h-1zM21 4h1v1h-1zM22 4h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM21 5h1v1h-1zM22 5h1v1h-1zM17 6h1v1h-1zM18 6h1v1h-1zM19 6h1v1h-1zM20 6h1v1h-1zM21 6h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM29 0h1v1h-1zM24 1h1v1h-1zM25 1h1v1h-1zM29 1h1v1h-1zM30 1h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM29 2h1v1h-1zM30 2h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM29 3h1v1h-1zM30 3h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM29 4h1v1h-1zM30 4h1v1h-1zM24 5h1v1h-1zM25 5h1v1h-1zM29 5h1v1h-1zM30 5h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM29 6h1v1h-1zM32 0h1v1h-1zM33 0h1v1h-1zM34 0h1v1h-1zM35 0h1v1h-1zM36 0h1v1h-1zM37 0h1v1h-1zM34 1h1v1h-1zM35 1h1v1h-1zM34 2h1v1h-1zM35 2h1v1h-1zM34 3h1v1h-1zM35 3h1v1h-1zM34 4h1v1h-1zM35 4h1v1h-1zM34 5h1v1h-1zM35 5h1v1h-1zM32 6h1v1h-1zM33 6h1v1h-1zM34 6h1v1h-1zM35 6h1v1h-1zM36 6h1v1h-1zM37 6h1v1h-1zM40 0h1v1h-1zM41 0h1v1h-1zM42 0h1v1h-1zM43 0h1v1h-1zM44 0h1v1h-1zM39 1h1v1h-1zM40 1h1v1h-1zM44 1h1v1h-1zM45 1h1v1h-1zM39 2h1v1h-1zM40 2h1v1h-1zM44 2h1v1h-1zM45 2h1v1h-1zM39 3h1v1h-1zM40 3h1v1h-1zM44 3h1v1h-1zM45 3h1v1h-1zM39 4h1v1h-1zM40 4h1v1h-1zM44 4h1v1h-1zM45 4h1v1h-1zM39 5h1v1h-1zM40 5h1v1h-1zM44 5h1v1h-1zM45 5h1v1h-1zM40 6h1v1h-1zM41 6h1v1h-1zM42 6h1v1h-1zM43 6h1v1h-1zM44 6h1v1h-1z"/></svg></span></span>
@@ -280,14 +362,16 @@ html.intro-lock{overflow:hidden}
     </div>
   </section>
 
+  <div class="kticker" aria-hidden="true"><div><span>Actions</span><span>Providers</span><span>Evaluators</span><span>Memory</span><span>Knowledge</span><span>Discord</span><span>Telegram</span><span>X</span><span>Tasks</span><span>Calculator</span><span>Events</span><span>Services</span><span>Actions</span><span>Providers</span><span>Evaluators</span><span>Memory</span><span>Knowledge</span><span>Discord</span><span>Telegram</span><span>X</span><span>Tasks</span><span>Calculator</span><span>Events</span><span>Services</span></div></div>
   <section class="section veil hs" id="talk" data-s="3">
     <div class="split">
       <div>
-        <p class="eyebrow reveal">01 · Talk to Kira</p>
+        <p class="eyebrow reveal">[01] Talk to Kira</p>
         <h2 class="headline reveal d1" style="margin-top:20px">Ask the agent.<br>Right here.</h2>
         <p class="body reveal d2" style="margin-top:22px">Kira runs on KIRA OS. Ask what it can do, how plugins work, or how to build your own agent.</p>
       </div>
       <div class="chat reveal d2" id="chat">
+        <div class="kbar"><i></i><i></i><b>kira://chat</b><span>v1</span></div>
         <div class="chat-log" id="chatLog" aria-live="polite"><div class="cm ai">Hi, I'm Kira. Ask me anything about building agents on KIRA OS.</div></div>
         <div class="chat-sug" id="chatSug"><button type="button">What can you do?</button><button type="button">How do plugins work?</button><button type="button">Help me design an X bot</button></div>
         <form class="chat-form" id="chatForm"><input id="chatIn" placeholder="Ask Kira…" autocomplete="off" maxlength="600" aria-label="Message"><button aria-label="Send">→</button></form>
@@ -298,7 +382,7 @@ html.intro-lock{overflow:hidden}
   <section class="section veil hs" id="templates" data-s="4">
     <div class="section-head">
       <div>
-        <p class="eyebrow reveal">02 · Start from a template</p>
+        <p class="eyebrow reveal">[02] Templates</p>
         <h2 class="headline reveal d1" style="margin-top:20px">One click.<br>A working agent.</h2>
       </div>
       <p class="body reveal d2">Pick a starting point. It opens in the Studio with the right plugins already switched on, ready to rename and shape.</p>
@@ -307,7 +391,7 @@ html.intro-lock{overflow:hidden}
   </section>
 
   <section class="section veil hs" id="how" data-s="2">
-    <p class="eyebrow reveal">03 · How it works</p>
+    <p class="eyebrow reveal">[03] How it works</p>
     <div class="steps">
       <article class="reveal"><span>01</span><h3>Write a character</h3><p>Name, bio, traits and style rules give the agent its voice.</p></article>
       <article class="reveal d1"><span>02</span><h3>Add plugins</h3><p>Actions, providers, evaluators and memory. Dependencies load themselves.</p></article>
@@ -615,7 +699,7 @@ const Engine = (() => {
     cv = canvas; ctx = cv.getContext('2d', { alpha: true });
     sprite = document.createElement('canvas'); sprite.width = sprite.height = 64;
     const g = sprite.getContext('2d'), rg = g.createRadialGradient(32,32,0,32,32,32);
-    rg.addColorStop(0,'rgba(255,255,255,1)'); rg.addColorStop(.25,'rgba(210,210,210,.38)'); rg.addColorStop(1,'rgba(255,255,255,0)');
+    rg.addColorStop(0,'rgba(255,190,214,1)'); rg.addColorStop(.25,'rgba(255,79,139,.38)'); rg.addColorStop(1,'rgba(255,255,255,0)');
     g.fillStyle = rg; g.fillRect(0,0,64,64);
     resize();
   }
@@ -695,7 +779,7 @@ const Engine = (() => {
     ctx.globalCompositeOperation = 'lighter';
     // atmospheric bloom behind the form
     const hz = ctx.createRadialGradient(view.cx, view.cy, 0, view.cx, view.cy, view.U*2.8);
-    hz.addColorStop(0, 'rgba(255,255,255,.10)'); hz.addColorStop(.5, 'rgba(255,255,255,.03)'); hz.addColorStop(1, 'rgba(0,0,0,0)');
+    hz.addColorStop(0, 'rgba(255,79,139,.10)'); hz.addColorStop(.5, 'rgba(255,255,255,.03)'); hz.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.globalAlpha = gA; ctx.fillStyle = hz; ctx.fillRect(0, 0, W, H);
     const f = view.f, A = shapes[view.a], B = shapes[view.a+1];
     drawLinks(A, 1 - sstep(0, .55, f), gA); drawLinks(B, sstep(.55, 1, f), gA);
@@ -707,7 +791,7 @@ const Engine = (() => {
       ctx.globalAlpha = Math.min(1, a*.15 + glow[i]*.25); ctx.drawImage(sprite, x - s/2, y - s/2, s, s); }
     // crisp cores: white then silver
     for (let pass = 0; pass < 2; pass++){
-      ctx.fillStyle = pass ? '#b8b8b8' : '#ffffff';
+      ctx.fillStyle = pass ? '#ff5c94' : '#fff4f8';
       for (let i = 0; i < active; i++){ if (tint[i] !== pass) continue;
         let a = al[i]*gA + glow[i]*.7; if (a < .02) continue; if (a > 1) a = 1;
         const x = sx[i], y = sy[i]; if (x < -4 || y < -4 || x > W+4 || y > H+4) continue;

@@ -21,14 +21,14 @@
 <meta name="twitter:description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
 <meta name="twitter:image" content="https://getkira.xyz/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter+Tight:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* VOICE: a working agent runtime — calm, exact, ready to use.
    IDEA: a weaving loom: each agent is woven from plugins (actions, providers, evaluators, services).
    PICTURE: the working app itself; woven-thread avatars; a live runtime inspector with event log.
    COLOUR and TYPE: stone ground, black ink, brick accent, white panels; Schibsted Grotesk.
    LAYOUT: agents | chat | setup on wide screens; one pane with tabs on phones. */
-:root{color-scheme:dark;--bg:#030303;--ink:#f1f1ef;--mute:#8d8d89;--panel:#0b0b0b;--line:#242424;--brick:#f1f1ef;--brick2:#f1f1ef;--soft:#151515;--ok:#8fd6a3}
+:root{color-scheme:dark;--bg:#0b0710;--ink:#f7efe6;--mute:#9a8f98;--panel:#120c18;--line:#2a2130;--brick:#ff4f8b;--brick2:#ff4f8b;--soft:#1a1220;--ok:#8fd6a3}
 *{box-sizing:border-box;min-width:0}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Inter Tight",system-ui,sans-serif;overflow:hidden}
@@ -241,6 +241,15 @@ body[data-view=plugins] #vplugins,body[data-view=docs] #vdocs{display:block}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;max-width:min(520px,calc(100vw - 28px));padding:12px 18px;border-radius:12px;background:var(--panel);border:1px solid var(--line);font-size:14px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
 @media(max-width:600px){.acct+.pill{display:none}}
 .avrow{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+
+/* KIRA identity layer */
+.btn.pri{background:#ff4f8b;border-color:#ff4f8b;color:#0b0710}
+.btn.pri:hover{background:#ff6c9f;border-color:#ff6c9f}
+body{font-family:"Space Grotesk","Inter Tight",system-ui,sans-serif}
+code,.mono{font-family:"JetBrains Mono","IBM Plex Mono",ui-monospace,monospace}
+::selection{background:#ff4f8b;color:#0b0710}
+.wm-os path{fill:#ff4f8b}
+.top{border-bottom:2px solid var(--line)}
 </style>
 </head>
 <body data-pane="chat" data-view="studio">
@@ -592,7 +601,7 @@ const tbl=(head,rows)=>`<table class="stack"><thead><tr>${head.map(h=>`<th>${h}<
 function envRows(){const c=catalog(),rows=[['AUTO_REFLECT','memory','true','Turn the REFLECTION evaluator on or off'],['KNOWLEDGE_MAX_PASSAGES','knowledge','3','Passages the KNOWLEDGE provider adds to state']];
  Object.values(c).forEach(p=>{if(p.autoEnable)rows.push([p.autoEnable,p.name,'""','Presence auto-enables the plugin (draft mode here)']);if(p.custom)Object.entries(p.config||{}).forEach(([k,v])=>rows.push([k,p.name,String(v),'Custom plugin config']))});return rows}
 const PAGES={
- overview:(a,rt)=>`<div style="margin-bottom:18px">${LOGO(96)}</div><h1>Overview</h1><p class="lede">KIRA OS is a browser runtime for AI agents, built on the KIRA OS plugin architecture. You build an agent from a character and a set of plugins, then chat with it here.</p>
+ overview:(a,rt)=>`<div style="margin-bottom:18px">${LOGO(96)}</div><h1>Overview</h1><p class="lede">KIRA OS is a browser runtime for AI agents, built on a modular plugin architecture. You build an agent from a character and a set of plugins, then chat with it here.</p>
  <div class="grid" style="margin-top:20px">${[['quickstart','Quickstart','Talk to an agent in under a minute.'],['build','What you can build','Ready-made agents to start from.'],['architecture','Plugin architecture','How plugins are loaded and run.'],['character','Character interface','The fields that define an agent.']].map(([k,t,d])=>`<a class="pc" href="#docs-${k}" data-doc="${k}" style="text-decoration:none;color:inherit"><h3>${t}</h3><p style="margin:6px 0 0;color:var(--mute);font-size:14px">${d}</p></a>`).join('')}</div>
  <h3 style="margin-top:28px">Three parts of the app</h3><ul><li><b>Studio</b>: your agents, the chat and the Setup panel (character, plugins, knowledge, memory, tasks, outbox, runtime inspector).</li><li><b>Plugins</b>: every plugin's manifest on one page.</li><li><b>Docs</b>: this guide.</li></ul>
  ${live(`you have ${S.agents.length} agents and ${(S.custom||[]).length} custom plugins. The open agent, ${esc(a.name)}, loads ${rt.plugins.length} plugins.`)}`,
