@@ -714,7 +714,7 @@ interface Route { type: "GET"|"POST"|"PUT"|"PATCH"|"DELETE"|"STATIC"; path: stri
 interface Message { id: string; entityId: string; roomId: string; content: { text: string; source: string } }
 interface State { text: string; values: object; data: Record<string, unknown> }
 type ModelType = "TEXT_SMALL" | "TEXT_LARGE" | "TEXT_REASONING" | "OBJECT_SMALL";`)}`,
- llms:()=>`<h1>Docs for LLMs</h1>${EZ?'<div id="llmall" class="ezb"></div><div id="llmmore" style="height:1px"></div>':'<p class="note n0">llms-full.txt is not loaded. Put it next to index.html.</p>'}`,
+ llms:()=>`<h1>Docs for LLMs</h1><p class="lede">The whole KIRA OS guide as one plain-text file, ready to paste into an AI assistant or coding agent.</p><p class="row"><button class="btn pri" data-llm="loom">Copy KIRA OS docs</button></p><h3>Preview</h3><pre style="max-height:420px;white-space:pre-wrap">${esc(docText().slice(0,6000))}…</pre>`,
  tokenomics:()=>`<h1>Tokenomics</h1><p class="lede">KIRA OS has no token. Nothing in this app is tied to a coin, a chain or a sale.</p>
  <p>If you launch a token for a project built on KIRA OS, this page is where its tokenomics would go. A complete page usually covers:</p>
  <ul><li>Token name, ticker, chain and contract address</li><li>Total and circulating supply</li><li>Allocation by group (team, community, liquidity, treasury), with percentages that add up to 100</li><li>Vesting and unlock schedule</li><li>What the token is used for inside the product</li><li>Risks, and a clear note that it is not investment advice</li></ul>
@@ -732,7 +732,7 @@ async function renderDocs(){
  let th='system';try{th=localStorage.getItem('loom-theme')||'system'}catch(e){}
  $('#vdocs').innerHTML=`<div class="dwrap"><div class="dbar"><button class="btn sm" id="dmenu" aria-expanded="false">☰ Menu</button><span>${esc(cur.g)} › <b>${esc(cur.n)}</b></span></div>
  <aside class="dside" id="dside"> <button class="llm ${DOC==='llms'?'on':''}" id="llms"><span aria-hidden="true">⌘</span>Docs for LLMs</button>
- ${NAV.map(([g,ps])=>`<div class="dg">${esc(g)}</div>${ps.map(([k,n])=>`<a href="#docs-${k}" data-doc="${k}" class="${k===DOC?'on':''}">${esc(n)}</a>`).join('')}`).join('')}${EZ?`<div class="ezh">elizaOS docs</div>`+ezNav().map(([g,ps])=>`<details class="ezg" ${ps.some(([k])=>k===DOC)||g==='Getting started'?'open':''}><summary>${esc(g)} <span>${ps.length}</span></summary>${ps.map(([k,n])=>`<a href="#docs-${k}" data-doc="${k}" class="${k===DOC?'on':''}">${esc(n)}</a>`).join('')}</details>`).join(''):''}</aside>
+ ${NAV.map(([g,ps])=>`<div class="dg">${esc(g)}</div>${ps.map(([k,n])=>`<a href="#docs-${k}" data-doc="${k}" class="${k===DOC?'on':''}">${esc(n)}</a>`).join('')}`).join('')}</aside>
  <div class="dmain" id="dmain"><article class="dart">${body}<nav class="pn">${prev?`<a href="#docs-${prev.k}" data-doc="${prev.k}"><span>Previous</span>${esc(prev.n)}</a>`:'<i></i>'}${next?`<a href="#docs-${next.k}" data-doc="${next.k}" style="text-align:right"><span>Next</span>${esc(next.n)}</a>`:''}</nav></article></div></div>`;
  $('#dmain').scrollTop=0;
  if(DOC==='llms'&&EZ)llmRender();
@@ -752,10 +752,7 @@ let EZ=null;
 function ezNav(){if(!EZ)return[];const used=new Set();const out=EZ_GROUPS.map(([g,segs])=>[g,EZ.map((p,i)=>({p,i})).filter(({p})=>segs.includes(p.seg)).map(({p,i})=>{used.add(i);return['ez-'+i,p.title]})]).filter(([,x])=>x.length);const rest=EZ.map((p,i)=>({p,i})).filter(({i})=>!used.has(i));if(rest.length)out.push(['More',rest.map(({p,i})=>['ez-'+i,p.title])]);return out}
 function setEZ(pages,save){EZ=pages;if(save)idb('set',pages).catch(()=>{});if(document.body.dataset.view==='docs')renderDocs()}
 function idb(op,val){return new Promise((res,rej)=>{try{const r=indexedDB.open('loom-docs',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onerror=()=>rej(r.error);r.onsuccess=()=>{const tx=r.result.transaction('kv',op==='get'?'readonly':'readwrite');const st=tx.objectStore('kv');const q=op==='get'?st.get('ez'):op==='del'?st.delete('ez'):st.put(val,'ez');q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)}}catch(e){rej(e)}})}
-async function loadEZ(){
- try{const r=await fetch('llms-full.txt');if(r.ok){const p=parseLLM(await r.text());if(p.length){setEZ(p,false);return}}}catch(e){}
- try{const p=await idb('get');if(Array.isArray(p)&&p.length)setEZ(p,false)}catch(e){}
-}
+async function loadEZ(){ EZ=null; try{await idb('del')}catch(e){} }
 function renderMD(lines){
  const o=[];let i=0,list=null;const close=()=>{if(list){o.push('</ul>');list=null}};
  const tagAttr=(l,k)=>{const m=l.match(new RegExp(k+'="([^"]*)"'));return m?m[1]:''};
@@ -839,7 +836,7 @@ document.addEventListener('click',async e=>{
  if(t.id==='llms'){openDoc('llms');return}
  if(t.id==='ezclear'){EZ=null;idb('del').catch(()=>{});renderDocs();return}
  if(t.dataset.rd){RD.i=Math.max(0,Math.min(RD.pages.length-1,RD.i+ +t.dataset.rd));renderReader();$('#reader').scrollIntoView();return}
- if(t.dataset.llm){const loom='# KIRA OS documentation\n\n'+docText();const ref='https://docs.elizaos.ai/llms-full.txt';const txt=t.dataset.llm==='loom'?loom:t.dataset.llm==='url'?ref:'# Context for AI assistants\nKIRA OS is a browser agent runtime modeled on elizaOS. Use the KIRA OS docs below first. For anything they do not cover, use the official elizaOS docs: '+ref+'\n\n'+loom;const old=t.textContent;navigator.clipboard.writeText(txt).then(()=>{t.textContent='Copied'},()=>{t.textContent='Copy blocked'});setTimeout(()=>{t.textContent=old},1600);return}
+ if(t.dataset.llm){const txt='# KIRA OS documentation\n\n'+docText();const old=t.textContent;navigator.clipboard.writeText(txt).then(()=>{t.textContent='Copied'},()=>{t.textContent='Copy blocked'});setTimeout(()=>{t.textContent=old},1600);return}
  if(t.dataset.tpl){const n=mk(JSON.parse(JSON.stringify(TEMPLATES[t.dataset.tpl])));S.agents.push(n);S.active=n.id;save();renderAll();setView('studio');if(innerWidth<=1100)$('#tabs [data-p=chat]').click();return}
  if(t.id==='pcopy'){const j=JSON.stringify({loom:1,agents:S.agents.map(x=>({...x,chat:[]})),custom:S.custom||[]},null,2);navigator.clipboard.writeText(j).then(()=>{t.textContent='Copied'},()=>{t.textContent='Copy blocked'});return}
  if(t.id==='pimpb'){try{const o=JSON.parse($('#pimp').value);if(!Array.isArray(o.agents))throw 0;let n=0;o.agents.forEach(x=>{if(x&&typeof x==='object'){S.agents.push(migrate({...mk({}),...x,id:uid(),chat:[]}));n++}});let cn=0;(o.custom||[]).forEach(d=>{try{compileCustom(d);if(!(S.custom||[]).some(c=>c.name===d.name)){S.custom.push(d);cn++}}catch(e){}});save();RT={};renderAll();$('#pimpm').textContent=`Imported ${n} agents, ${cn} plugins.`;$('#pimpm').style.color='var(--ok)'}catch(err){$('#pimpm').textContent='Not a valid project JSON.'}return}

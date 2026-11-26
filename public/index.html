@@ -204,6 +204,31 @@ html.intro-lock{overflow:hidden}
 @media (max-width:560px){.tpl-grid{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.reveal{transition-duration:.01ms!important;filter:none!important}}
 .display .px{display:block;height:.7em;width:auto;margin:.08em 0 .1em}
+
+/* KIRA menu: side drawer */
+.kback{position:fixed;inset:0;z-index:24;background:rgba(0,0,0,.55);opacity:0;visibility:hidden;transition:opacity .4s var(--ease),visibility .4s}
+.menu-open .kback{opacity:1;visibility:visible}
+.kmenu{position:fixed;top:0;right:0;bottom:0;z-index:25;width:min(420px,100vw);display:flex;flex-direction:column;gap:22px;padding:96px 24px 24px;
+  background:#060606;border-left:1px solid rgba(241,241,239,.12);transform:translateX(100%);transition:transform .55s var(--ease);overflow-y:auto}
+.menu-open .kmenu{transform:none}
+.kme{display:flex;align-items:center;gap:14px;padding:14px;border:1px solid rgba(241,241,239,.12);border-radius:16px;background:rgba(241,241,239,.03)}
+.kme img{image-rendering:pixelated;border-radius:12px;border:1px solid rgba(241,241,239,.18);flex:none}
+.kme b{display:block;font:400 22px/1 "Archivo Black",sans-serif;letter-spacing:.01em}
+.kme span{display:flex;align-items:center;gap:7px;margin-top:7px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--dim)}
+.kme span::before{content:"";width:6px;height:6px;background:#8fd6a3;box-shadow:0 0 10px #8fd6a3}
+.klist{display:flex;flex-direction:column;gap:8px}
+.klist a{display:flex;align-items:center;gap:14px;padding:16px 16px;border-radius:14px;border:1px solid rgba(241,241,239,.1);transition:background .25s,color .25s,border-color .25s,transform .45s var(--ease);opacity:0;transform:translateX(24px)}
+.menu-open .klist a{opacity:1;transform:none}
+.menu-open .klist a:nth-child(2){transition-delay:.04s}.menu-open .klist a:nth-child(3){transition-delay:.08s}.menu-open .klist a:nth-child(4){transition-delay:.12s}
+.klist a:hover,.klist a:focus-visible{background:#f1f1ef;color:#050505;border-color:#f1f1ef}
+.klist .kt{flex:1;min-width:0}
+.klist b{display:block;font:400 19px/1.1 "Archivo Black",sans-serif;letter-spacing:.01em}
+.klist small{display:block;margin-top:5px;font-size:13.5px;color:var(--dim)}
+.klist a:hover small{color:#3a3a3a}
+.klist .ka{flex:none}
+.kfoot{margin-top:auto;display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.kfoot a:hover{color:var(--fg)}
+@media (prefers-reduced-motion:reduce){.kmenu,.klist a{transition:none}}
 </style>
 </head>
 <body>
@@ -222,16 +247,19 @@ html.intro-lock{overflow:hidden}
   </div>
 </header>
 
-<nav class="menu-panel" id="menu" aria-label="Menu" aria-hidden="true">
-  <div class="menu-grid">
-    <div class="menu-col">
-      <p class="eyebrow">KIRA OS</p>
-      <a href="#home"><span>01</span>Home</a>
-      <a href="studio.html"><span>02</span>Agent Studio</a>
-      <a href="studio.html#plugins"><span>03</span>Plugins</a>
-      <a href="studio.html#docs-overview"><span>04</span>Docs</a>
-    </div>
+<div class="kback" id="kback" aria-hidden="true"></div>
+<nav class="kmenu" id="menu" aria-label="Menu" aria-hidden="true">
+  <div class="kme">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACAAQAAAADrRVxmAAACuklEQVR42p2Vz2rUUBTGf/cmtBGlE4qLCtIGF67jUhAnb6CPMCtXLlx2IfTWJ+gLiPMYLsQGK/YVXIikIFJXZlQwbW9zXNzc/OuUAe9iSL6cP98953xnmMXAVo4/2j9Eza8DfkDVWiQAfZfSPcQeKAaRLNowOnkCBN4lbIxD/1k1QOQtBE3RS9HG/8lV6pkH8oZV1Hx3FttQjF12B4Dt3WUQEWswABUcDCKUqINBFsbEyj77oIATgqR1CUGpAbEt4oKwyZxpCEk+IJ6LRu4xfem5KTTnDzBwn67ax6aE5w4IAI7zEj43HNCou6rsWot23dNpD4hJj1/36q4ujhYiL3yjQJ0dLaQu3atKNFREqInpYpT8VQkZPBQoNBQJnACTw7bvc7jznfjUA3EKp/s2njW3PSSNIA9+ZxmYEA3R7W9pAaZIQFMDv/STBFGbzVBFl2fK5NT6j+OxT2gNRZMxBOrg6zYzNF8ATZ2BGEBtvXcX3K2sVSIi9S2U0bAWoidz4Dx2QRWoZylQWQdYbeRGCtw0jnoNrgdhiqAB5eVTOZdP44EpmA2BknQILAz1cMbmyWjoyk0zmsLzkUXVezcasGu4ZuTt4Oat1jMN1Hy89HrIAVT1aE9E3ogPKuG7aqgAmysRmQqQaGDjVSYgmXiDyWOYipUa3HqZvIUdEbHehQhOnTZblRCISNWX4aW/UytCA+VgceyI5B2wY5nMpEd1T0D1CqtEcpTtgHWRkvWqq2kEEbZ346mj3QoEAWkIRdqrZqA5/IQs3WP91QhU2u/npGcRj1eOGQFqPgJ0xmiliohI2VmEvb8C0CDjOY0Gi1vDxpLVNwTsGIgHprpL2ALJyqBPu2pfYzE+aioiInK9i7oSI1vFYwQpwgv6zJa4hKwKqlZYqHZg2yzxCmKrC7QkBv8NSMs0cN33cvgHUDLdyA4pmfQAAAAASUVORK5CYII=" width="56" height="56" alt="">
+    <div><b>Kira</b><span>Your agent studio is online</span></div>
   </div>
+  <div class="klist">
+    <a href="#home"><span class="kt"><b>Home</b><small>Talk to Kira and start from a template</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
+    <a href="studio.html"><span class="kt"><b>Agent Studio</b><small>Build, train and chat with your agents</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
+    <a href="studio.html#plugins"><span class="kt"><b>Plugins</b><small>Every plugin and its manifest</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
+    <a href="studio.html#docs-overview"><span class="kt"><b>Docs</b><small>Guides, architecture and reference</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
+  </div>
+  <div class="kfoot"><a href="legal.html">Terms &amp; Privacy</a><span>getkira.xyz</span></div>
 </nav>
 
 <main>
@@ -833,6 +861,7 @@ const UI = (() => {
   }
   function bind(add){
     add(btn, 'click', () => setMenu(!document.body.classList.contains('menu-open')));
+    add($('#kback'), 'click', () => setMenu(false));
     $$('a', panel).forEach(a => add(a, 'click', () => setMenu(false)));
     add(window, 'keydown', e => { if (e.key === 'Escape') setMenu(false); });
     if (!IS_TOUCH){

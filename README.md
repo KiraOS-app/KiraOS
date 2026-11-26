@@ -14,8 +14,7 @@ add plugins (actions, providers, evaluators, services, routes, events, models) a
   - Plugins: built-in store, bootstrap, claude-models, knowledge, memory, calculator, outbox, x, discord, telegram,
     plus custom plugins written as JSON manifests. Runtime tab with load order, services, models,
     composed state, routes console, event emitter and live event log.
-  - Docs: 25-page guide, plus the full elizaOS documentation from `public/llms-full.txt` (sidebar "elizaOS docs"
-    and the "Docs for LLMs" page). Update it with a newer copy from https://docs.elizaos.ai/llms-full.txt.
+  - Docs: 25-page guide, plus "Docs for LLMs" (the whole guide as plain text to copy).
 
 Agents and chats are stored in the visitor's browser and, after signing in, in their account.
 Each agent can have its own photo (resized to 128 px in the browser).
@@ -60,6 +59,4 @@ Every message costs API usage on your key (each tool step is one call, max 1,024
 
 ## Notes
 - X, Discord and Telegram plugins only write drafts to the Outbox; nothing is posted.
-- `public/llms-full.txt` is the elizaOS documentation, MIT License, © elizaOS contributors
-  (see `public/llms-full.NOTICE.txt`).
 - The wordmark uses Archivo Black (Google Fonts, SIL Open Font License).
