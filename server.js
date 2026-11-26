@@ -3,6 +3,7 @@
 //   GET  /            → files from ./public
 //   POST /api/studio  → one Claude call for the Studio and the home chat (needs ANTHROPIC_API_KEY)
 //   /api/auth/*, /api/data → accounts (X, wallet, email) and saved agents
+//   GET  /api/status  → owner-only usage stats (ADMIN_IDS)
 // Zero dependencies. Requires Node.js 18 or newer.
 import http from 'node:http';
 import fs from 'node:fs';
@@ -18,6 +19,7 @@ try {
 } catch { /* no .env file */ }
 const { handleStudio } = await import('./lib/studio.js');
 const { handleAuth } = await import('./lib/auth.js');
+const { handleStatus } = await import('./lib/status.js');
 
 const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC = path.join(ROOT, 'public');
@@ -29,6 +31,11 @@ http.createServer(async (req, res) => {
     if (url.pathname === '/api/studio' && req.method === 'POST') {
       const chunks = []; for await (const c of req) chunks.push(c);
       const r = await handleStudio(new Request('http://localhost/api/studio', { method: 'POST', body: Buffer.concat(chunks), headers: { origin: req.headers.origin || '' } }), req.socket.remoteAddress || 'anon');
+      res.writeHead(r.status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }); return res.end(await r.text());
+    }
+    if (url.pathname === '/api/status' && req.method === 'GET') {
+      const headers = new Headers(); if (req.headers.cookie) headers.set('cookie', req.headers.cookie);
+      const r = await handleStatus(new Request('http://localhost/api/status', { headers }));
       res.writeHead(r.status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }); return res.end(await r.text());
     }
     const am = url.pathname.match(/^\/api\/auth\/([a-z-]+)$/), isData = url.pathname === '/api/data';

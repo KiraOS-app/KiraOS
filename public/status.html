@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Status · KIRA OS</title><meta name="robots" content="noindex"><meta name="theme-color" content="#0b0710">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0710;--fg:#f7efe6;--dim:rgba(247,239,230,.66);--mute:rgba(247,239,230,.42);--line:rgba(247,239,230,.14);--kira:#ff4f8b;--ok:#5dffa8}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg) linear-gradient(rgba(247,239,230,.03) 1px,transparent 1px) 0 0/28px 28px;color:var(--fg);font:16px/1.55 "Space Grotesk",system-ui,sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px max(5vw,18px);border-bottom:2px solid var(--kira)}
+.wm{display:inline-flex;align-items:center;gap:.42em;text-decoration:none;color:var(--fg);font:400 24px/1 "Archivo Black",sans-serif}.wm svg path{fill:var(--kira)}
+header a.b{color:var(--dim);text-decoration:none;font-size:14px}
+main{max-width:900px;margin:0 auto;padding:40px max(5vw,18px) 80px}
+h1{font:400 clamp(30px,6vw,44px)/1 "Archivo Black",sans-serif;text-transform:uppercase}
+.meta{font:12px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin:12px 0 28px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:30px}
+.tile{border:2px solid var(--line);padding:16px;background:rgba(14,9,20,.85)}
+.tile small{display:block;font:11px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.tile b{display:block;font:400 30px/1.2 "Archivo Black",sans-serif;margin-top:6px}
+.tile.err b{color:var(--kira)}
+h2{font-size:20px;font-weight:600;margin:30px 0 12px;border-left:3px solid var(--kira);padding-left:10px}
+.bars{display:flex;align-items:flex-end;gap:6px;height:160px;border-bottom:2px solid var(--line);padding-top:10px}
+.bar{flex:1;display:flex;flex-direction:column-reverse;min-width:0;position:relative}
+.bar i{display:block;background:var(--fg)}.bar i.e{background:var(--kira)}
+.lbl{display:flex;gap:6px;margin-top:6px}.lbl span{flex:1;text-align:center;font:10px "JetBrains Mono",monospace;color:var(--mute)}
+.key{display:flex;gap:16px;margin-top:10px;font-size:13px;color:var(--dim)}.key i{display:inline-block;width:10px;height:10px;margin-right:6px;background:var(--fg)}.key i.e{background:var(--kira)}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:11px "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+td.c{font-family:"JetBrains Mono",monospace;color:var(--kira);white-space:nowrap}td.t{white-space:nowrap;color:var(--dim)}
+.box{border:2px solid var(--line);padding:22px;background:rgba(14,9,20,.85);max-width:560px}
+.box p{color:var(--dim);margin-bottom:14px}
+.btn{display:inline-block;background:var(--kira);color:#0b0710;font:600 13px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.08em;padding:12px 18px;text-decoration:none;border:2px solid var(--kira);box-shadow:4px 4px 0 var(--fg)}
+.scroll{overflow-x:auto}
+</style></head><body>
+<header><a class="wm" href="/"><span>KIRA</span><svg viewBox="0 0 15 7" height="18" width="39" shape-rendering="crispEdges" aria-hidden="true"><path fill="#f1f1ef" d="M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM5 1h1v1h-1zM6 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM13 3h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1z"/></svg></a><a class="b" href="/studio.html">Studio →</a></header>
+<main><h1>Status</h1><p class="meta" id="meta">Loading…</p><div id="out"></div></main>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+const WHY={400:'Bad request',401:'API key not valid',403:'API key not allowed',404:'Model not found',429:'Too many requests',500:'Anthropic error',529:'Model busy',0:'Network or timeout'};
+(async()=>{let r,j;try{r=await fetch('/api/status',{credentials:'same-origin'});j=await r.json()}catch(e){j={reply:'Could not reach the server.'}}
+ if(!r||!r.ok){$('#meta').textContent='Owner only';$('#out').innerHTML=`<div class="box"><p>${esc(j.reply||'Not available.')}</p><a class="btn" href="/studio.html">Open Studio</a></div>`;return}
+ const d=j.days,today=d[0],week=d.slice(0,7),sum=(a,k)=>a.reduce((n,x)=>n+x[k],0);
+ $('#meta').textContent='Signed in as '+j.user+' · daily cap '+j.cap;
+ const max=Math.max(1,...d.map(x=>x.ok+x.err)),rev=[...d].reverse();
+ $('#out').innerHTML=`<div class="tiles">
+  <div class="tile"><small>Answers today</small><b>${today.ok}</b></div>
+  <div class="tile err"><small>Errors today</small><b>${today.err}</b></div>
+  <div class="tile"><small>Cap used today</small><b>${Math.round(today.calls/j.cap*100)}%</b></div>
+  <div class="tile"><small>Answers · 7 days</small><b>${sum(week,'ok')}</b></div></div>
+ <h2>Last 14 days</h2><div class="bars">${rev.map(x=>`<div class="bar" title="${x.day}: ${x.ok} answers, ${x.err} errors"><i style="height:${x.ok/max*150}px"></i><i class="e" style="height:${x.err/max*150}px"></i></div>`).join('')}</div>
+ <div class="lbl">${rev.map(x=>`<span>${x.day.slice(8)}</span>`).join('')}</div>
+ <div class="key"><span><i></i>Answers</span><span><i class="e"></i>Errors</span></div>
+ <h2>Recent AI errors</h2>${j.log.length?`<div class="scroll"><table><tr><th>When</th><th>Code</th><th>Reason</th></tr>${j.log.map(e=>`<tr><td class="t">${esc(new Date(e.t).toLocaleString())}</td><td class="c">${esc(e.status)}</td><td>${esc(WHY[e.status]||'')}${e.msg?`<br><small style="color:var(--mute)">${esc(e.msg)}</small>`:''}</td></tr>`).join('')}</table></div>`:'<p style="color:var(--dim)">No errors recorded. 🎉</p>'}`;
+})();
+</script></body></html>
