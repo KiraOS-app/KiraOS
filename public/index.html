@@ -4,21 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KIRA OS — build AI agents in your browser</title>
-<meta name="description" content="Build AI agents in your browser. Characters, plugins, memory and docs — KIRA OS follows the elizaOS plugin architecture.">
+<meta name="description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
 <link rel="canonical" href="https://getkira.xyz/">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KIRA OS">
 <meta property="og:title" content="KIRA OS — build AI agents in your browser">
-<meta property="og:description" content="Build AI agents in your browser. Characters, plugins, memory and docs — KIRA OS follows the elizaOS plugin architecture.">
+<meta property="og:description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
 <meta property="og:url" content="https://getkira.xyz/">
 <meta property="og:image" content="https://getkira.xyz/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="KIRA OS — build AI agents in your browser">
-<meta name="twitter:description" content="Build AI agents in your browser. Characters, plugins, memory and docs — KIRA OS follows the elizaOS plugin architecture.">
+<meta name="twitter:description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
 <meta name="twitter:image" content="https://getkira.xyz/og.png">
 <meta name="theme-color" content="#030303">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -884,7 +884,7 @@ const Home = (() => {
     ['analyst', 'Atlas', 'Research analyst', 'Answers questions from your documents and does exact math.', ['knowledge','memory','calculator']],
     ['assistant', 'Tempo', 'Task assistant', 'Tracks tasks and reminders for you or your team.', ['memory','task service']]
   ];
-  const SYS = `You are Kira, the guide agent on the KIRA OS home page. KIRA OS is a browser studio for AI agents modeled on the elizaOS plugin architecture: you write a character (name, bio, traits, style), add plugins (actions, providers, evaluators, services, routes, events, models) and chat with the agent in the Studio; Docs explain the architecture. Templates: community moderator, X persona, research analyst, task assistant. X, Discord and Telegram plugins only draft posts into an Outbox; they never publish. There is no KIRA token. Be warm, sharp and brief (under 90 words), plain text, reply in the user's language. Never give financial advice. Point people to Open Studio or Docs when useful.`;
+  const SYS = `You are Kira, the guide agent on the KIRA OS home page. KIRA OS is a browser studio for AI agents built on the KIRA OS plugin architecture: you write a character (name, bio, traits, style), add plugins (actions, providers, evaluators, services, routes, events, models) and chat with the agent in the Studio; Docs explain the architecture. Templates: community moderator, X persona, research analyst, task assistant. X, Discord and Telegram plugins only draft posts into an Outbox; they never publish. There is no KIRA token. Be warm, sharp and brief (under 90 words), plain text, reply in the user's language. Never give financial advice. Point people to Open Studio or Docs when useful.`;
   let sample = null, hist = [], busy = false;
   async function getSample(){
     if (sample) return sample;

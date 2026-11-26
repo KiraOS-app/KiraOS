@@ -2,7 +2,7 @@
 
 Live at **https://getkira.xyz**
 
-Build AI agents in the browser. KIRA OS follows the elizaOS plugin architecture: write a character,
+Build AI agents in the browser. KIRA OS is built on a modular plugin architecture: write a character,
 add plugins (actions, providers, evaluators, services, routes, events, models) and talk to your agent.
 
 ## Pages
@@ -14,8 +14,8 @@ add plugins (actions, providers, evaluators, services, routes, events, models) a
   - Plugins: built-in store, bootstrap, claude-models, knowledge, memory, calculator, outbox, x, discord, telegram,
     plus custom plugins written as JSON manifests. Runtime tab with load order, services, models,
     composed state, routes console, event emitter and live event log.
-  - Docs: 25-page guide. The "Docs for LLMs" page shows `public/llms-full.txt` (elizaOS documentation, MIT License,
-    © elizaOS contributors — see `public/llms-full.NOTICE.txt`).
+  - Docs: 25-page guide. The "Docs for LLMs" page shows `public/llms-full.txt` (KIRA OS documentation, MIT License,
+    © KIRA OS contributors — see `public/llms-full.NOTICE.txt`).
 
 Agents and chats are stored in the visitor's browser and, after signing in, in their account.
 Each agent can have its own photo (resized to 128 px in the browser).

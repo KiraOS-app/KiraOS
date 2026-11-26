@@ -4,21 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>KIRA OS Studio</title>
-<meta name="description" content="Build AI agents in your browser. Characters, plugins, memory and docs — KIRA OS follows the elizaOS plugin architecture.">
+<meta name="description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
 <link rel="canonical" href="https://getkira.xyz/studio.html">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KIRA OS">
 <meta property="og:title" content="KIRA OS Studio">
-<meta property="og:description" content="Build AI agents in your browser. Characters, plugins, memory and docs — KIRA OS follows the elizaOS plugin architecture.">
+<meta property="og:description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
 <meta property="og:url" content="https://getkira.xyz/studio.html">
 <meta property="og:image" content="https://getkira.xyz/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="KIRA OS Studio">
-<meta name="twitter:description" content="Build AI agents in your browser. Characters, plugins, memory and docs — KIRA OS follows the elizaOS plugin architecture.">
+<meta name="twitter:description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
 <meta name="twitter:image" content="https://getkira.xyz/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter+Tight:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -288,7 +288,7 @@ const uid=()=>Math.random().toString(36).slice(2,10);
 const clock=()=>new Date().toTimeString().slice(0,8);
 let sample=null;
 
-/* ============ RUNTIME (elizaOS-style plugin architecture) ============ */
+/* ============ RUNTIME (KIRA OS plugin architecture) ============ */
 const EVENTS=['WORLD_JOINED','WORLD_CONNECTED','WORLD_LEFT','ENTITY_JOINED','ENTITY_LEFT','ENTITY_UPDATED','ROOM_JOINED','ROOM_LEFT','MESSAGE_RECEIVED','MESSAGE_SENT','MESSAGE_DELETED','VOICE_MESSAGE_RECEIVED','VOICE_MESSAGE_SENT','RUN_STARTED','RUN_ENDED','RUN_TIMEOUT','ACTION_STARTED','ACTION_COMPLETED','EVALUATOR_STARTED','EVALUATOR_COMPLETED','MODEL_USED'];
 const TIER_MODEL={quick:'TEXT_SMALL',default:'TEXT_LARGE',complex:'TEXT_REASONING'};
 class Runtime{
@@ -592,7 +592,7 @@ const tbl=(head,rows)=>`<table class="stack"><thead><tr>${head.map(h=>`<th>${h}<
 function envRows(){const c=catalog(),rows=[['AUTO_REFLECT','memory','true','Turn the REFLECTION evaluator on or off'],['KNOWLEDGE_MAX_PASSAGES','knowledge','3','Passages the KNOWLEDGE provider adds to state']];
  Object.values(c).forEach(p=>{if(p.autoEnable)rows.push([p.autoEnable,p.name,'""','Presence auto-enables the plugin (draft mode here)']);if(p.custom)Object.entries(p.config||{}).forEach(([k,v])=>rows.push([k,p.name,String(v),'Custom plugin config']))});return rows}
 const PAGES={
- overview:(a,rt)=>`<div style="margin-bottom:18px">${LOGO(96)}</div><h1>Overview</h1><p class="lede">KIRA OS is a browser runtime for AI agents, modeled on the elizaOS architecture. You build an agent from a character and a set of plugins, then chat with it here.</p>
+ overview:(a,rt)=>`<div style="margin-bottom:18px">${LOGO(96)}</div><h1>Overview</h1><p class="lede">KIRA OS is a browser runtime for AI agents, built on the KIRA OS plugin architecture. You build an agent from a character and a set of plugins, then chat with it here.</p>
  <div class="grid" style="margin-top:20px">${[['quickstart','Quickstart','Talk to an agent in under a minute.'],['build','What you can build','Ready-made agents to start from.'],['architecture','Plugin architecture','How plugins are loaded and run.'],['character','Character interface','The fields that define an agent.']].map(([k,t,d])=>`<a class="pc" href="#docs-${k}" data-doc="${k}" style="text-decoration:none;color:inherit"><h3>${t}</h3><p style="margin:6px 0 0;color:var(--mute);font-size:14px">${d}</p></a>`).join('')}</div>
  <h3 style="margin-top:28px">Three parts of the app</h3><ul><li><b>Studio</b>: your agents, the chat and the Setup panel (character, plugins, knowledge, memory, tasks, outbox, runtime inspector).</li><li><b>Plugins</b>: every plugin's manifest on one page.</li><li><b>Docs</b>: this guide.</li></ul>
  ${live(`you have ${S.agents.length} agents and ${(S.custom||[]).length} custom plugins. The open agent, ${esc(a.name)}, loads ${rt.plugins.length} plugins.`)}`,
@@ -615,7 +615,7 @@ const PAGES={
  <p>Full manifest format: ${go('plugin-dev','Plugins → Development')}.</p>`,
  deployment:()=>`<h1>Deployment</h1><p class="lede">The Studio deploys with the website: Vercel serves <code>public/studio.html</code> and runs <code>api/studio.js</code>.</p>
  <h3>Costs and limits</h3><p>Every Studio message calls Claude on the site's API key, so it costs money. The endpoint is rate-limited per visitor (default 20 calls a minute, 300 a day) and capped at 1,024 output tokens per call. Tighten the limits or set <code>STUDIO_DISABLED=1</code> if usage grows.</p>
- <h3>Taking an agent elsewhere</h3><p>Use <b>Copy character.json</b> in Character to export an elizaOS-style character file, or copy the whole project from ${go('projects','Projects')}.</p>
+ <h3>Taking an agent elsewhere</h3><p>Use <b>Copy character.json</b> in Character to export a KIRA OS character file, or copy the whole project from ${go('projects','Projects')}.</p>
  <h3>What stays in the browser</h3><ul><li>Agents and chats live in each visitor's browser; nobody sees anyone else's.</li><li>Routes run in the page, and the X, Discord and Telegram plugins only draft posts. The live X bot is the separate service in <code>bot/</code>.</li></ul>`,
  projects:()=>`<h1>Projects</h1><p class="lede">A project is your whole workspace: every agent plus your custom plugins.</p>
  ${live(`${S.agents.length} agents · ${(S.custom||[]).length} custom plugins · ${S.agents.reduce((n,x)=>n+x.knowledge.length,0)} knowledge docs.`)}
@@ -625,7 +625,7 @@ const PAGES={
  <p>Character settings win; otherwise the plugin's <code>config</code> default is used. Edit them in Setup → Character, one <code>KEY=value</code> per line.</p>
  ${tbl(['Key','Plugin','Default','Effect'],envRows().map(([k,p,d,e])=>[`<code>${esc(k)}</code>`,esc(p),`<code>${esc(d)}</code>`,esc(e)]))}
  <p class="note n0" style="margin-top:10px">Never paste real API keys: this page can't use them, and settings are stored with your agent.</p>`,
- character:(a)=>`<h1>Character interface</h1><p class="lede">A character is the JSON that defines an agent. KIRA OS exports and imports the elizaOS shape.</p>
+ character:(a)=>`<h1>Character interface</h1><p class="lede">A character is the JSON that defines an agent. KIRA OS exports and imports it as character.json.</p>
  ${code(JSON.stringify({name:a.name,bio:[a.bio],system:a.role,adjectives:a.traits.split(',').map(s=>s.trim()).filter(Boolean),style:{all:a.style.split(/\.\s+/).filter(Boolean)},plugins:a.plugins,settings:a.settings,knowledge:a.knowledge.map(d=>({title:d.title,text:d.text.slice(0,60)+'…'}))},null,2))}
  ${tbl(['Key','Maps to in KIRA OS'],[['<code>name</code>','Name'],['<code>bio</code> (string or list)','Bio'],['<code>system</code>','Role'],['<code>adjectives</code>','Personality traits'],['<code>style.all</code> / <code>style.chat</code>','Style rules'],['<code>plugins</code>','Plugins (the @elizaos/plugin- prefix is dropped on import)'],['<code>settings</code>','Character settings'],['<code>knowledge</code>','Knowledge docs']])}
  ${live(`the example above is ${esc(a.name)}'s character.`)}`,
@@ -670,7 +670,7 @@ const PAGES={
  ${tbl(['Table','Columns','Rows now'],Object.entries(P.store.schema).map(([t,c])=>[`<code>${t}</code>`,esc(c),{memories:a.memory.length+a.chat.length,tasks:a.tasks.length,entities:2,rooms:1,cache:rt.cache.size,logs:rt.logs.length}[t]??'–']))}
  <h3>Adapter methods</h3><div class="chips">${Object.keys(rt.adapter||{}).map(k=>`<i>${esc(k)}</i>`).join('')}</div>`,
  migration:()=>`<h1>Migration</h1><p class="lede">Moving agents into KIRA OS, or between KIRA OS versions.</p>
- <h3>From an elizaOS character file</h3><p>Paste it into Setup → Character → Import character.json. <code>bio</code> lists are joined, <code>adjectives</code> become traits, <code>style.all</code> and <code>style.chat</code> become style rules, and plugin names lose their <code>@elizaos/plugin-</code> prefix; plugins KIRA OS doesn't have are skipped.</p>
+ <h3>From an KIRA OS character file</h3><p>Paste it into Setup → Character → Import character.json. <code>bio</code> lists are joined, <code>adjectives</code> become traits, <code>style.all</code> and <code>style.chat</code> become style rules, and plugin names lose their <code>@elizaos/plugin-</code> prefix; plugins KIRA OS doesn't have are skipped.</p>
  <h3>From older KIRA OS versions</h3><p>Agents saved before the plugin architecture used on/off switches. They are converted automatically: knowledge → <code>knowledge</code>, memory → <code>memory</code>, calc → <code>calculator</code>, social → <code>x</code>, <code>discord</code>, <code>telegram</code>.</p>
  <h3>Between accounts</h3><p>Use Copy project JSON and Import project on ${go('projects','Projects')}.</p>`,
  reference:()=>{const c=catalog();return `<h1>Plugin reference</h1><p class="lede">All ${Object.keys(c).length} plugins. Full manifests are on the <a href="#plugins" data-v="plugins">Plugins</a> page.</p>
@@ -726,8 +726,8 @@ async function renderDocs(){
  const isEZ=/^ez-\d+$/.test(DOC)&&EZ&&EZ[+DOC.slice(3)];
  if(!PAGES[DOC]&&!isEZ)DOC='overview';
  let cur,prev,next,body;
- if(isEZ){const n=+DOC.slice(3),flat=ezNav().flatMap(([g,ps])=>ps.map(([k,t])=>({k,n:t,g}))),j=flat.findIndex(x=>x.k===DOC);cur={g:'elizaOS · '+flat[j].g,n:flat[j].n};prev=flat[j-1];next=flat[j+1];const p=EZ[n];
-  body=`<h1>${esc(p.title)}</h1><p class="note n0">From the <a href="${esc(p.src)}" target="_blank" rel="noopener">elizaOS documentation</a></p><div class="ezb">${renderMD(p.lines)}</div>`}
+ if(isEZ){const n=+DOC.slice(3),flat=ezNav().flatMap(([g,ps])=>ps.map(([k,t])=>({k,n:t,g}))),j=flat.findIndex(x=>x.k===DOC);cur={g:'KIRA OS · '+flat[j].g,n:flat[j].n};prev=flat[j-1];next=flat[j+1];const p=EZ[n];
+  body=`<h1>${esc(p.title)}</h1><p class="note n0">From the <a href="${esc(p.src)}" target="_blank" rel="noopener">KIRA OS documentation</a></p><div class="ezb">${renderMD(p.lines)}</div>`}
  else{const L=PAGES_FLAT_ALL(),i=L.findIndex(p=>p.k===DOC);cur=L[i];prev=DOC==='llms'?null:PAGES_FLAT[i-1];next=DOC==='llms'?PAGES_FLAT[0]:PAGES_FLAT[i+1];body=PAGES[DOC](a,rt)}
  let th='system';try{th=localStorage.getItem('loom-theme')||'system'}catch(e){}
  $('#vdocs').innerHTML=`<div class="dwrap"><div class="dbar"><button class="btn sm" id="dmenu" aria-expanded="false">☰ Menu</button><span>${esc(cur.g)} › <b>${esc(cur.n)}</b></span></div>
@@ -878,7 +878,7 @@ document.addEventListener('change',e=>{
  const t=e.target,a=A();
  if(t.dataset.pl){const n=t.dataset.pl;a.plugins=t.checked?[...new Set([...a.plugins,n])]:a.plugins.filter(p=>p!==n);save();delete RT[a.id];renderCfg();renderHead();renderMsgs()}
  if(t.dataset.tdone){const k=a.tasks.find(x=>x.id===t.dataset.tdone);if(k){k.done=t.checked;save();renderCfg()}}
- if(t.id==='rdfile'&&t.files[0]){t.files[0].text().then(x=>{const pages=parseLLM(x);if(!pages.length){$('#rdmsg').textContent='No elizaOS pages found in that file.';return}setEZ(pages,true);{const k=pages.findIndex(p=>p.seg==='index');openDoc('ez-'+Math.max(0,k))}})}
+ if(t.id==='rdfile'&&t.files[0]){t.files[0].text().then(x=>{const pages=parseLLM(x);if(!pages.length){$('#rdmsg').textContent='No KIRA OS pages found in that file.';return}setEZ(pages,true);{const k=pages.findIndex(p=>p.seg==='index');openDoc('ez-'+Math.max(0,k))}})}
  if(t.id==='rdsel'){RD.i=+t.value;renderReader();$('#reader').scrollIntoView()}
  if(t.id==='file'){[...t.files].forEach(f=>{if(f.size>300000)return;f.text().then(x=>{a.knowledge.push({id:uid(),title:f.name,text:x});save();renderCfg()})})}
 });
