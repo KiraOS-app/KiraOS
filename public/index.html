@@ -17,6 +17,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@getkiraos">
 <meta name="twitter:title" content="KIRA OS — build AI agents in your browser">
 <meta name="twitter:description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
 <meta name="twitter:image" content="https://getkira.xyz/og.png?v=2">
@@ -310,6 +311,8 @@ body{font-weight:400}
 .klist a:hover,.klist a:focus-visible{background:var(--kira);color:#0b0710;border-color:var(--kira)}
 .hfoot{background:rgba(11,7,16,.92);border-top:2px solid var(--kira)}
 .hfoot a:hover{color:var(--kira)}
+.nav-x{display:grid;place-items:center;width:46px;height:46px;border:2px solid var(--fg);background:rgba(11,7,16,.6);color:var(--fg);box-shadow:3px 3px 0 var(--kira)}.nav-x:hover{background:var(--kira);color:#0b0710}
+.kfoot .kx{display:inline-flex;align-items:center;gap:8px}.kfoot .kx:hover{color:var(--kira)}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -323,6 +326,7 @@ body{font-weight:400}
 <header class="nav" id="nav">
   <a href="#home" class="logo" data-dissolve aria-label="KIRA OS home"><span class="wm"><span class="wm-a" data-text style="font-size:42px">KIRA</span><svg class="wm-os" viewBox="0 0 15 7" height="29" width="62" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#f1f1ef" d="M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM5 1h1v1h-1zM6 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM13 3h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1z"/></svg></span></a>
   <div class="nav-right">
+    <a class="nav-x" href="https://x.com/getkiraos" target="_blank" rel="noopener" aria-label="KIRA OS on X"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 20.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg></a>
     <button type="button" class="menu-btn" id="menuBtn" data-dissolve aria-expanded="false" aria-controls="menu" aria-label="Open menu">
       <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="#f1f1ef" stroke-width="1.7" stroke-linecap="round"/></svg>
     </button>
@@ -341,7 +345,7 @@ body{font-weight:400}
     <a href="studio.html#plugins"><span class="kt"><b>Plugins</b><small>Every plugin and its manifest</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
     <a href="studio.html#docs-overview"><span class="kt"><b>Docs</b><small>Guides, architecture and reference</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
   </div>
-  <div class="kfoot"><a href="legal.html">Terms &amp; Privacy</a><span>getkira.xyz</span></div>
+  <div class="kfoot"><a href="legal.html">Terms &amp; Privacy</a><a href="https://x.com/getkiraos" target="_blank" rel="noopener" class="kx"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg>@getkiraos</a></div>
 </nav>
 
 <main>
@@ -403,7 +407,7 @@ body{font-weight:400}
 
   <footer class="hfoot">
     <span>© <span id="yr">2026</span> KIRA OS</span>
-    <nav><a href="studio.html">Studio</a><a href="studio.html#plugins">Plugins</a><a href="studio.html#docs-overview">Docs</a><a href="legal.html">Terms &amp; Privacy</a></nav>
+    <nav><a href="studio.html">Studio</a><a href="studio.html#plugins">Plugins</a><a href="studio.html#docs-overview">Docs</a><a href="legal.html">Terms &amp; Privacy</a><a href="https://x.com/getkiraos" target="_blank" rel="noopener">X @getkiraos</a></nav>
     <p>AI answers can be wrong. Nothing here is financial advice.</p>
   </footer>
 </main>
