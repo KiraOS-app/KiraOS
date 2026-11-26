@@ -43,4 +43,4 @@ Every message costs API usage on your key (each tool step is one call, max 1,024
 - X, Discord and Telegram plugins only write drafts to the Outbox; nothing is posted.
 - `public/llms-full.txt` is the elizaOS documentation, MIT License, © elizaOS contributors
   (see `public/llms-full.NOTICE.txt`).
-- The navbar wordmark uses Russo One (Google Fonts, SIL Open Font License).
+- The wordmark uses Archivo Black (Google Fonts, SIL Open Font License).
