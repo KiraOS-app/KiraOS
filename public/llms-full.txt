@@ -25,7 +25,7 @@ That's it. Your agent now has a name, personality, and can chat. Everything else
 
 ## Overview
 
-In elizaOS, the distinction between a **Character** and an **Agent** is fundamental:
+In KIRA OS, the distinction between a **Character** and an **Agent** is fundamental:
 
 * **Character**: A configuration object that defines an agent's personality, capabilities, and settings
 * **Agent**: A runtime instance created from a Character, with additional status tracking and lifecycle management
@@ -548,20 +548,17 @@ export const character: Character = {
     How the runtime orchestrates your agent
   </Card>
 
-  <Card title="Deploy to Cloud" icon="cloud" href="/guides/deploy-to-cloud">
-    Ship your agent to production in minutes
-  </Card>
 </CardGroup>
 
 
 # Memory and State
 Source: https://docs.elizaos.ai/agents/memory-and-state
 
-Understanding agent memory, context, and state management in elizaOS
+Understanding agent memory, context, and state management in KIRA OS
 
 ## Memory Architecture Overview
 
-In elizaOS, memory and state management are core responsibilities of the `AgentRuntime`. The system provides a unified API for creating, storing, retrieving, and searching memories, enabling agents to maintain context and learn from interactions. For runtime details, see [Runtime and Lifecycle](/agents/runtime-and-lifecycle) and [Runtime Core](/runtime/core).
+In KIRA OS, memory and state management are core responsibilities of the `AgentRuntime`. The system provides a unified API for creating, storing, retrieving, and searching memories, enabling agents to maintain context and learn from interactions. For runtime details, see [Runtime and Lifecycle](/agents/runtime-and-lifecycle) and [Runtime Core](/runtime/core).
 
 ```mermaid theme={null}
 flowchart TD
@@ -1574,7 +1571,7 @@ class MemoryMonitor {
 # Personality and Behavior
 Source: https://docs.elizaos.ai/agents/personality-and-behavior
 
-Crafting unique agent personalities and behavioral patterns in elizaOS
+Crafting unique agent personalities and behavioral patterns in KIRA OS
 
 ## Personality Design Principles
 
@@ -2476,7 +2473,7 @@ describe('Personality Consistency', () => {
 # Runtime and Lifecycle
 Source: https://docs.elizaos.ai/agents/runtime-and-lifecycle
 
-From Character configuration to live Agent execution in elizaOS
+From Character configuration to live Agent execution in KIRA OS
 
 ## Agent Lifecycle Overview
 
@@ -3934,7 +3931,7 @@ async function debugPluginLoading(runtime: IAgentRuntime, pluginName: string) {
 # Agent Command
 Source: https://docs.elizaos.ai/cli-reference/agent
 
-Managing elizaOS agents through the CLI - list, configure, start, stop, and update agents
+Managing KIRA OS agents through the CLI - list, configure, start, stop, and update agents
 
 <Tabs>
   <Tab title="Overview">
@@ -4324,172 +4321,6 @@ Managing elizaOS agents through the CLI - list, configure, start, stop, and upda
 </Tabs>
 
 
-# Containers Command
-Source: https://docs.elizaos.ai/cli-reference/containers
-
-Manage ElizaOS Cloud container deployments
-
-## Usage
-
-```bash theme={null}
-elizaos containers <subcommand> [options]
-```
-
-## Subcommands
-
-| Subcommand | Alias | Description                          |
-| ---------- | ----- | ------------------------------------ |
-| `list`     | `ls`  | List all container deployments       |
-| `delete`   | `rm`  | Delete a container deployment        |
-| `logs`     | -     | Get logs from a container deployment |
-
-***
-
-## list
-
-List all container deployments in your ElizaOS Cloud account.
-
-### Usage
-
-```bash theme={null}
-elizaos containers list [options]
-elizaos containers ls [options]
-```
-
-### Options
-
-| Option                | Description           | Default                     |
-| --------------------- | --------------------- | --------------------------- |
-| `-u, --api-url <url>` | ElizaOS Cloud API URL | `https://www.elizacloud.ai` |
-| `-k, --api-key <key>` | ElizaOS Cloud API key | -                           |
-| `--json`              | Output as JSON        | `false`                     |
-
-### Examples
-
-```bash theme={null}
-# List all containers
-elizaos containers list
-
-# List with JSON output for scripting
-elizaos containers list --json
-
-# Use custom API URL
-elizaos containers list --api-url https://custom.elizacloud.ai
-```
-
-***
-
-## delete
-
-Delete a container deployment. Can auto-detect the container from your project or specify it explicitly.
-
-### Usage
-
-```bash theme={null}
-elizaos containers delete [container-id] [options]
-elizaos containers rm [container-id] [options]
-```
-
-### Arguments
-
-| Argument         | Description                                                   |
-| ---------------- | ------------------------------------------------------------- |
-| `[container-id]` | Container ID to delete (auto-detects from project if omitted) |
-
-### Options
-
-| Option                      | Description                                               | Default                     |
-| --------------------------- | --------------------------------------------------------- | --------------------------- |
-| `-u, --api-url <url>`       | ElizaOS Cloud API URL                                     | `https://www.elizacloud.ai` |
-| `-k, --api-key <key>`       | ElizaOS Cloud API key                                     | -                           |
-| `-p, --project-name <name>` | Project name to find container (overrides auto-detection) | -                           |
-| `--force`                   | Skip confirmation prompt                                  | `false`                     |
-
-### Examples
-
-```bash theme={null}
-# Delete container by ID
-elizaos containers delete abc123
-
-# Delete container from current project (auto-detect)
-elizaos containers delete
-
-# Delete with force (skip confirmation)
-elizaos containers delete abc123 --force
-
-# Delete by project name
-elizaos containers delete --project-name my-agent
-```
-
-***
-
-## logs
-
-Get logs from a container deployment. Supports streaming and tail options.
-
-### Usage
-
-```bash theme={null}
-elizaos containers logs [container-id] [options]
-```
-
-### Arguments
-
-| Argument         | Description                                         |
-| ---------------- | --------------------------------------------------- |
-| `[container-id]` | Container ID (auto-detects from project if omitted) |
-
-### Options
-
-| Option                      | Description                      | Default                     |
-| --------------------------- | -------------------------------- | --------------------------- |
-| `-u, --api-url <url>`       | ElizaOS Cloud API URL            | `https://www.elizacloud.ai` |
-| `-k, --api-key <key>`       | ElizaOS Cloud API key            | -                           |
-| `-p, --project-name <name>` | Project name to find container   | -                           |
-| `--follow`                  | Follow log output (streaming)    | `false`                     |
-| `--tail <lines>`            | Number of lines to show from end | `100`                       |
-
-### Examples
-
-```bash theme={null}
-# Get recent logs from container
-elizaos containers logs abc123
-
-# Stream logs in real-time
-elizaos containers logs abc123 --follow
-
-# Get last 500 lines
-elizaos containers logs abc123 --tail 500
-
-# Get logs from current project's container
-elizaos containers logs --follow
-```
-
-***
-
-## Authentication
-
-All container commands require authentication with ElizaOS Cloud. You can provide credentials in two ways:
-
-1. **API Key option**: Use `-k, --api-key` option
-2. **Environment variable**: Set `ELIZA_CLOUD_API_KEY`
-3. **Login command**: Run `elizaos login` to authenticate
-
-```bash theme={null}
-# Using API key option
-elizaos containers list -k your-api-key
-
-# Using environment variable
-export ELIZA_CLOUD_API_KEY=your-api-key
-elizaos containers list
-```
-
-## Related Commands
-
-* [`deploy`](/cli-reference/deploy): Deploy your project to ElizaOS Cloud
-* [`login`](/cli-reference/login): Authenticate with ElizaOS Cloud
-
-
 # Create Command
 Source: https://docs.elizaos.ai/cli-reference/create
 
@@ -4619,7 +4450,7 @@ Initialize a new project, plugin, or agent with an interactive setup process
 
     ### Project (Default)
 
-    Creates a complete elizaOS project with:
+    Creates a complete KIRA OS project with:
 
     * Agent configuration and character files
     * Knowledge directory for RAG
@@ -4643,7 +4474,7 @@ Initialize a new project, plugin, or agent with an interactive setup process
 
     ### Plugin
 
-    Creates a plugin that extends elizaOS functionality:
+    Creates a plugin that extends KIRA OS functionality:
 
     ```bash theme={null}
     elizaos create -t plugin my-plugin
@@ -4811,147 +4642,10 @@ Initialize a new project, plugin, or agent with an interactive setup process
 </Tabs>
 
 
-# Deploy Command
-Source: https://docs.elizaos.ai/cli-reference/deploy
-
-Deploy ElizaOS projects to AWS ECS (Elastic Container Service)
-
-## Usage
-
-```bash theme={null}
-elizaos deploy [options]
-```
-
-Deploy your ElizaOS project to AWS ECS through ElizaOS Cloud. This command builds a Docker image, pushes it to ECR, and creates an ECS service.
-
-## Options
-
-| Option                    | Description                                          | Default                     |
-| ------------------------- | ---------------------------------------------------- | --------------------------- |
-| `-n, --name <name>`       | Name for the deployment                              | -                           |
-| `--project-name <name>`   | Project name                                         | Directory name              |
-| `-p, --port <port>`       | Port the container listens on                        | `3000`                      |
-| `--desired-count <count>` | Number of container instances to run (1-10)          | `1`                         |
-| `--cpu <units>`           | CPU units (256-2048)                                 | `1792`                      |
-| `--memory <mb>`           | Memory in MB (512-2048)                              | `1792`                      |
-| `-k, --api-key <key>`     | ElizaOS Cloud API key                                | -                           |
-| `-u, --api-url <url>`     | ElizaOS Cloud API URL                                | `https://www.elizacloud.ai` |
-| `-e, --env <KEY=VALUE>`   | Environment variable (repeatable)                    | -                           |
-| `--skip-build`            | Skip Docker build, use existing image                | `false`                     |
-| `--image-uri <uri>`       | Use existing ECR image URI (requires `--skip-build`) | -                           |
-| `--platform <platform>`   | Docker platform for build                            | Host platform               |
-
-## Resource Defaults
-
-The default CPU and memory settings (1792 units each) are optimized for AWS t4g.small instances:
-
-* **CPU**: 1792 units = 1.75 vCPU (87.5% of t4g.small's 2 vCPUs)
-* **Memory**: 1792 MB = 1.75 GiB (87.5% of t4g.small's 2 GiB)
-
-## Examples
-
-### Basic Deployment
-
-```bash theme={null}
-# Deploy current project with defaults
-elizaos deploy
-
-# Deploy with a specific name
-elizaos deploy --name my-agent-prod
-
-# Deploy with custom port
-elizaos deploy --port 8080
-```
-
-### Resource Configuration
-
-```bash theme={null}
-# Deploy with increased resources
-elizaos deploy --cpu 2048 --memory 2048
-
-# Deploy multiple instances for high availability
-elizaos deploy --desired-count 3
-
-# Deploy with minimal resources
-elizaos deploy --cpu 256 --memory 512
-```
-
-### Environment Variables
-
-```bash theme={null}
-# Pass single environment variable
-elizaos deploy -e OPENAI_API_KEY=sk-xxx
-
-# Pass multiple environment variables
-elizaos deploy \
-  -e OPENAI_API_KEY=sk-xxx \
-  -e DISCORD_TOKEN=xxx \
-  -e DATABASE_URL=postgres://...
-```
-
-### Advanced Options
-
-```bash theme={null}
-# Skip build and use existing image
-elizaos deploy --skip-build --image-uri 123456789.dkr.ecr.us-east-1.amazonaws.com/my-agent:latest
-
-# Build for specific platform (cross-compilation)
-elizaos deploy --platform linux/amd64
-
-# Build for ARM (Graviton instances)
-elizaos deploy --platform linux/arm64
-```
-
-### Custom API Endpoint
-
-```bash theme={null}
-# Deploy to custom ElizaOS Cloud instance
-elizaos deploy --api-url https://custom.elizacloud.ai --api-key your-key
-```
-
-## Deployment Output
-
-On successful deployment, the command outputs:
-
-* **Container ID**: Unique identifier for your deployment
-* **Service ARN**: AWS ECS service Amazon Resource Name
-* **Task Definition ARN**: AWS ECS task definition ARN
-* **Service URL**: Public URL to access your agent
-
-## Validation
-
-The command validates options before deployment:
-
-| Option            | Valid Range |
-| ----------------- | ----------- |
-| `--port`          | 1-65535     |
-| `--desired-count` | 1-10        |
-| `--cpu`           | 256-2048    |
-| `--memory`        | 512-2048    |
-
-## Authentication
-
-Deployment requires authentication with ElizaOS Cloud:
-
-```bash theme={null}
-# Login first (recommended)
-elizaos login
-
-# Or provide API key directly
-elizaos deploy --api-key your-api-key
-```
-
-## Related Commands
-
-* [`login`](/cli-reference/login): Authenticate with ElizaOS Cloud
-* [`containers`](/cli-reference/containers): Manage deployed containers
-* [`start`](/cli-reference/start): Run locally before deploying
-
-
 # Development Mode
 Source: https://docs.elizaos.ai/cli-reference/dev
 
-Run elizaOS projects in development mode with hot reloading and debugging
+Run KIRA OS projects in development mode with hot reloading and debugging
 
 <Tabs>
   <Tab title="Overview">
@@ -5037,7 +4731,7 @@ Run elizaOS projects in development mode with hot reloading and debugging
 
     ### Project Detection
 
-    * **Project Mode**: Automatically detects elizaOS projects based on package.json configuration
+    * **Project Mode**: Automatically detects KIRA OS projects based on package.json configuration
     * **Plugin Mode**: Detects and handles plugin development appropriately
     * **Monorepo Support**: Builds core packages when working in monorepo context
 
@@ -5249,7 +4943,7 @@ Run elizaOS projects in development mode with hot reloading and debugging
 # Environment Configuration
 Source: https://docs.elizaos.ai/cli-reference/env
 
-Configure environment variables and API keys for elizaOS projects
+Configure environment variables and API keys for KIRA OS projects
 
 <Tabs>
   <Tab title="Overview">
@@ -5375,7 +5069,7 @@ Configure environment variables and API keys for elizaOS projects
 
     ## Environment File Structure
 
-    elizaOS uses local environment variables stored in `.env` files in your project directory:
+    KIRA OS uses local environment variables stored in `.env` files in your project directory:
 
     * **Local variables** - Stored in `./.env` in your current project directory
 
@@ -5476,132 +5170,10 @@ Configure environment variables and API keys for elizaOS projects
 </Tabs>
 
 
-# Login Command
-Source: https://docs.elizaos.ai/cli-reference/login
-
-Authenticate with ElizaOS Cloud to get an API key
-
-## Usage
-
-```bash theme={null}
-elizaos login [options]
-```
-
-Authenticate with ElizaOS Cloud using browser-based OAuth flow. On successful authentication, your API key is stored locally for use with other commands.
-
-## Options
-
-| Option                  | Description                       | Default                     |
-| ----------------------- | --------------------------------- | --------------------------- |
-| `-u, --cloud-url <url>` | URL of ElizaOS Cloud              | `https://www.elizacloud.ai` |
-| `--no-browser`          | Do not automatically open browser | `false`                     |
-| `--timeout <seconds>`   | Authentication timeout in seconds | `300`                       |
-
-## Examples
-
-### Basic Login
-
-```bash theme={null}
-# Login with browser (default)
-elizaos login
-
-# The command will:
-# 1. Open your browser to the ElizaOS Cloud login page
-# 2. Wait for you to complete authentication
-# 3. Store the API key locally
-```
-
-### Without Browser
-
-```bash theme={null}
-# Login without auto-opening browser
-elizaos login --no-browser
-
-# The command will display a URL to visit manually
-```
-
-### Custom Cloud Instance
-
-```bash theme={null}
-# Login to a custom ElizaOS Cloud instance
-elizaos login --cloud-url https://custom.elizacloud.ai
-```
-
-### Extended Timeout
-
-```bash theme={null}
-# Allow more time for authentication (10 minutes)
-elizaos login --timeout 600
-```
-
-## Authentication Flow
-
-1. **Start**: CLI initiates authentication request
-2. **Browser**: Opens login page (or displays URL if `--no-browser`)
-3. **Authenticate**: Complete login in browser (OAuth/credentials)
-4. **Callback**: Browser sends token back to CLI
-5. **Store**: API key is stored in `~/.elizaos/credentials`
-
-## Environment Variable
-
-Instead of logging in, you can set the API key directly:
-
-```bash theme={null}
-export ELIZA_CLOUD_API_KEY=your-api-key
-```
-
-Or use the `ELIZA_CLOUD_URL` environment variable:
-
-```bash theme={null}
-export ELIZA_CLOUD_URL=https://custom.elizacloud.ai
-elizaos login
-```
-
-## Credential Storage
-
-After successful login, credentials are stored at:
-
-* **Linux/macOS**: `~/.elizaos/credentials`
-* **Windows**: `%USERPROFILE%\.elizaos\credentials`
-
-## Troubleshooting
-
-### Browser Doesn't Open
-
-```bash theme={null}
-# Use --no-browser and copy the URL manually
-elizaos login --no-browser
-```
-
-### Timeout Issues
-
-```bash theme={null}
-# Increase timeout for slow connections
-elizaos login --timeout 600
-```
-
-### Network Issues
-
-If behind a proxy or firewall, ensure the cloud URL is accessible:
-
-```bash theme={null}
-# Test connectivity
-curl https://www.elizacloud.ai/health
-
-# Then login
-elizaos login
-```
-
-## Related Commands
-
-* [`deploy`](/cli-reference/deploy): Deploy after authentication
-* [`containers`](/cli-reference/containers): Manage containers (requires auth)
-
-
 # Monorepo Command
 Source: https://docs.elizaos.ai/cli-reference/monorepo
 
-Clone the elizaOS monorepo for development or contribution
+Clone the KIRA OS monorepo for development or contribution
 
 ## Usage
 
@@ -5807,14 +5379,14 @@ elizaos monorepo --branch main
 * [`dev`](/cli-reference/dev): Run development server for your projects
 
 
-# elizaOS CLI Overview
+# KIRA OS CLI Overview
 Source: https://docs.elizaos.ai/cli-reference/overview
 
-Comprehensive guide to the elizaOS Command Line Interface (CLI) tools and commands
+Comprehensive guide to the KIRA OS Command Line Interface (CLI) tools and commands
 
 ## Installation
 
-Install the elizaOS CLI globally using Bun:
+Install the KIRA OS CLI globally using Bun:
 
 ```bash theme={null}
 bun install -g @elizaos/cli
@@ -5829,19 +5401,16 @@ bun install -g @elizaos/cli
 | Command                                   | Description                                                                                                    |
 | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | [`create`](/cli-reference/create)         | Initialize a new project, plugin, or agent                                                                     |
-| [`monorepo`](/cli-reference/monorepo)     | Clone elizaOS monorepo from a specific branch (defaults to develop)                                            |
-| [`plugins`](/cli-reference/plugins)       | Manage elizaOS plugins                                                                                         |
-| [`agent`](/cli-reference/agent)           | Manage elizaOS agents                                                                                          |
+| [`monorepo`](/cli-reference/monorepo)     | Clone KIRA OS monorepo from a specific branch (defaults to develop)                                            |
+| [`plugins`](/cli-reference/plugins)       | Manage KIRA OS plugins                                                                                         |
+| [`agent`](/cli-reference/agent)           | Manage KIRA OS agents                                                                                          |
 | [`tee`](/cli-reference/tee)               | Manage TEE deployments                                                                                         |
 | [`start`](/cli-reference/start)           | Start the Eliza agent with configurable plugins and services                                                   |
-| [`update`](/cli-reference/update)         | Update elizaOS CLI and project dependencies                                                                    |
+| [`update`](/cli-reference/update)         | Update KIRA OS CLI and project dependencies                                                                    |
 | [`test`](/cli-reference/test)             | Run tests for Eliza agent projects and plugins                                                                 |
 | [`env`](/cli-reference/env)               | Manage environment variables and secrets                                                                       |
 | [`dev`](/cli-reference/dev)               | Start the project or plugin in development mode with auto-rebuild, detailed logging, and file change detection |
 | [`publish`](/cli-reference/publish)       | Publish a plugin to the registry                                                                               |
-| [`deploy`](/cli-reference/deploy)         | Deploy ElizaOS project to AWS ECS                                                                              |
-| [`login`](/cli-reference/login)           | Authenticate with ElizaOS Cloud                                                                                |
-| [`containers`](/cli-reference/containers) | Manage ElizaOS Cloud container deployments                                                                     |
 | [`scenario`](/cli-reference/scenario)     | Execute and manage test scenarios                                                                              |
 | [`report`](/cli-reference/report)         | Generate reports from scenario matrix runs                                                                     |
 
@@ -5920,7 +5489,7 @@ elizaos env interactive
 
 ## Development vs Production
 
-elizaOS supports two main modes of operation:
+KIRA OS supports two main modes of operation:
 
 <CardGroup>
   <Card title="Development Mode" icon="code" href="/cli-reference/dev">
@@ -5934,7 +5503,7 @@ elizaOS supports two main modes of operation:
 
 ## Quick Start
 
-For a complete guide to getting started with elizaOS, see the [Quickstart Guide](/quickstart).
+For a complete guide to getting started with KIRA OS, see the [Quickstart Guide](/quickstart).
 
 ### Creating a new project
 
@@ -5965,7 +5534,7 @@ elizaos dev
 
 ## Working with Projects
 
-elizaOS organizes work into projects, which can contain one or more agents along with their configurations, knowledge files, and dependencies. The CLI provides commands to manage the entire lifecycle of a project:
+KIRA OS organizes work into projects, which can contain one or more agents along with their configurations, knowledge files, and dependencies. The CLI provides commands to manage the entire lifecycle of a project:
 
 1. **Create** a new project with `create`
 2. **Configure** settings with `env`
@@ -5996,7 +5565,7 @@ elizaos publish --test
 
 <CardGroup>
   <Card title="Quickstart Guide" icon="rocket" href="/quickstart">
-    Complete workflow guide to get started with elizaOS
+    Complete workflow guide to get started with KIRA OS
   </Card>
 
   <Card title="Environment Configuration" icon="gear" href="/cli-reference/env">
@@ -6008,7 +5577,7 @@ elizaos publish --test
 # Plugin Management
 Source: https://docs.elizaos.ai/cli-reference/plugins
 
-Manage elizaOS plugins within a project - list, add, remove
+Manage KIRA OS plugins within a project - list, add, remove
 
 <Tabs>
   <Tab title="Overview">
@@ -6342,9 +5911,9 @@ Manage elizaOS plugins within a project - list, add, remove
 # Publish Command
 Source: https://docs.elizaos.ai/cli-reference/publish
 
-Publish a plugin to npm, create a GitHub repository, and submit to the elizaOS registry
+Publish a plugin to npm, create a GitHub repository, and submit to the KIRA OS registry
 
-The `elizaos publish` command is the all-in-one tool for releasing your plugin. It handles packaging, publishing to npm, creating a source repository, and submitting your plugin to the official elizaOS registry for discovery.
+The `elizaos publish` command is the all-in-one tool for releasing your plugin. It handles packaging, publishing to npm, creating a source repository, and submitting your plugin to the official KIRA OS registry for discovery.
 
 <Tabs>
   <Tab title="Overview">
@@ -6355,7 +5924,7 @@ The `elizaos publish` command is the all-in-one tool for releasing your plugin. 
     * **Validates Your Plugin:** Checks your `package.json` and directory structure against registry requirements
     * **Publishes Your Package:** Pushes your plugin to npm
     * **Creates GitHub Repository:** Initializes a public GitHub repository for your plugin's source code
-    * **Submits to Registry:** Opens a Pull Request to the official [elizaOS Plugin Registry](https://github.com/elizaos-plugins/registry)
+    * **Submits to Registry:** Opens a Pull Request to the official [KIRA OS Plugin Registry](https://github.com/elizaos-plugins/registry)
 
     ## Usage
 
@@ -6479,7 +6048,7 @@ The `elizaos publish` command is the all-in-one tool for releasing your plugin. 
     git push && git push --tags
     ```
 
-    The elizaOS registry automatically detects new npm versions.
+    The KIRA OS registry automatically detects new npm versions.
   </Tab>
 
   <Tab title="Requirements">
@@ -6552,7 +6121,7 @@ The `elizaos publish` command is the all-in-one tool for releasing your plugin. 
     ```
 
     <Note>
-      The `agentConfig` section tells elizaOS agents how to load your plugin.
+      The `agentConfig` section tells KIRA OS agents how to load your plugin.
     </Note>
   </Tab>
 
@@ -6788,7 +6357,7 @@ output/matrix-YYYYMMDD-HHMM/
 # Scenario Command
 Source: https://docs.elizaos.ai/cli-reference/scenario
 
-Manage and execute ElizaOS scenarios for testing and evaluation
+Manage and execute KIRA OS scenarios for testing and evaluation
 
 ## Usage
 
@@ -7029,7 +6598,7 @@ Default plugins (`plugin-sql`, `plugin-bootstrap`, `plugin-openai`) are always l
 # Start Command
 Source: https://docs.elizaos.ai/cli-reference/start
 
-Launch and manage elizaOS projects and agents in production mode
+Launch and manage KIRA OS projects and agents in production mode
 
 <Tabs>
   <Tab title="Overview">
@@ -7122,7 +6691,7 @@ Launch and manage elizaOS projects and agents in production mode
   <Tab title="Features">
     ## Production Features
 
-    When you run `start`, elizaOS provides production-ready features:
+    When you run `start`, KIRA OS provides production-ready features:
 
     1. **Optimized Performance**: Runs with production optimizations
     2. **Stable Configuration**: Uses saved configuration by default
@@ -7132,7 +6701,7 @@ Launch and manage elizaOS projects and agents in production mode
 
     ## Startup Process
 
-    When you run the `start` command, elizaOS:
+    When you run the `start` command, KIRA OS:
 
     1. **Project Detection**: Detects whether you're in a project or plugin directory
     2. **Configuration Loading**: Loads and validates the configuration
@@ -7146,10 +6715,10 @@ Launch and manage elizaOS projects and agents in production mode
 
     ## Project Detection
 
-    elizaOS automatically detects the type of directory you're in and adjusts its behavior accordingly:
+    KIRA OS automatically detects the type of directory you're in and adjusts its behavior accordingly:
 
-    * **elizaOS Projects**: Loads project configuration and starts defined agents
-    * **elizaOS Plugins**: Runs in plugin test mode with the default character
+    * **KIRA OS Projects**: Loads project configuration and starts defined agents
+    * **KIRA OS Plugins**: Runs in plugin test mode with the default character
     * **Other Directories**: Uses the default Eliza character
 
     ## Configuration Management
@@ -7200,7 +6769,7 @@ Launch and manage elizaOS projects and agents in production mode
 
     ### Character Loading Errors
 
-    If character files fail to load, elizaOS will:
+    If character files fail to load, KIRA OS will:
 
     1. **Log Errors**: Display detailed error messages for each failed character
     2. **Continue Starting**: Use any successfully loaded characters
@@ -7352,7 +6921,7 @@ Launch and manage elizaOS projects and agents in production mode
 # TEE Command
 Source: https://docs.elizaos.ai/cli-reference/tee
 
-Manage TEE deployments on elizaOS
+Manage TEE deployments on KIRA OS
 
 The `tee` command provides access to Trusted Execution Environment (TEE) deployment and management capabilities through integrated vendor CLIs.
 
@@ -7376,7 +6945,7 @@ elizaos tee <vendor> [vendor-specific-commands]
 
 ### Phala Cloud
 
-The `phala` subcommand provides a wrapper for the official Phala Cloud CLI, allowing you to manage TEE deployments on Phala Cloud directly through elizaOS.
+The `phala` subcommand provides a wrapper for the official Phala Cloud CLI, allowing you to manage TEE deployments on Phala Cloud directly through KIRA OS.
 
 ```bash theme={null}
 elizaos tee phala [phala-cli-commands]
@@ -7455,7 +7024,7 @@ elizaos tee phala nodes get <id>     # Get details about a specific node
 
 ### TEE Agent Deployment
 
-For deploying elizaOS agents to TEE environments:
+For deploying KIRA OS agents to TEE environments:
 
 1. First, create a TEE-compatible project:
 
@@ -7540,7 +7109,7 @@ For detailed output when troubleshooting:
 LOG_LEVEL=debug elizaos tee phala cvms list
 ```
 
-## Integration with elizaOS
+## Integration with KIRA OS
 
 TEE deployments enable:
 
@@ -7567,7 +7136,7 @@ When deploying agents to TEE:
 # Test Command
 Source: https://docs.elizaos.ai/cli-reference/test
 
-Run and manage tests for elizaOS projects and plugins
+Run and manage tests for KIRA OS projects and plugins
 
 <Tabs>
   <Tab title="Overview">
@@ -7656,14 +7225,14 @@ Run and manage tests for elizaOS projects and plugins
     ### End-to-End Tests
 
     **Location**: `e2e/` directory\
-    **Framework**: Custom elizaOS test runner\
+    **Framework**: Custom KIRA OS test runner\
     **Purpose**: Runtime behavior testing with full agent context
   </Tab>
 
   <Tab title="Writing Tests">
     ## Test Structure
 
-    elizaOS follows standard testing conventions with two main categories:
+    KIRA OS follows standard testing conventions with two main categories:
 
     ### Component Tests (`__tests__/`)
 
@@ -7968,7 +7537,7 @@ Run and manage tests for elizaOS projects and plugins
 # Update Command
 Source: https://docs.elizaos.ai/cli-reference/update
 
-Update your project's elizaOS dependencies and CLI to the latest published versions
+Update your project's KIRA OS dependencies and CLI to the latest published versions
 
 <Tabs>
   <Tab title="Overview">
@@ -8045,7 +7614,7 @@ Update your project's elizaOS dependencies and CLI to the latest published versi
 
     When you run `elizaos update`, it performs the following steps:
 
-    1. **Detects Project Type**: Determines if you're in an elizaOS project or plugin.
+    1. **Detects Project Type**: Determines if you're in an KIRA OS project or plugin.
     2. **Checks CLI Version**: Compares your installed CLI version with the latest available on npm.
     3. **Scans Dependencies**: Finds all `@elizaos/*` packages in your project's `package.json`.
     4. **Shows Update Plan**: Lists the packages and/or CLI that have available updates.
@@ -8073,9 +7642,9 @@ Update your project's elizaOS dependencies and CLI to the latest published versi
 
     The update command automatically detects:
 
-    * **elizaOS Projects**: Updates project dependencies and rebuilds
-    * **elizaOS Plugins**: Updates plugin dependencies and rebuilds
-    * **Non-elizaOS Projects**: Shows error message
+    * **KIRA OS Projects**: Updates project dependencies and rebuilds
+    * **KIRA OS Plugins**: Updates plugin dependencies and rebuilds
+    * **Non-KIRA OS Projects**: Shows error message
 
     ## Workspace Support
 
@@ -8104,7 +7673,7 @@ Update your project's elizaOS dependencies and CLI to the latest published versi
 
     * Update regularly to get latest features and fixes
     * Use `--check` to monitor available updates
-    * Subscribe to elizaOS release notes
+    * Subscribe to KIRA OS release notes
 
     ### Stability Considerations
 
@@ -8222,12 +7791,12 @@ Simple agents can do one thing at a time. But real tasks are complex:
 Each of these requires **multiple actions** executed in sequence, with results from one feeding into the next.
 
 <Tip>
-  **Action planning lets your agent think in steps.** The LLM decides the sequence, and ElizaOS executes each action, passing results forward automatically.
+  **Action planning lets your agent think in steps.** The LLM decides the sequence, and KIRA OS executes each action, passing results forward automatically.
 </Tip>
 
 ## How It Works
 
-When the LLM returns multiple actions, ElizaOS creates an **ActionPlan**:
+When the LLM returns multiple actions, KIRA OS creates an **ActionPlan**:
 
 ```typescript theme={null}
 interface ActionPlan {
@@ -8828,7 +8397,7 @@ Now that you know how to add multiple agents to a single project, you can add as
   </Card>
 
   <Card title="Publish a Plugin" icon="upload" href="/guides/publish-a-plugin">
-    Learn how to publish your plugins to the elizaOS registry
+    Learn how to publish your plugins to the KIRA OS registry
   </Card>
 </CardGroup>
 
@@ -8850,7 +8419,7 @@ Some operations take too long for a request/response cycle:
 Blocking the main thread kills responsiveness. Polling wastes resources.
 
 <Tip>
-  **Task workers handle the heavy lifting.** Register a worker, create tasks, and ElizaOS executes them in the background with built-in persistence and scheduling.
+  **Task workers handle the heavy lifting.** Register a worker, create tasks, and KIRA OS executes them in the background with built-in persistence and scheduling.
 </Tip>
 
 ## Quick Start
@@ -9236,15 +8805,15 @@ const step1Worker: TaskWorker = {
 # Contribute to Core
 Source: https://docs.elizaos.ai/guides/contribute-to-core
 
-How to contribute to the elizaOS core project and plugin ecosystem
+How to contribute to the KIRA OS core project and plugin ecosystem
 
 <Note>
-  This guide covers contributing to the main elizaOS monorepo and the elizaOS plugin ecosystem.
+  This guide covers contributing to the main KIRA OS monorepo and the KIRA OS plugin ecosystem.
 </Note>
 
 ## Understanding the Ecosystem
 
-elizaOS open source contribution happens across these main areas:
+KIRA OS open source contribution happens across these main areas:
 
 ### Main Repository (Monorepo)
 
@@ -9261,7 +8830,7 @@ elizaOS open source contribution happens across these main areas:
 
 ### Plugin Ecosystem
 
-**[github.com/elizaos-plugins](https://github.com/elizaos-plugins)** - Official plugins maintained by the elizaOS team:
+**[github.com/elizaos-plugins](https://github.com/elizaos-plugins)** - Official plugins maintained by the KIRA OS team:
 
 * `plugin-discord` - Discord integration
 * `plugin-twitter` - Twitter/X integration
@@ -9287,11 +8856,11 @@ Focus on labels like:
   The best way to start contributing is fixing reported bugs rather than writing new features.
 </Note>
 
-### elizaOS-Maintained Plugin Issues
+### KIRA OS-Maintained Plugin Issues
 
-Find issues in elizaOS-maintained plugins (often more focused for first contributions):
+Find issues in KIRA OS-maintained plugins (often more focused for first contributions):
 
-**Official elizaOS plugins:**
+**Official KIRA OS plugins:**
 
 * [plugin-twitter/issues](https://github.com/elizaos-plugins/plugin-twitter/issues)
 * [plugin-discord/issues](https://github.com/elizaos-plugins/plugin-discord/issues)
@@ -9316,7 +8885,7 @@ If you discover a bug without an existing issue:
    * Clear description of the problem
    * Steps to reproduce
    * Expected vs actual behavior
-   * Environment details (OS, Node/Bun version, elizaOS version)
+   * Environment details (OS, Node/Bun version, KIRA OS version)
    * Error messages or logs
 
 ```markdown Issue Template Example theme={null}
@@ -9351,18 +8920,18 @@ Beyond code contributions, you can help in these important areas:
 
 * **Answer questions** in [GitHub Discussions](https://github.com/orgs/elizaOS/discussions) Q\&A section
 * **Help with troubleshooting** - Setup issues, configuration problems, etc.
-* **Share knowledge** in general discussions about elizaOS development
+* **Share knowledge** in general discussions about KIRA OS development
 * **Showcase projects** in show and tell or participate in feature discussions
 
 <Tip>
-  Community contributions like answering questions and writing tutorials are often the most impactful ways to help other developers succeed with elizaOS.
+  Community contributions like answering questions and writing tutorials are often the most impactful ways to help other developers succeed with KIRA OS.
 </Tip>
 
 ***
 
 ## Step 2: Contribution Workflow
 
-elizaOS follows standard open source contribution practices for all repositories.
+KIRA OS follows standard open source contribution practices for all repositories.
 
 ### Clone and Set Up Repository
 
@@ -9436,7 +9005,7 @@ elizaOS follows standard open source contribution practices for all repositories
 
 Connect with core developers and other contributors:
 
-**[Join elizaOS Discord](https://discord.gg/ai16z)**
+**[Join KIRA OS Discord](https://discord.gg/ai16z)**
 
 Key channels for contributors:
 
@@ -9575,7 +9144,7 @@ Create a project with a plugin inside using CLI commands:
 
 <Steps>
   <Step title="Build plugin and test connection">
-    The plugin needs to be built first to create the `dist/` folder that ElizaOS loads from:
+    The plugin needs to be built first to create the `dist/` folder that KIRA OS loads from:
 
     ```bash Terminal theme={null}
     # Build the plugin first
@@ -9907,11 +9476,11 @@ The possibilities are endless!
 
 <CardGroup>
   <Card title="Publish a Plugin" icon="upload" href="/guides/publish-a-plugin">
-    Share your plugin with the elizaOS community
+    Share your plugin with the KIRA OS community
   </Card>
 
   <Card title="Contribute to Core" icon="heart" href="/guides/contribute-to-core">
-    Help improve elizaOS by contributing to the core framework
+    Help improve KIRA OS by contributing to the core framework
   </Card>
 
   <Card title="Plugin Registry" icon="book" href="/plugin-registry/overview">
@@ -9919,7 +9488,7 @@ The possibilities are endless!
   </Card>
 
   <Card title="CLI Reference" icon="terminal" href="/cli-reference/overview">
-    Master all elizaOS CLI commands for plugin development
+    Master all KIRA OS CLI commands for plugin development
   </Card>
 </CardGroup>
 
@@ -9927,10 +9496,10 @@ The possibilities are endless!
 # Customize an Agent
 Source: https://docs.elizaos.ai/guides/customize-an-agent
 
-As a jumping-off point, we will create a custom Shakespeare elizaOS agent with a custom personality and Discord integration
+As a jumping-off point, we will create a custom Shakespeare KIRA OS agent with a custom personality and Discord integration
 
 <Note>
-  This guide assumes you have an elizaOS project set up. If you don't, follow the [quickstart guide](/quickstart)
+  This guide assumes you have an KIRA OS project set up. If you don't, follow the [quickstart guide](/quickstart)
 </Note>
 
 ## Step 1: Customize the personality
@@ -10125,7 +9694,7 @@ Go to `http://localhost:3000` in your browser and start chatting with Shakespear
   To use a different port, run `elizaos dev --port 8080` (or any port number).
 </Note>
 
-<img alt="Shakespeare agent responding in Shakespearean style in the elizaOS web interface" />
+<img alt="Shakespeare agent responding in Shakespearean style in the KIRA OS web interface" />
 
 <Note>
   You can also modify agent settings using the rightmost panel in the GUI, but these changes are runtime-only and won't persist after restarting the server.
@@ -10207,7 +9776,7 @@ Here are some logical next-steps to continue your agent dev journey:
   </Card>
 
   <Card title="Deploy a Project" icon="rocket" href="/guides/deploy-a-project">
-    Ready to go live? Deploy your elizaOS agent to production environments
+    Ready to go live? Deploy your KIRA OS agent to production environments
   </Card>
 
   <Card title="Create a Plugin" icon="code" href="/guides/create-a-plugin">
@@ -10215,7 +9784,7 @@ Here are some logical next-steps to continue your agent dev journey:
   </Card>
 
   <Card title="CLI Reference" icon="terminal" href="/cli-reference/overview">
-    Master all elizaOS CLI commands for efficient agent development
+    Master all KIRA OS CLI commands for efficient agent development
   </Card>
 
   <Card title="Plugin Registry" icon="puzzle-piece" href="/plugin-registry/overview">
@@ -10235,42 +9804,8 @@ From localhost to production in 5 minutes
   **Video Tutorial**: [**Deploying Your Agent to a TEE**](https://www.youtube.com/watch?v=paoryBje404\&list=PLrjBjP4nU8ehOgKAa0-XddHzE0KK0nNvS\&index=7)
 </Tip>
 
-## Eliza Cloud
-
-**Two commands. That's it.**
-
-```bash theme={null}
-elizaos login
-elizaos deploy --project-name my-agent
-```
-
-No Dockerfile to write. No cloud console. No load balancer config. No CI/CD pipeline.
-
-You get a production URL in \~5 minutes, with automatic HTTPS, health monitoring, and zero-downtime updates built in.
-
-Beyond deployment: on-chain agent discovery (ERC-8004), crypto payments (X402), and a marketplace to publish and monetize your agents.
-
-<Card title="Get Started with Eliza Cloud" icon="rocket" href="/guides/deploy-to-cloud">
-  Full guide: auth, custom resources, logs, troubleshooting
-</Card>
-
-***
-
-## Other Options
-
-Need more control? Here's how Eliza Cloud compares:
-
-|                        | Eliza Cloud | Railway/Render | Self-Hosted |
-| ---------------------- | :---------: | :------------: | :---------: |
-| **Setup time**         |    5 min    |    15-30 min   |  1-2 hours  |
-| **Commands to deploy** |      2      |    10+ steps   |  20+ steps  |
-| **Docker knowledge**   |  Not needed |      Basic     |   Required  |
-| **Server management**  |     None    |      None      |  All on you |
-| **Scaling**            |  Automatic  |    Automatic   |    Manual   |
-| **elizaOS optimized**  |      ✅      |        ❌       |      ❌      |
-
 <Note>
-  **For Advanced Users:** If you're experienced with server administration and networking, you can deploy elizaOS like any Node.js application using your preferred infrastructure setup. The sections below are for developers looking for guided deployment paths.
+  **For Advanced Users:** If you're experienced with server administration and networking, you can deploy KIRA OS like any Node.js application using your preferred infrastructure setup. The sections below are for developers looking for guided deployment paths.
 </Note>
 
 ***
@@ -10525,7 +10060,7 @@ Deploy on your own Virtual Private Server (VPS) for more control and predictable
 
 [Phala website](https://phala.network) | [Phala docs](https://docs.phala.network) | [Video Tutorial](https://www.youtube.com/watch?v=paoryBje404\&t=8s)
 
-Phala offers secure deployment with excellent elizaOS integration and a good CLI. Perfect for production agents requiring a good mix of cost-effective and good security.
+Phala offers secure deployment with excellent KIRA OS integration and a good CLI. Perfect for production agents requiring a good mix of cost-effective and good security.
 
 <Steps>
   <Step title="Create your project">
@@ -10672,277 +10207,7 @@ Phala offers secure deployment with excellent elizaOS integration and a good CLI
   </Card>
 
   <Card title="Publish a Plugin" icon="upload" href="/guides/publish-a-plugin">
-    Share your custom plugins with the elizaOS community
-  </Card>
-</CardGroup>
-
-
-# Deploy to Eliza Cloud
-Source: https://docs.elizaos.ai/guides/deploy-to-cloud
-
-Ship your agent with a single command - infrastructure and monitoring handled for you
-
-## Why Eliza Cloud?
-
-You built an agent. Now you need it running 24/7, accessible from anywhere, with proper monitoring.
-
-The traditional path: write a Dockerfile, configure cloud infrastructure, set up load balancing, create CI/CD pipelines, manage SSL certificates, configure health checks...
-
-**With Eliza Cloud: two commands.**
-
-```bash theme={null}
-elizaos login
-elizaos deploy --project-name my-agent
-```
-
-That's not a simplified example. That's the entire deployment process.
-
-<CardGroup>
-  <Card title="5 minutes" icon="clock">
-    From code to production URL
-  </Card>
-
-  <Card title="Zero config" icon="wand-magic-sparkles">
-    No infrastructure setup needed
-  </Card>
-
-  <Card title="Built for elizaOS" icon="microchip">
-    Optimized for agent workloads
-  </Card>
-</CardGroup>
-
-Beyond deployment: on-chain agent discovery (ERC-8004), crypto payments (X402), and a marketplace to publish and monetize your agents.
-
-***
-
-## Quick Start
-
-<Steps>
-  <Step title="Sign up">
-    Create your account at [elizacloud.ai](https://elizacloud.ai)
-  </Step>
-
-  <Step title="Login from CLI">
-    ```bash theme={null}
-    elizaos login
-    ```
-
-    Opens your browser for auth. Your API key is saved automatically.
-  </Step>
-
-  <Step title="Deploy">
-    ```bash theme={null}
-    elizaos deploy --project-name my-agent
-    ```
-
-    First deploy: \~5 min. Updates: \~2 min.
-  </Step>
-</Steps>
-
-<Tip>
-  **That's it.** You now have a production agent at `https://{userId}-{project-name}.containers.elizacloud.ai`
-</Tip>
-
-***
-
-## What You Get
-
-Every deployment includes:
-
-<CardGroup>
-  <Card title="Dedicated EC2 Instance" icon="server">
-    Your own t4g.small ARM server, not shared resources
-  </Card>
-
-  <Card title="HTTPS by Default" icon="lock">
-    SSL certificates handled automatically
-  </Card>
-
-  <Card title="Health Monitoring" icon="heart-pulse">
-    24/7 checks with automatic alerting
-  </Card>
-
-  <Card title="Zero-Downtime Updates" icon="rotate">
-    Push updates without interruption
-  </Card>
-
-  <Card title="Persistent URL" icon="link">
-    Same URL across all deployments
-  </Card>
-
-  <Card title="Real-time Logs" icon="terminal">
-    `elizaos containers logs --follow`
-  </Card>
-</CardGroup>
-
-Under the hood, the CLI builds your Docker image, pushes it to AWS ECR, and deploys to a dedicated EC2 instance with load balancing configured.
-
-## Customize Your Deployment
-
-The defaults work for most agents. When you need more control:
-
-### Add Environment Variables
-
-```bash theme={null}
-elizaos deploy \
-  --project-name my-agent \
-  --env "OPENAI_API_KEY=sk-xxx" \
-  --env "DATABASE_URL=postgresql://..."
-```
-
-### Scale Resources
-
-```bash theme={null}
-elizaos deploy \
-  --project-name my-agent \
-  --cpu 512 \
-  --memory 1024 \
-  --desired-count 2  # Multiple instances
-```
-
-| Option            | Default | Description                    |
-| ----------------- | ------- | ------------------------------ |
-| `--cpu`           | 1792    | CPU units (1792 = 1.75 vCPU)   |
-| `--memory`        | 1792    | Memory in MB (1792 = 1.75 GiB) |
-| `--desired-count` | 1       | Number of container instances  |
-| `--port`          | 3000    | Container port                 |
-
-### Update Your Agent
-
-Same command, zero downtime:
-
-```bash theme={null}
-elizaos deploy --project-name my-agent
-```
-
-The CLI detects it's an update and rolls out changes without interruption.
-
-***
-
-## Managing Deployments
-
-### View Your Agents
-
-```bash theme={null}
-elizaos containers list
-```
-
-### Check Logs
-
-```bash theme={null}
-# Real-time logs
-elizaos containers logs --follow
-
-# Last 200 lines
-elizaos containers logs --tail 200
-```
-
-### Remove a Deployment
-
-```bash theme={null}
-elizaos containers delete --project-name my-agent
-```
-
-## Troubleshooting
-
-### Login Issues
-
-**"Browser didn't open"**
-
-```bash theme={null}
-elizaos login --no-browser
-```
-
-**"Authentication timed out"**
-
-```bash theme={null}
-elizaos login --timeout 600
-```
-
-**"API key not found after login"**
-
-* Ensure you ran `elizaos login` from your project directory
-* Check `.env` for `ELIZAOS_CLOUD_API_KEY`
-* Verify the key starts with `eliza_`
-
-### Deployment Issues
-
-**"Docker not running"**
-
-Start Docker Desktop, then verify with `docker info`.
-
-**"API key invalid"**
-
-* Check you copied the full key (starts with `eliza_`)
-* Verify: `echo $ELIZAOS_CLOUD_API_KEY`
-
-**"Build failed"**
-
-* Ensure your project has a `Dockerfile`
-* Check Docker has enough resources (Settings → Resources)
-* Try: `docker build .`
-
-**"Deployment stuck"**
-
-* Check logs: `elizaos containers logs --project-name my-agent`
-* Verify you have credits in your account
-
-## CLI Reference
-
-### Authentication
-
-| Command                       | Description                  |
-| ----------------------------- | ---------------------------- |
-| `elizaos login`               | Authenticate (opens browser) |
-| `elizaos login --no-browser`  | Authenticate without browser |
-| `elizaos login --timeout 600` | Custom timeout (seconds)     |
-
-### Deployment
-
-| Command                                | Description                        |
-| -------------------------------------- | ---------------------------------- |
-| `elizaos deploy --project-name <name>` | Deploy with project name           |
-| `elizaos deploy --api-key <key>`       | Deploy with explicit API key       |
-| `elizaos deploy --port <port>`         | Set container port (default: 3000) |
-| `elizaos deploy --cpu <units>`         | Set CPU units (default: 1792)      |
-| `elizaos deploy --memory <mb>`         | Set memory in MB (default: 1792)   |
-| `elizaos deploy --desired-count <n>`   | Set instance count (default: 1)    |
-| `elizaos deploy --env "KEY=VALUE"`     | Add environment variable           |
-| `elizaos deploy --skip-build`          | Skip Docker build                  |
-| `elizaos deploy --platform <arch>`     | Set Docker platform                |
-
-### Container Management
-
-| Command                              | Description                 |
-| ------------------------------------ | --------------------------- |
-| `elizaos containers list`            | List all deployments        |
-| `elizaos containers list --json`     | List as JSON                |
-| `elizaos containers logs`            | View logs                   |
-| `elizaos containers logs --follow`   | Follow log output           |
-| `elizaos containers logs --tail <n>` | Show last N lines           |
-| `elizaos containers delete`          | Delete deployment           |
-| `elizaos containers delete --force`  | Delete without confirmation |
-
-## Environment Variables
-
-The CLI looks for API keys in this order:
-
-1. `--api-key` flag (if provided)
-2. `ELIZAOS_API_KEY` environment variable
-3. `ELIZAOS_CLOUD_API_KEY` environment variable
-4. `ELIZAOS_CLOUD_API_KEY` in project `.env` file
-
-The `elizaos login` command writes to `ELIZAOS_CLOUD_API_KEY` in your project's `.env` file.
-
-## Next Steps
-
-<CardGroup>
-  <Card title="TEE Integration" icon="shield-halved" href="/guides/tee-integration">
-    Deploy with Trusted Execution Environment for enhanced security
-  </Card>
-
-  <Card title="Self-Hosted Options" icon="server" href="/guides/deploy-a-project#option-2-self-hosted">
-    Full control with your own infrastructure
+    Share your custom plugins with the KIRA OS community
   </Card>
 </CardGroup>
 
@@ -10950,7 +10215,7 @@ The `elizaos login` command writes to `ELIZAOS_CLOUD_API_KEY` in your project's 
 # Publish a Plugin
 Source: https://docs.elizaos.ai/guides/publish-a-plugin
 
-Publish your elizaOS plugin to the elizaOS registry
+Publish your KIRA OS plugin to the KIRA OS registry
 
 <Tip>
   **Video Tutorial**: [**Create + Publish Your Own Plugin**](https://www.youtube.com/watch?v=3wVxXMwSzX4\&list=PLrjBjP4nU8ehOgKAa0-XddHzE0KK0nNvS\&index=6)
@@ -11152,7 +10417,7 @@ You will be asked for a scoped Github token and given these instructions:
   <Step title="Create GitHub Personal Access Token (when prompted)">
     1. Go to [GitHub Settings → Developer settings → Personal access tokens](https://github.com/settings/tokens)
     2. Click **"Generate new token (classic)"**
-    3. Name it **"elizaOS Publishing"**
+    3. Name it **"KIRA OS Publishing"**
     4. Select these scopes:
        * `repo` (Full control of private repositories)
        * `read:org` (Read organization membership)
@@ -11192,7 +10457,7 @@ GitHub: https://github.com/yourusername/plugin-fal-ai
 
 ### Registry approval
 
-An elizaOS core team member will review your registry pull request to ensure all requirements are met, the plugin is free of malicious code, and it functions as intended with proper images and a quality description.
+An KIRA OS core team member will review your registry pull request to ensure all requirements are met, the plugin is free of malicious code, and it functions as intended with proper images and a quality description.
 
 **Typical review time:** 1-3 business days
 
@@ -11238,7 +10503,7 @@ git commit -m "Update to version x.y.z"
 git push origin main
 ```
 
-The elizaOS registry automatically syncs with npm updates, so you don't need to manually update the registry.
+The KIRA OS registry automatically syncs with npm updates, so you don't need to manually update the registry.
 
 ***
 
@@ -11246,7 +10511,7 @@ The elizaOS registry automatically syncs with npm updates, so you don't need to 
 
 <CardGroup>
   <Card title="Contribute to Core" icon="heart" href="/guides/contribute-to-core">
-    Help improve elizaOS by contributing to the core framework
+    Help improve KIRA OS by contributing to the core framework
   </Card>
 
   <Card title="Plugin Registry" icon="book" href="/plugin-registry/overview">
@@ -11254,7 +10519,7 @@ The elizaOS registry automatically syncs with npm updates, so you don't need to 
   </Card>
 
   <Card title="CLI Reference" icon="terminal" href="/cli-reference/overview">
-    Master all elizaOS CLI commands for development
+    Master all KIRA OS CLI commands for development
   </Card>
 
   <Card title="Join Discord Community" icon="users" href="https://discord.gg/ai16z">
@@ -11280,7 +10545,7 @@ Traditional request/response patterns make your agent feel sluggish, even when t
 
 ## Quick Start
 
-ElizaOS supports three response modes out of the box:
+KIRA OS supports three response modes out of the box:
 
 | Mode          | Latency                    | Use Case                              |
 | ------------- | -------------------------- | ------------------------------------- |
@@ -11392,7 +10657,7 @@ The streaming API emits these event types:
 
 ## Custom Stream Extractors
 
-ElizaOS uses **stream extractors** to filter LLM output for streaming. The framework provides several built-in extractors:
+KIRA OS uses **stream extractors** to filter LLM output for streaming. The framework provides several built-in extractors:
 
 ### PassthroughExtractor
 
@@ -11584,7 +10849,7 @@ Your agent handles API keys, user data, maybe crypto wallets. How do users know 
 
 ## What TEE Gives You
 
-TEE integration allows your ElizaOS agents to run in secure enclaves with:
+TEE integration allows your KIRA OS agents to run in secure enclaves with:
 
 * **Remote attestation**: Cryptographic proof of code integrity
 * **Secure key derivation**: Keys derived within the enclave
@@ -11696,7 +10961,7 @@ interface DeriveKeyAttestationData {
 
 ## TEE Providers
 
-ElizaOS supports multiple TEE providers. See the [TEE CLI Reference](/cli-reference/tee) for complete deployment commands.
+KIRA OS supports multiple TEE providers. See the [TEE CLI Reference](/cli-reference/tee) for complete deployment commands.
 
 ### Phala Network
 
@@ -11815,10 +11080,10 @@ Keys derived in TEE:
 # Test a Project
 Source: https://docs.elizaos.ai/guides/test-a-project
 
-Write tests for your multi-agent elizaOS project
+Write tests for your multi-agent KIRA OS project
 
 <Tip>
-  **Video Tutorial**: [**Testing Projects and Plugins with elizaOS**](https://www.youtube.com/watch?v=HHbY9a27b6A\&list=PLrjBjP4nU8ehOgKAa0-XddHzE0KK0nNvS\&index=5)
+  **Video Tutorial**: [**Testing Projects and Plugins with KIRA OS**](https://www.youtube.com/watch?v=HHbY9a27b6A\&list=PLrjBjP4nU8ehOgKAa0-XddHzE0KK0nNvS\&index=5)
 </Tip>
 
 <Note>
@@ -11835,7 +11100,7 @@ We added a bunch of new features to our project. In addition to the default test
 | **Multi-agent runtime**       | E2E       | Both agents initialize and run simultaneously                 |
 
 <Note>
-  ElizaOS projects ship with comprehensive built-in tests for core functionality (character config, plugin loading, runtime behavior). For details on the default test structure, see [Testing Projects](/projects/overview#testing-projects).
+  KIRA OS projects ship with comprehensive built-in tests for core functionality (character config, plugin loading, runtime behavior). For details on the default test structure, see [Testing Projects](/projects/overview#testing-projects).
 </Note>
 
 ### Create component tests
@@ -11964,11 +11229,11 @@ For complete test runner options, see the [CLI Test Reference](/cli-reference/te
   </Card>
 
   <Card title="Publish a Plugin" icon="upload" href="/guides/publish-a-plugin">
-    Learn how to publish your plugins to the elizaOS registry
+    Learn how to publish your plugins to the KIRA OS registry
   </Card>
 
   <Card title="Contribute to Core" icon="heart" href="/guides/contribute-to-core">
-    Help improve elizaOS by contributing to the core framework
+    Help improve KIRA OS by contributing to the core framework
   </Card>
 </CardGroup>
 
@@ -11977,10 +11242,6 @@ For complete test runner options, see the [CLI Test Reference](/cli-reference/te
 Source: https://docs.elizaos.ai/index
 
 Build autonomous AI agents with the most popular agentic framework
-
-<Card title="$elizaOS Token Information" icon="coins" href="/tokenomics">
-  Tokenomics, contract addresses, vesting schedules, and token release details
-</Card>
 
 ## Build AI Agents That Actually Work
 
@@ -11992,21 +11253,20 @@ elizaos create            # Create your project
 elizaos start             # Your agent is live
 ```
 
-elizaOS is the TypeScript framework for building AI agents that think, learn, and act autonomously. Define a personality, add plugins, deploy anywhere.
+KIRA OS is the TypeScript framework for building AI agents that think, learn, and act autonomously. Define a personality, add plugins, deploy anywhere.
 
 <CardGroup>
   <Card title="Quickstart" icon="rocket" href="/quickstart" />
 
   <Card title="What You Can Build" icon="lightbulb-on" href="/what-you-can-build" />
 
-  <Card title="Deploy to Eliza Cloud" icon="cloud" href="/guides/deploy-to-cloud" />
 
   <Card title="Plugin Registry" icon="puzzle-piece" href="/plugin-registry/overview" />
 </CardGroup>
 
 ***
 
-## Why elizaOS?
+## Why KIRA OS?
 
 <CardGroup>
   <Card title="90+ Plugins" icon="puzzle-piece">
@@ -12018,7 +11278,6 @@ elizaOS is the TypeScript framework for building AI agents that think, learn, an
   </Card>
 
   <Card title="Deploy Anywhere" icon="server">
-    Local, Docker, Eliza Cloud, or your own infrastructure
   </Card>
 </CardGroup>
 
@@ -12056,40 +11315,40 @@ Your agents can trade onchain, manage social media, create content, analyze data
 # Installation
 Source: https://docs.elizaos.ai/installation
 
-Install elizaOS on macOS, Linux, or Windows
+Install KIRA OS on macOS, Linux, or Windows
 
 ## Prerequisites
 
-Before installing elizaOS, ensure you have the following:
+Before installing KIRA OS, ensure you have the following:
 
 * **Node.js 23.3+**: Install Node.js version 23.3 or higher from [nodejs.org](https://nodejs.org/)
 * **Bun**: Install the latest Bun runtime from [bun.sh](https://bun.sh/)
 
 <Note>
-  **Windows Users:** You have two options for installing elizaOS:
+  **Windows Users:** You have two options for installing KIRA OS:
 
   **Option 1:** Use WSL2 ([Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install)) for a Linux environment on Windows
 
-  **Option 2:** Install natively on Windows, but first install [Git Bash](https://git-scm.com/downloads) and use it as your terminal for installing and running Node.js, Bun, and the elizaOS CLI
+  **Option 2:** Install natively on Windows, but first install [Git Bash](https://git-scm.com/downloads) and use it as your terminal for installing and running Node.js, Bun, and the KIRA OS CLI
 </Note>
 
-## Installing elizaOS
+## Installing KIRA OS
 
-Once you have Node.js and Bun installed, you can install the elizaOS CLI globally:
+Once you have Node.js and Bun installed, you can install the KIRA OS CLI globally:
 
 ```bash Terminal theme={null}
 bun i -g @elizaos/cli
 ```
 
-This installs the `elizaos` command globally on your system, allowing you to create and manage elizaOS projects from anywhere.
+This installs the `elizaos` command globally on your system, allowing you to create and manage KIRA OS projects from anywhere.
 
 <Note>
-  **Important:** You don't need to clone the elizaOS repository to build agents. The CLI handles everything for you. Only clone the monorepo if you're [contributing to core](/guides/contribute-to-core).
+  **Important:** You don't need to clone the KIRA OS repository to build agents. The CLI handles everything for you. Only clone the monorepo if you're [contributing to core](/guides/contribute-to-core).
 </Note>
 
 ## Verify Installation
 
-After installation, verify that elizaOS CLI is properly installed:
+After installation, verify that KIRA OS CLI is properly installed:
 
 ```bash Terminal theme={null}
 elizaos --version
@@ -12159,7 +11418,7 @@ You should see the version number of the installed CLI.
   </Accordion>
 
   <Accordion icon="windows" title="Windows Installation Issues">
-    If you're installing elizaOS natively on Windows (not using WSL2), follow these steps ( or watch the tutorial video [here](https://youtu.be/QiRg0C1zDjU?si=akR0bIbbiWYVxEQd)):
+    If you're installing KIRA OS natively on Windows (not using WSL2), follow these steps ( or watch the tutorial video [here](https://youtu.be/QiRg0C1zDjU?si=akR0bIbbiWYVxEQd)):
 
     **Step 1: Install Git Bash**
 
@@ -12200,7 +11459,7 @@ You should see the version number of the installed CLI.
     powershell -c "irm bun.sh/install.ps1 | iex"
     ```
 
-    **Step 6: Install elizaOS CLI**
+    **Step 6: Install KIRA OS CLI**
 
     * In Git Bash, run:
 
@@ -12216,7 +11475,7 @@ You should see the version number of the installed CLI.
   </Accordion>
 
   <Accordion icon="wrench" title="CLI Installation Issues">
-    **If elizaOS CLI fails to install:**
+    **If KIRA OS CLI fails to install:**
 
     * Clear Bun cache: `bun pm cache rm`
     * Try reinstalling: `bun i -g @elizaos/cli`
@@ -12241,7 +11500,7 @@ You should see the version number of the installed CLI.
   <Accordion icon="gear" title="CLI Version Conflicts/Mismatches">
     **If `elizaos --version` shows an older version despite installing a newer one:**
 
-    This usually happens when elizaOS CLI was installed with different package managers (npm, pnpm, bun), creating version conflicts.
+    This usually happens when KIRA OS CLI was installed with different package managers (npm, pnpm, bun), creating version conflicts.
 
     **Solution - Clean install with bun only:**
 
@@ -12274,59 +11533,17 @@ You should see the version number of the installed CLI.
     source ~/.bashrc  # or source ~/.zshrc
     ```
 
-    **Important:** Always use bun for elizaOS CLI installation to avoid conflicts. Don't mix package managers.
+    **Important:** Always use bun for KIRA OS CLI installation to avoid conflicts. Don't mix package managers.
   </Accordion>
 </AccordionGroup>
-
-
-# Launch Resources
-Source: https://docs.elizaos.ai/launch-resources/index
-
-Tools and support to grow your elizaOS project
-
-elizaOS is a vibrant ecosystem and community of builders. We support projects building on our platform. Whatever stage of development your application or project is in, we have systems designed to support your success. If you build on elizaOS, we WILL help you.
-
-This page is pretty sparse right now, but we're actively adding more resources.
-
-<Note>
-  **Stay Connected**: The best way to stay plugged in is through [Discord](https://discord.gg/ai16z). That's where you'll hear about new opportunities, connect with other builders, and get the most up-to-date info.
-</Note>
-
-Below are the main resources we offer today. Apply to whatever makes sense for your project:
-
-<CardGroup>
-  <Card title="Builder Demos" icon="video" href="https://tally.so/r/3x7Mdr">
-    Present live on Discord (Tuesdays 3pm UTC)
-  </Card>
-
-  <Card title="Marketing Amplification" icon="bullhorn" href="https://docs.google.com/forms/d/e/1FAIpQLSdA0zucP8UOT6P-iLXVyfQVw8ZFyIJ5zTWyQesqQsD4MATvuA/viewform">
-    Request amplification for your elizaOS project
-  </Card>
-
-  <Card title="Ecosystem Fund" icon="hand-holding-dollar" href="https://docs.google.com/forms/d/e/1FAIpQLSfStJg9lAy4J0Dyxdq8QOfpUzqp0CKeXtjpqrFB7D6U406FMg/viewform">
-    Apply for ecosystem funding by filling this form
-  </Card>
-
-  <Card title="Beta Tester" icon="flask" href="https://tally.so/r/nWdJ1Q">
-    Apply to join our group of beta testers
-  </Card>
-
-  <Card title="Brand Kit" icon="palette" href="https://github.com/elizaOS/brandkit">
-    Access all brand assets like logos, badges and more
-  </Card>
-
-  <Card title="Developer Calendar" icon="calendar" href="https://calendar.google.com/calendar/u/0/embed?src=c_ed31cea342d3e2236f549161e6446c3e407e5625ee7a355c0153befc7a602e7f@group.calendar.google.com&ctz=America/Toronto">
-    Join community calls and ecosystem events
-  </Card>
-</CardGroup>
 
 
 # Message Processing Core
 Source: https://docs.elizaos.ai/plugin-registry/bootstrap
 
-Comprehensive documentation for @elizaos/plugin-bootstrap - the core message handler and event system for elizaOS agents
+Comprehensive documentation for @elizaos/plugin-bootstrap - the core message handler and event system for KIRA OS agents
 
-Welcome to the comprehensive documentation for the `@elizaos/plugin-bootstrap` package - the core message handler and event system for elizaOS agents.
+Welcome to the comprehensive documentation for the `@elizaos/plugin-bootstrap` package - the core message handler and event system for KIRA OS agents.
 
 ## 📚 Documentation Structure
 
@@ -12352,9 +11569,9 @@ Comprehensive technical documentation for the bootstrap plugin's architecture, c
 
 ## Overview
 
-The `@elizaos/plugin-bootstrap` package is the **core message handler** for elizaOS agents. It provides the fundamental event handlers, actions, providers, evaluators, and services that enable agents to process messages from any communication platform (Discord, Telegram, message bus server, etc.) and generate intelligent responses.
+The `@elizaos/plugin-bootstrap` package is the **core message handler** for KIRA OS agents. It provides the fundamental event handlers, actions, providers, evaluators, and services that enable agents to process messages from any communication platform (Discord, Telegram, message bus server, etc.) and generate intelligent responses.
 
-This plugin is essential for any elizaOS agent as it contains the core logic for:
+This plugin is essential for any KIRA OS agent as it contains the core logic for:
 
 * Processing incoming messages
 * Determining whether to respond
@@ -13256,7 +12473,7 @@ await runtime.createTask({
 
 ## Summary
 
-The `@elizaos/plugin-bootstrap` package is the heart of elizaOS's message processing system. It provides a complete framework for:
+The `@elizaos/plugin-bootstrap` package is the heart of KIRA OS's message processing system. It provides a complete framework for:
 
 * Receiving and processing messages from any platform
 * Making intelligent response decisions
@@ -13265,7 +12482,7 @@ The `@elizaos/plugin-bootstrap` package is the heart of elizaOS's message proces
 * Learning from interactions
 * Managing background tasks
 
-Understanding this plugin is essential for developing effective elizaOS agents and extending the platform's capabilities.
+Understanding this plugin is essential for developing effective KIRA OS agents and extending the platform's capabilities.
 
 
 # Implementation Examples
@@ -17935,9 +17152,9 @@ Before production use:
 # Knowledge & RAG System
 Source: https://docs.elizaos.ai/plugin-registry/knowledge
 
-The core RAG (Retrieval-Augmented Generation) system for elizaOS agents
+The core RAG (Retrieval-Augmented Generation) system for KIRA OS agents
 
-The Knowledge Plugin is elizaOS's core RAG system, providing intelligent document management and retrieval capabilities. It enables agents to maintain long-term memory, answer questions from uploaded documents, and learn from conversations.
+The Knowledge Plugin is KIRA OS's core RAG system, providing intelligent document management and retrieval capabilities. It enables agents to maintain long-term memory, answer questions from uploaded documents, and learn from conversations.
 
 ## Key Features
 
@@ -17981,7 +17198,7 @@ The Knowledge Plugin is elizaOS's core RAG system, providing intelligent documen
 
 ## What is the Knowledge Plugin?
 
-The Knowledge Plugin transforms your elizaOS agent into an intelligent knowledge base that can:
+The Knowledge Plugin transforms your KIRA OS agent into an intelligent knowledge base that can:
 
 * **Store and retrieve documents** in multiple formats
 * **Answer questions** using semantic search
@@ -18531,7 +17748,7 @@ Source: https://docs.elizaos.ai/plugin-registry/knowledge/complete-documentation
 
 Comprehensive technical reference for the Knowledge plugin
 
-The `@elizaos/plugin-knowledge` package provides Retrieval Augmented Generation (RAG) capabilities for elizaOS agents. It enables agents to store, search, and automatically use knowledge from uploaded documents and text.
+The `@elizaos/plugin-knowledge` package provides Retrieval Augmented Generation (RAG) capabilities for KIRA OS agents. It enables agents to store, search, and automatically use knowledge from uploaded documents and text.
 
 ## Key Features
 
@@ -19402,7 +18619,7 @@ Key features:
 * Support for contextual embeddings
 * Provider-agnostic embedding support
 
-The plugin seamlessly integrates with elizaOS agents to provide them with a searchable knowledge base that enhances their ability to provide accurate, contextual responses.
+The plugin seamlessly integrates with KIRA OS agents to provide them with a searchable knowledge base that enhances their ability to provide accurate, contextual responses.
 
 
 # Contextual Embeddings
@@ -19743,7 +18960,7 @@ Contextual embeddings significantly improve retrieval accuracy by:
 * Preserving the original text while enriching with context
 * Leveraging caching for cost-efficient processing
 
-The implementation is based on Anthropic's proven approach and integrates seamlessly with elizaOS's existing infrastructure. Simply set `CTX_KNOWLEDGE_ENABLED=true` and configure your text generation provider to get started!
+The implementation is based on Anthropic's proven approach and integrates seamlessly with KIRA OS's existing infrastructure. Simply set `CTX_KNOWLEDGE_ENABLED=true` and configure your text generation provider to get started!
 
 
 # Examples & Recipes
@@ -20101,7 +19318,7 @@ Give your AI agent the ability to learn from documents and answer questions base
 
 ### Step 1: Add the Plugin
 
-The Knowledge plugin works automatically with any elizaOS agent. Just add it to your agent's plugin list:
+The Knowledge plugin works automatically with any KIRA OS agent. Just add it to your agent's plugin list:
 
 ```typescript theme={null}
 // In your character file (e.g., character.ts)
@@ -20346,15 +19563,15 @@ Now that you have the basics working:
 # Language Model Configuration
 Source: https://docs.elizaos.ai/plugin-registry/llm
 
-Understanding and configuring Language Model plugins in elizaOS
+Understanding and configuring Language Model plugins in KIRA OS
 
-elizaOS uses a plugin-based architecture for integrating different Language Model providers. This guide explains how to configure and use LLM plugins, including fallback mechanisms for embeddings and model registration.
+KIRA OS uses a plugin-based architecture for integrating different Language Model providers. This guide explains how to configure and use LLM plugins, including fallback mechanisms for embeddings and model registration.
 
 ## Key Concepts
 
 ### Model Types
 
-elizaOS supports many types of AI operations. Here are the most common ones:
+KIRA OS supports many types of AI operations. Here are the most common ones:
 
 1. **TEXT\_GENERATION** (`TEXT_SMALL`, `TEXT_LARGE`) - Having conversations and generating responses
 2. **TEXT\_EMBEDDING** - Converting text into numbers for memory and search
@@ -20418,7 +19635,7 @@ Think of it like choosing team players - you pick specialists first, then all-ro
 
 ### Why This Order Matters
 
-When you ask elizaOS to do something, it looks for the best model in order:
+When you ask KIRA OS to do something, it looks for the best model in order:
 
 * **Generate text?** → Anthropic gets first shot (if loaded)
 * **Create embeddings?** → Anthropic can't, so OpenAI steps in
@@ -20462,9 +19679,9 @@ runtime.registerModel(
 );
 ```
 
-### How elizaOS Picks the Right Model
+### How KIRA OS Picks the Right Model
 
-When you ask elizaOS to do something, it:
+When you ask KIRA OS to do something, it:
 
 1. **Checks what type of work it is** (text? embeddings? objects?)
 2. **Looks at who signed up** for that job
@@ -20485,15 +19702,15 @@ But for embeddings:
 
 ## Embedding Fallback Strategy
 
-Remember: Not all plugins can create embeddings! Here's how elizaOS handles this:
+Remember: Not all plugins can create embeddings! Here's how KIRA OS handles this:
 
 **The Problem**:
 
 * You're using Anthropic (great at chat, can't do embeddings)
-* But elizaOS needs embeddings for memory and search
+* But KIRA OS needs embeddings for memory and search
 
 **The Solution**:
-elizaOS automatically finds another plugin that CAN do embeddings!
+KIRA OS automatically finds another plugin that CAN do embeddings!
 
 ```typescript theme={null}
 // What happens behind the scenes:
@@ -20698,7 +19915,7 @@ The `modelProvider` field is now ignored. All model configuration happens throug
 # Anthropic Plugin
 Source: https://docs.elizaos.ai/plugin-registry/llm/anthropic
 
-Claude models integration for elizaOS
+Claude models integration for KIRA OS
 
 The Anthropic plugin provides access to Claude models for text generation. Note that it does not support embeddings, so you'll need a fallback plugin.
 
@@ -20798,7 +20015,7 @@ You can use any available Claude model, including:
 # Google GenAI Plugin
 Source: https://docs.elizaos.ai/plugin-registry/llm/google-genai
 
-Google Gemini models integration for elizaOS
+Google Gemini models integration for KIRA OS
 
 ## Features
 
@@ -20909,7 +20126,7 @@ Control content filtering:
 # Ollama Plugin
 Source: https://docs.elizaos.ai/plugin-registry/llm/ollama
 
-Local model execution via Ollama for elizaOS
+Local model execution via Ollama for KIRA OS
 
 The Ollama plugin provides local model execution and can serve as a fallback option when cloud-based LLM providers are not configured. It requires running an Ollama server locally.
 
@@ -21041,7 +20258,7 @@ ollama serve
 # OpenAI Plugin
 Source: https://docs.elizaos.ai/plugin-registry/llm/openai
 
-OpenAI GPT models integration for elizaOS
+OpenAI GPT models integration for KIRA OS
 
 The OpenAI plugin provides access to GPT models and supports all model types: text generation, embeddings, and object generation.
 
@@ -21247,27 +20464,27 @@ OpenRouter charges a small markup (usually \~10%) on top of provider prices:
 # Plugin System Overview
 Source: https://docs.elizaos.ai/plugin-registry/overview
 
-Comprehensive guide to the elizaOS plugin system architecture and implementation
+Comprehensive guide to the KIRA OS plugin system architecture and implementation
 
 ## Overview
 
-The elizaOS plugin system is a comprehensive extension mechanism that allows developers to add functionality to agents through a well-defined interface. This analysis examines the complete plugin architecture by analyzing the source code and comparing it with the documentation.
+The KIRA OS plugin system is a comprehensive extension mechanism that allows developers to add functionality to agents through a well-defined interface. This analysis examines the complete plugin architecture by analyzing the source code and comparing it with the documentation.
 
 ## Core Plugins
 
-elizaOS includes essential core plugins that provide foundational functionality:
+KIRA OS includes essential core plugins that provide foundational functionality:
 
 <CardGroup>
   <Card title="Bootstrap Plugin" icon="rocket" href="/plugin-registry/bootstrap">
-    The core message handler and event system for elizaOS agents. Provides essential functionality for message processing, knowledge management, and basic agent operations.
+    The core message handler and event system for KIRA OS agents. Provides essential functionality for message processing, knowledge management, and basic agent operations.
   </Card>
 
   <Card title="SQL Plugin" icon="database" href="/plugin-registry/sql">
-    Database integration and management for elizaOS. Features automatic schema migrations, multi-database support, and a sophisticated plugin architecture.
+    Database integration and management for KIRA OS. Features automatic schema migrations, multi-database support, and a sophisticated plugin architecture.
   </Card>
 
   <Card title="Knowledge Plugin" icon="brain" href="/plugin-registry/knowledge">
-    Advanced knowledge base and RAG system for elizaOS. Provides semantic search, contextual embeddings, and intelligent document processing.
+    Advanced knowledge base and RAG system for KIRA OS. Provides semantic search, contextual embeddings, and intelligent document processing.
   </Card>
 </CardGroup>
 
@@ -21330,7 +20547,7 @@ Choose from various language model providers:
 Explore the complete collection of community-contributed plugins in our dedicated registry.
 
 <Card title="Browse Plugin Registry" icon="puzzle-piece" href="/plugin-registry/registry">
-  Access the full plugin registry with real-time updates, detailed plugin information, version tracking, and easy installation instructions for all v1 compatible elizaOS plugins.
+  Access the full plugin registry with real-time updates, detailed plugin information, version tracking, and easy installation instructions for all v1 compatible KIRA OS plugins.
 </Card>
 
 ## 1. Complete Plugin Interface
@@ -21641,7 +20858,7 @@ Source: https://docs.elizaos.ai/plugin-registry/platform/discord
 
 Welcome to the comprehensive documentation for the @elizaos/plugin-discord package. This index provides organized access to all documentation resources.
 
-The @elizaos/plugin-discord enables your elizaOS agent to operate as a Discord bot with full support for messages, voice channels, slash commands, and media processing.
+The @elizaos/plugin-discord enables your KIRA OS agent to operate as a Discord bot with full support for messages, voice channels, slash commands, and media processing.
 
 ## 📚 Documentation
 
@@ -21666,11 +20883,11 @@ The @elizaos/plugin-discord enables your elizaOS agent to operate as a Discord b
 # Developer Guide
 Source: https://docs.elizaos.ai/plugin-registry/platform/discord/developer-guide
 
-Comprehensive Discord integration for elizaOS agents. It enables agents to operate as fully-featured Discord bots with advanced features and capabilities.
+Comprehensive Discord integration for KIRA OS agents. It enables agents to operate as fully-featured Discord bots with advanced features and capabilities.
 
 ## Overview
 
-The `@elizaos/plugin-discord` package provides comprehensive Discord integration for elizaOS agents. It enables agents to operate as fully-featured Discord bots with support for text channels, voice channels, direct messages, slash commands, and media processing.
+The `@elizaos/plugin-discord` package provides comprehensive Discord integration for KIRA OS agents. It enables agents to operate as fully-featured Discord bots with support for text channels, voice channels, direct messages, slash commands, and media processing.
 
 This plugin handles all Discord-specific functionality including:
 
@@ -22706,12 +21923,12 @@ flowchart TD
 | `error`             | Client error         | Error handler        |
 | `disconnect`        | Lost connection      | Reconnection handler |
 
-### elizaOS Events Emitted
+### KIRA OS Events Emitted
 
 | Event                    | When Emitted       | Payload                |
 | ------------------------ | ------------------ | ---------------------- |
 | `WORLD_JOINED`           | Bot joins server   | World, rooms, entities |
-| `MESSAGE_RECEIVED`       | Message processed  | elizaOS message format |
+| `MESSAGE_RECEIVED`       | Message processed  | KIRA OS message format |
 | `VOICE_MESSAGE_RECEIVED` | Voice transcribed  | Transcribed message    |
 | `REACTION_RECEIVED`      | Reaction added     | Reaction details       |
 | `INTERACTION_RECEIVED`   | Slash command used | Interaction data       |
@@ -23428,7 +22645,7 @@ runtime.registerAction(customDiscordAction);
 
 ### With Other Plugins
 
-Integrate Discord with other elizaOS plugins:
+Integrate Discord with other KIRA OS plugins:
 
 ```typescript theme={null}
 import { discordPlugin } from '@elizaos/plugin-discord';
@@ -24311,7 +23528,7 @@ Source: https://docs.elizaos.ai/plugin-registry/platform/farcaster
 
 Welcome to the comprehensive documentation for the @elizaos/plugin-farcaster package. This index provides organized access to all documentation resources.
 
-The @elizaos/plugin-farcaster enables your elizaOS agent to interact with the Farcaster social network through casting, replying, and engaging with the decentralized social protocol.
+The @elizaos/plugin-farcaster enables your KIRA OS agent to interact with the Farcaster social network through casting, replying, and engaging with the decentralized social protocol.
 
 ## 📚 Documentation
 
@@ -24680,7 +23897,7 @@ Comprehensive technical reference for the @elizaos/plugin-farcaster package
 
 ## Overview
 
-The @elizaos/plugin-farcaster plugin enables elizaOS agents to interact with the Farcaster protocol through the Neynar API. This plugin provides comprehensive functionality for casting, replying, and engaging with the Farcaster ecosystem.
+The @elizaos/plugin-farcaster plugin enables KIRA OS agents to interact with the Farcaster protocol through the Neynar API. This plugin provides comprehensive functionality for casting, replying, and engaging with the Farcaster ecosystem.
 
 ## Core Features
 
@@ -25087,7 +24304,7 @@ runtime.on("farcaster:error", (error: FarcasterError) => {
 
 ### Memory System
 
-The plugin uses elizaOS's memory system for persistence rather than direct database tables:
+The plugin uses KIRA OS's memory system for persistence rather than direct database tables:
 
 ```typescript theme={null}
 // Cast metadata stored when sending
@@ -25237,7 +24454,7 @@ const character = {
 ## Support
 
 * **GitHub**: [elizaos-plugins/plugin-farcaster](https://github.com/elizaos-plugins/plugin-farcaster)
-* **Discord**: Join the elizaOS community
+* **Discord**: Join the KIRA OS community
 * **Documentation**: [elizaos.ai/docs](https://elizaos.ai/docs)
 
 ## License
@@ -25770,7 +24987,7 @@ These examples demonstrate the flexibility and power of the Farcaster plugin. Ke
 
 The plugin uses the Neynar API for all Farcaster interactions, requiring proper API key and signer configuration.
 
-For more advanced use cases, combine these patterns with the elizaOS agent framework's other capabilities.
+For more advanced use cases, combine these patterns with the KIRA OS agent framework's other capabilities.
 
 
 # Testing Guide
@@ -26410,7 +25627,7 @@ Source: https://docs.elizaos.ai/plugin-registry/platform/telegram
 
 Welcome to the comprehensive documentation for the @elizaos/plugin-telegram package. This index provides organized access to all documentation resources.
 
-The @elizaos/plugin-telegram enables your elizaOS agent to operate as a Telegram bot with support for messages, media, interactive buttons, and group management.
+The @elizaos/plugin-telegram enables your KIRA OS agent to operate as a Telegram bot with support for messages, media, interactive buttons, and group management.
 
 ## 📚 Documentation
 
@@ -26434,11 +25651,11 @@ The @elizaos/plugin-telegram enables your elizaOS agent to operate as a Telegram
 # Developer Guide
 Source: https://docs.elizaos.ai/plugin-registry/platform/telegram/developer-guide
 
-Comprehensive Telegram Bot API integration for elizaOS agents. It enables agents to operate as Telegram bots with advanced features and capabilities.
+Comprehensive Telegram Bot API integration for KIRA OS agents. It enables agents to operate as Telegram bots with advanced features and capabilities.
 
 ## Overview
 
-The `@elizaos/plugin-telegram` package provides comprehensive Telegram Bot API integration for elizaOS agents. It enables agents to operate as Telegram bots with support for private chats, groups, channels, media processing, interactive buttons, and forum topics.
+The `@elizaos/plugin-telegram` package provides comprehensive Telegram Bot API integration for KIRA OS agents. It enables agents to operate as Telegram bots with support for private chats, groups, channels, media processing, interactive buttons, and forum topics.
 
 This plugin handles all Telegram-specific functionality including:
 
@@ -29479,7 +28696,7 @@ Source: https://docs.elizaos.ai/plugin-registry/platform/twitter
 
 Welcome to the comprehensive documentation for the @elizaos/plugin-twitter package. This index provides organized access to all documentation resources.
 
-The @elizaos/plugin-twitter enables your elizaOS agent to interact with Twitter/X through autonomous posting, timeline monitoring, and intelligent engagement.
+The @elizaos/plugin-twitter enables your KIRA OS agent to interact with Twitter/X through autonomous posting, timeline monitoring, and intelligent engagement.
 
 ## Documentation
 
@@ -29507,11 +28724,11 @@ The @elizaos/plugin-twitter enables your elizaOS agent to interact with Twitter/
 # Developer Guide
 Source: https://docs.elizaos.ai/plugin-registry/platform/twitter/developer-guide
 
-Comprehensive Twitter/X API v2 integration for elizaOS agents. It enables agents to operate as fully autonomous Twitter bots with advanced capabilities.
+Comprehensive Twitter/X API v2 integration for KIRA OS agents. It enables agents to operate as fully autonomous Twitter bots with advanced capabilities.
 
 ## Overview
 
-The `@elizaos/plugin-twitter` package provides comprehensive Twitter/X API v2 integration for elizaOS agents. It enables agents to operate as fully autonomous Twitter bots with capabilities including tweet posting, timeline monitoring, interaction handling, direct messaging, and advanced features like weighted timeline algorithms.
+The `@elizaos/plugin-twitter` package provides comprehensive Twitter/X API v2 integration for KIRA OS agents. It enables agents to operate as fully autonomous Twitter bots with capabilities including tweet posting, timeline monitoring, interaction handling, direct messaging, and advanced features like weighted timeline algorithms.
 
 This plugin handles all Twitter-specific functionality including:
 
@@ -32507,17 +31724,17 @@ graph LR
 # Plugin Registry
 Source: https://docs.elizaos.ai/plugin-registry/registry
 
-Browse the complete collection of available elizaOS plugins. This registry is updated in real-time with the latest 1.x compatible plugins from the community.
+Browse the complete collection of available KIRA OS plugins. This registry is updated in real-time with the latest 1.x compatible plugins from the community.
 
 <Info>
-  This registry automatically syncs with the official [elizaOS Plugin Registry](https://github.com/elizaos-plugins/registry) to show you the most up-to-date plugins available for your elizaOS agents.
+  This registry automatically syncs with the official [KIRA OS Plugin Registry](https://github.com/elizaos-plugins/registry) to show you the most up-to-date plugins available for your KIRA OS agents.
 </Info>
 
 ## Available Plugins
 
 ## How to Use Plugins
 
-To install and use any of these plugins in your elizaOS project:
+To install and use any of these plugins in your KIRA OS project:
 
 1. **Install the plugin** using bun or elizaos cli:
    ```bash theme={null}
@@ -32543,8 +31760,8 @@ To install and use any of these plugins in your elizaOS project:
 The plugin registry is community-driven. To add your plugin:
 
 1. **Publish your plugin** to npm with the `@elizaos/plugin-` prefix
-2. **Submit a pull request** to the [elizaOS Plugin Registry](https://github.com/elizaos-plugins/registry)
-3. **Ensure compatibility** with elizaOS v1.x
+2. **Submit a pull request** to the [KIRA OS Plugin Registry](https://github.com/elizaos-plugins/registry)
+3. **Ensure compatibility** with KIRA OS v1.x
 
 <Tip>
   For detailed guidance on creating and publishing plugins, check out our [Create a Plugin](/guides/create-a-plugin) and [Publish a Plugin](/guides/publish-a-plugin) guides.
@@ -32552,7 +31769,7 @@ The plugin registry is community-driven. To add your plugin:
 
 ## Registry Status
 
-This registry automatically updates every few hours to reflect the latest plugins available in the elizaOS ecosystem. If you don't see a recently published plugin, please wait a few hours for the next sync.
+This registry automatically updates every few hours to reflect the latest plugins available in the KIRA OS ecosystem. If you don't see a recently published plugin, please wait a few hours for the next sync.
 
 <Warning>
   Always review plugin documentation and source code before installation, especially for plugins that handle sensitive operations like wallet management or external API calls.
@@ -32562,9 +31779,9 @@ This registry automatically updates every few hours to reflect the latest plugin
 # Database Management
 Source: https://docs.elizaos.ai/plugin-registry/sql
 
-Database integration and management for elizaOS
+Database integration and management for KIRA OS
 
-The `@elizaos/plugin-sql` provides comprehensive database management for elizaOS agents, featuring automatic schema migrations, multi-database support, and a sophisticated plugin architecture.
+The `@elizaos/plugin-sql` provides comprehensive database management for KIRA OS agents, featuring automatic schema migrations, multi-database support, and a sophisticated plugin architecture.
 
 ## Key Features
 
@@ -32649,7 +31866,7 @@ elizaos plugins add @elizaos/plugin-sql
 
 ## Configuration
 
-The SQL plugin is automatically included by the elizaOS runtime and configured via environment variables.
+The SQL plugin is automatically included by the KIRA OS runtime and configured via environment variables.
 
 ### Environment Setup
 
@@ -33028,7 +32245,7 @@ Source: https://docs.elizaos.ai/plugin-registry/sql/examples
 
 Practical code examples and patterns
 
-This document provides practical examples of common database patterns and operations using the elizaOS plugin-sql system.
+This document provides practical examples of common database patterns and operations using the KIRA OS plugin-sql system.
 
 ## Basic Operations
 
@@ -33673,11 +32890,11 @@ Source: https://docs.elizaos.ai/plugin-registry/sql/plugin-tables
 
 How plugins can define their own database tables
 
-This guide shows plugin developers how to add database tables to their elizaOS plugins. The plugin-sql system automatically handles schema creation, migrations, and namespacing.
+This guide shows plugin developers how to add database tables to their KIRA OS plugins. The plugin-sql system automatically handles schema creation, migrations, and namespacing.
 
 ## Overview
 
-Any elizaOS plugin can define its own database tables by:
+Any KIRA OS plugin can define its own database tables by:
 
 1. Creating table definitions using Drizzle ORM
 2. Exporting a `schema` property from the plugin
@@ -34434,7 +33651,7 @@ const myPlugin: Plugin = {
 
 ## Overview
 
-The elizaOS plugin system is a modular extension mechanism that allows developers to add functionality to agents through a well-defined interface. Plugins enhance AI agents with new capabilities, integrations, and behaviors.
+The KIRA OS plugin system is a modular extension mechanism that allows developers to add functionality to agents through a well-defined interface. Plugins enhance AI agents with new capabilities, integrations, and behaviors.
 
 ### What Can Plugins Do?
 
@@ -34713,11 +33930,11 @@ const plugins = [
 
 ## Core Plugins
 
-elizaOS includes two essential core plugins that provide foundational functionality:
+KIRA OS includes two essential core plugins that provide foundational functionality:
 
 ### Bootstrap Plugin
 
-The core message handler and event system for elizaOS agents. Provides essential functionality for message processing, knowledge management, and basic agent operations. It includes:
+The core message handler and event system for KIRA OS agents. Provides essential functionality for message processing, knowledge management, and basic agent operations. It includes:
 
 * 13 essential actions (REPLY, SEND\_MESSAGE, etc.)
 * Core providers (time, character, recent messages)
@@ -34726,7 +33943,7 @@ The core message handler and event system for elizaOS agents. Provides essential
 
 ### SQL Plugin
 
-Database integration and management for elizaOS. Features:
+Database integration and management for KIRA OS. Features:
 
 * Automatic schema migrations
 * Multi-database support (PostgreSQL, PGLite)
@@ -35513,12 +34730,12 @@ That's it. No complex setup, no boilerplate to maintain.
 </Tip>
 
 <Note>
-  This guide uses `bun` as the package manager, which is the preferred tool for elizaOS development. Bun provides faster installation times and built-in TypeScript support.
+  This guide uses `bun` as the package manager, which is the preferred tool for KIRA OS development. Bun provides faster installation times and built-in TypeScript support.
 </Note>
 
 ## Quick Start: Scaffolding Plugins with CLI
 
-The easiest way to create a new plugin is using the elizaOS CLI, which provides interactive scaffolding with pre-configured templates.
+The easiest way to create a new plugin is using the KIRA OS CLI, which provides interactive scaffolding with pre-configured templates.
 
 ### Using `elizaos create`
 
@@ -35617,7 +34834,7 @@ The scaffolded plugin includes:
 * ✅ Basic tests structure
 
 <Tip>
-  The CLI templates follow all elizaOS conventions and best practices, making it easy to get started without worrying about configuration.
+  The CLI templates follow all KIRA OS conventions and best practices, making it easy to get started without worrying about configuration.
 </Tip>
 
 ## Manual Plugin Creation
@@ -35734,7 +34951,7 @@ export default myPlugin;
 
 ### Option 1: Plugin Inside the Monorepo
 
-If developing within the elizaOS monorepo:
+If developing within the KIRA OS monorepo:
 
 1. Add your plugin to the root `package.json` as a workspace dependency:
 
@@ -35761,7 +34978,7 @@ const agent = {
 
 ### Option 2: Plugin Outside the Monorepo
 
-For plugins outside the elizaOS monorepo:
+For plugins outside the KIRA OS monorepo:
 
 1. In your plugin directory, build and link it:
 
@@ -36334,18 +35551,15 @@ Create `.vscode/launch.json`:
     Share your plugin with the community
   </Card>
 
-  <Card title="Deploy to Cloud" icon="cloud" href="/guides/deploy-to-cloud">
-    Ship your agent with plugins to production
-  </Card>
 </CardGroup>
 
 
 # Migration
 Source: https://docs.elizaos.ai/plugins/migration
 
-Complete guide for migrating elizaOS plugins from version 0.x to 1.x
+Complete guide for migrating KIRA OS plugins from version 0.x to 1.x
 
-> **Important**: This comprehensive guide will walk you through migrating your elizaOS plugins from version 0.x to 1.x. The migration process involves several key changes to architecture, APIs, and best practices.
+> **Important**: This comprehensive guide will walk you through migrating your KIRA OS plugins from version 0.x to 1.x. The migration process involves several key changes to architecture, APIs, and best practices.
 
 ## Migration Overview
 
@@ -36395,7 +35609,7 @@ rm -rf biome.json
 rm -f *.lock.json *.yml.lock
 ```
 
-> **Why?** The elizaOS ecosystem has standardized on:
+> **Why?** The KIRA OS ecosystem has standardized on:
 >
 > * **Bun's built-in test runner** (replacing Vitest)
 > * **Prettier** for code formatting (replacing Biome)
@@ -37831,7 +37045,7 @@ The action chaining system provides a powerful way to build complex, multi-step 
 
 ## Real-World Implementation Patterns
 
-This section documents actual patterns and structures used in production elizaOS plugins based on examination of real implementations.
+This section documents actual patterns and structures used in production KIRA OS plugins based on examination of real implementations.
 
 ### Basic Plugin Structure Pattern
 
@@ -38088,7 +37302,7 @@ const myPlugin: Plugin = {
 # Reference
 Source: https://docs.elizaos.ai/plugins/reference
 
-Complete TypeScript interface reference for elizaOS plugins
+Complete TypeScript interface reference for KIRA OS plugins
 
 ## Core Interfaces
 
@@ -38715,11 +37929,11 @@ CHANNEL_IDS?: string;
 # Database Schema
 Source: https://docs.elizaos.ai/plugins/schemas
 
-Learn how to add custom database schemas to elizaOS plugins for shared data access
+Learn how to add custom database schemas to KIRA OS plugins for shared data access
 
 ## Overview
 
-elizaOS uses Drizzle ORM with PostgreSQL and automatically handles migrations from your schema definitions. This guide demonstrates how to add custom tables that can be shared across all agents (no `agentId` field), along with actions to write data and providers to read it.
+KIRA OS uses Drizzle ORM with PostgreSQL and automatically handles migrations from your schema definitions. This guide demonstrates how to add custom tables that can be shared across all agents (no `agentId` field), along with actions to write data and providers to read it.
 
 ## Database Adapter Interface
 
@@ -38782,7 +37996,7 @@ export const customSchema = {
 **Key Points:**
 
 * No `agentId` field means data is shared across all agents
-* elizaOS will automatically create migrations from this schema
+* KIRA OS will automatically create migrations from this schema
 * Use appropriate indexes for query performance
 
 ### Creating Agent-Specific Tables
@@ -38809,7 +38023,7 @@ export const agentDataTable = pgTable(
 
 ### Repository Pattern
 
-Create a repository class to handle database operations. This follows the pattern used throughout elizaOS:
+Create a repository class to handle database operations. This follows the pattern used throughout KIRA OS:
 
 ```typescript theme={null}
 // In your plugin's repositories/user-preferences-repository.ts
@@ -39317,15 +38531,15 @@ export class MetricsRepository {
 
 ## Summary
 
-To add custom schema to an elizaOS plugin:
+To add custom schema to an KIRA OS plugin:
 
 1. **Define schema** without `agentId` for shared data
-2. **Create repository** classes following elizaOS's pattern
+2. **Create repository** classes following KIRA OS's pattern
 3. **Create actions** to write data using `parseKeyValueXml` for structure
 4. **Create providers** to read data and supply to agent context
 5. **Register everything** in your plugin configuration
 
-elizaOS handles the rest - migrations, database connections, and making your data available across all agents in the system.
+KIRA OS handles the rest - migrations, database connections, and making your data available across all agents in the system.
 
 ## See Also
 
@@ -39355,7 +38569,7 @@ How to expose HTTP endpoints and send messages as agents using plugin routes
 
 ## Overview
 
-Plugins in elizaOS can expose HTTP routes that act as webhooks, allowing external services to trigger agent actions and send messages on behalf of agents. This enables powerful integrations with third-party services, automated workflows, and custom APIs.
+Plugins in KIRA OS can expose HTTP routes that act as webhooks, allowing external services to trigger agent actions and send messages on behalf of agents. This enables powerful integrations with third-party services, automated workflows, and custom APIs.
 
 ## Defining Routes in Plugins
 
@@ -39805,7 +39019,7 @@ curl -X POST http://localhost:3000/webhook?agentId=YOUR_AGENT_ID \
 
 ### Testing Webhook Routes
 
-ElizaOS provides two types of tests for validating webhook functionality: component tests and e2e tests.
+KIRA OS provides two types of tests for validating webhook functionality: component tests and e2e tests.
 
 #### Component Tests
 
@@ -40019,7 +39233,7 @@ export const webhookPlugin: Plugin = {
 
 #### Running Tests
 
-Use the ElizaOS test command to run your webhook tests:
+Use the KIRA OS test command to run your webhook tests:
 
 ```bash theme={null}
 # Run component tests only
@@ -40059,15 +39273,15 @@ elizaos test --name "Webhook Integration"
 # Environment Variables
 Source: https://docs.elizaos.ai/projects/environment-variables
 
-Server configuration environment variables for ElizaOS
+Server configuration environment variables for KIRA OS
 
-This document describes the server configuration environment variables for ElizaOS.
+This document describes the server configuration environment variables for KIRA OS.
 
 ## Server Security & Authentication
 
 ### ELIZA\_SERVER\_AUTH\_TOKEN
 
-Controls API authentication for the ElizaOS server.
+Controls API authentication for the KIRA OS server.
 
 ```bash .env theme={null}
 ELIZA_SERVER_AUTH_TOKEN=your-secret-token
@@ -40213,7 +39427,7 @@ For a complete list of all available environment variables including database co
 
 <CardGroup>
   <Card title="Deploy a Project" icon="rocket" href="/guides/deploy-a-project">
-    Learn to deploy your ElizaOS project securely
+    Learn to deploy your KIRA OS project securely
   </Card>
 
   <Card title="CLI Environment Commands" icon="terminal" href="/cli-reference/env">
@@ -40233,15 +39447,15 @@ For a complete list of all available environment variables including database co
 # Overview
 Source: https://docs.elizaos.ai/projects/overview
 
-Understanding and building with elizaOS projects
+Understanding and building with KIRA OS projects
 
 <Info>
-  **Projects** are the primary deployable unit in elizaOS. Each project contains one or more agents, and plugins can be managed either at the agent level or shared across the project. A project is container template that you develop locally and ship to production.
+  **Projects** are the primary deployable unit in KIRA OS. Each project contains one or more agents, and plugins can be managed either at the agent level or shared across the project. A project is container template that you develop locally and ship to production.
 </Info>
 
 ## What is a Project?
 
-A project in elizaOS is your **development workspace and deployment unit**. It's where you:
+A project in KIRA OS is your **development workspace and deployment unit**. It's where you:
 
 * Configure and run one or more agents
 * Develop and test plugins
@@ -40256,7 +39470,7 @@ Projects can include a fully customizable chat interface for user interaction, o
 
 ## Development Pattern
 
-The elizaOS development workflow centers around projects:
+The KIRA OS development workflow centers around projects:
 
 <Steps>
   <Step title="Create a project">
@@ -40280,7 +39494,7 @@ The elizaOS development workflow centers around projects:
   </Step>
 </Steps>
 
-This pattern gives you access to all elizaOS core features without managing the entire framework codebase.
+This pattern gives you access to all KIRA OS core features without managing the entire framework codebase.
 
 ## Project Structure
 
@@ -40348,7 +39562,7 @@ This pattern gives you access to all elizaOS core features without managing the 
   <Accordion title="node_modules/ - Installed dependencies">
     **Created by:** `bun install` or `npm install`
 
-    Contains all the packages your project depends on, including elizaOS core and plugins.
+    Contains all the packages your project depends on, including KIRA OS core and plugins.
 
     * Safe to delete (reinstall with `bun install`)
     * Not committed to version control
@@ -40389,7 +39603,7 @@ This pattern gives you access to all elizaOS core features without managing the 
 
 Projects are flexible containers you can design to fit your use case. The default entry point for every project is `src/index.ts`, where you define your agents, their character files, and any custom plugins or services. You might configure a single agent with specialized plugins, or coordinate multiple agents with distinct personalities and capabilities.
 
-Build your project structure to match your needs and goals, whether that's organizing agents by function, separating character configurations, or creating shared utilities. The elizaOS runtime will orchestrate everything once you define your project configuration.
+Build your project structure to match your needs and goals, whether that's organizing agents by function, separating character configurations, or creating shared utilities. The KIRA OS runtime will orchestrate everything once you define your project configuration.
 
 <CodeGroup>
   ```typescript src/index.ts (Single Agent) theme={null}
@@ -40481,7 +39695,7 @@ NODE_ENV=production
 
 ## Running Projects Locally
 
-Start your project with the elizaOS CLI:
+Start your project with the KIRA OS CLI:
 
 ```bash theme={null}
 # Start your project
@@ -40500,7 +39714,7 @@ elizaos start --character ./custom-character.ts
 
 ## Advanced Project Examples
 
-Explore these real-world projects showcasing different elizaOS capabilities:
+Explore these real-world projects showcasing different KIRA OS capabilities:
 
 <CardGroup>
   <Card title="Spartan" icon="github" href="https://github.com/elizaos/spartan">
@@ -40614,7 +39828,7 @@ See the [Deploy a Project](/guides/deploy-a-project) guide for detailed instruct
     See the [Create a Plugin](/guides/create-a-plugin) guide for details.
   </Accordion>
 
-  <Accordion title="Do I need the entire elizaOS monorepo to develop?">
+  <Accordion title="Do I need the entire KIRA OS monorepo to develop?">
     No! That's the beauty of projects. When you create a project with `elizaos create`, you get a standalone workspace with just what you need. The CLI and core packages provide all the framework functionality without the monorepo complexity.
   </Accordion>
 
@@ -40670,7 +39884,7 @@ See the [Deploy a Project](/guides/deploy-a-project) guide for detailed instruct
 # Quickstart
 Source: https://docs.elizaos.ai/quickstart
 
-Create and run your first elizaOS agent in 3 minutes
+Create and run your first KIRA OS agent in 3 minutes
 
 **3 minutes.** That's all it takes to go from zero to a running AI agent with memory, actions, and a web interface.
 
@@ -40686,14 +39900,14 @@ Let's create a project with our default Eliza character that can chat and take a
 
 <Steps>
   <Step title="Create Your Project">
-    Create a new elizaOS project using the interactive CLI:
+    Create a new KIRA OS project using the interactive CLI:
 
     ```bash Terminal theme={null}
     elizaos create
     ```
 
     <Note>
-      The CLI is for building agents and projects. The monorepo is only for contributing to elizaOS core. See [CLI vs Monorepo](https://www.youtube.com/watch?v=tSO4wpQs2OA\&list=PLrjBjP4nU8ehOgKAa0-XddHzE0KK0nNvS).
+      The CLI is for building agents and projects. The monorepo is only for contributing to KIRA OS core. See [CLI vs Monorepo](https://www.youtube.com/watch?v=tSO4wpQs2OA\&list=PLrjBjP4nU8ehOgKAa0-XddHzE0KK0nNvS).
     </Note>
   </Step>
 
@@ -40721,7 +39935,7 @@ Let's create a project with our default Eliza character that can chat and take a
   </Step>
 
   <Step title="Start Your Agent">
-    Launch your elizaOS project:
+    Launch your KIRA OS project:
 
     ```bash Terminal theme={null}
     elizaos start
@@ -40808,10 +40022,6 @@ Let's create a project with our default Eliza character that can chat and take a
 
   <Card title="Create a Plugin" icon="puzzle-piece" href="/guides/create-a-plugin">
     Add custom actions, providers, and services
-  </Card>
-
-  <Card title="Deploy to Cloud" icon="cloud" href="/guides/deploy-to-cloud">
-    Ship your agent to production in minutes
   </Card>
 
   <Card title="Plugin Registry" icon="grid-2" href="/plugin-registry/overview">
@@ -42373,7 +41583,7 @@ Get the public system configuration. This endpoint returns non-sensitive configu
 ## Response
 
 <ResponseField name="version" type="string">
-  ElizaOS version
+  KIRA OS version
 </ResponseField>
 
 <ResponseField name="environment" type="string">
@@ -42435,7 +41645,7 @@ Source: https://docs.elizaos.ai/rest-reference/system/get-version
 
 GET /api/system/version
 
-Get the ElizaOS version information.
+Get the KIRA OS version information.
 
 ## Response
 
@@ -42622,7 +41832,7 @@ Most frameworks give you primitives. You still wire everything together yourself
   **5 minutes to your first agent.** No infrastructure setup, no config files to manage. Just code.
 </Tip>
 
-## Quick Start with ElizaOS
+## Quick Start with KIRA OS
 
 The `ElizaOS` class handles configuration, plugin resolution, and multi-agent orchestration automatically.
 
@@ -42763,7 +41973,7 @@ const team = elizaOS.getAgentsByNames(['Researcher', 'Writer']);
 
 ### Events
 
-ElizaOS extends `EventTarget` for lifecycle events:
+KIRA OS extends `EventTarget` for lifecycle events:
 
 ```typescript theme={null}
 elizaOS.addEventListener('agent:started', (e) => {
@@ -42798,7 +42008,7 @@ const keyStatus = await elizaOS.validateApiKeys();
 
 ## What You Get
 
-| Feature                  | Without ElizaOS                   | With ElizaOS                        |
+| Feature                  | Without KIRA OS                   | With KIRA OS                        |
 | ------------------------ | --------------------------------- | ----------------------------------- |
 | **Plugin resolution**    | Manual imports, version conflicts | Auto-discovery, dependency ordering |
 | **Database setup**       | 50+ lines boilerplate             | Zero-config SQLite or Postgres      |
@@ -42811,7 +42021,7 @@ const keyStatus = await elizaOS.validateApiKeys();
 
 ## System Architecture
 
-The elizaOS runtime follows a modular, plugin-based architecture that orchestrates all agent functionality. For lifecycle details, see [Runtime and Lifecycle](/agents/runtime-and-lifecycle). For extension architecture, see [Plugin Architecture](/plugins/architecture).
+The KIRA OS runtime follows a modular, plugin-based architecture that orchestrates all agent functionality. For lifecycle details, see [Runtime and Lifecycle](/agents/runtime-and-lifecycle). For extension architecture, see [Plugin Architecture](/plugins/architecture).
 
 ```mermaid theme={null}
 flowchart TD
@@ -43334,9 +42544,9 @@ const types = runtime.getRegisteredServiceTypes();
 // ['DATABASE', 'SPEECH', 'VIDEO', 'TRANSCRIPTION', ...]
 ```
 
-### ElizaOS Type Guard
+### KIRA OS Type Guard
 
-Check if the runtime has an ElizaOS instance attached:
+Check if the runtime has an KIRA OS instance attached:
 
 ```typescript theme={null}
 hasElizaOS(): this is IAgentRuntime & { elizaOS: IElizaOS };
@@ -43482,9 +42692,6 @@ await runtime.sendMessageToTarget(
     Run async operations with task workers
   </Card>
 
-  <Card title="Deploy to Cloud" icon="cloud" href="/guides/deploy-to-cloud">
-    Ship your agent to production in minutes
-  </Card>
 </CardGroup>
 
 
@@ -44860,11 +44067,11 @@ Real-time messaging infrastructure and Socket.IO integration
 
 ## Overview
 
-The messaging infrastructure provides real-time communication between clients and the ElizaOS server using Socket.IO. This enables instant message delivery, presence tracking, and bidirectional communication.
+The messaging infrastructure provides real-time communication between clients and the KIRA OS server using Socket.IO. This enables instant message delivery, presence tracking, and bidirectional communication.
 
 ## Architecture
 
-### How WebSockets Work in ElizaOS
+### How WebSockets Work in KIRA OS
 
 The project uses **Socket.IO** (not raw WebSockets) for real-time communication between clients and the Eliza server.
 
@@ -45524,7 +44731,7 @@ Response:
 
 ### Stream Extractors (Advanced)
 
-For plugin developers, ElizaOS provides stream extractors to control what content is streamed from LLM responses.
+For plugin developers, KIRA OS provides stream extractors to control what content is streamed from LLM responses.
 
 ```typescript theme={null}
 import { IStreamExtractor } from '@elizaos/core';
@@ -47478,7 +46685,7 @@ async stop() {
 
 ## Model Context Protocol (MCP) Services
 
-MCP (Model Context Protocol) allows your ElizaOS agent to use external tools and services. Think of it as giving your agent abilities like web search, file access, or API connections.
+MCP (Model Context Protocol) allows your KIRA OS agent to use external tools and services. Think of it as giving your agent abilities like web search, file access, or API connections.
 
 ### MCP Plugin Setup
 
@@ -49279,7 +48486,7 @@ const agentConfig = {
 
 ## Complete API Reference
 
-The Sessions API provides a comprehensive set of endpoints for managing stateful conversations with ElizaOS agents. This reference covers all available endpoints, request/response schemas, and error handling.
+The Sessions API provides a comprehensive set of endpoints for managing stateful conversations with KIRA OS agents. This reference covers all available endpoints, request/response schemas, and error handling.
 
 ### Base URL
 
@@ -49879,7 +49086,7 @@ class SessionsAPIClient:
   </Card>
 
   <Card title="Core Concepts" icon="lightbulb" href="/agents/runtime-and-lifecycle">
-    Understand ElizaOS runtime architecture
+    Understand KIRA OS runtime architecture
   </Card>
 
   <Card title="Create a Plugin" icon="puzzle" href="/guides/create-a-plugin">
@@ -49895,11 +49102,11 @@ class SessionsAPIClient:
 # Types Reference
 Source: https://docs.elizaos.ai/runtime/types-reference
 
-Complete TypeScript types and interfaces reference for elizaOS
+Complete TypeScript types and interfaces reference for KIRA OS
 
 ## Overview
 
-This page documents the core TypeScript types and interfaces used throughout elizaOS. For usage examples, see the relevant feature documentation.
+This page documents the core TypeScript types and interfaces used throughout KIRA OS. For usage examples, see the relevant feature documentation.
 
 <Tip>
   All types are exported from `@elizaos/core`. Import what you need:
@@ -50411,7 +49618,7 @@ interface TeePluginConfig {
 
 ***
 
-## ElizaOS Orchestrator
+## KIRA OS Orchestrator
 
 ### IElizaOS
 
@@ -50565,92 +49772,6 @@ function isStreamableModelType(type: ModelTypeName): boolean;
     Plugin interface definitions
   </Card>
 </CardGroup>
-
-
-# Tokenomics
-Source: https://docs.elizaos.ai/tokenomics
-
-Key information about the $elizaOS token economics, contract addresses, vesting schedules, and token release details
-
-See below key information about the \$elizaOS tokenomics.
-
-## Contract Addresses
-
-<Info>
-  \$elizaOS is available on multiple chains with cross-chain functionality enabled from day one.
-</Info>
-
-**\$elizaOS SVM:** `DuMbhu7mvQvqQHGcnikDgb4XegXJRyhUBfdU22uELiZA`
-
-**\$elizaOS EVM (ETH & Base & BSC):** `0xea17Df5Cf6D172224892B5477A16ACb111182478`
-
-**Token Standards:** BEP-20 (BSC), ERC-20 (Ethereum, Base) and SPL (Solana). CCIP enabled day one.
-
-**Total Supply:** 11,000,000,000
-
-**Circulating Supply:** 7,482,200,000 (as of November 11, 2025)
-
-## Official Token Pages
-
-Track `$elizaOS` token metrics and market data on these platforms:
-
-* [CoinMarketCap](https://coinmarketcap.com/currencies/elizaos/)
-* [CoinGecko](https://www.coingecko.com/en/coins/elizaos)
-
-## Vesting and Transparency
-
-All token allocations follow structured vesting schedules with built-in transparency mechanisms:
-
-<Steps>
-  <Step title="Ecosystem/Community">
-    3-month cliff + 9-month linear vest
-  </Step>
-
-  <Step title="Foundation">
-    24-month linear vest
-  </Step>
-
-  <Step title="Team & Contributors">
-    12-month cliff from October 21, then 24-month linear vest (total 36 months)
-  </Step>
-
-  <Step title="SAFT">
-    Locked multisig, minimum 12-month cliff
-  </Step>
-
-  <Step title="Liquidity & POL">
-    Programmatic for market making
-  </Step>
-</Steps>
-
-<Note>
-  **Monitoring:** All vesting wallets will be publicly listed with explorer links for real-time tracking. Streamflow contracts enforce cliffs and prevent discretionary early unlocks.
-</Note>
-
-## Token Release Schedule
-
-After the migration from `$ai16z` to `$elizaOS`, the `$elizaOS` total supply will gradually expand from 6.6B to 11B (+40%), with circulating supply increasing by 882M, from 6.6B to 7.4B (approximately +13%) immediately.
-
-This unlocks capital for increased liquidity demands of the token becoming multichain and funding ecosystem growth – including:
-
-* **607M tokens** for liquidity & listings
-* **275M tokens** of Protocol Owned Liquidity
-
-<Warning>
-  Over time, total supply could expand to up to 11B tokens, though actual circulating supply may be less as a large portion is held by the Foundation and Treasury for ecosystem development and liquidity management.
-</Warning>
-
-## Change Log
-
-### v1.0 - November 6, 2025
-
-**Description:** Migration from `$ai16z` to `$elizaOS` started
-
-***
-
-### v1.1 - November 11, 2025
-
-**Description:** Introduction of `$ai16z` snapshot at 11:40am UTC
 
 
 # What You Can Build
