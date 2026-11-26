@@ -9,10 +9,10 @@ add plugins (actions, providers, evaluators, services, routes, events, models) a
   - Studio: agents (character, bio, traits, style, model type), chat, knowledge docs, memory, tasks, outbox drafts,
     character settings, `character.json` import/export, project import/export.
   - Plugins: built-in store, bootstrap, claude-models, knowledge, memory, calculator, outbox, x, discord, telegram,
-    base-market, plus custom plugins written as JSON manifests. Runtime tab with load order, services, models,
+    plus custom plugins written as JSON manifests. Runtime tab with load order, services, models,
     composed state, routes console, event emitter and live event log.
-  - Docs: 25-page guide. The "elizaOS docs" sidebar section and the "Docs for LLMs" page fill themselves from
-    `public/llms-full.txt` when that file is present (download it from https://docs.elizaos.ai/llms-full.txt).
+  - Docs: 25-page guide, plus the full elizaOS documentation from `public/llms-full.txt` (sidebar "elizaOS docs"
+    and the "Docs for LLMs" page). Update it with a newer copy from https://docs.elizaos.ai/llms-full.txt.
 
 Agents and chats are stored in each visitor's browser (localStorage).
 
@@ -37,6 +37,6 @@ Every message costs API usage on your key (each tool step is one call, max 1,024
 
 ## Notes
 - X, Discord and Telegram plugins only write drafts to the Outbox; nothing is posted.
-- The `base-market` plugin calls `/api/base`, which this repo does not include; its actions return an error until
-  you add that endpoint or switch the plugin off.
+- `public/llms-full.txt` is the elizaOS documentation, MIT License, © elizaOS contributors
+  (see `public/llms-full.NOTICE.txt`).
 - The navbar wordmark uses Russo One (Google Fonts, SIL Open Font License).

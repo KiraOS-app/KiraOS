@@ -353,15 +353,6 @@ const platform=(name,label,act,token,limit)=>({name,description:`${label} client
 P.x=platform('x','X','POST_TO_X','X_API_KEY',280);
 P.discord=platform('discord','Discord','SEND_DISCORD_MESSAGE','DISCORD_API_TOKEN',2000);
 P.telegram=platform('telegram','Telegram','SEND_TELEGRAM_MESSAGE','TELEGRAM_BOT_TOKEN',4096);
-const baseApi=async q=>{const r=await fetch('/api/base?'+q,{cache:'no-store'});const j=await r.json().catch(()=>({}));if(!r.ok||j.error)throw new Error(j.error||'base_unavailable');return j};
-const rnd=v=>v==null?null:Math.abs(v)>=1?Math.round(v*100)/100:Number(Number(v).toPrecision(4));
-const slimPool=p=>({name:p.token&&p.token.name,symbol:p.token&&p.token.symbol,address:p.token&&p.token.address,price_usd:rnd(p.price),change_1h_pct:rnd(p.ch1),change_24h_pct:rnd(p.ch24),volume_24h_usd:rnd(p.vol24),liquidity_usd:rnd(p.liq),fdv_usd:rnd(p.fdv),market_cap_usd:rnd(p.mcap)});
-P['base-market']={name:'base-market',description:'Live Base token data from the site (GeckoTerminal): rankings, search and token details.',priority:15,dependencies:['bootstrap'],
- providers:[{name:'MARKET_SOURCE',description:'Data rules',position:40,get:()=>({text:'For any price, ranking or token stat use the base-market actions. Say the data is from GeckoTerminal. Never invent numbers or addresses.'})}],
- actions:[
-  {name:'BASE_MARKET_LIST',similes:['TRENDING_TOKENS','TOP_GAINERS'],description:'Ranked Base tokens right now. kind: trending, volume, gainers, losers or new (newest pools, very risky).',examples:['"what is trending on Base?"'],parameters:{type:'object',properties:{kind:{type:'string',enum:['trending','volume','gainers','losers','new']},limit:{type:'integer',minimum:1,maximum:10}},required:['kind']},validate:async()=>true,handler:async(rt,m,s,opt)=>{const j=await baseApi('list='+encodeURIComponent(opt.parameters.kind||'trending'));return ok('GeckoTerminal',(j.pools||[]).slice(0,Math.min(10,Math.max(1,opt.parameters.limit|0||5))).map(slimPool))}},
-  {name:'SEARCH_BASE_TOKEN',similes:['FIND_TOKEN','TOKEN_PRICE'],description:'Find Base tokens by name, ticker (without $) or 0x address. Returns price, changes, volume, liquidity and contract address.',examples:['"price of AERO"'],parameters:{type:'object',properties:{query:{type:'string'}},required:['query']},validate:async()=>true,handler:async(rt,m,s,opt)=>{const j=await baseApi('q='+encodeURIComponent(String(opt.parameters.query||'').slice(0,80)));return ok('GeckoTerminal',(j.pools||[]).slice(0,5).map(slimPool))}},
-  {name:'BASE_TOKEN_DETAILS',similes:['TOKEN_INFO'],description:'Market details for one Base token by contract address.',parameters:{type:'object',properties:{address:{type:'string'}},required:['address']},validate:async()=>true,handler:async(rt,m,s,opt)=>{const a=String(opt.parameters.address||'');if(!/^0x[0-9a-fA-F]{40}$/.test(a))return{success:false,text:'invalid address'};const j=await baseApi('token='+a.toLowerCase());return ok('GeckoTerminal',j.token)}}]};
 const BUILTIN=Object.keys(P);
 
 /* custom plugins (declarative, defined by the user as JSON) */
@@ -432,7 +423,7 @@ function renderMsgs(){
  const a=A(),box=$('#msgs');
  if(!a.chat.length){
   const has=n=>a.plugins.includes(n);
-  const sug=has('base-market')?['What is trending on Base?','Price of AERO','Top gainers today']:has('x')?['Write an X post announcing our testnet','Remind me to review the post tomorrow','Introduce yourself']:has('knowledge')&&a.knowledge.length?['What do your docs say?','Explain FDV vs market cap','What is 2.5% of 1,000,000,000?']:['Introduce yourself','What actions can you take?'];
+  const sug=has('x')?['Write an X post announcing our testnet','Remind me to review the post tomorrow','Introduce yourself']:has('knowledge')&&a.knowledge.length?['What do your docs say?','Explain FDV vs market cap','What is 2.5% of 1,000,000,000?']:['Introduce yourself','What actions can you take?'];
   box.innerHTML=`<div class="empty">${weave(a.name,64)}<h3>Talk to ${esc(a.name)}</h3><p>${esc(a.bio||'Give this agent a bio and personality in Setup.')}</p><div class="sug">${sug.map(s=>`<button data-s="${esc(s)}">${esc(s)}</button>`).join('')}</div></div>`;return;
  }
  box.innerHTML=a.chat.map(m=>`<div class="m ${m.role==='user'?'u':'a'} ${m.err?'err':''}">${m.text?fmt(m.text):'<span class="dot"></span><span class="dot"></span><span class="dot"></span>'}${(m.tools&&m.tools.length)||(m.evals&&m.evals.length)?`<div class="tr">${(m.tools||[]).map(t=>`<span>${esc(t)}</span>`).join('')}${(m.evals||[]).map(t=>`<span class="ev">${esc(t)}</span>`).join('')}</div>`:''}</div>`).join('');
