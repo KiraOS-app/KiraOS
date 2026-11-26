@@ -6,6 +6,7 @@ Build AI agents in the browser. KIRA OS follows the elizaOS plugin architecture:
 add plugins (actions, providers, evaluators, services, routes, events, models) and talk to your agent.
 
 ## Pages
+- **`public/legal.html` — Terms & Privacy**, linked from the home footer.
 - **`public/index.html` — Home**: particle background of Kira, "Talk to Kira" chat, agent templates, how it works.
 - **`public/studio.html` — Studio, Plugins, Docs**
   - Studio: agents (character, bio, traits, style, model type), chat, knowledge docs, memory, tasks, outbox drafts,
@@ -30,6 +31,8 @@ runs the agent runtime and its tools itself.
 | `STUDIO_MODEL_REASONING` | `STUDIO_MODEL` | Model for the REASONING type |
 | `STUDIO_PER_MINUTE` / `STUDIO_PER_DAY` | 20 / 300 | Calls per visitor IP |
 | `STUDIO_DISABLED` | – | `1` switches the AI off |
+| `ALLOWED_ORIGINS` | `https://getkira.xyz,https://www.getkira.xyz` | Sites allowed to call the API (localhost and `kira-os*.vercel.app` always allowed) |
+| `STUDIO_DAILY_CAP` | 3000 | Total calls per day for all visitors together, per server instance |
 
 Every message costs API usage on your key (each tool step is one call, max 1,024 output tokens).
 

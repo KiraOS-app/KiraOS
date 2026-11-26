@@ -26,7 +26,7 @@ http.createServer(async (req, res) => {
     const url = new URL(req.url, 'http://localhost');
     if (url.pathname === '/api/studio' && req.method === 'POST') {
       const chunks = []; for await (const c of req) chunks.push(c);
-      const r = await handleStudio(new Request('http://localhost/api/studio', { method: 'POST', body: Buffer.concat(chunks) }), req.socket.remoteAddress || 'anon');
+      const r = await handleStudio(new Request('http://localhost/api/studio', { method: 'POST', body: Buffer.concat(chunks), headers: { origin: req.headers.origin || '' } }), req.socket.remoteAddress || 'anon');
       res.writeHead(r.status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }); return res.end(await r.text());
     }
     if (req.method !== 'GET' && req.method !== 'HEAD') { res.writeHead(405); return res.end(); }
