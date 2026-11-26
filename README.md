@@ -18,6 +18,12 @@ add plugins (actions, providers, evaluators, services, routes, events, models) a
     and the "Docs for LLMs" page). Update it with a newer copy from https://docs.elizaos.ai/llms-full.txt.
 
 Agents and chats are stored in the visitor's browser and, after signing in, in their account.
+Each agent can have its own photo (resized to 128 px in the browser).
+
+## Gallery
+Signed-in users can share an agent (Studio → Setup → Character → **Share to gallery**); everyone can browse
+`studio.html#gallery` and add a copy with **Use agent**. Authors can remove their own entries; user ids listed in
+`ADMIN_IDS` (comma-separated, e.g. `x:12345,w:0xabc…`) can remove any entry. API: `GET/POST/DELETE /api/gallery`.
 
 ## Accounts (sign in with X, wallet or email)
 - **Wallet**: EIP-191 `personal_sign` of a one-time message; checked on the server with a built-in secp256k1/keccak
@@ -45,6 +51,7 @@ runs the agent runtime and its tools itself.
 | `X_CLIENT_ID` / `X_CLIENT_SECRET` | – | Turns on "Continue with X" |
 | `RESEND_API_KEY` / `EMAIL_FROM` | – | Turns on "Continue with email" (`EMAIL_FROM` like `KIRA OS <login@getkira.xyz>`) |
 | `SITE_URL` | request origin | e.g. `https://getkira.xyz`, used for the X callback and wallet message |
+| `ADMIN_IDS` | – | Account ids allowed to remove any gallery entry |
 | `ALLOWED_ORIGINS` | `https://getkira.xyz,https://www.getkira.xyz` | Sites allowed to call the API (localhost and `kira-os*.vercel.app` always allowed) |
 | `STUDIO_DAILY_CAP` | 3000 | Total calls per day for all visitors together, per server instance |
 

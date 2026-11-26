@@ -141,7 +141,7 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--soft);border-ra
 .view{display:none;height:calc(100dvh - 60px);overflow:auto}
 body[data-view=studio] .app{display:grid}
 body:not([data-view=studio]) .app,body:not([data-view=studio]) .tabs{display:none!important}
-body[data-view=plugins] #vplugins,body[data-view=docs] #vdocs{display:block}
+body[data-view=plugins] #vplugins,body[data-view=gallery] #vgallery,body[data-view=docs] #vdocs{display:block}
 .doc{max-width:1120px;margin:0 auto;padding:clamp(20px,4vw,48px) max(4vw,16px) 80px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px}
 .toc{position:sticky;top:0;align-self:start;padding-top:6px}
 .toc a{display:block;color:var(--mute);text-decoration:none;font-size:14px;padding:5px 0 5px 10px;border-left:2px solid var(--line)}
@@ -240,18 +240,25 @@ body[data-view=plugins] #vplugins,body[data-view=docs] #vdocs{display:block}
 .amenu button:hover{background:var(--soft)}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;max-width:min(520px,calc(100vw - 28px));padding:12px 18px;border-radius:12px;background:var(--panel);border:1px solid var(--line);font-size:14px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
 @media(max-width:600px){.acct+.pill{display:none}}
+.avrow{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.gcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.gcard .gh{display:flex;gap:12px;align-items:center}.gcard h3{margin:0;font-size:18px}.gcard .gr{font-size:13px;color:var(--mute)}
+.gcard p{margin:0;color:var(--mute);font-size:14px;flex:1;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.gcard .gf .row{flex-wrap:nowrap}
+.gcard .gf{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--line);padding-top:10px;font-size:12px;color:var(--mute)}
 </style>
 </head>
 <body data-pane="chat" data-view="studio">
 <header class="top">
  <button class="menu" id="menu" aria-label="Menu" aria-expanded="false">☰</button>
  <a class="brand" href="index.html" style="color:inherit;text-decoration:none" aria-label="KIRA OS home"><span class="wm"><span class="wm-a" style="font-size:28px">KIRA</span><svg class="wm-os" viewBox="0 0 15 7" height="20" width="43" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#f1f1ef" d="M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM5 1h1v1h-1zM6 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM13 3h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1z"/></svg></span></a>
- <nav class="nav" id="nav"><button data-v="studio" class="on">Studio</button><button data-v="plugins">Plugins</button><button data-v="docs">Docs</button><a class="navlink" href="index.html">← Site</a></nav>
+ <nav class="nav" id="nav"><button data-v="studio" class="on">Studio</button><button data-v="plugins">Plugins</button><button data-v="gallery">Gallery</button><button data-v="docs">Docs</button><a class="navlink" href="index.html">← Site</a></nav>
  <button class="acct" id="acct" hidden>Sign in</button>
  <span class="pill" id="status"><b></b>Connecting…</span>
 </header>
-<div class="drop" id="drop"><button data-v="studio" class="on">Studio<span>Agents, chat and setup</span></button><button data-v="plugins">Plugins<span>Every plugin and its manifest</span></button><button data-v="docs">Docs<span>Plugin architecture guide</span></button><a class="dlink" href="index.html">← Home<span>KIRA OS home page</span></a></div>
+<div class="drop" id="drop"><button data-v="studio" class="on">Studio<span>Agents, chat and setup</span></button><button data-v="plugins">Plugins<span>Every plugin and its manifest</span></button><button data-v="gallery">Gallery<span>Agents shared by the community</span></button><button data-v="docs">Docs<span>Plugin architecture guide</span></button><a class="dlink" href="index.html">← Home<span>KIRA OS home page</span></a></div>
 <div class="view" id="vplugins"></div>
+<div class="view" id="vgallery"></div>
 <div class="view" id="vdocs"></div>
 <nav class="tabs" id="tabs"><button data-p="list">Agents</button><button data-p="chat" class="on">Chat</button><button data-p="cfg">Setup</button></nav>
 <main class="app">
@@ -461,16 +468,16 @@ async function boot(a){
 
 /* ============ UI ============ */
 const AVATAR='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACAAQAAAADrRVxmAAACuklEQVR42p2Vz2rUUBTGf/cmtBGlE4qLCtIGF67jUhAnb6CPMCtXLlx2IfTWJ+gLiPMYLsQGK/YVXIikIFJXZlQwbW9zXNzc/OuUAe9iSL6cP98953xnmMXAVo4/2j9Eza8DfkDVWiQAfZfSPcQeKAaRLNowOnkCBN4lbIxD/1k1QOQtBE3RS9HG/8lV6pkH8oZV1Hx3FttQjF12B4Dt3WUQEWswABUcDCKUqINBFsbEyj77oIATgqR1CUGpAbEt4oKwyZxpCEk+IJ6LRu4xfem5KTTnDzBwn67ax6aE5w4IAI7zEj43HNCou6rsWot23dNpD4hJj1/36q4ujhYiL3yjQJ0dLaQu3atKNFREqInpYpT8VQkZPBQoNBQJnACTw7bvc7jznfjUA3EKp/s2njW3PSSNIA9+ZxmYEA3R7W9pAaZIQFMDv/STBFGbzVBFl2fK5NT6j+OxT2gNRZMxBOrg6zYzNF8ATZ2BGEBtvXcX3K2sVSIi9S2U0bAWoidz4Dx2QRWoZylQWQdYbeRGCtw0jnoNrgdhiqAB5eVTOZdP44EpmA2BknQILAz1cMbmyWjoyk0zmsLzkUXVezcasGu4ZuTt4Oat1jMN1Hy89HrIAVT1aE9E3ogPKuG7aqgAmysRmQqQaGDjVSYgmXiDyWOYipUa3HqZvIUdEbHehQhOnTZblRCISNWX4aW/UytCA+VgceyI5B2wY5nMpEd1T0D1CqtEcpTtgHWRkvWqq2kEEbZ346mj3QoEAWkIRdqrZqA5/IQs3WP91QhU2u/npGcRj1eOGQFqPgJ0xmiliohI2VmEvb8C0CDjOY0Gi1vDxpLVNwTsGIgHprpL2ALJyqBPu2pfYzE+aioiInK9i7oSI1vFYwQpwgv6zJa4hKwKqlZYqHZg2yzxCmKrC7QkBv8NSMs0cN33cvgHUDLdyA4pmfQAAAAASUVORK5CYII=';
-function weave(name,sz=40){return `<img src="${AVATAR}" width="${sz}" height="${sz}" alt="" style="image-rendering:pixelated;border:1px solid #242424;border-radius:9px;flex:none;background:#000;object-fit:cover">`}
+function weave(name,sz=40,av){return `<img src="${av&&/^data:image\/(png|jpeg|webp);base64,/.test(av)?av:AVATAR}" width="${sz}" height="${sz}" alt="" style="image-rendering:pixelated;border:1px solid #242424;border-radius:9px;flex:none;background:#000;object-fit:cover">`}
 function fmt(t){return esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\n/g,'<br>')}
-function renderList(){$('#agents').innerHTML=S.agents.map(a=>`<button class="ag ${a.id===S.active?'act':''}" data-id="${esc(a.id)}">${weave(a.name)}<div><b>${esc(a.name)}</b><span>${esc(a.role||'No role yet')}</span></div></button>`).join('')}
-function renderHead(){const a=A();$('#chead').innerHTML=`${weave(a.name,44)}<div><h1>${esc(a.name)}</h1><p>${esc(a.role||'Set a role in Setup')} · ${esc(TIER_MODEL[a.tier])} · ${a.plugins.length} plugins</p></div><button class="btn sm" id="clear" ${a.chat.length?'':'disabled'}>Clear chat</button>`}
+function renderList(){$('#agents').innerHTML=S.agents.map(a=>`<button class="ag ${a.id===S.active?'act':''}" data-id="${esc(a.id)}">${weave(a.name,40,a.avatar)}<div><b>${esc(a.name)}</b><span>${esc(a.role||'No role yet')}</span></div></button>`).join('')}
+function renderHead(){const a=A();$('#chead').innerHTML=`${weave(a.name,44,a.avatar)}<div><h1>${esc(a.name)}</h1><p>${esc(a.role||'Set a role in Setup')} · ${esc(TIER_MODEL[a.tier])} · ${a.plugins.length} plugins</p></div><button class="btn sm" id="clear" ${a.chat.length?'':'disabled'}>Clear chat</button>`}
 function renderMsgs(){
  const a=A(),box=$('#msgs');
  if(!a.chat.length){
   const has=n=>a.plugins.includes(n);
   const sug=has('x')?['Write an X post announcing our testnet','Remind me to review the post tomorrow','Introduce yourself']:has('knowledge')&&a.knowledge.length?['What do your docs say?','Explain FDV vs market cap','What is 2.5% of 1,000,000,000?']:['Introduce yourself','What actions can you take?'];
-  box.innerHTML=`<div class="empty">${weave(a.name,64)}<h3>Talk to ${esc(a.name)}</h3><p>${esc(a.bio||'Give this agent a bio and personality in Setup.')}</p><div class="sug">${sug.map(s=>`<button data-s="${esc(s)}">${esc(s)}</button>`).join('')}</div></div>`;return;
+  box.innerHTML=`<div class="empty">${weave(a.name,64,a.avatar)}<h3>Talk to ${esc(a.name)}</h3><p>${esc(a.bio||'Give this agent a bio and personality in Setup.')}</p><div class="sug">${sug.map(s=>`<button data-s="${esc(s)}">${esc(s)}</button>`).join('')}</div></div>`;return;
  }
  box.innerHTML=a.chat.map(m=>`<div class="m ${m.role==='user'?'u':'a'} ${m.err?'err':''}">${m.text?fmt(m.text):'<span class="dot"></span><span class="dot"></span><span class="dot"></span>'}${(m.tools&&m.tools.length)||(m.evals&&m.evals.length)?`<div class="tr">${(m.tools||[]).map(t=>`<span>${esc(t)}</span>`).join('')}${(m.evals||[]).map(t=>`<span class="ev">${esc(t)}</span>`).join('')}</div>`:''}</div>`).join('');
  box.scrollTop=box.scrollHeight;
@@ -483,7 +490,8 @@ function renderCfg(){
  let h='';
  if(S.tab==='char'){
   const st=Object.entries(a.settings).map(([k,v])=>k+'='+v).join('\n');
-  h=`<label class="f">Name<input data-k="name" value="${esc(a.name)}" maxlength="40"></label>
+  h=`<div class="avrow">${weave(a.name,64,a.avatar)}<div class="row"><label class="btn sm" style="display:inline-flex;align-items:center">Upload photo<input type="file" id="avfile" accept="image/png,image/jpeg,image/webp" hidden></label>${a.avatar?'<button class="btn sm" id="avreset">Use Kira</button>':''}</div></div>
+  <label class="f">Name<input data-k="name" value="${esc(a.name)}" maxlength="40"></label>
   <label class="f">Role<input data-k="role" value="${esc(a.role)}" placeholder="e.g. Onchain research analyst"></label>
   <label class="f">Bio<textarea data-k="bio" placeholder="Who is this agent and who does it help?">${esc(a.bio)}</textarea></label>
   <label class="f">Personality traits<input data-k="traits" value="${esc(a.traits)}" placeholder="comma separated"></label>
@@ -491,6 +499,7 @@ function renderCfg(){
   <div style="font-size:13px;font-weight:600">Default model type<div class="seg">${['quick','default','complex'].map(t=>`<button data-tier="${t}" class="${a.tier===t?'on':''}">${TIER_MODEL[t].replace('TEXT_','')}</button>`).join('')}</div></div>
   <label class="f">Character settings <span style="font-weight:400;color:var(--mute)">read by runtime.getSetting(), one KEY=value per line</span><textarea id="settings" class="mono" placeholder="AUTO_REFLECT=false&#10;KNOWLEDGE_MAX_PASSAGES=5">${esc(st)}</textarea></label>
   <p class="note n0">Don't paste real API keys here: this page cannot reach outside services, and missing tokens simply keep platform plugins in draft mode.</p>
+  <div class="row" style="margin-bottom:8px"><button class="btn sm pri" id="share">Share to gallery</button></div>
   <div class="row"><button class="btn sm" id="dup">Duplicate</button><button class="btn sm" id="copyj">Copy character.json</button><button class="btn sm warn" id="del">${delArm===a.id?'Tap again to delete':'Delete agent'}</button></div>
   <details><summary>Import character.json</summary><textarea id="imp" class="code" style="min-height:120px" placeholder='{"name":"…","bio":"…","plugins":["knowledge"]}'></textarea><button class="btn sm" id="impb">Import as new agent</button> <span id="impm" class="err"></span></details>`;
  }else if(S.tab==='plug'){
@@ -541,7 +550,7 @@ function setView(v){
  document.body.dataset.view=v;document.querySelectorAll('[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
  $('#drop').classList.remove('open');$('#menu').setAttribute('aria-expanded','false');
  try{history.replaceState(null,'',v==='studio'?location.pathname:v==='docs'?'#docs-'+DOC:'#'+v)}catch(e){}
- if(v==='plugins')renderPlugins();if(v==='docs')renderDocs();
+ if(v==='plugins')renderPlugins();if(v==='gallery')renderGallery();if(v==='docs')renderDocs();
 }
 const list=(arr,f=x=>`<code>${esc(x)}</code>`)=>arr&&arr.length?arr.map(f).join(', '):'<span style="color:var(--mute)">none</span>';
 function renderPlugins(){
@@ -974,7 +983,39 @@ const Account=(()=>{
 })();
 Account.init();
 
-function fromHash(){const h=location.hash.slice(1);if(h.startsWith('docs')){const k=h.slice(5);if(PAGES[k]||/^ez-\d+$/.test(k))DOC=k;setView('docs')}else setView(h==='plugins'?'plugins':'studio')}
+/* ============ GALLERY + AVATARS ============ */
+function resizeAvatar(file){return new Promise((res,rej)=>{if(!file||!/^image\//.test(file.type)||file.size>8e6)return rej(new Error('Pick a PNG, JPEG or WebP image under 8 MB.'));
+ const img=new Image(),url=URL.createObjectURL(file);img.onload=()=>{const c=document.createElement('canvas');c.width=c.height=128;const g=c.getContext('2d');const s=Math.min(img.width,img.height);g.fillStyle='#000';g.fillRect(0,0,128,128);g.drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,128,128);URL.revokeObjectURL(url);let d=c.toDataURL('image/webp',.8);if(!/^data:image\/webp/.test(d)||d.length>38000)d=c.toDataURL('image/jpeg',.78);res(d)};img.onerror=()=>{URL.revokeObjectURL(url);rej(new Error('That image could not be read.'))};img.src=url})}
+let GAL=null;
+async function renderGallery(){
+ const v=$('#vgallery');
+ v.innerHTML=`<div class="wrap"><h1 style="font-size:clamp(30px,4vw,44px);line-height:1.05;margin:0 0 8px">Gallery</h1><p class="note" style="padding:0 0 20px;font-size:15px">Agents shared by KIRA OS users. Tap <b>Use agent</b> to add a copy to your Studio. Share your own from Studio → Setup → Character.</p><div class="grid" id="ggrid"><p class="note n0">Loading…</p></div></div>`;
+ try{const r=await fetch('/api/gallery',{cache:'no-store'});const j=await r.json();if(!r.ok)throw new Error(j.reply||'unavailable');GAL=j.items||[]}
+ catch(e){$('#ggrid').innerHTML='<p class="note n0">The gallery is available on getkira.xyz.</p>';return}
+ const me=Account.user&&Account.user.id;
+ $('#ggrid').innerHTML=GAL.length?GAL.map(it=>{const a=it.agent;return `<article class="gcard"><div class="gh">${weave(a.name,52,a.avatar)}<div><h3>${esc(a.name)}</h3><div class="gr">${esc(a.role||'Agent')}</div></div></div><p>${esc(a.bio)}</p><div class="chips" style="margin:0">${a.plugins.filter(p=>!['store','bootstrap','claude-models'].includes(p)).map(p=>`<i>${esc(p)}</i>`).join('')}</div><div class="gf"><span>by ${esc(it.author.name)} · ${esc(new Date(it.createdAt).toLocaleDateString())}</span><span class="row">${it.author.id===me?`<button class="btn sm warn" data-gdel="${esc(it.id)}">Remove</button>`:''}<button class="btn sm pri" data-guse="${esc(it.id)}">Use agent</button></span></div></article>`}).join(''):'<p class="note n0">No agents shared yet. Be the first: Studio → Setup → Character → Share to gallery.</p>';
+}
+document.addEventListener('change',async e=>{
+ if(e.target.id!=='avfile')return;const a=A();
+ try{a.avatar=await resizeAvatar(e.target.files[0]);save();renderList();renderHead();renderMsgs();renderCfg()}catch(x){const t=$('#toast');t.textContent=x.message;t.hidden=false;setTimeout(()=>t.hidden=true,4000)}
+});
+document.addEventListener('click',async e=>{
+ const t=e.target.closest('button');if(!t)return;const a=A();
+ const toast=m=>{const el=$('#toast');el.textContent=m;el.hidden=false;clearTimeout(el._t);el._t=setTimeout(()=>el.hidden=true,4500)};
+ if(t.id==='avreset'){delete a.avatar;save();renderList();renderHead();renderMsgs();renderCfg();return}
+ if(t.id==='share'){
+  if(!Account.user){$('#acct').hidden?toast('Sharing works on getkira.xyz after signing in.'):$('#acct').click();return}
+  t.disabled=true;t.textContent='Sharing…';
+  try{const r=await fetch('/api/gallery',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({agent:{name:a.name,role:a.role,bio:a.bio,traits:a.traits,style:a.style,tier:a.tier,plugins:a.plugins,avatar:a.avatar||'',knowledge:a.knowledge.slice(0,5).map(d=>({title:d.title,text:d.text.slice(0,4000)}))}})});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.reply||'Sharing failed.');toast(a.name+' is now in the gallery.')}
+  catch(x){toast(x.message)}
+  t.disabled=false;t.textContent='Share to gallery';return}
+ if(t.dataset.guse){const it=(GAL||[]).find(x=>x.id===t.dataset.guse);if(!it)return;const g=it.agent;const cat=catalog();
+  const n=mk({name:g.name,role:g.role,bio:g.bio,traits:g.traits,style:g.style,tier:g.tier,avatar:g.avatar||undefined,plugins:[...new Set([...DEF_PLUG.slice(0,3),...g.plugins.filter(p=>cat[p])])],knowledge:g.knowledge.map(d=>({id:uid(),title:d.title,text:d.text}))});
+  S.agents.push(n);S.active=n.id;save();renderAll();setView('studio');if(innerWidth<=1100)$('#tabs [data-p=chat]').click();toast(g.name+' added to your agents.');return}
+ if(t.dataset.gdel){t.disabled=true;try{const r=await fetch('/api/gallery?id='+encodeURIComponent(t.dataset.gdel),{method:'DELETE'});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.reply||'Could not remove it.');renderGallery()}catch(x){toast(x.message);t.disabled=false}}
+});
+
+function fromHash(){const h=location.hash.slice(1);if(h.startsWith('docs')){const k=h.slice(5);if(PAGES[k]||/^ez-\d+$/.test(k))DOC=k;setView('docs')}else setView(h==='plugins'?'plugins':h==='gallery'?'gallery':'studio')}
 loadEZ().then(()=>{if(location.hash)fromHash()});if(location.hash)fromHash();
 addEventListener('hashchange',fromHash);
 let AIOFF=false;
