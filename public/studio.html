@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KIRA OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Inter+Tight:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a working agent runtime — calm, exact, ready to use.
+   IDEA: a weaving loom: each agent is woven from plugins (actions, providers, evaluators, services).
+   PICTURE: the working app itself; woven-thread avatars; a live runtime inspector with event log.
+   COLOUR and TYPE: stone ground, black ink, brick accent, white panels; Schibsted Grotesk.
+   LAYOUT: agents | chat | setup on wide screens; one pane with tabs on phones. */
+:root{color-scheme:dark;--bg:#030303;--ink:#f1f1ef;--mute:#8d8d89;--panel:#0b0b0b;--line:#242424;--brick:#f1f1ef;--brick2:#f1f1ef;--soft:#151515;--ok:#8fd6a3}
+*{box-sizing:border-box;min-width:0}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Inter Tight",system-ui,sans-serif;overflow:hidden}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}button:disabled{opacity:.5;cursor:default}
+:focus-visible{outline:2px solid var(--brick);outline-offset:2px}
+code,.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
+.top{height:60px;display:flex;align-items:center;gap:14px;padding:0 max(2vw,14px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.01em}
+.brand small{font-weight:500;font-size:14px;color:var(--mute)}
+.pill{margin-left:auto;font-size:13px;padding:5px 11px;border-radius:99px;border:1px solid var(--line);background:var(--panel);white-space:nowrap}
+.pill b{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--mute);margin-right:6px;vertical-align:1px}
+.pill.on b{background:var(--ok)}.pill.off b{background:var(--brick)}
+.tabs{display:none}
+.app{display:grid;grid-template-columns:260px minmax(0,1fr) 400px;height:calc(100dvh - 60px)}
+.pane{overflow:auto;border-right:1px solid var(--line)}
+.pane:last-child{border-right:0}
+h2{font-size:15px;margin:0;font-weight:700}
+h4{font-size:14px;margin:18px 0 8px}
+.ph{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:16px 16px 10px}
+.btn{min-height:40px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel);font-weight:600;font-size:14px}
+.btn:hover:not(:disabled){border-color:var(--ink)}
+.btn.pri{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.warn{color:var(--brick2)}
+.btn.sm{min-height:34px;padding:5px 10px;font-size:13px}
+.ag{display:flex;gap:12px;align-items:center;width:calc(100% - 16px);margin:2px 8px;padding:10px;border-radius:12px;border:1px solid transparent;background:none;text-align:left}
+.ag:hover{background:var(--soft)}
+.ag.act{background:var(--panel);border-color:var(--line)}
+.ag svg,.ag img{flex:none;border-radius:9px}
+.ag b{display:block;font-size:15px}.ag span{display:block;font-size:13px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.note{font-size:13px;color:var(--mute);padding:6px 16px 16px}
+.n0{padding:0 0 12px}
+#chat{display:flex;flex-direction:column;background:var(--panel);overflow:hidden}
+.ch{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line)}
+.ch h1{font-size:20px;margin:0;line-height:1.1}
+.ch p{margin:2px 0 0;font-size:13px;color:var(--mute)}
+.ch .btn{margin-left:auto}
+#msgs{flex:1;overflow:auto;padding:20px clamp(14px,3vw,34px);display:flex;flex-direction:column;gap:14px}
+.m{max-width:min(680px,88%);padding:11px 15px;border-radius:16px;font-size:16px;overflow-wrap:anywhere}
+.m.u{align-self:flex-end;background:var(--ink);color:var(--bg);border-bottom-right-radius:5px}
+.m.a{align-self:flex-start;background:var(--soft);border-bottom-left-radius:5px}
+.m.err{background:transparent;border:1px solid var(--brick);color:var(--brick2)}
+.m code{background:light-dark(#e7e4df,#38332e);padding:1px 5px;border-radius:5px}
+.tr{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tr span{font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--brick);color:var(--brick2)}
+.tr span.ev{border-color:var(--mute);color:var(--mute)}
+.empty{margin:auto;text-align:center;max-width:460px;color:var(--mute)}
+.empty h3{color:var(--ink);font-size:24px;margin:12px 0 6px;line-height:1.1}
+.sug{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px}
+.sug button{border:1px solid var(--line);background:var(--bg);border-radius:99px;padding:8px 13px;font-size:14px;min-height:40px}
+.comp{display:flex;gap:10px;padding:12px 16px;border-top:1px solid var(--line);align-items:flex-end}
+.comp textarea{flex:1;resize:none;min-height:46px;max-height:160px;padding:11px 13px;border-radius:12px;border:1px solid var(--line);background:var(--bg);font-size:16px}
+.comp .btn{min-height:46px;min-width:76px}
+.st{display:flex;gap:2px;padding:10px 10px 0;overflow-x:auto;border-bottom:1px solid var(--line)}
+.st button{flex:none;border:0;background:none;padding:10px 9px;font-size:14px;font-weight:600;color:var(--mute);border-bottom:2px solid transparent;min-height:44px}
+.st button.on{color:var(--ink);border-color:var(--brick)}
+.sb{padding:16px}
+label.f{display:block;font-size:13px;font-weight:600;margin:0 0 14px}
+label.f input,label.f textarea,label.f select,.inp{display:block;width:100%;margin-top:5px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel);font-size:16px;font-weight:400}
+label.f textarea{resize:vertical;min-height:84px}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:5px 0 14px}
+.seg button{flex:1;border:0;background:var(--panel);padding:9px 4px;font-size:14px;min-height:42px}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.pl{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.pl input{width:20px;height:20px;margin-top:2px;accent-color:var(--brick);flex:none}
+.pl b{font-size:15px}.pl .d{display:block;font-size:13px;color:var(--mute)}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.chips i{font-style:normal;font-size:11px;font-weight:700;padding:1px 6px;border-radius:5px;background:var(--soft);border:1px solid var(--line)}
+.card{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;background:var(--panel)}
+.card input,.card textarea{width:100%;border:0;background:none;padding:2px 0;font-size:16px}
+.card input{font-weight:700}
+.card textarea{resize:vertical;min-height:90px;color:var(--mute);font-size:15px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row.end{justify-content:flex-end}
+.fact{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
+.fact span{flex:1}
+.fact.done span{text-decoration:line-through;color:var(--mute)}
+.x{border:0;background:none;color:var(--mute);font-size:20px;line-height:1;width:34px;height:34px;flex:none;border-radius:8px}
+.x:hover{color:var(--brick2);background:var(--soft)}
+.tag{font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--ink);color:var(--bg);white-space:nowrap}
+.tag.o{background:none;color:var(--ink);border:1px solid var(--line)}
+.tag.g{background:var(--ok);color:#fff}
+details{margin-top:14px;font-size:14px}summary{cursor:pointer;font-weight:600;min-height:32px}
+textarea.code{width:100%;min-height:220px;margin:8px 0;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--panel);font:13px/1.45 ui-monospace,monospace;resize:vertical}
+table{width:100%;border-collapse:collapse;font-size:13px}
+td,th{text-align:left;padding:6px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;color:var(--mute)}
+td.r,th.r{text-align:right}
+.log{max-height:300px;overflow:auto;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.log div{display:grid;grid-template-columns:62px 1fr;gap:8px;padding:5px 8px;border-bottom:1px solid var(--line);font-size:12px}
+.log div:last-child{border:0}
+.log .t{color:var(--mute)}
+.log b{font-size:12px}.log b.e{color:var(--brick2)}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--soft);border-radius:10px;padding:10px;margin:6px 0;font:12px/1.45 ui-monospace,monospace;max-height:260px;overflow:auto}
+.err{color:var(--brick2);font-size:13px}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;animation:p 1s infinite alternate;margin-right:3px}
+@keyframes p{to{opacity:.2}}
+@media(prefers-reduced-motion:reduce){.dot{animation:none}}
+.nav{display:flex;gap:2px;margin-left:18px}
+.nav button{border:0;background:none;padding:8px 12px;border-radius:9px;font-weight:600;font-size:15px;color:var(--mute);min-height:40px}
+.nav button.on{background:var(--panel);color:var(--ink);box-shadow:0 0 0 1px var(--line)}
+.menu{display:none;margin-left:10px;width:44px;height:40px;border:1px solid var(--line);border-radius:10px;background:var(--panel);font-size:20px;line-height:1}
+.drop{position:fixed;top:64px;left:12px;right:12px;z-index:20;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px;box-shadow:0 12px 40px rgba(0,0,0,.18);display:none}
+.drop.open{display:block}
+.drop button{display:block;width:100%;text-align:left;border:0;background:none;padding:12px;border-radius:10px;font-size:16px;font-weight:600}
+.drop button span{display:block;font-weight:400;font-size:13px;color:var(--mute)}
+.drop button.on{background:var(--soft)}
+.navlink{display:inline-flex;align-items:center;padding:8px 12px;color:var(--mute);text-decoration:none;font-weight:600;font-size:15px}.navlink:hover{color:var(--ink)}
+.dlink{display:block;padding:12px;border-radius:10px;font-size:16px;font-weight:600;color:var(--ink);text-decoration:none;border-top:1px solid var(--line);margin-top:6px}.dlink span{display:block;font-weight:400;font-size:13px;color:var(--mute)}
+.view{display:none;height:calc(100dvh - 60px);overflow:auto}
+body[data-view=studio] .app{display:grid}
+body:not([data-view=studio]) .app,body:not([data-view=studio]) .tabs{display:none!important}
+body[data-view=plugins] #vplugins,body[data-view=docs] #vdocs{display:block}
+.doc{max-width:1120px;margin:0 auto;padding:clamp(20px,4vw,48px) max(4vw,16px) 80px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px}
+.toc{position:sticky;top:0;align-self:start;padding-top:6px}
+.toc a{display:block;color:var(--mute);text-decoration:none;font-size:14px;padding:5px 0 5px 10px;border-left:2px solid var(--line)}
+.toc a:hover{color:var(--ink);border-color:var(--brick)}
+.doc h1{font-size:clamp(32px,4vw,46px);line-height:1.05;margin:0 0 12px;text-wrap:balance}
+.doc .lede{font-size:18px;color:var(--mute);max-width:64ch;margin:0 0 24px}
+.doc section{padding:26px 0;border-top:1px solid var(--line)}
+.doc h3{font-size:24px;line-height:1.15;margin:0 0 10px}
+.doc p,.doc li{max-width:70ch}
+.doc pre{max-height:none;font-size:13px;background:var(--panel);border:1px solid var(--line)}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:14px 0;counter-reset:f}
+.flow div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:14px;counter-increment:f}
+.flow div::before{content:counter(f);display:block;font-weight:800;font-size:22px;color:var(--brick2);line-height:1}
+.flow b{display:block;margin-top:4px}
+.evg{display:grid;grid-template-columns:120px minmax(0,1fr);gap:6px 12px;align-items:start;margin:10px 0}
+.evg>b{font-size:14px;padding-top:3px}
+.live{background:var(--soft);border-radius:12px;padding:12px 14px;margin-top:12px;font-size:14px}
+.live b{color:var(--brick2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.pc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+.pc h3{margin:0;font-size:18px}
+.pc dl{display:grid;grid-template-columns:110px minmax(0,1fr);gap:4px 10px;margin:12px 0 0;font-size:13px}
+.pc dt{color:var(--mute)}.pc dd{margin:0;overflow-wrap:anywhere}
+#vdocs{overflow:hidden}
+.dwrap{display:grid;grid-template-columns:280px minmax(0,1fr);height:100%}
+.dbar{display:none}
+.dside{overflow:auto;border-right:1px solid var(--line);padding:18px 16px 40px;background:var(--bg)}
+.theme{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:99px;background:var(--panel);margin-bottom:14px}
+.theme button{width:40px;height:34px;border:0;border-radius:99px;background:none;font-size:16px;color:var(--mute)}
+.theme button.on{background:var(--ink);color:var(--bg)}
+.llm{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;padding:8px 6px;font-size:16px;font-weight:500;color:var(--mute);min-height:44px;text-align:left}
+.llm.on{color:var(--brick2);font-weight:700}
+.llm span{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink)}
+.dg{font-weight:800;font-size:14px;margin:22px 6px 6px;color:var(--ink)}
+.dside a{display:block;padding:9px 12px;border-radius:10px;color:var(--mute);text-decoration:none;font-size:15px}
+.dside a:hover{color:var(--ink);background:var(--soft)}
+.dside a.on{background:var(--panel);color:var(--brick2);font-weight:700;box-shadow:0 0 0 1px var(--line)}
+.dmain{overflow:auto}
+.dart{max-width:820px;padding:clamp(22px,4vw,52px) max(4vw,18px) 80px}
+.dart h1{font-size:clamp(32px,4vw,46px);line-height:1.05;margin:0 0 12px;text-wrap:balance}
+.dart .lede{font-size:18px;color:var(--mute);margin:0 0 22px}
+.dart h3{font-size:21px;line-height:1.2;margin:28px 0 10px}
+.dart p,.dart li{max-width:70ch}
+.dart .pc h3{margin:0}
+.dart li{margin:4px 0}
+.dart a{color:var(--brick2)}
+.dart pre{white-space:pre;overflow-x:auto;max-height:none;font-size:12.5px;background:var(--panel);border:1px solid var(--line)}
+.dart table{margin:8px 0;font-size:14px}
+.rdp{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:clamp(16px,3vw,28px)}
+.rdp h2{font-size:28px;line-height:1.1;margin:0 0 6px}.rdp h3{font-size:20px;margin:26px 0 8px}.rdp h4,.rdp h5{font-size:16px;margin:18px 0 6px}
+.rdp p,.rdp li{font-size:15.5px}.rdp hr{border:0;border-top:1px solid var(--line);margin:22px 0}
+.cb{position:relative;margin:10px 0}.cb span{position:absolute;top:6px;right:10px;font-size:11px;color:var(--mute)}.cb pre{background:var(--soft)!important;border:0!important;padding:14px}
+.co{border-left:4px solid var(--mute);background:var(--soft);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:15px}.co b:first-child{display:block;font-size:12px;margin-bottom:2px}
+.co-tip{border-color:var(--ok)}.co-warning{border-color:var(--brick)}
+.rcard{display:inline-block;border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:4px 6px 4px 0;font-size:14px}
+.ezh{margin:30px 6px 4px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;font-weight:800;color:var(--brick2)}
+.ezg summary{font-weight:800;font-size:14px;padding:10px 6px;list-style-position:outside;margin-left:14px}.ezg summary span{font-weight:400;color:var(--mute);font-size:12px}
+.ezb h3{font-size:22px}.ezb h4,.ezb h5{font-size:17px;margin:20px 0 6px}.ezb hr{border:0;border-top:1px solid var(--line);margin:22px 0}
+.llmp{padding:26px 0;border-top:1px solid var(--line)}.llmp:first-child{border:0;padding-top:4px}.llmp h2{font-size:26px;line-height:1.15;margin:0 0 4px}
+.pn{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:44px;padding-top:20px;border-top:1px solid var(--line)}
+.pn a{border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-decoration:none;color:var(--ink);font-weight:700;background:var(--panel)}
+.pn a span{display:block;font-weight:400;font-size:13px;color:var(--mute)}
+@media(max-width:860px){.dwrap{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}.dbar{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:14px;color:var(--mute);white-space:nowrap;overflow:hidden}.dbar span{overflow:hidden;text-overflow:ellipsis}.dbar b{color:var(--ink)}.dside{display:none;position:fixed;inset:112px 0 0 0;z-index:15;border:0}.dside.open{display:block}.dmain{grid-row:2}}
+.wrap{max-width:1240px;margin:0 auto;padding:clamp(20px,4vw,40px) max(4vw,16px) 60px}
+@media(max-width:860px){.doc{grid-template-columns:minmax(0,1fr)}.toc{position:static;display:flex;overflow-x:auto;gap:4px}.toc a{flex:none;border:1px solid var(--line);border-radius:99px;padding:6px 12px}.nav{display:none}.menu{display:block}}
+@media(max-width:1100px){
+ .app{grid-template-columns:minmax(0,1fr);height:calc(100dvh - 112px)}
+ .pane{display:none;border:0}
+ .view{height:calc(100dvh - 60px)}
+ body[data-pane=list] #list,body[data-pane=chat] #chat,body[data-pane=cfg] #cfg{display:flex;flex-direction:column}
+ #list,#cfg,#chat{display:none}
+ .st{flex:none}
+ .tabs{display:flex;height:52px;border-bottom:1px solid var(--line);background:var(--bg)}
+ .tabs button{flex:1;border:0;background:none;font-weight:600;font-size:15px;color:var(--mute);border-bottom:2px solid transparent}
+ .tabs button.on{color:var(--ink);border-color:var(--brick)}
+ #cfg .sb{overflow:auto}
+}
+@media(max-width:600px){.stack thead{display:none}.stack tr{display:grid;padding-block:8px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:2px 0;padding-inline-start:6.5em}.stack td::before{content:attr(data-l);float:inline-start;width:6em;margin-inline-start:-6.5em;color:var(--mute)}.brand small{display:none}.m{max-width:92%}.ch h1{font-size:18px}}
+.wm{display:inline-flex;align-items:center;gap:.42em;line-height:1}.wm-a{font-family:"Russo One",sans-serif;font-weight:400;letter-spacing:.01em;color:#f1f1ef}
+</style>
+</head>
+<body data-pane="chat" data-view="studio">
+<header class="top">
+ <button class="menu" id="menu" aria-label="Menu" aria-expanded="false">☰</button>
+ <a class="brand" href="index.html" style="color:inherit;text-decoration:none" aria-label="KIRA OS home"><span class="wm"><span class="wm-a" style="font-size:28px">KIRA</span><svg class="wm-os" viewBox="0 0 15 7" height="20" width="43" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#f1f1ef" d="M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM5 1h1v1h-1zM6 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM13 3h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1z"/></svg></span></a>
+ <nav class="nav" id="nav"><button data-v="studio" class="on">Studio</button><button data-v="plugins">Plugins</button><button data-v="docs">Docs</button><a class="navlink" href="index.html">← Site</a></nav>
+ <span class="pill" id="status"><b></b>Connecting…</span>
+</header>
+<div class="drop" id="drop"><button data-v="studio" class="on">Studio<span>Agents, chat and setup</span></button><button data-v="plugins">Plugins<span>Every plugin and its manifest</span></button><button data-v="docs">Docs<span>Plugin architecture guide</span></button><a class="dlink" href="index.html">← Home<span>KIRA OS home page</span></a></div>
+<div class="view" id="vplugins"></div>
+<div class="view" id="vdocs"></div>
+<nav class="tabs" id="tabs"><button data-p="list">Agents</button><button data-p="chat" class="on">Chat</button><button data-p="cfg">Setup</button></nav>
+<main class="app">
+ <aside class="pane" id="list">
+  <div class="ph"><h2>Agents</h2><button class="btn sm pri" id="new">+ New agent</button></div>
+  <div id="agents"></div>
+  <p class="note">Each agent loads a set of plugins: actions it can do, providers it reads, evaluators that learn from replies, services, routes and events. Saved in this browser.</p>
+ </aside>
+ <section class="pane" id="chat">
+  <div class="ch" id="chead"></div>
+  <div id="msgs" aria-live="polite"></div>
+  <form class="comp" id="form"><textarea id="inp" rows="1" placeholder="Message your agent…" aria-label="Message"></textarea><button class="btn pri" id="send">Send</button></form>
+ </section>
+ <aside class="pane" id="cfg">
+  <div class="st" id="stabs"></div>
+  <div class="sb" id="sbody"></div>
+ </aside>
+</main>
+<script>
+{
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Math.random().toString(36).slice(2,10);
+const clock=()=>new Date().toTimeString().slice(0,8);
+let sample=null;
+
+/* ============ RUNTIME (elizaOS-style plugin architecture) ============ */
+const EVENTS=['WORLD_JOINED','WORLD_CONNECTED','WORLD_LEFT','ENTITY_JOINED','ENTITY_LEFT','ENTITY_UPDATED','ROOM_JOINED','ROOM_LEFT','MESSAGE_RECEIVED','MESSAGE_SENT','MESSAGE_DELETED','VOICE_MESSAGE_RECEIVED','VOICE_MESSAGE_SENT','RUN_STARTED','RUN_ENDED','RUN_TIMEOUT','ACTION_STARTED','ACTION_COMPLETED','EVALUATOR_STARTED','EVALUATOR_COMPLETED','MODEL_USED'];
+const TIER_MODEL={quick:'TEXT_SMALL',default:'TEXT_LARGE',complex:'TEXT_REASONING'};
+class Runtime{
+ constructor(agent,log){this.agent=agent;this.character=agent;this.plugins=[];this.actions=[];this.providers=[];this.evaluators=[];this.models={};this.routes=[];this.events={};this.services=new Map();this.servicesInitQueue=[];this.adapter=null;this.initialized=false;this.logs=log;this.cache=new Map();this.order=[];this.errors=[]}
+ log(type,detail,err){this.logs.push({t:clock(),type,detail:String(detail||''),err:!!err});if(this.logs.length>250)this.logs.splice(0,this.logs.length-250)}
+ getSetting(k){const s=this.agent.settings||{};if(s[k]!=null&&s[k]!=='')return s[k];for(const p of this.plugins)if(p.config&&p.config[k]!=null)return p.config[k];return null}
+ async registerPlugin(p){
+  if(!p||!p.name)throw new Error('Plugin must have a name');
+  if(this.plugins.some(x=>x.name===p.name)){this.log('PLUGIN_SKIPPED',p.name+' already registered');return}
+  this.plugins.push(p);
+  if(p.init){try{await p.init(p.config||{},this)}catch(e){this.errors.push(p.name+': '+e.message);this.log('PLUGIN_INIT_ERROR',p.name+': '+e.message,1)}}
+  if(p.adapter){this.adapter=p.adapter(this);}
+  (p.actions||[]).forEach(a=>this.actions.push({...a,plugin:p.name}));
+  (p.evaluators||[]).forEach(e=>this.evaluators.push({...e,plugin:p.name}));
+  (p.providers||[]).forEach(v=>this.providers.push({...v,plugin:p.name}));
+  for(const[type,h]of Object.entries(p.models||{})){(this.models[type]=this.models[type]||[]).push({handler:h,provider:p.name,priority:p.priority||0});this.models[type].sort((a,b)=>b.priority-a.priority)}
+  (p.routes||[]).forEach(r=>this.routes.push({...r,plugin:p.name}));
+  for(const[ev,hs]of Object.entries(p.events||{}))(this.events[ev]=this.events[ev]||[]).push(...hs.map(h=>({h,plugin:p.name})));
+  (p.services||[]).forEach(S=>{if(this.initialized)this.startService(S);else this.servicesInitQueue.push(S)});
+  this.log('PLUGIN_REGISTERED',p.name);
+ }
+ async startService(S){try{const inst=await S.start(this);inst.serviceType=S.serviceType;inst.capabilityDescription=S.capabilityDescription;this.services.set(S.serviceType,inst);this.log('SERVICE_STARTED',S.serviceType)}catch(e){this.log('SERVICE_ERROR',S.serviceType+': '+e.message,1)}}
+ async initialize(){this.initialized=true;for(const S of this.servicesInitQueue.splice(0))await this.startService(S)}
+ getService(t){return this.services.get(t)||null}
+ async emit(type,payload={}){this.log(type,payload.detail||'');for(const{h,plugin}of this.events[type]||[]){try{await h({runtime:this,...payload})}catch(e){this.log('EVENT_HANDLER_ERROR',plugin+': '+e.message,1)}}}
+ async useModel(type,params){const hs=this.models[type];if(!hs||!hs.length)throw new Error('No handler for model type '+type);const m=hs[0];await this.emit('MODEL_USED',{detail:type+' via '+m.provider,modelType:type});return m.handler(this,params)}
+ async composeState(message,include=[]){
+  const state={values:{},data:{},text:'',providers:[]};
+  const ps=this.providers.filter(p=>!p.private||include.includes(p.name)).sort((a,b)=>(a.position||0)-(b.position||0));
+  const parts=[];
+  for(const p of ps){
+   let r;const key='prov:'+p.name;
+   try{if(!p.dynamic&&this.cache.has(key))r=this.cache.get(key);else{r=await p.get(this,message,state)||{};if(!p.dynamic)this.cache.set(key,r)}}catch(e){this.log('PROVIDER_ERROR',p.name+': '+e.message,1);continue}
+   Object.assign(state.values,r.values||{});state.data[p.name]=r.data||null;
+   if(r.text){parts.push('# '+p.name+'\n'+r.text)}
+   state.providers.push({name:p.name,position:p.position||0,dynamic:!!p.dynamic,text:r.text||''});
+  }
+  state.text=parts.join('\n\n');return state;
+ }
+ async stop(){for(const s of this.services.values())try{s.stop&&await s.stop()}catch(e){}}
+}
+function resolveOrder(names,catalog){
+ const want=new Set(['bootstrap',...names]);let changed=true,missing=[];
+ while(changed){changed=false;for(const n of[...want]){const p=catalog[n];if(!p){missing.push(n);want.delete(n);continue}for(const d of p.dependencies||[])if(!want.has(d)){want.add(d);changed=true}}}
+ const done=[],left=[...want].map(n=>catalog[n]);
+ while(left.length){const ready=left.filter(p=>(p.dependencies||[]).every(d=>done.some(x=>x.name===d)));if(!ready.length){missing.push('cycle: '+left.map(p=>p.name).join(', '));break}ready.sort((a,b)=>(b.priority||0)-(a.priority||0));const p=ready[0];done.push(p);left.splice(left.indexOf(p),1)}
+ return{order:done,missing};
+}
+
+/* ============ BUILT-IN PLUGINS ============ */
+function searchK(a,q,max=3){
+ const terms=String(q).toLowerCase().split(/\W+/).filter(w=>w.length>2);const out=[];
+ a.knowledge.forEach(d=>d.text.split(/\n\s*\n/).forEach(p=>{const l=p.toLowerCase();let s=0;terms.forEach(t=>{if(l.includes(t))s++});if(s)out.push({doc:d.title,passage:p.slice(0,800),s})}));
+ out.sort((x,y)=>y.s-x.s);return out.slice(0,max).map(({doc,passage})=>({doc,passage}));
+}
+const ok=(text,data)=>({success:true,text,data});
+const P={};
+P.store={name:'store',description:'Database adapter that keeps memories, tasks, entities, rooms, cache and logs in this browser\'s storage.',priority:200,testDependencies:[],
+ schema:{memories:'id, tableName, content.text',tasks:'id, title, due, done',entities:'id, names[]',rooms:'id, name, source',cache:'key, value',logs:'time, type, detail'},
+ adapter:rt=>{const a=rt.agent;return{
+  getMemories:({tableName})=>tableName==='facts'?a.memory.map((t,i)=>({id:i,content:{text:t}})):a.chat.map((m,i)=>({id:i,content:{text:m.text},role:m.role})),
+  createMemory:(m,tableName)=>{if(tableName==='facts'&&!a.memory.includes(m.content.text))a.memory.push(m.content.text);save();return true},
+  removeMemory:(text)=>{const i=a.memory.findIndex(f=>f.toLowerCase().includes(String(text).toLowerCase()));if(i<0)return false;a.memory.splice(i,1);save();return true},
+  getTasks:()=>a.tasks,createTask:t=>{a.tasks.push(t);save();return t},updateTask:(id,u)=>{const t=a.tasks.find(x=>x.id===id);if(t)Object.assign(t,u);save();return t},
+  getEntities:()=>[{id:'user',names:['You']},{id:a.id,names:[a.name]}],getRooms:()=>[{id:'web',name:'Web chat',source:'loom'}],
+  getCache:k=>rt.cache.get(k),setCache:(k,v)=>rt.cache.set(k,v),log:e=>rt.log('DB_LOG',e)}},
+ routes:[
+  {type:'GET',path:'/status',name:'status',public:true,handler:async(req,res,rt)=>res.json({agent:rt.agent.name,plugins:rt.plugins.map(p=>p.name),services:[...rt.services.keys()],actions:rt.actions.map(a=>a.name)})},
+  {type:'GET',path:'/memories',name:'memories',handler:async(req,res,rt)=>res.json(rt.adapter.getMemories({tableName:'facts'}))},
+  {type:'GET',path:'/tasks',name:'tasks',handler:async(req,res,rt)=>res.json(rt.adapter.getTasks())}]};
+P.bootstrap={name:'bootstrap',description:'Always loaded. Message handling, core providers (character, time, recent messages, actions, tasks), task actions, a task service and core event handlers.',priority:100,dependencies:['store'],
+ providers:[
+  {name:'CHARACTER',description:'Who the agent is',position:-50,get:rt=>{const a=rt.agent;return{text:`Name: ${a.name}\nRole: ${a.role||'-'}\nBio: ${a.bio||'-'}\nTraits: ${a.traits||'-'}\nStyle: ${a.style||'-'}`,values:{agentName:a.name}}}},
+  {name:'TIME',description:'Current date and time',position:-40,dynamic:true,get:()=>({text:new Date().toString(),values:{now:new Date().toISOString()}})},
+  {name:'RECENT_MESSAGES',description:'Size of the conversation',position:-30,dynamic:true,get:rt=>({text:`${rt.agent.chat.length} messages in this room so far (history is attached).`,values:{messageCount:rt.agent.chat.length}})},
+  {name:'TASKS',description:'Open tasks',position:20,dynamic:true,get:rt=>{const t=rt.adapter.getTasks().filter(x=>!x.done);return{text:t.length?t.map(x=>'- '+x.title+(x.due?' (due '+x.due+')':'')).join('\n'):'',data:t}}},
+  {name:'ACTIONS',description:'Actions the agent may take',position:90,dynamic:true,get:rt=>({text:'Available actions: '+rt.actions.map(a=>a.name).join(', ')})}],
+ actions:[
+  {name:'CREATE_TASK',similes:['ADD_TODO','REMIND_ME'],description:'Create a task for the user or agent.',examples:['"remind me to check the bridge tomorrow"'],parameters:{type:'object',properties:{title:{type:'string'},due:{type:'string'}},required:['title']},
+   validate:async()=>true,handler:async(rt,msg,state,opt)=>{const s=rt.getService('task');const t=s.create(opt.parameters.title,opt.parameters.due);return ok('Task created: '+t.title,t)}},
+  {name:'LIST_TASKS',similes:['SHOW_TODOS'],description:'List open tasks.',examples:['"what\'s on my list?"'],validate:async()=>true,handler:async rt=>{const t=rt.getService('task').list();return ok(t.length?t.map(x=>x.title).join('; '):'No open tasks',t)}},
+  {name:'COMPLETE_TASK',similes:['DONE_TASK'],description:'Mark a task done by title.',parameters:{type:'object',properties:{title:{type:'string'}},required:['title']},validate:async rt=>rt.adapter.getTasks().some(t=>!t.done),handler:async(rt,m,s,opt)=>{const t=rt.getService('task').complete(opt.parameters.title);return t?ok('Completed '+t.title,t):{success:false,text:'No matching open task'}}}],
+ services:[{serviceType:'task',capabilityDescription:'Creates and tracks tasks through the database adapter.',start:async rt=>({create:(title,due)=>rt.adapter.createTask({id:uid(),title:String(title).slice(0,140),due:due||'',done:false}),list:()=>rt.adapter.getTasks().filter(t=>!t.done),complete:title=>{const t=rt.adapter.getTasks().find(x=>!x.done&&x.title.toLowerCase().includes(String(title).toLowerCase()));return t?rt.adapter.updateTask(t.id,{done:true}):null},stop:()=>{}})}],
+ events:{MESSAGE_RECEIVED:[({runtime})=>{runtime.cache.set('received',(runtime.cache.get('received')||0)+1)}],RUN_ENDED:[({runtime,ms})=>{runtime.log('BOOTSTRAP','run took '+ms+' ms')}]}};
+P['claude-models']={name:'claude-models',description:'Model handlers for TEXT_SMALL, TEXT_LARGE, TEXT_REASONING and OBJECT_SMALL, served by Claude.',priority:50,
+ models:(()=>{const t=tier=>async(rt,p)=>{if(!sample)throw new Error('Model access unavailable');return sample(p.messages,{signal:p.signal,cache:false,modelTier:tier,tools:p.tools,onText:p.onText})};return{TEXT_SMALL:t('quick'),TEXT_LARGE:t('default'),TEXT_REASONING:t('complex'),OBJECT_SMALL:async(rt,p)=>{if(!sample)throw new Error('Model access unavailable');if(sample.json)return sample.json(p.prompt,{modelTier:'quick'});const r=await sample(p.prompt,{modelTier:'quick'});return JSON.parse(r.text.replace(/^[^{[]*/,'').replace(/[^}\]]*$/,''))}}})()};
+P.knowledge={name:'knowledge',description:'Retrieves passages from the agent\'s documents into state and adds a search action.',priority:10,dependencies:['store'],config:{KNOWLEDGE_MAX_PASSAGES:3},
+ providers:[{name:'KNOWLEDGE',description:'Relevant passages for this message',position:10,dynamic:true,get:(rt,msg)=>{const r=searchK(rt.agent,msg.content.text,+rt.getSetting('KNOWLEDGE_MAX_PASSAGES')||3);return{text:r.map(x=>`[${x.doc}] ${x.passage}`).join('\n\n'),data:r}}}],
+ actions:[{name:'SEARCH_KNOWLEDGE',similes:['LOOKUP_DOCS','FIND_IN_KNOWLEDGE'],description:'Search the agent\'s documents for a query.',examples:['"what do our rules say about DMs?"'],parameters:{type:'object',properties:{query:{type:'string'}},required:['query']},validate:async rt=>rt.agent.knowledge.length>0,handler:async(rt,m,s,opt)=>{const r=searchK(rt.agent,opt.parameters.query,5);return ok(r.length?r.length+' passages found':'Nothing found',{results:r,docs:rt.agent.knowledge.map(d=>d.title)})}}],
+ routes:[{type:'GET',path:'/knowledge',name:'knowledge',handler:async(req,res,rt)=>res.json(rt.agent.knowledge.map(d=>({title:d.title,chars:d.text.length})))}]};
+P.memory={name:'memory',description:'Long-term facts: a FACTS provider, remember/forget actions and a REFLECTION evaluator that extracts facts after each reply.',priority:20,dependencies:['bootstrap','store','claude-models'],config:{AUTO_REFLECT:'true'},
+ providers:[{name:'FACTS',description:'Known facts',position:0,dynamic:true,get:rt=>({text:rt.agent.memory.map(f=>'- '+f).join('\n'),data:rt.agent.memory})}],
+ actions:[
+  {name:'REMEMBER_FACT',similes:['SAVE_FACT','NOTE_THIS'],description:'Save one short durable fact about the user or project.',examples:['"remember that I trade on Base"'],parameters:{type:'object',properties:{fact:{type:'string'}},required:['fact']},validate:async()=>true,handler:async(rt,m,s,opt)=>{rt.adapter.createMemory({content:{text:String(opt.parameters.fact).slice(0,200)}},'facts');return ok('Saved')}},
+  {name:'FORGET_FACT',similes:['DELETE_FACT'],description:'Remove a saved fact matching some text.',parameters:{type:'object',properties:{match:{type:'string'}},required:['match']},validate:async rt=>rt.agent.memory.length>0,handler:async(rt,m,s,opt)=>rt.adapter.removeMemory(opt.parameters.match)?ok('Forgotten'):{success:false,text:'No match'}}],
+ evaluators:[{name:'REFLECTION',similes:['FACT_EXTRACTOR'],description:'Extracts new durable facts about the user from the latest exchange.',alwaysRun:false,examples:['User says they live in Jakarta → fact saved'],
+  validate:async(rt,msg)=>String(rt.getSetting('AUTO_REFLECT'))!=='false'&&msg.content.text.length>15,
+  handler:async(rt,msg,state,resp)=>{const v=await rt.useModel('OBJECT_SMALL',{prompt:`Extract at most 2 NEW durable facts the USER stated about themselves or their project in this exchange. Skip anything already known, questions, small talk and the agent's own words. Return JSON {"facts":["..."]}.\nKnown: ${JSON.stringify(rt.agent.memory)}\nUser: ${msg.content.text}\nAgent: ${resp}`});const f=(v&&Array.isArray(v.facts)?v.facts:[]).filter(x=>typeof x==='string'&&x.length>3).slice(0,2);f.forEach(x=>rt.adapter.createMemory({content:{text:x.slice(0,200)}},'facts'));return{success:true,text:f.length+' facts',data:f}}}]};
+P.calculator={name:'calculator',description:'Exact arithmetic for prices, percentages and token supply math.',priority:0,
+ actions:[{name:'CALCULATE',similes:['MATH','COMPUTE'],description:'Evaluate an arithmetic expression with + - * / % ** and parentheses.',examples:['"what is 2.5% of 1,000,000,000?"'],parameters:{type:'object',properties:{expression:{type:'string'}},required:['expression']},validate:async()=>true,handler:async(rt,m,s,opt)=>{const e=String(opt.parameters.expression).replace(/,/g,'');if(!/^[\d\s+\-*/%.()]+$/.test(e))return{success:false,text:'Only numbers and + - * / % ( ) allowed'};return ok('ok',{result:Function('"use strict";return ('+e+')')()})}}]};
+P.outbox={name:'outbox',description:'Service that queues drafts for social platforms. Drafts are never published by this page.',priority:30,dependencies:['store'],
+ providers:[{name:'OUTBOX',description:'Drafts waiting (private)',private:true,position:30,dynamic:true,get:rt=>({text:rt.agent.outbox.length+' drafts waiting'})}],
+ services:[{serviceType:'outbox',capabilityDescription:'Holds post drafts for X, Discord and Telegram until the user copies them.',start:async rt=>({push:(platform,text,target)=>{const d={id:uid(),platform,target:target||'',text,chars:text.length};rt.agent.outbox.push(d);save();return d},stop:()=>{}})}],
+ routes:[{type:'GET',path:'/outbox',name:'outbox',handler:async(req,res,rt)=>res.json(rt.agent.outbox)}]};
+const platform=(name,label,act,token,limit)=>({name,description:`${label} client. Loads automatically when ${token} is set in character settings. Without a live connection the service runs in draft mode and posts go to the Outbox.`,priority:5,dependencies:['outbox'],testDependencies:['store'],autoEnable:token,config:{[token]:''},
+ services:[{serviceType:name,capabilityDescription:`${label} connection (draft mode in the browser)`,start:async rt=>{const has=!!rt.getSetting(token);if(!has)rt.log('SERVICE_NOTICE',`${token} missing, ${label} runs in draft mode`);return{mode:'draft',connected:false,stop:()=>{}}}}],
+ actions:[{name:act,similes:[label.toUpperCase()+'_POST'],description:`Draft a ${label} message${limit?` (max ${limit} characters)`:''}. It is queued in the Outbox, NOT published.`,examples:[`"write a ${label} post about our launch"`],parameters:{type:'object',properties:{text:{type:'string'},target:{type:'string',description:'channel or chat, optional'}},required:['text']},validate:async rt=>!!rt.getService(name),handler:async(rt,m,s,opt)=>{let t=String(opt.parameters.text||'');if(limit&&t.length>limit)return{success:false,text:`Too long (${t.length}/${limit}). Shorten and retry.`};const d=rt.getService('outbox').push(label,t,opt.parameters.target);return ok('Queued as draft in Outbox, not published',{id:d.id})}}]});
+P.x=platform('x','X','POST_TO_X','X_API_KEY',280);
+P.discord=platform('discord','Discord','SEND_DISCORD_MESSAGE','DISCORD_API_TOKEN',2000);
+P.telegram=platform('telegram','Telegram','SEND_TELEGRAM_MESSAGE','TELEGRAM_BOT_TOKEN',4096);
+const baseApi=async q=>{const r=await fetch('/api/base?'+q,{cache:'no-store'});const j=await r.json().catch(()=>({}));if(!r.ok||j.error)throw new Error(j.error||'base_unavailable');return j};
+const rnd=v=>v==null?null:Math.abs(v)>=1?Math.round(v*100)/100:Number(Number(v).toPrecision(4));
+const slimPool=p=>({name:p.token&&p.token.name,symbol:p.token&&p.token.symbol,address:p.token&&p.token.address,price_usd:rnd(p.price),change_1h_pct:rnd(p.ch1),change_24h_pct:rnd(p.ch24),volume_24h_usd:rnd(p.vol24),liquidity_usd:rnd(p.liq),fdv_usd:rnd(p.fdv),market_cap_usd:rnd(p.mcap)});
+P['base-market']={name:'base-market',description:'Live Base token data from the site (GeckoTerminal): rankings, search and token details.',priority:15,dependencies:['bootstrap'],
+ providers:[{name:'MARKET_SOURCE',description:'Data rules',position:40,get:()=>({text:'For any price, ranking or token stat use the base-market actions. Say the data is from GeckoTerminal. Never invent numbers or addresses.'})}],
+ actions:[
+  {name:'BASE_MARKET_LIST',similes:['TRENDING_TOKENS','TOP_GAINERS'],description:'Ranked Base tokens right now. kind: trending, volume, gainers, losers or new (newest pools, very risky).',examples:['"what is trending on Base?"'],parameters:{type:'object',properties:{kind:{type:'string',enum:['trending','volume','gainers','losers','new']},limit:{type:'integer',minimum:1,maximum:10}},required:['kind']},validate:async()=>true,handler:async(rt,m,s,opt)=>{const j=await baseApi('list='+encodeURIComponent(opt.parameters.kind||'trending'));return ok('GeckoTerminal',(j.pools||[]).slice(0,Math.min(10,Math.max(1,opt.parameters.limit|0||5))).map(slimPool))}},
+  {name:'SEARCH_BASE_TOKEN',similes:['FIND_TOKEN','TOKEN_PRICE'],description:'Find Base tokens by name, ticker (without $) or 0x address. Returns price, changes, volume, liquidity and contract address.',examples:['"price of AERO"'],parameters:{type:'object',properties:{query:{type:'string'}},required:['query']},validate:async()=>true,handler:async(rt,m,s,opt)=>{const j=await baseApi('q='+encodeURIComponent(String(opt.parameters.query||'').slice(0,80)));return ok('GeckoTerminal',(j.pools||[]).slice(0,5).map(slimPool))}},
+  {name:'BASE_TOKEN_DETAILS',similes:['TOKEN_INFO'],description:'Market details for one Base token by contract address.',parameters:{type:'object',properties:{address:{type:'string'}},required:['address']},validate:async()=>true,handler:async(rt,m,s,opt)=>{const a=String(opt.parameters.address||'');if(!/^0x[0-9a-fA-F]{40}$/.test(a))return{success:false,text:'invalid address'};const j=await baseApi('token='+a.toLowerCase());return ok('GeckoTerminal',j.token)}}]};
+const BUILTIN=Object.keys(P);
+
+/* custom plugins (declarative, defined by the user as JSON) */
+const CUSTOM_TEMPLATE={name:'price-alerts',description:'Example custom plugin',priority:0,dependencies:['bootstrap'],config:{ALERT_PREFIX:'🔔'},
+ actions:[{name:'FORMAT_ALERT',similes:['MAKE_ALERT'],description:'Turn a price note into a short alert line',examples:['"make an alert: ETH above 4k"'],mode:'template',template:'{{ALERT_PREFIX}} {{input}}'},
+  {name:'SUMMARIZE_TEXT',description:'Summarize pasted text in 3 bullets',mode:'prompt',template:'Summarize in 3 short bullets:\n{{input}}'}],
+ providers:[{name:'HOUSE_RULES',position:5,dynamic:false,text:'Never promise returns. Always say DYOR when tokens come up.'}],
+ routes:[{type:'GET',path:'/hello',public:true,json:{hello:'world'}}],
+ events:{MESSAGE_SENT:'log'}};
+function compileCustom(def){
+ if(!def||typeof def.name!=='string'||!/^[a-z0-9-]{2,40}$/.test(def.name))throw new Error('name must be 2-40 chars: a-z, 0-9, -');
+ if(BUILTIN.includes(def.name))throw new Error('name clashes with a built-in plugin');
+ const fill=(tpl,rt,input)=>String(tpl||'').replace(/\{\{(\w+)\}\}/g,(_,k)=>k==='input'?input:(rt.getSetting(k)??''));
+ const p={name:def.name,description:String(def.description||''),priority:+def.priority||0,dependencies:Array.isArray(def.dependencies)?def.dependencies.map(String):[],config:def.config&&typeof def.config==='object'?def.config:{},custom:true,testDependencies:Array.isArray(def.testDependencies)?def.testDependencies.map(String):[],schema:def.schema&&typeof def.schema==='object'?def.schema:undefined,autoEnable:typeof def.autoEnable==='string'?def.autoEnable:undefined};
+ p.actions=(def.actions||[]).map(a=>{if(!/^[A-Z][A-Z0-9_]{1,40}$/.test(a.name||''))throw new Error('action name must be VERB_NOUN in capitals: '+a.name);return{name:a.name,similes:(a.similes||[]).map(String),description:String(a.description||''),examples:(a.examples||[]).map(String),parameters:{type:'object',properties:{input:{type:'string'}},required:['input']},validate:async()=>true,
+  handler:async(rt,m,s,opt)=>{const inp=String(opt.parameters.input||'');if(a.mode==='prompt'){const r=await rt.useModel('TEXT_SMALL',{messages:fill(a.template,rt,inp)});return ok(r.text)}return ok(fill(a.template,rt,inp))}}});
+ p.providers=(def.providers||[]).map(v=>{if(!v.name)throw new Error('provider needs a name');return{name:String(v.name),position:Math.max(-100,Math.min(100,+v.position||0)),dynamic:!!v.dynamic,private:!!v.private,get:rt=>({text:fill(v.text,rt,'')})}});
+ p.routes=(def.routes||[]).map(r=>({type:String(r.type||'GET').toUpperCase(),path:String(r.path||'/'),public:!!r.public,name:r.name||r.path,handler:async(req,res)=>res.json(r.json??{ok:true})}));
+ p.evaluators=(def.evaluators||[]).map(e=>({name:String(e.name),description:String(e.description||''),alwaysRun:!!e.alwaysRun,validate:async()=>true,handler:async(rt,msg,st,resp)=>{if(e.mode==='prompt'){const r=await rt.useModel('TEXT_SMALL',{messages:fill(e.template,rt,resp)});rt.log('EVALUATOR_OUTPUT',String(r.text).slice(0,160))}return{success:true}}}));
+ p.events={};for(const[ev,h]of Object.entries(def.events||{}))p.events[ev]=[({runtime})=>runtime.log('CUSTOM_EVENT',def.name+' saw '+ev+(h&&h!=='log'?': '+String(h).slice(0,80):''))];
+ return p;
+}
+function catalog(){const c={...P};(S.custom||[]).forEach(d=>{try{c[d.name]=compileCustom(d)}catch(e){}});return c}
+
+/* ============ STATE ============ */
+const DEF_PLUG=['store','bootstrap','claude-models','knowledge','memory','calculator'];
+const mk=o=>({id:uid(),name:'New agent',role:'',bio:'',traits:'',style:'',tier:'default',settings:{},knowledge:[],memory:[],tasks:[],chat:[],outbox:[],plugins:[...DEF_PLUG],...o});
+const seed=()=>[
+ mk({name:'Nova',role:'Onchain research analyst',bio:'Nova explains tokens, protocols and onchain data for traders who want the short version.',traits:'precise, skeptical, calm',style:'Lead with the answer. Flag risks plainly. Never present a price prediction as certain and never give financial advice.',knowledge:[{id:uid(),title:'DeFi glossary',text:'TVL: total value locked, the value of assets deposited in a protocol.\n\nFDV: fully diluted valuation, price multiplied by maximum supply.\n\nMarket cap: price multiplied by circulating supply. A big gap between market cap and FDV means many tokens are still to unlock.\n\nSlippage: the difference between the expected price and the executed price of a trade.'}]}),
+ mk({name:'Juno',role:'Community moderator',bio:'Juno keeps a crypto community friendly, answers common questions and points people to official links.',traits:'warm, patient, firm on rules',style:'Short replies. Remind people that admins never DM first. Reply in the user\'s language.',plugins:['store','bootstrap','claude-models','knowledge','memory','discord','telegram'],knowledge:[{id:uid(),title:'Community rules',text:'1. Be respectful. No harassment.\n\n2. No shilling other tokens without permission from a moderator.\n\n3. Admins will never DM you first or ask for your seed phrase.\n\n4. Official links are only posted in the announcements channel.'}]}),
+ mk({name:'Rook',role:'X persona and post writer',bio:'Rook writes punchy posts and replies for a project account.',traits:'witty, confident, never cringe',style:'Posts under 260 characters. At most one emoji. No hashtags unless asked. Never invent partnerships or numbers.',tier:'quick',plugins:['store','bootstrap','claude-models','memory','x']})
+];
+function migrate(a){
+ a.settings=a.settings||{};a.tasks=a.tasks||[];a.outbox=a.outbox||[];a.memory=a.memory||[];a.knowledge=a.knowledge||[];a.chat=a.chat||[];
+ if(!Array.isArray(a.plugins)){const o=a.plugins||{},l=['store','bootstrap','claude-models'];if(o.knowledge)l.push('knowledge');if(o.memory)l.push('memory');if(o.calc)l.push('calculator');if(o.social)l.push('x','discord','telegram');a.plugins=l}
+ return a;
+}
+let S={agents:seed(),active:null,tab:'char',custom:[]};S.active=S.agents[0].id;
+try{const l=JSON.parse(localStorage.getItem('inkbot-studio')||'null');if(l&&l.agents&&l.agents.length){S=l;S.agents.forEach(migrate);S.custom=S.custom||[]}}catch(e){}
+let ref=null,busy=null,saveT=null,delArm=null,RT={},LAST={};
+const LOGS={},BOOTING={};const logsOf=id=>LOGS[id]||(LOGS[id]=[]);
+const A=()=>S.agents.find(a=>a.id===S.active)||S.agents[0];
+function save(){clearTimeout(saveT);saveT=setTimeout(async()=>{
+ S.agents.forEach(a=>{if(a.chat.length>40)a.chat=a.chat.slice(-40)});
+ const j=JSON.stringify(S);try{localStorage.setItem('inkbot-studio',j)}catch(e){}
+ if(ref){try{await ref.set({v:2,state:j})}catch(e){}}
+},700)}
+
+async function boot(a){
+ const old=RT[a.id];if(old)await old.stop();
+ const rt=new Runtime(a,logsOf(a.id));const cat=catalog();
+ const auto=Object.values(cat).filter(p=>p.autoEnable&&a.settings[p.autoEnable]&&!a.plugins.includes(p.name)).map(p=>p.name);
+ auto.forEach(n=>rt.log('PLUGIN_AUTO_ENABLED',n+' (setting '+cat[n].autoEnable+' present)'));
+ const{order,missing}=resolveOrder([...a.plugins,...auto],cat);
+ rt.order=order.map(p=>p.name);missing.forEach(m=>rt.log('PLUGIN_MISSING',m,1));
+ for(const p of order){try{await rt.registerPlugin(p)}catch(e){rt.log('PLUGIN_ERROR',e.message,1)}}
+ await rt.initialize();await rt.emit('WORLD_CONNECTED',{detail:'loom web'});await rt.emit('ROOM_JOINED',{detail:'web chat'});
+ RT[a.id]=rt;return rt;
+}
+
+/* ============ UI ============ */
+const AVATAR='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACAAQAAAADrRVxmAAACuklEQVR42p2Vz2rUUBTGf/cmtBGlE4qLCtIGF67jUhAnb6CPMCtXLlx2IfTWJ+gLiPMYLsQGK/YVXIikIFJXZlQwbW9zXNzc/OuUAe9iSL6cP98953xnmMXAVo4/2j9Eza8DfkDVWiQAfZfSPcQeKAaRLNowOnkCBN4lbIxD/1k1QOQtBE3RS9HG/8lV6pkH8oZV1Hx3FttQjF12B4Dt3WUQEWswABUcDCKUqINBFsbEyj77oIATgqR1CUGpAbEt4oKwyZxpCEk+IJ6LRu4xfem5KTTnDzBwn67ax6aE5w4IAI7zEj43HNCou6rsWot23dNpD4hJj1/36q4ujhYiL3yjQJ0dLaQu3atKNFREqInpYpT8VQkZPBQoNBQJnACTw7bvc7jznfjUA3EKp/s2njW3PSSNIA9+ZxmYEA3R7W9pAaZIQFMDv/STBFGbzVBFl2fK5NT6j+OxT2gNRZMxBOrg6zYzNF8ATZ2BGEBtvXcX3K2sVSIi9S2U0bAWoidz4Dx2QRWoZylQWQdYbeRGCtw0jnoNrgdhiqAB5eVTOZdP44EpmA2BknQILAz1cMbmyWjoyk0zmsLzkUXVezcasGu4ZuTt4Oat1jMN1Hy89HrIAVT1aE9E3ogPKuG7aqgAmysRmQqQaGDjVSYgmXiDyWOYipUa3HqZvIUdEbHehQhOnTZblRCISNWX4aW/UytCA+VgceyI5B2wY5nMpEd1T0D1CqtEcpTtgHWRkvWqq2kEEbZ346mj3QoEAWkIRdqrZqA5/IQs3WP91QhU2u/npGcRj1eOGQFqPgJ0xmiliohI2VmEvb8C0CDjOY0Gi1vDxpLVNwTsGIgHprpL2ALJyqBPu2pfYzE+aioiInK9i7oSI1vFYwQpwgv6zJa4hKwKqlZYqHZg2yzxCmKrC7QkBv8NSMs0cN33cvgHUDLdyA4pmfQAAAAASUVORK5CYII=';
+function weave(name,sz=40){return `<img src="${AVATAR}" width="${sz}" height="${sz}" alt="" style="image-rendering:pixelated;border:1px solid #242424;border-radius:9px;flex:none;background:#000;object-fit:cover">`}
+function fmt(t){return esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\n/g,'<br>')}
+function renderList(){$('#agents').innerHTML=S.agents.map(a=>`<button class="ag ${a.id===S.active?'act':''}" data-id="${esc(a.id)}">${weave(a.name)}<div><b>${esc(a.name)}</b><span>${esc(a.role||'No role yet')}</span></div></button>`).join('')}
+function renderHead(){const a=A();$('#chead').innerHTML=`${weave(a.name,44)}<div><h1>${esc(a.name)}</h1><p>${esc(a.role||'Set a role in Setup')} · ${esc(TIER_MODEL[a.tier])} · ${a.plugins.length} plugins</p></div><button class="btn sm" id="clear" ${a.chat.length?'':'disabled'}>Clear chat</button>`}
+function renderMsgs(){
+ const a=A(),box=$('#msgs');
+ if(!a.chat.length){
+  const has=n=>a.plugins.includes(n);
+  const sug=has('base-market')?['What is trending on Base?','Price of AERO','Top gainers today']:has('x')?['Write an X post announcing our testnet','Remind me to review the post tomorrow','Introduce yourself']:has('knowledge')&&a.knowledge.length?['What do your docs say?','Explain FDV vs market cap','What is 2.5% of 1,000,000,000?']:['Introduce yourself','What actions can you take?'];
+  box.innerHTML=`<div class="empty">${weave(a.name,64)}<h3>Talk to ${esc(a.name)}</h3><p>${esc(a.bio||'Give this agent a bio and personality in Setup.')}</p><div class="sug">${sug.map(s=>`<button data-s="${esc(s)}">${esc(s)}</button>`).join('')}</div></div>`;return;
+ }
+ box.innerHTML=a.chat.map(m=>`<div class="m ${m.role==='user'?'u':'a'} ${m.err?'err':''}">${m.text?fmt(m.text):'<span class="dot"></span><span class="dot"></span><span class="dot"></span>'}${(m.tools&&m.tools.length)||(m.evals&&m.evals.length)?`<div class="tr">${(m.tools||[]).map(t=>`<span>${esc(t)}</span>`).join('')}${(m.evals||[]).map(t=>`<span class="ev">${esc(t)}</span>`).join('')}</div>`:''}</div>`).join('');
+ box.scrollTop=box.scrollHeight;
+}
+const TABS=[['char','Character'],['plug','Plugins'],['know','Knowledge'],['mem','Memory'],['task','Tasks'],['out','Outbox'],['rt','Runtime']];
+const comps=p=>[['A',p.actions],['P',p.providers],['E',p.evaluators],['S',p.services],['R',p.routes],['M',p.models&&Object.keys(p.models)],['Ev',p.events&&Object.keys(p.events)]].filter(([,v])=>v&&v.length).map(([k,v])=>`<i title="${k}">${k} ${v.length}</i>`).join('')+(p.adapter?'<i>adapter</i>':'');
+function renderCfg(){
+ const a=A(),c=catalog(),rt=RT[a.id];
+ $('#stabs').innerHTML=TABS.map(([k,n])=>`<button data-t="${k}" class="${S.tab===k?'on':''}">${n}${k==='mem'&&a.memory.length?` ${a.memory.length}`:''}${k==='task'&&a.tasks.some(t=>!t.done)?` ${a.tasks.filter(t=>!t.done).length}`:''}${k==='out'&&a.outbox.length?` ${a.outbox.length}`:''}</button>`).join('');
+ let h='';
+ if(S.tab==='char'){
+  const st=Object.entries(a.settings).map(([k,v])=>k+'='+v).join('\n');
+  h=`<label class="f">Name<input data-k="name" value="${esc(a.name)}" maxlength="40"></label>
+  <label class="f">Role<input data-k="role" value="${esc(a.role)}" placeholder="e.g. Onchain research analyst"></label>
+  <label class="f">Bio<textarea data-k="bio" placeholder="Who is this agent and who does it help?">${esc(a.bio)}</textarea></label>
+  <label class="f">Personality traits<input data-k="traits" value="${esc(a.traits)}" placeholder="comma separated"></label>
+  <label class="f">Style rules<textarea data-k="style" placeholder="How it should write and what it must never do">${esc(a.style)}</textarea></label>
+  <div style="font-size:13px;font-weight:600">Default model type<div class="seg">${['quick','default','complex'].map(t=>`<button data-tier="${t}" class="${a.tier===t?'on':''}">${TIER_MODEL[t].replace('TEXT_','')}</button>`).join('')}</div></div>
+  <label class="f">Character settings <span style="font-weight:400;color:var(--mute)">read by runtime.getSetting(), one KEY=value per line</span><textarea id="settings" class="mono" placeholder="AUTO_REFLECT=false&#10;KNOWLEDGE_MAX_PASSAGES=5">${esc(st)}</textarea></label>
+  <p class="note n0">Don't paste real API keys here: this page cannot reach outside services, and missing tokens simply keep platform plugins in draft mode.</p>
+  <div class="row"><button class="btn sm" id="dup">Duplicate</button><button class="btn sm" id="copyj">Copy character.json</button><button class="btn sm warn" id="del">${delArm===a.id?'Tap again to delete':'Delete agent'}</button></div>
+  <details><summary>Import character.json</summary><textarea id="imp" class="code" style="min-height:120px" placeholder='{"name":"…","bio":"…","plugins":["knowledge"]}'></textarea><button class="btn sm" id="impb">Import as new agent</button> <span id="impm" class="err"></span></details>`;
+ }else if(S.tab==='plug'){
+  const{order}=resolveOrder(a.plugins,c),auto=order.map(p=>p.name).filter(n=>!a.plugins.includes(n));
+  h=`<p class="note n0">Pick plugins for ${esc(a.name)}. Dependencies load automatically, higher priority loads first. Legend: A actions, P providers, E evaluators, S services, R routes, M models, Ev events.</p>`+
+  Object.values(c).map(p=>{const on=a.plugins.includes(p.name)||p.name==='bootstrap',isAuto=auto.includes(p.name);return`<label class="pl"><input type="checkbox" data-pl="${esc(p.name)}" ${on?'checked':''} ${p.name==='bootstrap'?'disabled':''}><div><b>${esc(p.name)}</b> <span class="tag o">p${p.priority||0}</span>${p.custom?' <span class="tag">custom</span>':''}${isAuto?' <span class="tag g">auto: dependency</span>':''}<span class="d">${esc(p.description)}${p.dependencies&&p.dependencies.length?' Needs: '+p.dependencies.map(esc).join(', ')+'.':''}</span><div class="chips">${comps(p)}</div></div></label>`}).join('')+
+  `<h4>Custom plugins</h4><p class="note n0">Write a plugin manifest as JSON: actions (template or prompt handlers), providers, evaluators, routes, events, config, priority and dependencies.</p>`+
+  (S.custom||[]).map((d,i)=>{let e='';try{compileCustom(d)}catch(x){e=x.message}return`<div class="card"><div class="row"><b style="flex:1">${esc(d.name)}</b><button class="btn sm" data-editc="${i}">Edit</button><button class="x" data-delc="${i}" aria-label="Delete">×</button></div>${e?`<div class="err">${esc(e)}</div>`:''}</div>`}).join('')+
+  `<div class="row"><button class="btn sm pri" id="newc">+ New custom plugin</button></div><div id="cedit"></div>`;
+ }else if(S.tab==='know'){
+  h=`<p class="note n0">The <code>knowledge</code> plugin's KNOWLEDGE provider puts matching passages into state; SEARCH_KNOWLEDGE searches on demand.${a.plugins.includes('knowledge')?'':' <b>Plugin is off for this agent.</b>'}</p>`+
+  (a.knowledge.length?a.knowledge.map(d=>`<div class="card"><div class="row"><input data-doc="${esc(d.id)}" data-f="title" value="${esc(d.title)}" style="flex:1" aria-label="Title"><button class="x" data-deldoc="${esc(d.id)}" aria-label="Remove">×</button></div><textarea data-doc="${esc(d.id)}" data-f="text" aria-label="Text">${esc(d.text)}</textarea></div>`).join(''):'<p class="note n0">No documents yet.</p>')+
+  `<div class="row"><button class="btn sm pri" id="adddoc">+ Add document</button><label class="btn sm" style="display:inline-flex;align-items:center">Load file<input type="file" id="file" accept=".txt,.md,.csv,.json" multiple hidden></label></div>`;
+ }else if(S.tab==='mem'){
+  h=`<p class="note n0">Facts table of the database adapter. Filled by REMEMBER_FACT and the REFLECTION evaluator.</p>`+(a.memory.length?a.memory.map((f,i)=>`<div class="fact"><span>${esc(f)}</span><button class="x" data-delmem="${i}" aria-label="Forget">×</button></div>`).join(''):'<p class="note n0">Nothing saved yet.</p>')+
+  `<form class="row" id="memf" style="margin-top:12px"><input id="memi" class="inp" placeholder="Add a fact…" style="flex:1;margin:0"><button class="btn sm pri">Add</button></form>`;
+ }else if(S.tab==='task'){
+  h=`<p class="note n0">Tasks kept by bootstrap's task service. The agent uses CREATE_TASK, LIST_TASKS and COMPLETE_TASK.</p>`+(a.tasks.length?a.tasks.map(t=>`<div class="fact ${t.done?'done':''}"><input type="checkbox" data-tdone="${esc(t.id)}" ${t.done?'checked':''} style="width:20px;height:20px;accent-color:var(--brick)" aria-label="Done"><span>${esc(t.title)}${t.due?` <span class="tag o">${esc(t.due)}</span>`:''}</span><button class="x" data-deltask="${esc(t.id)}" aria-label="Remove">×</button></div>`).join(''):'<p class="note n0">No tasks.</p>')+
+  `<form class="row" id="taskf" style="margin-top:12px"><input id="taski" class="inp" placeholder="New task…" style="flex:1;margin:0"><button class="btn sm pri">Add</button></form>`;
+ }else if(S.tab==='out'){
+  h=`<p class="note n0">Drafts from POST_TO_X, SEND_DISCORD_MESSAGE and SEND_TELEGRAM_MESSAGE. Nothing here is published.</p>`+(a.outbox.length?a.outbox.slice().reverse().map(o=>`<div class="card"><div class="row" style="margin-bottom:6px"><span class="tag">${esc(o.platform)}</span>${o.target?`<span class="tag o">${esc(o.target)}</span>`:''}<span class="note" style="padding:0">${esc(o.chars)} chars · draft</span><button class="x" data-delout="${esc(o.id)}" style="margin-left:auto" aria-label="Remove">×</button></div><div style="font-size:15px;overflow-wrap:anywhere">${fmt(o.text)}</div><div class="row end" style="margin-top:8px"><button class="btn sm" data-copy="${esc(o.id)}">Copy</button></div></div>`).join(''):'<p class="note n0">No drafts yet. Enable x, discord or telegram and ask for a post.</p>');
+ }else{
+  if(!rt){h='<p class="note n0">Booting runtime…</p>';if(!BOOTING[a.id])BOOTING[a.id]=boot(a).finally(()=>{delete BOOTING[a.id];if(S.tab==='rt')renderCfg()})}
+  else{
+   const L=LAST[a.id],cat=catalog();
+   h=`<div class="row"><button class="btn sm" id="reboot">Restart runtime</button><span class="note" style="padding:0">${rt.services.size} services · ${rt.actions.length} actions · ${rt.providers.length} providers</span></div>
+   <h4>Load order</h4><table><tr><th>#</th><th>Plugin</th><th class="r">Priority</th><th>Components</th></tr>${rt.order.map((n,i)=>`<tr><td>${i+1}</td><td><b>${esc(n)}</b></td><td class="r">${cat[n]?cat[n].priority||0:'-'}</td><td><div class="chips" style="margin:0">${cat[n]?comps(cat[n]):''}</div></td></tr>`).join('')}</table>
+   <h4>Services</h4><table>${[...rt.services.values()].map(s=>`<tr><td><code>${esc(s.serviceType)}</code></td><td>${esc(s.capabilityDescription)}${s.mode?` <span class="tag o">${esc(s.mode)}</span>`:''}</td></tr>`).join('')||'<tr><td>None</td></tr>'}</table>
+   <h4>Models</h4><table>${Object.entries(rt.models).map(([k,v])=>`<tr><td><code>${esc(k)}</code></td><td>${v.map(m=>esc(m.provider)+' (p'+m.priority+')').join(' › ')}</td></tr>`).join('')}</table>
+   <h4>Actions</h4><table>${rt.actions.map(x=>`<tr><td><code>${esc(x.name)}</code></td><td>${esc(x.description)}${x.similes&&x.similes.length?`<br><span style="color:var(--mute)">similes: ${x.similes.map(esc).join(', ')}</span>`:''}</td></tr>`).join('')}</table>
+   <h4>Providers <span style="font-weight:400;color:var(--mute)">by position</span></h4><table>${rt.providers.slice().sort((x,y)=>(x.position||0)-(y.position||0)).map(p=>`<tr><td><code>${esc(p.name)}</code></td><td class="r">${p.position||0}</td><td>${p.dynamic?'dynamic':'cached'}${p.private?', private':''}</td></tr>`).join('')}</table>
+   <h4>Evaluators</h4><table>${rt.evaluators.map(e=>`<tr><td><code>${esc(e.name)}</code></td><td>${esc(e.description)}${e.alwaysRun?' <span class="tag o">alwaysRun</span>':''}</td></tr>`).join('')||'<tr><td>None</td></tr>'}</table>
+   <h4>Routes console</h4><p class="note n0">Routes run inside this page (no real HTTP server).</p>
+   <div class="row"><select id="route" class="inp" style="flex:1;margin:0">${rt.routes.map((r,i)=>`<option value="${i}">${esc(r.type)} /api/${esc(r.plugin)}${esc(r.path)}${r.public?' (public)':''}</option>`).join('')}</select><button class="btn sm pri" id="callr">Send</button></div><pre id="rout">Pick a route and press Send.</pre>
+   <h4>Event emitter</h4><div class="row"><select id="evsel" class="inp" style="flex:1;margin:0">${EVENTS.map(e=>`<option>${e}</option>`).join('')}</select><button class="btn sm" id="emit">Emit</button></div>
+   ${L?`<details><summary>Last composed state (${L.state.providers.length} providers)</summary>${L.state.providers.map(p=>`<div style="margin-top:8px"><b class="mono">${esc(p.name)}</b> <span style="color:var(--mute);font-size:12px">pos ${p.position}</span><pre>${esc(p.text||'(empty)')}</pre></div>`).join('')}<div style="margin-top:8px"><b class="mono">Valid actions</b><pre>${esc(L.valid.join(', ')||'none')}</pre></div></details>`:''}
+   <h4>Event log</h4><div class="log" id="log">${rt.logs.slice().reverse().map(l=>`<div><span class="t mono">${esc(l.t)}</span><span><b class="mono ${l.err?'e':''}">${esc(l.type)}</b> ${esc(l.detail)}</span></div>`).join('')}</div>`;
+  }
+ }
+ $('#sbody').innerHTML=h;
+}
+function renderAll(){renderList();renderHead();renderMsgs();renderCfg();updSend()}
+function updSend(){$('#send').textContent=busy?'Stop':'Send';$('#send').disabled=!sample&&!busy}
+function refreshLog(){if(S.tab==='rt'){const l=$('#log');if(l){const rt=RT[A().id];l.innerHTML=rt.logs.slice().reverse().map(l=>`<div><span class="t mono">${esc(l.t)}</span><span><b class="mono ${l.err?'e':''}">${esc(l.type)}</b> ${esc(l.detail)}</span></div>`).join('')}}}
+
+/* ============ VIEWS: menu, plugin catalog, docs ============ */
+function setView(v){
+ document.body.dataset.view=v;document.querySelectorAll('[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+ $('#drop').classList.remove('open');$('#menu').setAttribute('aria-expanded','false');
+ try{history.replaceState(null,'',v==='studio'?location.pathname:v==='docs'?'#docs-'+DOC:'#'+v)}catch(e){}
+ if(v==='plugins')renderPlugins();if(v==='docs')renderDocs();
+}
+const list=(arr,f=x=>`<code>${esc(x)}</code>`)=>arr&&arr.length?arr.map(f).join(', '):'<span style="color:var(--mute)">none</span>';
+function renderPlugins(){
+ const c=catalog(),a=A();
+ $('#vplugins').innerHTML=`<div class="wrap"><h1 style="font-size:clamp(30px,4vw,44px);line-height:1.05;margin:0 0 8px">Plugins</h1><p class="note" style="padding:0 0 20px;font-size:15px">${Object.keys(c).length} plugins available. Each card is the plugin's manifest. Toggle them per agent in Studio → Setup → Plugins. Active agent: <b>${esc(a.name)}</b>.</p><div class="grid">${Object.values(c).sort((x,y)=>(y.priority||0)-(x.priority||0)).map(p=>`<article class="pc"><div class="row"><h3>${esc(p.name)}</h3><span class="tag o">priority ${p.priority||0}</span>${p.custom?'<span class="tag">custom</span>':''}${a.plugins.includes(p.name)||p.name==='bootstrap'?'<span class="tag g">on for '+esc(a.name)+'</span>':''}</div><p style="font-size:14px;color:var(--mute);margin:8px 0 0">${esc(p.description)}</p><div class="chips">${comps(p)}</div><dl>
+ <dt>init</dt><dd>${p.init?'yes':'—'}</dd>
+ <dt>actions</dt><dd>${list((p.actions||[]).map(x=>x.name))}</dd>
+ <dt>providers</dt><dd>${list((p.providers||[]).map(x=>x.name+' @'+(x.position||0)+(x.dynamic?' dyn':'')+(x.private?' priv':'')))}</dd>
+ <dt>evaluators</dt><dd>${list((p.evaluators||[]).map(x=>x.name+(x.alwaysRun?' (alwaysRun)':'')))}</dd>
+ <dt>services</dt><dd>${list((p.services||[]).map(x=>x.serviceType))}</dd>
+ <dt>models</dt><dd>${list(Object.keys(p.models||{}))}</dd>
+ <dt>routes</dt><dd>${list((p.routes||[]).map(r=>r.type+' '+r.path+(r.public?' public':'')))}</dd>
+ <dt>events</dt><dd>${list(Object.keys(p.events||{}))}</dd>
+ <dt>adapter</dt><dd>${p.adapter?'IDatabaseAdapter':'—'}</dd>
+ <dt>schema</dt><dd>${p.schema?list(Object.keys(p.schema)):'—'}</dd>
+ <dt>config</dt><dd>${p.config&&Object.keys(p.config).length?list(Object.entries(p.config).map(([k,v])=>k+'='+(v===''?'""':v))):'—'}</dd>
+ <dt>dependencies</dt><dd>${list(p.dependencies)}</dd>
+ <dt>testDeps</dt><dd>${list(p.testDependencies)}</dd>
+ <dt>auto-enable</dt><dd>${p.autoEnable?'when <code>'+esc(p.autoEnable)+'</code> is set':p.name==='bootstrap'?'always loaded':'—'}</dd>
+ </dl></article>`).join('')}</div></div>`;
+}
+/* ---- docs site ---- */
+const NAV=[
+ ['Getting started',[['overview','Overview'],['installation','Installation'],['quickstart','Quickstart'],['build','What you can build']]],
+ ['Guides',[['agent-config','Agent configuration'],['development','Development'],['deployment','Deployment']]],
+ ['Projects',[['projects','Overview'],['env','Environment variables']]],
+ ['Agents',[['character','Character interface'],['personality','Personality and behavior'],['memory-state','Memory and state'],['lifecycle','Runtime and lifecycle']]],
+ ['Plugins',[['architecture','Architecture'],['components','Components'],['plugin-dev','Development'],['patterns','Patterns'],['routes','Webhooks and routes'],['schema','Database schema'],['migration','Migration'],['reference','Reference']]],
+ ['Runtime',[['core-concepts','Core concepts'],['communication','Communication'],['types','Types reference']]],
+ ['Token',[['tokenomics','Tokenomics']]]
+];
+const LOGO=sz=>(document.querySelector('.brand svg')||{outerHTML:''}).outerHTML.replace(/width="38" height="38"/,`width="${sz}" height="${sz}"`).replace('border-radius:9px','border-radius:18px');
+const PAGES_FLAT_ALL=()=>[...PAGES_FLAT,{k:'llms',n:'Docs for LLMs',g:'Docs'}];
+const PAGES_FLAT=NAV.flatMap(([g,ps])=>ps.map(([k,n])=>({k,n,g})));
+let DOC='overview';
+const TEMPLATES={
+ moderator:{name:'Mod',role:'Community moderator',bio:'Keeps a Discord or Telegram community friendly and answers common questions.',traits:'warm, patient, firm on rules',style:'Short replies. Admins never DM first. Reply in the user\'s language.',plugins:['store','bootstrap','claude-models','knowledge','memory','discord','telegram']},
+ xpersona:{name:'Echo',role:'X persona',bio:'Writes posts and replies for a project account.',traits:'witty, confident',style:'Under 260 characters. One emoji at most. Never invent numbers or partnerships.',tier:'quick',plugins:['store','bootstrap','claude-models','memory','x']},
+ analyst:{name:'Atlas',role:'Research analyst',bio:'Answers questions from your documents and does exact math.',traits:'precise, skeptical',style:'Lead with the answer. Cite the doc you used. No financial advice.',plugins:['store','bootstrap','claude-models','knowledge','memory','calculator']},
+ assistant:{name:'Tempo',role:'Task assistant',bio:'Tracks tasks and reminders for you or your team.',traits:'organised, brief',style:'Confirm every task you create. Keep lists short.',plugins:['store','bootstrap','claude-models','memory']}
+};
+const code=s=>`<pre>${esc(s)}</pre>`;
+const live=s=>`<div class="live"><b>Live in KIRA OS</b> · ${s}</div>`;
+const go=(k,t)=>`<a href="#docs-${k}" data-doc="${k}">${esc(t)}</a>`;
+const tbl=(head,rows)=>`<table class="stack"><thead><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,i)=>`<td data-l="${esc(head[i])}">${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+function envRows(){const c=catalog(),rows=[['AUTO_REFLECT','memory','true','Turn the REFLECTION evaluator on or off'],['KNOWLEDGE_MAX_PASSAGES','knowledge','3','Passages the KNOWLEDGE provider adds to state']];
+ Object.values(c).forEach(p=>{if(p.autoEnable)rows.push([p.autoEnable,p.name,'""','Presence auto-enables the plugin (draft mode here)']);if(p.custom)Object.entries(p.config||{}).forEach(([k,v])=>rows.push([k,p.name,String(v),'Custom plugin config']))});return rows}
+const PAGES={
+ overview:(a,rt)=>`<div style="margin-bottom:18px">${LOGO(96)}</div><h1>Overview</h1><p class="lede">KIRA OS is a browser runtime for AI agents, modeled on the elizaOS architecture. You build an agent from a character and a set of plugins, then chat with it here.</p>
+ <div class="grid" style="margin-top:20px">${[['quickstart','Quickstart','Talk to an agent in under a minute.'],['build','What you can build','Ready-made agents to start from.'],['architecture','Plugin architecture','How plugins are loaded and run.'],['character','Character interface','The fields that define an agent.']].map(([k,t,d])=>`<a class="pc" href="#docs-${k}" data-doc="${k}" style="text-decoration:none;color:inherit"><h3>${t}</h3><p style="margin:6px 0 0;color:var(--mute);font-size:14px">${d}</p></a>`).join('')}</div>
+ <h3 style="margin-top:28px">Three parts of the app</h3><ul><li><b>Studio</b>: your agents, the chat and the Setup panel (character, plugins, knowledge, memory, tasks, outbox, runtime inspector).</li><li><b>Plugins</b>: every plugin's manifest on one page.</li><li><b>Docs</b>: this guide.</li></ul>
+ ${live(`you have ${S.agents.length} agents and ${(S.custom||[]).length} custom plugins. The open agent, ${esc(a.name)}, loads ${rt.plugins.length} plugins.`)}`,
+ installation:()=>`<h1>Installation</h1><p class="lede">KIRA OS ships with the website. If the site is running, the Studio is too.</p>
+ <ol><li>Open <code>/studio.html</code> on the site, or pick <b>Agent Studio</b> from the site menu.</li><li>Send your first message. Replies come from the site's <code>/api/studio</code> endpoint.</li><li>Your agents, plugins and chats are kept in this browser.</li></ol>
+ <h3>Server requirements</h3><ul><li><code>ANTHROPIC_API_KEY</code> set on the host (the same key the website chat and X bot use).</li><li>Optional: <code>STUDIO_MODEL</code> and <code>STUDIO_MODEL_REASONING</code> for the LARGE and REASONING model types, <code>STUDIO_PER_MINUTE</code> and <code>STUDIO_PER_DAY</code> for rate limits, <code>STUDIO_DISABLED=1</code> to switch it off.</li></ul>
+ <p>If replies say the AI is not switched on, the host is missing <code>ANTHROPIC_API_KEY</code>.</p>`,
+ quickstart:()=>`<h1>Quickstart</h1><p class="lede">From zero to a working agent in five steps.</p>
+ <div class="flow"><div><b>Pick an agent</b>Studio → Agents. Nova, Juno and Rook are ready.</div><div><b>Say hello</b>Tap a suggestion or type a message.</div><div><b>Make your own</b>+ New agent, then fill Character.</div><div><b>Add plugins</b>Setup → Plugins. Dependencies load for you.</div><div><b>Watch it run</b>Setup → Runtime shows every event.</div></div>
+ <p>Try asking Nova <i>"what is 2.5% of 1,000,000,000?"</i>. You will see the CALCULATE action fire under the reply, and the REFLECTION evaluator check for new facts afterwards.</p>
+ <p><button class="btn pri" data-v="studio">Open Studio</button></p>`,
+ build:()=>`<h1>What you can build</h1><p class="lede">Start from a template. Each one creates a new agent with the right plugins switched on.</p>
+ <div class="grid">${Object.entries(TEMPLATES).map(([k,t])=>`<div class="pc"><h3>${esc(t.role)}</h3><p style="color:var(--mute);font-size:14px;margin:6px 0 10px">${esc(t.bio)}</p><div class="chips">${t.plugins.filter(p=>!['store','bootstrap','claude-models'].includes(p)).map(p=>`<i>${esc(p)}</i>`).join('')}</div><p style="margin:14px 0 0"><button class="btn sm pri" data-tpl="${k}">Create ${esc(t.name)}</button></p></div>`).join('')}</div>
+ <h3 style="margin-top:28px">Other ideas</h3><ul><li>A support bot that answers from your FAQ docs (knowledge + memory).</li><li>A launch-day assistant that drafts posts for X, Discord and Telegram at once (outbox + platforms).</li><li>A custom plugin with prompt actions, such as SUMMARIZE_TEXT or TRANSLATE_POST (see ${go('plugin-dev','plugin development')}).</li></ul>`,
+ 'agent-config':(a)=>`<h1>Agent configuration</h1><p class="lede">Everything about an agent lives in Studio → Setup → Character.</p>
+ ${tbl(['Field','What it does'],[['<code>name</code>','Shown in chat and used in the prompt'],['<code>role</code>','One line on the agent\'s job'],['<code>bio</code>','Who it is and who it helps'],['<code>traits</code>','Comma-separated personality adjectives'],['<code>style</code>','Rules for writing and things it must never do'],['<code>model</code>','Default model type: SMALL, LARGE or REASONING'],['<code>settings</code>','KEY=value pairs read by runtime.getSetting()'],['<code>plugins</code>','Chosen in the Plugins tab']])}
+ <p>Changes apply on the next message: editing a field restarts that agent's runtime.</p>${live(`${esc(a.name)} uses ${esc(TIER_MODEL[a.tier])} and has ${Object.keys(a.settings).length} settings.`)}`,
+ development:()=>`<h1>Development</h1><p class="lede">How to extend an agent without leaving the browser.</p>
+ <ol><li><b>Start with knowledge.</b> Paste docs into Knowledge; the KNOWLEDGE provider pulls matching passages into every reply.</li><li><b>Add behaviour with a custom plugin.</b> Setup → Plugins → New custom plugin. Write actions as templates or prompts.</li><li><b>Check the runtime.</b> The Runtime tab shows load order, which actions passed validate, and the composed state.</li><li><b>Test routes and events.</b> Use the Routes console and Event emitter in the same tab.</li><li><b>Iterate.</b> Edit the manifest and save; the runtime restarts automatically.</li></ol>
+ <p>Full manifest format: ${go('plugin-dev','Plugins → Development')}.</p>`,
+ deployment:()=>`<h1>Deployment</h1><p class="lede">The Studio deploys with the website: Vercel serves <code>public/studio.html</code> and runs <code>api/studio.js</code>.</p>
+ <h3>Costs and limits</h3><p>Every Studio message calls Claude on the site's API key, so it costs money. The endpoint is rate-limited per visitor (default 20 calls a minute, 300 a day) and capped at 1,024 output tokens per call. Tighten the limits or set <code>STUDIO_DISABLED=1</code> if usage grows.</p>
+ <h3>Taking an agent elsewhere</h3><p>Use <b>Copy character.json</b> in Character to export an elizaOS-style character file, or copy the whole project from ${go('projects','Projects')}.</p>
+ <h3>What stays in the browser</h3><ul><li>Agents and chats live in each visitor's browser; nobody sees anyone else's.</li><li>Routes run in the page, and the X, Discord and Telegram plugins only draft posts. The live X bot is the separate service in <code>bot/</code>.</li></ul>`,
+ projects:()=>`<h1>Projects</h1><p class="lede">A project is your whole workspace: every agent plus your custom plugins.</p>
+ ${live(`${S.agents.length} agents · ${(S.custom||[]).length} custom plugins · ${S.agents.reduce((n,x)=>n+x.knowledge.length,0)} knowledge docs.`)}
+ <h3>Export</h3><p>Copies the project as JSON: agents (without chat history) and custom plugins.</p><p><button class="btn pri" id="pcopy">Copy project JSON</button></p>
+ <h3>Import</h3><p>Adds the agents and plugins from a project JSON to this one. Nothing existing is replaced.</p><textarea class="code" id="pimp" style="min-height:120px" placeholder='{"agents":[…],"custom":[…]}'></textarea><p class="row"><button class="btn" id="pimpb">Import project</button><span class="err" id="pimpm"></span></p>`,
+ env:()=>`<h1>Environment variables</h1><p class="lede">KIRA OS has no server environment, so settings live on each agent and are read with <code>runtime.getSetting()</code>.</p>
+ <p>Character settings win; otherwise the plugin's <code>config</code> default is used. Edit them in Setup → Character, one <code>KEY=value</code> per line.</p>
+ ${tbl(['Key','Plugin','Default','Effect'],envRows().map(([k,p,d,e])=>[`<code>${esc(k)}</code>`,esc(p),`<code>${esc(d)}</code>`,esc(e)]))}
+ <p class="note n0" style="margin-top:10px">Never paste real API keys: this page can't use them, and settings are stored with your agent.</p>`,
+ character:(a)=>`<h1>Character interface</h1><p class="lede">A character is the JSON that defines an agent. KIRA OS exports and imports the elizaOS shape.</p>
+ ${code(JSON.stringify({name:a.name,bio:[a.bio],system:a.role,adjectives:a.traits.split(',').map(s=>s.trim()).filter(Boolean),style:{all:a.style.split(/\.\s+/).filter(Boolean)},plugins:a.plugins,settings:a.settings,knowledge:a.knowledge.map(d=>({title:d.title,text:d.text.slice(0,60)+'…'}))},null,2))}
+ ${tbl(['Key','Maps to in KIRA OS'],[['<code>name</code>','Name'],['<code>bio</code> (string or list)','Bio'],['<code>system</code>','Role'],['<code>adjectives</code>','Personality traits'],['<code>style.all</code> / <code>style.chat</code>','Style rules'],['<code>plugins</code>','Plugins (the @elizaos/plugin- prefix is dropped on import)'],['<code>settings</code>','Character settings'],['<code>knowledge</code>','Knowledge docs']])}
+ ${live(`the example above is ${esc(a.name)}'s character.`)}`,
+ personality:(a,rt)=>`<h1>Personality and behavior</h1><p class="lede">Behaviour comes from three layers that are combined on every message.</p>
+ <ol><li><b>Character</b>: the CHARACTER provider writes name, role, bio, traits and style into state first (position −50).</li><li><b>Context</b>: other providers add time, facts, tasks and knowledge.</li><li><b>Instructions</b>: the runtime asks the model to stay in character, use actions when useful, reply in the user's language and never claim a draft was published.</li></ol>
+ <h3>Writing good style rules</h3><ul><li>Say what to do and what never to do: "Lead with the answer", "Never invent numbers".</li><li>Give limits as numbers: "under 260 characters".</li><li>Keep traits to three or four adjectives.</li></ul>
+ ${live(`CHARACTER for ${esc(a.name)}:`)}${code((rt.providers.find(p=>p.name==='CHARACTER')||{get:()=>({text:''})}).get(rt).text)}`,
+ 'memory-state':(a)=>`<h1>Memory and state</h1><p class="lede">State is rebuilt for every message; memory persists between chats.</p>
+ <h3>State</h3><p><code>composeState()</code> runs each provider in position order and merges its <code>text</code>, <code>values</code> and <code>data</code>. Non-dynamic providers are cached until the runtime restarts.</p>
+ <h3>Memory</h3><ul><li><b>Facts</b>: saved by REMEMBER_FACT or the REFLECTION evaluator; read back by the FACTS provider.</li><li><b>Messages</b>: the last 40 per agent are kept; the last 16 are sent as history.</li><li><b>Tasks</b> and <b>outbox drafts</b>: kept by their services through the adapter.</li></ul>
+ ${live(`${esc(a.name)} holds ${a.memory.length} facts, ${a.chat.length} messages, ${a.tasks.length} tasks and ${a.outbox.length} drafts.`)}`,
+ lifecycle:(a,rt)=>`<h1>Runtime and lifecycle</h1><p class="lede">Each agent gets its own runtime. It boots when you open the agent and restarts when its setup changes.</p>
+ <h3>Boot</h3><div class="flow"><div><b>Resolve</b>Add bootstrap, dependencies and auto-enabled plugins</div><div><b>Order</b>By dependencies, then priority</div><div><b>Register</b>Each plugin in turn</div><div><b>Initialize</b>Start queued services</div><div><b>Connect</b>WORLD_CONNECTED, ROOM_JOINED</div></div>
+ <h3>Each message</h3><div class="flow"><div><b>RUN_STARTED</b></div><div><b>MESSAGE_RECEIVED</b></div><div><b>composeState</b></div><div><b>validate actions</b></div><div><b>model + actions</b></div><div><b>MESSAGE_SENT</b></div><div><b>evaluators</b></div><div><b>RUN_ENDED</b></div></div>
+ <p>A run longer than 120 seconds emits RUN_TIMEOUT and stops.</p>${live(`load order: ${rt.order.map(esc).join(' → ')}.`)}`,
+ architecture:(a,rt)=>{const c=catalog();const F=[['name','Unique id (required)'],['description','What it adds'],['init','Setup with (config, runtime)'],['actions','Things the agent can do'],['providers','Context the agent reads'],['evaluators','Run after a reply'],['services','Long-lived connections'],['config','Default settings'],['adapter','Storage backend, registered first'],['models','Handlers by model type'],['routes','HTTP endpoints'],['events','Handlers by event name'],['dependencies','Must load first'],['testDependencies','Needed for tests'],['priority','Higher loads earlier'],['schema','Database schema']];
+  return `<h1>Plugin architecture</h1><p class="lede">A plugin is a plain manifest object listing what it adds. No inheritance, no manual wiring.</p>
+ <h3>Interface</h3>${tbl(['Field','Purpose'],F.map(([f,d])=>[`<code>${f}</code>`,esc(d)]))}
+ <h3>Lifecycle of registerPlugin</h3><div class="flow"><div><b>Check name</b></div><div><b>Skip duplicates</b></div><div><b>Add to list</b></div><div><b>Run init()</b></div><div><b>Catch config errors</b></div></div>
+ <h3>Registration order</h3><div class="flow"><div><b>Adapter</b></div><div><b>Actions</b></div><div><b>Evaluators</b></div><div><b>Providers</b></div><div><b>Models</b></div><div><b>Routes</b></div><div><b>Events</b></div><div><b>Services</b>now or queued</div></div>
+ <h3>Events</h3><p>World, entity, room, message, voice, run, action/evaluator and model events, plus any custom name.</p><div class="chips">${EVENTS.map(e=>`<i>${e}${rt.events[e]?' · '+rt.events[e].length:''}</i>`).join('')}</div>
+ <h3>Priority, dependencies, configuration</h3><p>Higher priority loads first; dependencies always load before the plugin that needs them. Settings come from the character first, then the plugin's config defaults, both through <code>getSetting()</code>. Platform plugins load when their token setting exists; bootstrap always loads.</p>
+ <h3>Best practices</h3><ul><li>Declare dependencies.</li><li>Check settings before loading platform plugins and handle missing tokens in services.</li><li>Keep event handlers small; wrap risky work in try/catch and log.</li><li>Give foundational plugins a priority; read config with getSetting().</li></ul>
+ ${live(`${esc(a.name)}: ${rt.order.map(esc).join(' → ')} · ${Object.keys(c).length} plugins available.`)}`},
+ components:(a,rt)=>`<h1>Components</h1><p class="lede">The four building blocks inside a plugin.</p>
+ <h3>Actions</h3><p>What the agent can do. <code>name</code> in VERB_NOUN form, <code>description</code>, <code>similes</code> for other wordings, <code>examples</code>, <code>validate</code> (can it run now?) and <code>handler</code>, which returns an <code>ActionResult</code> with <code>success</code>. Handlers receive the plan step and earlier results for multi-step runs.</p>
+ <h3>Providers</h3><p>Context fed into state. <code>position</code> −100 to 100 (lower first), <code>dynamic</code> to skip caching, <code>private</code> to hide from the default list. <code>get()</code> returns <code>text</code>, <code>values</code>, <code>data</code>.</p>
+ <h3>Evaluators</h3><p>Run after the reply to extract and store information. <code>alwaysRun</code> bypasses validate; use it sparingly.</p>
+ <h3>Services</h3><p>Singletons for stateful connections: <code>serviceType</code>, <code>capabilityDescription</code>, <code>start()</code>, <code>stop()</code>. Reached with <code>runtime.getService()</code>.</p>
+ ${live(`${rt.actions.length} actions (${rt.actions.map(x=>esc(x.name)).join(', ')}), ${rt.providers.length} providers, ${rt.evaluators.length} evaluators, ${rt.services.size} services.`)}`,
+ 'plugin-dev':()=>`<h1>Plugin development</h1><p class="lede">Custom plugins are JSON manifests. KIRA OS compiles them into real runtime components.</p>
+ ${code(JSON.stringify(CUSTOM_TEMPLATE,null,2))}
+ ${tbl(['Key','Rules'],[['<code>name</code>','2–40 chars, a–z 0–9 and -; can\'t reuse a built-in name'],['<code>actions[].name</code>','VERB_NOUN in capitals'],['<code>actions[].mode</code>','<code>template</code>: fills <code>{{input}}</code> and <code>{{SETTING}}</code>. <code>prompt</code>: sends the filled template to TEXT_SMALL'],['<code>providers[]</code>','<code>text</code> template, <code>position</code>, <code>dynamic</code>, <code>private</code>'],['<code>evaluators[]</code>','<code>alwaysRun</code>, optional <code>mode: "prompt"</code> with a template that receives the reply as <code>{{input}}</code>'],['<code>routes[]</code>','<code>type</code>, <code>path</code>, <code>public</code>, fixed <code>json</code> response'],['<code>events</code>','Event name → <code>"log"</code> or a note; logged when fired'],['<code>autoEnable</code>','Setting name that turns the plugin on automatically']])}
+ <p>Create one in Studio → Setup → Plugins → <b>New custom plugin</b>.</p>`,
+ patterns:()=>`<h1>Patterns</h1><p class="lede">Shapes that come up again and again, each used by a KIRA OS plugin.</p>
+ ${tbl(['Pattern','How','Example'],[['Provider + action pair','Provider adds context automatically; action searches on demand','knowledge: KNOWLEDGE + SEARCH_KNOWLEDGE'],['Service-backed action','Action stays thin and calls a service','SEND_DISCORD_MESSAGE → outbox service'],['Learning loop','Evaluator extracts facts, provider feeds them back','memory: REFLECTION + FACTS'],['Gated platform plugin','autoEnable on a token setting; service degrades without it','x, discord, telegram'],['Validate as guard','Hide actions that can\'t work right now','COMPLETE_TASK only with open tasks'],['Foundation first','High priority for storage and core','store 200, bootstrap 100']])}`,
+ routes:(a,rt)=>`<h1>Webhooks and routes</h1><p class="lede">Routes are HTTP endpoints a plugin exposes. In KIRA OS they run inside the page.</p>
+ ${tbl(['Field','Meaning'],[['<code>type</code>','GET, POST, PUT, PATCH, DELETE or STATIC'],['<code>path</code>','Mounted under /api/&lt;plugin&gt;'],['<code>filePath</code>','File for STATIC routes'],['<code>public</code>','Reachable without auth'],['<code>name</code>','Label'],['<code>handler(req, res, runtime)</code>','Async; answer with res.json()'],['<code>isMultipart</code>','Accepts uploads']])}
+ <h3>Routes for ${esc(a.name)}</h3>${tbl(['Type','Path','Public'],rt.routes.map(r=>[esc(r.type),`<code>/api/${esc(r.plugin)}${esc(r.path)}</code>`,r.public?'yes':'no']))}
+ <p>Call them from Setup → Runtime → Routes console. Incoming webhooks from outside services need a real server.</p>`,
+ schema:(a,rt)=>`<h1>Database schema</h1><p class="lede">The <code>store</code> plugin is the database adapter. It keeps everything in this browser's storage.</p>
+ ${tbl(['Table','Columns','Rows now'],Object.entries(P.store.schema).map(([t,c])=>[`<code>${t}</code>`,esc(c),{memories:a.memory.length+a.chat.length,tasks:a.tasks.length,entities:2,rooms:1,cache:rt.cache.size,logs:rt.logs.length}[t]??'–']))}
+ <h3>Adapter methods</h3><div class="chips">${Object.keys(rt.adapter||{}).map(k=>`<i>${esc(k)}</i>`).join('')}</div>`,
+ migration:()=>`<h1>Migration</h1><p class="lede">Moving agents into KIRA OS, or between KIRA OS versions.</p>
+ <h3>From an elizaOS character file</h3><p>Paste it into Setup → Character → Import character.json. <code>bio</code> lists are joined, <code>adjectives</code> become traits, <code>style.all</code> and <code>style.chat</code> become style rules, and plugin names lose their <code>@elizaos/plugin-</code> prefix; plugins KIRA OS doesn't have are skipped.</p>
+ <h3>From older KIRA OS versions</h3><p>Agents saved before the plugin architecture used on/off switches. They are converted automatically: knowledge → <code>knowledge</code>, memory → <code>memory</code>, calc → <code>calculator</code>, social → <code>x</code>, <code>discord</code>, <code>telegram</code>.</p>
+ <h3>Between accounts</h3><p>Use Copy project JSON and Import project on ${go('projects','Projects')}.</p>`,
+ reference:()=>{const c=catalog();return `<h1>Plugin reference</h1><p class="lede">All ${Object.keys(c).length} plugins. Full manifests are on the <a href="#plugins" data-v="plugins">Plugins</a> page.</p>
+ ${tbl(['Plugin','Priority','Actions','Providers','Other'],Object.values(c).sort((x,y)=>(y.priority||0)-(x.priority||0)).map(p=>[`<b>${esc(p.name)}</b>`,p.priority||0,(p.actions||[]).map(x=>`<code>${esc(x.name)}</code>`).join(' ')||'–',(p.providers||[]).map(x=>`<code>${esc(x.name)}</code>`).join(' ')||'–',[p.evaluators&&p.evaluators.length?'evaluators':'',p.services&&p.services.length?'services':'',p.routes&&p.routes.length?'routes':'',p.models?'models':'',p.adapter?'adapter':''].filter(Boolean).join(', ')||'–']))}`},
+ 'core-concepts':()=>`<h1>Core concepts</h1>${tbl(['Term','Meaning in KIRA OS'],[['Runtime','The engine for one agent: plugins, services, state, events'],['Agent','A character plus its plugins'],['World','Where the agent lives; here, the KIRA OS web app'],['Room','A conversation; each agent has one web chat room'],['Entity','A participant: you or the agent'],['Message','One turn, with content.text and a source'],['State','What providers composed for the current message'],['Memory','What persists: facts, messages, tasks'],['Action','A step the agent can take during a reply'],['Model type','TEXT_SMALL, TEXT_LARGE, TEXT_REASONING, OBJECT_SMALL']])}`,
+ communication:()=>`<h1>Communication</h1><p class="lede">How messages move in and out.</p>
+ <h3>In</h3><p>You type in the web chat. The runtime emits MESSAGE_RECEIVED and builds state.</p>
+ <h3>Out</h3><p>The reply streams back into the chat and MESSAGE_SENT fires. Posts for X, Discord and Telegram go to the Outbox as drafts you copy by hand.</p>
+ <h3>Between plugins</h3><p>Plugins talk through the runtime: events for broadcasts, services for shared connections, state for context, settings for configuration.</p>`,
+ types:()=>`<h1>Types reference</h1><p class="lede">Shapes used by the KIRA OS runtime, written in TypeScript style.</p>${code(`interface Plugin {
+  name: string; description?: string; priority?: number;
+  init?(config: Record<string, string>, runtime: Runtime): Promise<void>;
+  actions?: Action[]; providers?: Provider[]; evaluators?: Evaluator[];
+  services?: ServiceClass[]; routes?: Route[]; adapter?: (rt: Runtime) => DatabaseAdapter;
+  models?: Record<ModelType, ModelHandler>; events?: Record<string, EventHandler[]>;
+  config?: Record<string, string>; dependencies?: string[]; testDependencies?: string[];
+  schema?: Record<string, string>; autoEnable?: string;
+}
+interface Action {
+  name: string; description: string; similes?: string[]; examples?: string[];
+  parameters?: JSONSchema;
+  validate(rt: Runtime, message: Message, state: State): Promise<boolean>;
+  handler(rt: Runtime, message: Message, state: State, options: HandlerOptions): Promise<ActionResult>;
+}
+interface ActionResult { success: boolean; text?: string; data?: unknown }
+interface HandlerOptions { parameters: object; actionPlan: { step: number; thought: string }; actionContext: ActionResult[] }
+interface Provider {
+  name: string; description?: string; position?: number; dynamic?: boolean; private?: boolean;
+  get(rt: Runtime, message: Message, state: State): Promise<ProviderResult>;
+}
+interface ProviderResult { text?: string; values?: object; data?: unknown }
+interface Evaluator {
+  name: string; description: string; alwaysRun?: boolean; similes?: string[]; examples?: string[];
+  validate(rt: Runtime, message: Message, state: State): Promise<boolean>;
+  handler(rt: Runtime, message: Message, state: State, reply: string): Promise<ActionResult>;
+}
+interface ServiceClass { serviceType: string; capabilityDescription: string; start(rt: Runtime): Promise<Service> }
+interface Service { stop(): void }
+interface Route { type: "GET"|"POST"|"PUT"|"PATCH"|"DELETE"|"STATIC"; path: string; public?: boolean;
+  name?: string; filePath?: string; isMultipart?: boolean; handler(req, res, rt: Runtime): Promise<void> }
+interface Message { id: string; entityId: string; roomId: string; content: { text: string; source: string } }
+interface State { text: string; values: object; data: Record<string, unknown> }
+type ModelType = "TEXT_SMALL" | "TEXT_LARGE" | "TEXT_REASONING" | "OBJECT_SMALL";`)}`,
+ llms:()=>`<h1>Docs for LLMs</h1>${EZ?'<div id="llmall" class="ezb"></div><div id="llmmore" style="height:1px"></div>':'<p class="note n0">llms-full.txt is not loaded. Put it next to index.html.</p>'}`,
+ tokenomics:()=>`<h1>Tokenomics</h1><p class="lede">KIRA OS has no token. Nothing in this app is tied to a coin, a chain or a sale.</p>
+ <p>If you launch a token for a project built on KIRA OS, this page is where its tokenomics would go. A complete page usually covers:</p>
+ <ul><li>Token name, ticker, chain and contract address</li><li>Total and circulating supply</li><li>Allocation by group (team, community, liquidity, treasury), with percentages that add up to 100</li><li>Vesting and unlock schedule</li><li>What the token is used for inside the product</li><li>Risks, and a clear note that it is not investment advice</li></ul>
+ <p>Only publish numbers that are final and verifiable on-chain.</p>`
+};
+function docText(){const a=A(),rt=RT[a.id];const d=document.createElement('div');d.style.cssText='position:absolute;left:-99999px;top:0;width:800px;white-space:normal';document.body.appendChild(d);const out=PAGES_FLAT.map(p=>{d.innerHTML=PAGES[p.k](a,rt);return '## '+p.g+' / '+p.n+'\n\n'+d.innerText.trim()}).join('\n\n');d.remove();return out}
+async function renderDocs(){
+ const a=A();const rt=RT[a.id]||await boot(a);
+ const isEZ=/^ez-\d+$/.test(DOC)&&EZ&&EZ[+DOC.slice(3)];
+ if(!PAGES[DOC]&&!isEZ)DOC='overview';
+ let cur,prev,next,body;
+ if(isEZ){const n=+DOC.slice(3),flat=ezNav().flatMap(([g,ps])=>ps.map(([k,t])=>({k,n:t,g}))),j=flat.findIndex(x=>x.k===DOC);cur={g:'elizaOS · '+flat[j].g,n:flat[j].n};prev=flat[j-1];next=flat[j+1];const p=EZ[n];
+  body=`<h1>${esc(p.title)}</h1><p class="note n0">From the <a href="${esc(p.src)}" target="_blank" rel="noopener">elizaOS documentation</a></p><div class="ezb">${renderMD(p.lines)}</div>`}
+ else{const L=PAGES_FLAT_ALL(),i=L.findIndex(p=>p.k===DOC);cur=L[i];prev=DOC==='llms'?null:PAGES_FLAT[i-1];next=DOC==='llms'?PAGES_FLAT[0]:PAGES_FLAT[i+1];body=PAGES[DOC](a,rt)}
+ let th='system';try{th=localStorage.getItem('loom-theme')||'system'}catch(e){}
+ $('#vdocs').innerHTML=`<div class="dwrap"><div class="dbar"><button class="btn sm" id="dmenu" aria-expanded="false">☰ Menu</button><span>${esc(cur.g)} › <b>${esc(cur.n)}</b></span></div>
+ <aside class="dside" id="dside"> <button class="llm ${DOC==='llms'?'on':''}" id="llms"><span aria-hidden="true">⌘</span>Docs for LLMs</button>
+ ${NAV.map(([g,ps])=>`<div class="dg">${esc(g)}</div>${ps.map(([k,n])=>`<a href="#docs-${k}" data-doc="${k}" class="${k===DOC?'on':''}">${esc(n)}</a>`).join('')}`).join('')}${EZ?`<div class="ezh">elizaOS docs</div>`+ezNav().map(([g,ps])=>`<details class="ezg" ${ps.some(([k])=>k===DOC)||g==='Getting started'?'open':''}><summary>${esc(g)} <span>${ps.length}</span></summary>${ps.map(([k,n])=>`<a href="#docs-${k}" data-doc="${k}" class="${k===DOC?'on':''}">${esc(n)}</a>`).join('')}</details>`).join(''):''}</aside>
+ <div class="dmain" id="dmain"><article class="dart">${body}<nav class="pn">${prev?`<a href="#docs-${prev.k}" data-doc="${prev.k}"><span>Previous</span>${esc(prev.n)}</a>`:'<i></i>'}${next?`<a href="#docs-${next.k}" data-doc="${next.k}" style="text-align:right"><span>Next</span>${esc(next.n)}</a>`:''}</nav></article></div></div>`;
+ $('#dmain').scrollTop=0;
+ if(DOC==='llms'&&EZ)llmRender();
+}
+let RD=null;
+function ezLink(u,label){const path=u.split('#')[0].replace(/\/$/,'');if(EZ&&path.startsWith('/')){const i=EZ.findIndex(p=>p.src.replace('https://docs.elizaos.ai','')===path||(path===''&&p.seg==='index'));if(i>=0)return`<a href="#docs-ez-${i}" data-doc="ez-${i}">${label}</a>`}const url=u.startsWith('/')?'https://docs.elizaos.ai'+u:u;return /^https:\/\//.test(url)?`<a href="${esc(url)}" target="_blank" rel="noopener">${label}</a>`:label}
+function mdInline(t){let h=esc(t);h=h.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,(m,x,u)=>ezLink(u.replace(/&amp;/g,'&'),x));return h}
+function parseLLM(txt){
+ const L=txt.replace(/\r/g,'').split('\n'),pages=[];let cur=null;
+ for(let i=0;i<L.length;i++){const l=L[i];
+  if(/^# /.test(l)&&/^Source: https:\/\/docs\.elizaos\.ai\//.test(L[i+1]||'')){const src=L[i+1].slice(8).trim();cur={title:l.slice(2).trim(),src,seg:src.replace('https://docs.elizaos.ai/','').split('/')[0]||'index',lines:[]};pages.push(cur);i++;continue}
+  if(cur)cur.lines.push(l)}
+ return pages;
+}
+const EZ_GROUPS=[['Getting started',['index','installation','quickstart','what-you-can-build']],['Guides',['guides']],['Projects',['projects']],['Agents',['agents']],['Plugins',['plugins']],['Runtime',['runtime']],['Token',['tokenomics']],['CLI reference',['cli-reference']],['Plugin registry',['plugin-registry']],['REST reference',['rest-reference']],['Resources',['launch-resources']]];
+let EZ=null;
+function ezNav(){if(!EZ)return[];const used=new Set();const out=EZ_GROUPS.map(([g,segs])=>[g,EZ.map((p,i)=>({p,i})).filter(({p})=>segs.includes(p.seg)).map(({p,i})=>{used.add(i);return['ez-'+i,p.title]})]).filter(([,x])=>x.length);const rest=EZ.map((p,i)=>({p,i})).filter(({i})=>!used.has(i));if(rest.length)out.push(['More',rest.map(({p,i})=>['ez-'+i,p.title])]);return out}
+function setEZ(pages,save){EZ=pages;if(save)idb('set',pages).catch(()=>{});if(document.body.dataset.view==='docs')renderDocs()}
+function idb(op,val){return new Promise((res,rej)=>{try{const r=indexedDB.open('loom-docs',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onerror=()=>rej(r.error);r.onsuccess=()=>{const tx=r.result.transaction('kv',op==='get'?'readonly':'readwrite');const st=tx.objectStore('kv');const q=op==='get'?st.get('ez'):op==='del'?st.delete('ez'):st.put(val,'ez');q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)}}catch(e){rej(e)}})}
+async function loadEZ(){
+ try{const r=await fetch('llms-full.txt');if(r.ok){const p=parseLLM(await r.text());if(p.length){setEZ(p,false);return}}}catch(e){}
+ try{const p=await idb('get');if(Array.isArray(p)&&p.length)setEZ(p,false)}catch(e){}
+}
+function renderMD(lines){
+ const o=[];let i=0,list=null;const close=()=>{if(list){o.push('</ul>');list=null}};
+ const tagAttr=(l,k)=>{const m=l.match(new RegExp(k+'="([^"]*)"'));return m?m[1]:''};
+ while(i<lines.length){let l=lines[i];
+  const f=l.match(/^\s*```\s*(\S*)/);
+  if(f){close();const buf=[];i++;while(i<lines.length&&!/^\s*```/.test(lines[i])){buf.push(lines[i]);i++}i++;const lang=(f[1]||'').replace(/[^\w-]/g,'');o.push(`<div class="cb">${lang?`<span>${lang}</span>`:''}<pre>${esc(buf.join('\n').replace(/^ {0,8}/gm,m=>m))}</pre></div>`);continue}
+  const t=l.trim();
+  if(/^<(Note|Tip|Warning|Info|Check)\b/.test(t)){close();const k=t.match(/^<(\w+)/)[1];o.push(`<div class="co co-${k.toLowerCase()}"><b>${k}</b>`);if(/<\/\w+>\s*$/.test(t)&&t.indexOf('>')<t.length-1)o.push(mdInline(t.replace(/<[^>]+>/g,''))+'</div>');i++;continue}
+  if(/^<\/(Note|Tip|Warning|Info|Check)>/.test(t)){close();o.push('</div>');i++;continue}
+  if(/^<Card\b/.test(t)){close();const ti=tagAttr(t,'title'),hr=tagAttr(t,'href');o.push(`<div class="rcard"><b>${hr?ezLink(hr,esc(ti)):esc(ti)}</b>`);if(/\/>\s*$/.test(t))o.push('</div>');i++;continue}
+  if(/^<\/Card>/.test(t)){o.push('</div>');i++;continue}
+  if(/^<(Step|Tab|Accordion|ResponseField|ParamField)\b/.test(t)){close();const ti=tagAttr(t,'title')||tagAttr(t,'name')||tagAttr(t,'path');if(ti)o.push(`<h5>${esc(ti)}${tagAttr(t,'type')?` <code>${esc(tagAttr(t,'type'))}</code>`:''}</h5>`);i++;continue}
+  if(/^<\/?[A-Z][\w]*[^>]*>\s*$/.test(t)){i++;continue}
+  const h=t.match(/^(#{2,4}) (.*)/);if(h){close();o.push(`<h${h[1].length+1}>${mdInline(h[2])}</h${h[1].length+1}>`);i++;continue}
+  if(/^(\*\*\*|---)$/.test(t)){close();o.push('<hr>');i++;continue}
+  const li=t.match(/^[*-] (.*)/)||t.match(/^\d+\. (.*)/);if(li){if(!list){o.push('<ul>');list=1}o.push(`<li>${mdInline(li[1])}</li>`);i++;continue}
+  if(/^\|/.test(t)){close();const rows=[];while(i<lines.length&&/^\s*\|/.test(lines[i])){rows.push(lines[i].trim());i++}const cells=r=>r.replace(/^\||\|$/g,'').split('|').map(c=>c.trim());const body=rows.filter(r=>!/^\|[\s:|-]+\|$/.test(r));o.push(`<div class="scroll"><table>${body.map((r,j)=>`<tr>${cells(r).map(c=>j?`<td>${mdInline(c)}</td>`:`<th>${mdInline(c)}</th>`).join('')}</tr>`).join('')}</table></div>`);continue}
+  if(!t){close();i++;continue}
+  close();o.push(`<p>${mdInline(t.replace(/<\/?[A-Z]\w*[^>]*>/g,''))}</p>`);i++}
+ close();return o.join('');
+}
+function renderReader(){const r=$('#reader');if(!r||!RD)return;const p=RD.pages[RD.i];
+ r.innerHTML=`<div class="rd"><div class="row" style="margin-bottom:12px"><select id="rdsel" class="inp" style="flex:1;margin:0" aria-label="Page">${RD.pages.map((x,j)=>`<option value="${j}" ${j===RD.i?'selected':''}>${j+1}. ${esc(x.title)}</option>`).join('')}</select><button class="btn sm" data-rd="-1" ${RD.i?'':'disabled'}>‹ Prev</button><button class="btn sm" data-rd="1" ${RD.i<RD.pages.length-1?'':'disabled'}>Next ›</button></div>
+ <div class="rdp"><h2>${esc(p.title)}</h2>${/^https:\/\//.test(p.src)?`<p class="note n0"><a href="${esc(p.src)}" target="_blank" rel="noopener">${esc(p.src)}</a></p>`:''}${renderMD(p.lines)}</div></div>`;}
+let llmObs=null;
+function llmRender(){const box=$('#llmall'),sen=$('#llmmore');if(!box)return;let n=0;
+ const more=()=>{const end=Math.min(EZ.length,n+6);let h='';for(;n<end;n++){const p=EZ[n];h+=`<section class="llmp"><h2>${esc(p.title)}</h2><p class="note n0">Source: ${/^https:\/\//.test(p.src)?`<a href="${esc(p.src)}" target="_blank" rel="noopener">${esc(p.src)}</a>`:esc(p.src)}</p>${renderMD(p.lines)}</section>`}box.insertAdjacentHTML('beforeend',h);if(n>=EZ.length&&llmObs){llmObs.disconnect();sen.remove()}};
+ if(llmObs)llmObs.disconnect();more();
+ llmObs=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting))more()},{root:$('#dmain'),rootMargin:'1200px'});llmObs.observe(sen);}
+function openDoc(k){DOC=k;try{history.replaceState(null,'','#docs-'+k)}catch(e){}renderDocs()}
+function applyTheme(k){try{localStorage.setItem('loom-theme',k)}catch(e){}if(k==='system')delete document.documentElement.dataset.theme;else document.documentElement.dataset.theme=k}
+
+/* ============ MESSAGE PIPELINE ============ */
+async function send(text){
+ const a=A();text=text.trim();if(!text||busy||!sample)return;
+ const t0=Date.now();const rt=RT[a.id]||await boot(a);
+ const message={id:uid(),entityId:'user',roomId:'web',content:{text,source:'loom'}};
+ a.chat.push({role:'user',text});const m={role:'assistant',text:'',tools:[],evals:[]};a.chat.push(m);renderHead();renderMsgs();
+ busy=new AbortController();updSend();
+ const timer=setTimeout(()=>{rt.emit('RUN_TIMEOUT',{detail:'120 s'});busy&&busy.abort()},120000);
+ try{
+  await rt.emit('RUN_STARTED',{detail:'run '+message.id});
+  await rt.emit('MESSAGE_RECEIVED',{detail:text.slice(0,80),message});
+  const state=await rt.composeState(message);
+  const valid=[];for(const ac of rt.actions){try{if(await ac.validate(rt,message,state))valid.push(ac)}catch(e){rt.log('VALIDATE_ERROR',ac.name+': '+e.message,1)}}
+  LAST[a.id]={state,valid:valid.map(v=>v.name)};
+  const actionContext=[];let step=0;
+  const tools=valid.map(ac=>({name:ac.name,description:ac.description+(ac.similes&&ac.similes.length?' Also known as: '+ac.similes.join(', ')+'.':'')+(ac.examples&&ac.examples.length?' Example: '+ac.examples.join(' | '):''),inputSchema:ac.parameters||{type:'object',properties:{}},
+   execute:async input=>{step++;m.tools.push(ac.name);renderMsgs();await rt.emit('ACTION_STARTED',{detail:ac.name});
+    let r;try{r=await ac.handler(rt,message,state,{parameters:input||{},actionPlan:{step,thought:'model tool call'},actionContext:actionContext.slice()},null,[])}catch(e){r={success:false,text:e.message}}
+    actionContext.push({action:ac.name,...r});await rt.emit('ACTION_COMPLETED',{detail:ac.name+(r&&r.success?' ok':' failed')});renderCfg();
+    return{success:!!(r&&r.success),text:r&&r.text,data:r&&r.data}}}));
+  let hist=a.chat.slice(0,-2).filter(x=>!x.err&&x.text).slice(-16);while(hist.length&&hist[0].role!=='user')hist.shift();
+  const msgs=hist.map(x=>({role:x.role,content:x.text}));
+  msgs.push({role:'user',content:`You are ${a.name}, an AI agent on the KIRA OS runtime. Below is your composed state from providers. Stay in character, use actions (tools) when they help, never claim a draft was published, reply in the user's language, concisely, plain text with **bold** allowed.\n\n${state.text}\n\n---\nUser message:\n${text}`});
+  const r=await rt.useModel(TIER_MODEL[a.tier]||'TEXT_LARGE',{messages:msgs,tools,signal:busy.signal,onText:({text})=>{m.text=text;renderMsgs()}});
+  m.text=r.text||m.text||'(no reply)';renderMsgs();
+  await rt.emit('MESSAGE_SENT',{detail:m.text.slice(0,80)});
+  for(const ev of rt.evaluators){let run=false;try{run=ev.alwaysRun||await ev.validate(rt,message,state)}catch(e){}if(!run)continue;
+   await rt.emit('EVALUATOR_STARTED',{detail:ev.name});
+   try{const er=await ev.handler(rt,message,state,m.text);m.evals.push(ev.name+(er&&er.text?': '+er.text:''))}catch(e){rt.log('EVALUATOR_ERROR',ev.name+': '+e.message,1)}
+   await rt.emit('EVALUATOR_COMPLETED',{detail:ev.name})}
+ }catch(e){
+  if(busy&&busy.signal.aborted||e&&e.code==='aborted'){m.text=(m.text||'')+(m.text?'\n\n':'')+'(stopped)'}
+  else{m.err=true;m.text=e&&e.code==='rate_limited'?'Rate limited. Wait a moment and try again.':e&&(e.code==='ai_not_configured'||e.code==='studio_disabled')?(e.message||'The AI is not switched on for this site.'):e&&e.code==='not_granted'?'Claude access was not granted for this page.':'Something went wrong: '+((e&&e.message)||'unknown error');if(e&&e.code==='not_granted'){sample=null;setStatus()}}
+ }
+ clearTimeout(timer);await rt.emit('RUN_ENDED',{detail:'',ms:Date.now()-t0});
+ busy=null;save();renderMsgs();renderHead();renderCfg();updSend();
+}
+function setStatus(){const on=sample&&!AIOFF;const s=$('#status');s.className='pill '+(on?'on':'off');s.innerHTML='<b></b>'+(on?'Agents online':'AI not switched on')}
+
+/* ============ EVENTS ============ */
+function rebootActive(){const a=A();delete LAST[a.id];boot(a).then(()=>renderCfg())}
+document.addEventListener('click',async e=>{
+ const dl=e.target.closest('[data-doc]');if(dl){e.preventDefault();if(document.body.dataset.view!=='docs')setView('docs');openDoc(dl.dataset.doc);return}
+ const vl=e.target.closest('a[data-v]');if(vl){e.preventDefault();setView(vl.dataset.v);return}
+ if(!e.target.closest('#drop,#menu'))$('#drop').classList.remove('open');
+ const t=e.target.closest('button');if(!t)return;const a=A();
+ if(t.id==='dmenu'){const o=$('#dside').classList.toggle('open');t.setAttribute('aria-expanded',String(o));return}
+ if(t.dataset.themeSet){applyTheme(t.dataset.themeSet);document.querySelectorAll('[data-theme-set]').forEach(b=>b.classList.toggle('on',b===t));return}
+ if(t.id==='llms'){openDoc('llms');return}
+ if(t.id==='ezclear'){EZ=null;idb('del').catch(()=>{});renderDocs();return}
+ if(t.dataset.rd){RD.i=Math.max(0,Math.min(RD.pages.length-1,RD.i+ +t.dataset.rd));renderReader();$('#reader').scrollIntoView();return}
+ if(t.dataset.llm){const loom='# KIRA OS documentation\n\n'+docText();const ref='https://docs.elizaos.ai/llms-full.txt';const txt=t.dataset.llm==='loom'?loom:t.dataset.llm==='url'?ref:'# Context for AI assistants\nKIRA OS is a browser agent runtime modeled on elizaOS. Use the KIRA OS docs below first. For anything they do not cover, use the official elizaOS docs: '+ref+'\n\n'+loom;const old=t.textContent;navigator.clipboard.writeText(txt).then(()=>{t.textContent='Copied'},()=>{t.textContent='Copy blocked'});setTimeout(()=>{t.textContent=old},1600);return}
+ if(t.dataset.tpl){const n=mk(JSON.parse(JSON.stringify(TEMPLATES[t.dataset.tpl])));S.agents.push(n);S.active=n.id;save();renderAll();setView('studio');if(innerWidth<=1100)$('#tabs [data-p=chat]').click();return}
+ if(t.id==='pcopy'){const j=JSON.stringify({loom:1,agents:S.agents.map(x=>({...x,chat:[]})),custom:S.custom||[]},null,2);navigator.clipboard.writeText(j).then(()=>{t.textContent='Copied'},()=>{t.textContent='Copy blocked'});return}
+ if(t.id==='pimpb'){try{const o=JSON.parse($('#pimp').value);if(!Array.isArray(o.agents))throw 0;let n=0;o.agents.forEach(x=>{if(x&&typeof x==='object'){S.agents.push(migrate({...mk({}),...x,id:uid(),chat:[]}));n++}});let cn=0;(o.custom||[]).forEach(d=>{try{compileCustom(d);if(!(S.custom||[]).some(c=>c.name===d.name)){S.custom.push(d);cn++}}catch(e){}});save();RT={};renderAll();$('#pimpm').textContent=`Imported ${n} agents, ${cn} plugins.`;$('#pimpm').style.color='var(--ok)'}catch(err){$('#pimpm').textContent='Not a valid project JSON.'}return}
+ if(t.id==='menu'){const o=$('#drop').classList.toggle('open');t.setAttribute('aria-expanded',String(o));return}
+ if(t.dataset.v){setView(t.dataset.v);return}
+ if(t.dataset.p){document.body.dataset.pane=t.dataset.p;document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b===t));return}
+ if(t.classList.contains('ag')){S.active=t.dataset.id;delArm=null;save();renderAll();if(innerWidth<=1100)$('#tabs [data-p=chat]').click();return}
+ if(t.id==='new'){const n=mk({});S.agents.push(n);S.active=n.id;S.tab='char';save();renderAll();if(innerWidth<=1100)$('#tabs [data-p=cfg]').click();setTimeout(()=>{const i=$('[data-k=name]');i&&i.select()},50);return}
+ if(t.dataset.s){send(t.dataset.s);return}
+ if(t.id==='clear'){a.chat=[];save();renderMsgs();renderHead();return}
+ if(t.dataset.t){S.tab=t.dataset.t;renderCfg();return}
+ if(t.dataset.tier){a.tier=t.dataset.tier;save();renderCfg();renderHead();return}
+ if(t.id==='dup'){const c=mk({...JSON.parse(JSON.stringify(a)),id:uid(),name:a.name+' copy',chat:[],outbox:[]});S.agents.push(c);S.active=c.id;save();renderAll();return}
+ if(t.id==='del'){if(delArm!==a.id){delArm=a.id;renderCfg();return}S.agents=S.agents.filter(x=>x.id!==a.id);if(!S.agents.length)S.agents.push(mk({}));S.active=S.agents[0].id;delArm=null;save();renderAll();return}
+ if(t.id==='copyj'){const j=JSON.stringify({name:a.name,bio:[a.bio],system:a.role,adjectives:a.traits.split(',').map(s=>s.trim()).filter(Boolean),style:{all:a.style.split(/\.\s+/).filter(Boolean)},plugins:a.plugins,settings:a.settings,knowledge:a.knowledge.map(d=>({title:d.title,text:d.text}))},null,2);navigator.clipboard.writeText(j).then(()=>{t.textContent='Copied'},()=>{t.textContent='Copy blocked'});setTimeout(()=>t.textContent='Copy character.json',1600);return}
+ if(t.id==='impb'){try{const o=JSON.parse($('#imp').value);const cat=catalog();const st=o.style&&typeof o.style==='object'?[].concat(o.style.all||[],o.style.chat||[]).join('. '):String(o.style||'');const n=mk({name:String(o.name||'Imported').slice(0,40),role:String(o.system||o.role||'').slice(0,200),bio:Array.isArray(o.bio)?o.bio.join(' '):String(o.bio||''),traits:Array.isArray(o.adjectives)?o.adjectives.join(', '):String(o.traits||''),style:st,settings:o.settings&&typeof o.settings==='object'?Object.fromEntries(Object.entries(o.settings).filter(([,v])=>typeof v!=='object').map(([k,v])=>[k,String(v)])):{},plugins:[...new Set([...DEF_PLUG,...(Array.isArray(o.plugins)?o.plugins.map(p=>String(p).replace(/^@elizaos\/plugin-/,'')).filter(p=>cat[p]):[])])],knowledge:Array.isArray(o.knowledge)?o.knowledge.map(k=>({id:uid(),title:String(k.title||'Doc'),text:typeof k==='string'?k:String(k.text||'')})):[]});S.agents.push(n);S.active=n.id;save();renderAll()}catch(err){$('#impm').textContent='Not valid JSON.'}return}
+ if(t.id==='adddoc'){a.knowledge.push({id:uid(),title:'Untitled doc',text:''});save();renderCfg();return}
+ if(t.dataset.deldoc){a.knowledge=a.knowledge.filter(d=>d.id!==t.dataset.deldoc);save();renderCfg();return}
+ if(t.dataset.delmem!=null){a.memory.splice(+t.dataset.delmem,1);save();renderCfg();return}
+ if(t.dataset.deltask){a.tasks=a.tasks.filter(x=>x.id!==t.dataset.deltask);save();renderCfg();return}
+ if(t.dataset.delout){a.outbox=a.outbox.filter(o=>o.id!==t.dataset.delout);save();renderCfg();return}
+ if(t.dataset.copy){const o=a.outbox.find(x=>x.id===t.dataset.copy);o&&navigator.clipboard.writeText(o.text).then(()=>{t.textContent='Copied'},()=>{t.textContent='Copy blocked'});return}
+ if(t.id==='reboot'){rebootActive();return}
+ if(t.id==='callr'){const rt=RT[a.id];const r=rt.routes[+$('#route').value];if(!r)return;const res={code:200,body:null,status(c){this.code=c;return this},json(o){this.body=o;return this},send(o){this.body=o;return this}};try{await r.handler({method:r.type,path:r.path,params:{},query:{},body:{}},res,rt);$('#rout').textContent=`${res.code} ${r.type} /api/${r.plugin}${r.path}\n\n`+JSON.stringify(res.body,null,2)}catch(err){$('#rout').textContent='500 '+err.message}return}
+ if(t.id==='emit'){const rt=RT[a.id];await rt.emit($('#evsel').value,{detail:'manual emit'});refreshLog();return}
+ if(t.id==='newc'||t.dataset.editc!=null){const i=t.dataset.editc!=null?+t.dataset.editc:-1;const def=i>=0?S.custom[i]:{...CUSTOM_TEMPLATE,name:'my-plugin-'+((S.custom||[]).length+1)};$('#cedit').innerHTML=`<textarea class="code" id="cjson" spellcheck="false" aria-label="Plugin manifest">${esc(JSON.stringify(def,null,2))}</textarea><div class="row"><button class="btn sm pri" id="savec" data-i="${i}">Validate & save</button><button class="btn sm" id="cancelc">Cancel</button><span class="err" id="cerr"></span></div>`;return}
+ if(t.id==='cancelc'){$('#cedit').innerHTML='';return}
+ if(t.id==='savec'){const i=+t.dataset.i;try{const d=JSON.parse($('#cjson').value);compileCustom(d);S.custom=S.custom||[];const dupe=S.custom.findIndex(x=>x.name===d.name);if(dupe>=0&&dupe!==i)throw new Error('a custom plugin with that name exists');const old=i>=0?S.custom[i].name:null;if(i>=0)S.custom[i]=d;else S.custom.push(d);if(old&&old!==d.name)S.agents.forEach(x=>{x.plugins=x.plugins.map(p=>p===old?d.name:p)});if(!a.plugins.includes(d.name))a.plugins.push(d.name);save();RT={};renderCfg();renderHead()}catch(err){$('#cerr').textContent=err.message}return}
+ if(t.dataset.delc!=null){const d=S.custom[+t.dataset.delc];S.custom.splice(+t.dataset.delc,1);S.agents.forEach(x=>{x.plugins=x.plugins.filter(p=>p!==d.name)});RT={};save();renderCfg();renderHead();return}
+});
+document.addEventListener('input',e=>{
+ const t=e.target,a=A();
+ if(t.dataset.k){a[t.dataset.k]=t.value;save();renderList();renderHead();if(!a.chat.length)renderMsgs();delete RT[a.id]}
+ else if(t.dataset.doc){const d=a.knowledge.find(x=>x.id===t.dataset.doc);if(d){d[t.dataset.f]=t.value;save()}}
+ else if(t.id==='settings'){const o={};t.value.split('\n').forEach(l=>{const i=l.indexOf('=');if(i>0)o[l.slice(0,i).trim()]=l.slice(i+1).trim()});a.settings=o;save();delete RT[a.id]}
+ else if(t.id==='inp'){t.style.height='auto';t.style.height=Math.min(t.scrollHeight,160)+'px'}
+});
+document.addEventListener('change',e=>{
+ const t=e.target,a=A();
+ if(t.dataset.pl){const n=t.dataset.pl;a.plugins=t.checked?[...new Set([...a.plugins,n])]:a.plugins.filter(p=>p!==n);save();delete RT[a.id];renderCfg();renderHead();renderMsgs()}
+ if(t.dataset.tdone){const k=a.tasks.find(x=>x.id===t.dataset.tdone);if(k){k.done=t.checked;save();renderCfg()}}
+ if(t.id==='rdfile'&&t.files[0]){t.files[0].text().then(x=>{const pages=parseLLM(x);if(!pages.length){$('#rdmsg').textContent='No elizaOS pages found in that file.';return}setEZ(pages,true);{const k=pages.findIndex(p=>p.seg==='index');openDoc('ez-'+Math.max(0,k))}})}
+ if(t.id==='rdsel'){RD.i=+t.value;renderReader();$('#reader').scrollIntoView()}
+ if(t.id==='file'){[...t.files].forEach(f=>{if(f.size>300000)return;f.text().then(x=>{a.knowledge.push({id:uid(),title:f.name,text:x});save();renderCfg()})})}
+});
+document.addEventListener('submit',e=>{
+ e.preventDefault();const a=A();
+ if(e.target.id==='form'){if(busy){busy.abort();return}const i=$('#inp');const v=i.value;i.value='';i.style.height='auto';send(v)}
+ if(e.target.id==='memf'){const v=$('#memi').value.trim();if(v){a.memory.push(v);save();renderCfg()}}
+ if(e.target.id==='taskf'){const v=$('#taski').value.trim();if(v){a.tasks.push({id:uid(),title:v,due:'',done:false});save();renderCfg()}}
+});
+$('#inp').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&innerWidth>600){e.preventDefault();$('#form').requestSubmit()}});
+
+try{const k=localStorage.getItem('aiko-pending');if(k){localStorage.removeItem('aiko-pending');if(TEMPLATES[k]){const n=mk(JSON.parse(JSON.stringify(TEMPLATES[k])));S.agents.push(n);S.active=n.id;S.tab='char';save()}}}catch(e){}
+renderAll();boot(A());
+function fromHash(){const h=location.hash.slice(1);if(h.startsWith('docs')){const k=h.slice(5);if(PAGES[k]||/^ez-\d+$/.test(k))DOC=k;setView('docs')}else setView(h==='plugins'?'plugins':'studio')}
+loadEZ().then(()=>{if(location.hash)fromHash()});if(location.hash)fromHash();
+addEventListener('hashchange',fromHash);
+let AIOFF=false;
+sample=(()=>{
+ async function call(body,signal){const r=await fetch('/api/studio',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal});const j=await r.json().catch(()=>({}));if(!r.ok){const e=new Error(j.reply||j.error||('HTTP '+r.status));e.code=r.status===429?'rate_limited':(j.error||'http_'+r.status);if(e.code==='ai_not_configured'||e.code==='studio_disabled'){AIOFF=true;setStatus()}throw e}return j}
+ async function run(input,opts={}){
+  const messages=typeof input==='string'?[{role:'user',content:input}]:input.map(m=>({role:m.role,content:m.content}));
+  const tools=opts.tools||[];const spec=tools.map(t=>({name:t.name,description:String(t.description||'').slice(0,1000),input_schema:t.inputSchema||{type:'object',properties:{}}}));
+  let shown='';
+  for(let step=0;step<6;step++){
+   const j=await call({messages,tools:spec,tier:opts.modelTier||'default'},opts.signal);
+   const content=Array.isArray(j.content)?j.content:[];const text=content.filter(b=>b.type==='text').map(b=>b.text).join('\n').trim();
+   const uses=content.filter(b=>b.type==='tool_use');
+   if(j.stop_reason!=='tool_use'||!uses.length){const full=(shown?shown+'\n\n':'')+text;opts.onText&&opts.onText({text:full,delta:text});return{text:full,truncated:j.stop_reason==='max_tokens'}}
+   if(text){shown=(shown?shown+'\n\n':'')+text;opts.onText&&opts.onText({text:shown,delta:text})}
+   messages.push({role:'assistant',content});
+   const results=[];for(const u of uses){const t=tools.find(x=>x.name===u.name);let out,err=false;try{out=t?await t.execute(u.input||{}):{error:'unknown_tool'}}catch(e){out={error:String(e&&e.message||e).slice(0,200)};err=true}results.push({type:'tool_result',tool_use_id:u.id,content:JSON.stringify(out??null).slice(0,6000),is_error:err})}
+   messages.push({role:'user',content:results});
+  }
+  return{text:shown||'(stopped after 6 steps)',truncated:true};
+ }
+ run.json=async prompt=>{const r=await run(prompt+'\n\nReply with JSON only, no other text.',{modelTier:'quick'});const mt=r.text.match(/[\[{][\s\S]*[\]}]/);return mt?JSON.parse(mt[0]):null};
+ return run;
+})();
+setStatus();updSend();
+(async()=>{try{if(window.claude&&typeof window.claude.use==='function'){const cs=await window.claude.use('sample');if(cs){sample=cs;AIOFF=false;setStatus();updSend()}}}catch(e){}})();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "kira-os",
+  "version": "1.0.0",
+  "description": "KIRA OS — build AI agents in the browser, modeled on the elizaOS plugin architecture",
+  "type": "module",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}
