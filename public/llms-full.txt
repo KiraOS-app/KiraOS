@@ -332,7 +332,7 @@ export const character: Character = {
   username: 'eliza_ai',
   
   bio: [
-    "An advanced AI assistant powered by elizaOS",
+    "An advanced AI assistant powered by BLACKCAT",
     "Specializes in technical support and creative problem-solving",
     "Continuously learning and adapting to user needs",
     "Built with privacy and security in mind"
@@ -414,7 +414,7 @@ Core principles:
   },
   
   knowledge: [
-    "I'm built on the elizaOS framework",
+    "I'm built on the BLACKCAT framework",
     "I can integrate with multiple platforms simultaneously",
     "I maintain context across conversations",
     {
@@ -5278,7 +5278,7 @@ The cloned repository includes:
 ```
 eliza/
 ├── packages/
-│   ├── core/              # Core elizaOS functionality
+│   ├── core/              # Core BLACKCAT functionality
 │   ├── client-web/        # Web interface
 │   ├── client-discord/    # Discord client
 │   ├── plugin-*/          # Various plugins
@@ -6091,7 +6091,7 @@ The `elizaos publish` command is the all-in-one tool for releasing your plugin. 
     {
       "name": "plugin-example",
       "version": "1.0.0",
-              "description": "An example elizaOS plugin that demonstrates best practices",
+              "description": "An example BLACKCAT plugin that demonstrates best practices",
       "main": "dist/index.js",
       "types": "dist/index.d.ts",
       "author": "Your Name <your.email@example.com>",
@@ -6750,7 +6750,7 @@ Launch and manage BLACKCAT projects and agents in production mode
     ### From .env File
 
     ```bash theme={null}
-    # elizaOS looks for .env in the project directory
+    # BLACKCAT looks for .env in the project directory
     cd my-project
     elizaos start  # Loads from ./my-project/.env
     ```
@@ -7581,7 +7581,7 @@ Update your project's BLACKCAT dependencies and CLI to the latest published vers
     Current CLI version: 1.3.5
     Latest CLI version: 1.4.0
 
-    elizaOS packages that can be updated:
+    BLACKCAT packages that can be updated:
       - @elizaos/core (1.3.0) → 1.4.0
       - @elizaos/plugin-openai (1.2.5) → 1.4.0
 
@@ -7659,7 +7659,7 @@ Update your project's BLACKCAT dependencies and CLI to the latest published vers
     ```bash theme={null}
     $ elizaos update --check
 
-    elizaOS packages found:
+    BLACKCAT packages found:
       - @elizaos/core (workspace:*) → Skipped (workspace reference)
       - @elizaos/plugin-openai (1.2.5) → 1.4.0
       - @elizaos/plugin-discord (workspace:*) → Skipped (workspace reference)
@@ -8901,7 +8901,7 @@ The Discord plugin fails to connect when using voice channels
 Agent should remain connected and respond with voice
 
 ## Environment
-- elizaOS version: 1.4.4
+- BLACKCAT version: 1.4.4
 - Node version: 23.3
 - OS: macOS 14.0
 ```
@@ -10288,7 +10288,7 @@ plugin-fal-ai/
     {
       "name": "plugin-fal-ai",
       "version": "1.0.0",
-      "description": "ElizaOS plugin for fal-ai", // [!code --]
+      "description": "BLACKCAT plugin for fal-ai", // [!code --]
       "description": "Generate videos from text using fal.ai MiniMax Hailuo-02 model", // [!code ++]
       "keywords": ["plugin", "elizaos"]
     }
@@ -12311,7 +12311,7 @@ import { Project, ProjectAgent, Character } from '@elizaos/core';
 // Define your character with bootstrap plugin
 const character: Character = {
   name: 'MyAgent',
-      bio: ['An intelligent agent powered by elizaOS'],
+      bio: ['An intelligent agent powered by BLACKCAT'],
   plugins: [
     '@elizaos/plugin-sql',
     '@elizaos/plugin-bootstrap',
@@ -19894,7 +19894,7 @@ Success: Plugin @elizaos/plugin-openai initialized successfully
 
 ## Migration from v0.x
 
-In elizaOS v0.x, models were configured directly in character files:
+In BLACKCAT v0.x, models were configured directly in character files:
 
 ```json theme={null}
 // ❌ OLD (v0.x) - No longer works
@@ -20979,7 +20979,7 @@ export class MessageManager {
   private inlinePositionalCallbacks: Map<string, (message: DiscordMessage, args: string) => void>;
   
   async handleMessage(message: DiscordMessage): Promise<void> {
-    // Convert Discord message to elizaOS format
+    // Convert Discord message to BLACKCAT format
     // Process attachments
     // Send to bootstrap plugin
     // Handle response
@@ -21671,7 +21671,7 @@ flowchart TD
     
     K --> L{Has Attachments?}
     L -->|Yes| M[Process Attachments]
-    L -->|No| N[Convert to elizaOS Format]
+    L -->|No| N[Convert to BLACKCAT Format]
     M --> N
     
     N --> O[Add Discord Context]
@@ -21748,7 +21748,7 @@ sequenceDiagram
             C->>D: Ignore
         else Channel allowed
             C->>MM: handleMessage()
-            MM->>MM: Convert to elizaOS format
+            MM->>MM: Convert to BLACKCAT format
             
             alt Has attachments
                 MM->>AH: processAttachments()
@@ -23993,7 +23993,7 @@ Posts a new cast to Farcaster.
   name: "SEND_CAST",
   description: "Posts a cast (message) on Farcaster",
   examples: [
-    "Can you post about the new ElizaOS features on Farcaster?",
+    "Can you post about the new BLACKCAT features on Farcaster?",
     "Share on Farcaster that we just launched version 2.0!"
   ]
 }
@@ -24008,7 +24008,7 @@ Reply to an existing cast.
   name: "REPLY_TO_CAST",
   description: "Replies to a cast on Farcaster",
   examples: [
-    "Someone asked about ElizaOS on Farcaster, can you reply?",
+    "Someone asked about BLACKCAT on Farcaster, can you reply?",
     "Reply to that cast and thank them for the feedback"
   ]
 }
@@ -24523,7 +24523,7 @@ async function postToChannel() {
   const action = runtime.getAction("SEND_CAST");
   
   await action.handler(runtime, {
-    text: "Building with elizaOS is amazing!",
+    text: "Building with BLACKCAT is amazing!",
     channel: "/elizaos"
   });
 }
@@ -24554,7 +24554,7 @@ async function createThread() {
   
   // First cast
   const firstCast = await action.handler(runtime, {
-    text: "Let me explain how elizaOS agents work 🧵"
+    text: "Let me explain how BLACKCAT agents work 🧵"
   });
   
   // Reply to create thread
@@ -25175,7 +25175,7 @@ import { engagementEvaluator } from "@elizaos/plugin-farcaster";
 describe("Engagement Evaluator", () => {
   it("should evaluate high-quality casts positively", async () => {
     const cast = {
-      text: "Just deployed a new feature for elizaOS agents!",
+      text: "Just deployed a new feature for BLACKCAT agents!",
       author: { fid: 123, username: "dev" },
       reactions: { count: 15 },
       recasts: { count: 5 }
@@ -25743,7 +25743,7 @@ export class MessageManager {
   private messageCallbacks: Map<string, (response: Content) => void>;
   
   async handleMessage(ctx: Context): Promise<void> {
-    // Convert Telegram message to elizaOS format
+    // Convert Telegram message to BLACKCAT format
     // Process media if present
     // Send to bootstrap plugin
     // Handle response
@@ -25857,7 +25857,7 @@ sequenceDiagram
     participant B as Bot (Telegraf)
     participant S as TelegramService
     participant M as MessageManager
-    participant E as elizaOS
+    participant E as BLACKCAT
     
     U->>T: Send message
     T->>B: Update received
@@ -29983,7 +29983,7 @@ const keywordMonitor = {
   description: "Monitors and responds to keyword mentions",
   plugins: [bootstrapPlugin, twitterPlugin],
   clients: ["twitter"],
-  keywords: ["#AIagents", "#elizaOS", "autonomous agents", "AI automation"],
+  keywords: ["#AIagents", "#BLACKCAT", "autonomous agents", "AI automation"],
   settings: {
     TWITTER_SEARCH_ENABLE: "true",
     TWITTER_POST_ENABLE: "false"
@@ -31818,7 +31818,7 @@ The plugin consists of several key components:
 
 ```mermaid theme={null}
 flowchart TD
-    A[elizaOS Runtime] --> B[DatabaseMigrationService<br/>• Schema Discovery<br/>• Migration Orchestration]
+    A[BLACKCAT Runtime] --> B[DatabaseMigrationService<br/>• Schema Discovery<br/>• Migration Orchestration]
     B --> C[Database Adapters]
     
     C --> D[PGLite Adapter<br/>• Development<br/>• File-based]
@@ -34916,7 +34916,7 @@ import { MyService } from './services/myService';
 
 export const myPlugin: Plugin = {
   name: 'my-custom-plugin',
-  description: 'A custom plugin for elizaOS',
+  description: 'A custom plugin for BLACKCAT',
   
   actions: [myAction],
   providers: [myProvider],
@@ -35423,7 +35423,7 @@ bun test --coverage
 # Watch mode with hot reloading
 bun run dev
 
-# Or with elizaOS CLI
+# Or with BLACKCAT CLI
 elizaos dev
 ```
 
@@ -46523,7 +46523,7 @@ const discord = runtime.getService('discord');
 
 // Type-safe service access
 const searchService = runtime.getService<SearchService>('search');
-const results = await searchService.search('elizaOS');
+const results = await searchService.search('BLACKCAT');
 ```
 
 ### Service Communication
