@@ -13,14 +13,14 @@
 <meta property="og:title" content="BLACKCAT Studio">
 <meta property="og:description" content="BLACKCAT is an AI agent framework you run in the browser: characters, plugins, memory and docs in one place.">
 <meta property="og:url" content="https://www.getkira.xyz/studio">
-<meta property="og:image" content="https://www.getkira.xyz/og.png?v=2">
+<meta property="og:image" content="https://www.getkira.xyz/og.png?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@getkiraos">
 <meta name="twitter:title" content="BLACKCAT Studio">
 <meta name="twitter:description" content="BLACKCAT is an AI agent framework you run in the browser: characters, plugins, memory and docs in one place.">
-<meta name="twitter:image" content="https://www.getkira.xyz/og.png?v=2">
+<meta name="twitter:image" content="https://www.getkira.xyz/og.png?v=3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -277,6 +277,50 @@ h1,h2,h3,.headline,.v3-h1,.v3-h2,.tpl b,.kme b,.klist b{font-family:"Syne",syste
 code,pre,kbd,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
 .wm-bc{font-family:"Syne",system-ui,sans-serif;font-weight:800;letter-spacing:-.01em;line-height:1;color:var(--fg,#f7efe6)}
 .wm-bc::after{content:"";display:inline-block;width:.22em;height:.22em;margin-left:.08em;border-radius:50%;background:#b388ff;vertical-align:.12em}
+
+/* ===== premium layer for the Studio (same colours as home) ===== */
+:root{--bg:#0b0710;--panel:rgba(20,13,29,.72);--soft:rgba(247,239,230,.06);--line:rgba(247,239,230,.09);--ink:#f7efe6;--mute:rgba(247,239,230,.55);--pm-grad:linear-gradient(140deg,rgba(179,136,255,.5),rgba(247,239,230,.07) 38%,rgba(247,239,230,.04) 62%,rgba(179,136,255,.25))}
+body{background:radial-gradient(60% 40% at 50% -5%,rgba(179,136,255,.14),transparent 70%),radial-gradient(40% 40% at 100% 100%,rgba(179,136,255,.06),transparent 70%),#0b0710;background-attachment:fixed}
+.top{height:64px;background:rgba(11,7,16,.65);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.wm-bc::after{display:none}
+.navlink{padding:8px 14px;border-radius:999px;color:var(--mute);font-weight:600;font-size:14px}.navlink:hover{color:var(--ink);background:var(--soft)}
+.acct{border-radius:999px!important;background:#f7efe6!important;color:#0b0710!important;border:0!important;font-weight:700!important;padding:8px 16px!important}
+.pill{border-radius:999px;background:rgba(93,255,168,.08);border:1px solid rgba(93,255,168,.25)}
+.app{height:calc(100dvh - 64px);gap:0}
+.pane{background:rgba(14,9,20,.35)}
+/* agent list */
+.ag{border-radius:16px!important;padding:12px!important;transition:background .2s,border-color .2s}
+.ag:hover{background:var(--soft)}
+.ag.act{border:1px solid transparent!important;background:linear-gradient(rgba(30,19,44,.9),rgba(30,19,44,.9)) padding-box,var(--pm-grad) border-box!important}
+.ag img,.ph img{border-radius:12px!important;border-color:rgba(179,136,255,.25)!important}
+/* buttons */
+.btn{border-radius:999px;background:rgba(247,239,230,.05);border:1px solid var(--line);transition:background .2s,border-color .2s,transform .2s}
+.btn:hover{border-color:rgba(179,136,255,.5);background:rgba(179,136,255,.1)}
+.btn.pri{background:linear-gradient(180deg,#c4a2ff,#a171ff)!important;border:0!important;color:#0b0710!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 10px 30px rgba(160,112,255,.35)}
+.btn.pri:hover{transform:translateY(-1px)}
+/* chat */
+.m{border-radius:20px;line-height:1.55}
+.m.u{background:linear-gradient(180deg,#c4a2ff,#a171ff);color:#0b0710;font-weight:500;border-bottom-right-radius:6px}
+.m.a{background:rgba(247,239,230,.06);border:1px solid var(--line);border-bottom-left-radius:6px}
+.sug button,.chips button{border-radius:999px!important}
+/* inputs and cards */
+input,label.f textarea,label.f select,.inp{border-radius:14px;background:rgba(11,7,16,.6);border:1px solid var(--line);transition:border-color .2s,box-shadow .2s}
+input:focus,textarea:focus,select:focus,.inp:focus{outline:0;border-color:rgba(179,136,255,.6);box-shadow:0 0 0 4px rgba(179,136,255,.12)}
+.card,.pc,.rcard{border-radius:20px!important;border:1px solid transparent!important;background:linear-gradient(rgba(20,13,29,.85),rgba(20,13,29,.85)) padding-box,var(--pm-grad) border-box!important}
+.seg{border-radius:999px;padding:3px;gap:3px;background:rgba(11,7,16,.6)}
+.seg button{border-radius:999px}
+.seg button.on{background:#f7efe6;color:#0b0710}
+/* setup tabs */
+.ch{border-radius:999px}
+/* docs */
+.dart h1{font-weight:700;letter-spacing:-.03em}
+.dside a.on,.dside button.on{background:rgba(179,136,255,.12);color:var(--ink);border-radius:10px}
+.live{border-radius:14px;border:1px solid rgba(179,136,255,.3);background:rgba(179,136,255,.07)}
+pre{border-radius:14px!important;border:1px solid var(--line)}
+.amodal .apanel{border-radius:26px!important;border:1px solid transparent!important;background:linear-gradient(#140d1d,#140d1d) padding-box,var(--pm-grad) border-box!important;box-shadow:0 40px 120px rgba(0,0,0,.6)}
+.aopt{border-radius:16px!important}
+
+@media (max-width:700px){.top .wm-bc{font-size:17px!important}.acct{padding:6px 12px!important;font-size:13px!important;max-width:none!important}.navlink{padding:6px 8px;font-size:13px}.top .pill{display:none}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -626,8 +670,7 @@ const NAV=[
  ['Projects',[['projects','Overview'],['env','Environment variables']]],
  ['Agents',[['character','Character interface'],['personality','Personality and behavior'],['memory-state','Memory and state'],['lifecycle','Runtime and lifecycle']]],
  ['Plugins',[['architecture','Architecture'],['components','Components'],['plugin-dev','Development'],['patterns','Patterns'],['routes','Webhooks and routes'],['schema','Database schema'],['migration','Migration'],['reference','Reference']]],
- ['Runtime',[['core-concepts','Core concepts'],['communication','Communication'],['types','Types reference']]],
- ['Token',[['tokenomics','Tokenomics']]]
+ ['Runtime',[['core-concepts','Core concepts'],['communication','Communication'],['types','Types reference']]]
 ];
 const LOGO=sz=>(document.querySelector('.brand svg')||{outerHTML:''}).outerHTML.replace(/width="38" height="38"/,`width="${sz}" height="${sz}"`).replace('border-radius:9px','border-radius:18px');
 const PAGES_FLAT_ALL=()=>[...PAGES_FLAT,{k:'llms',n:'Docs for LLMs',g:'Docs'}];
@@ -780,11 +823,7 @@ interface Route { type: "GET"|"POST"|"PUT"|"PATCH"|"DELETE"|"STATIC"; path: stri
 interface Message { id: string; entityId: string; roomId: string; content: { text: string; source: string } }
 interface State { text: string; values: object; data: Record<string, unknown> }
 type ModelType = "TEXT_SMALL" | "TEXT_LARGE" | "TEXT_REASONING" | "OBJECT_SMALL";`)}`,
- llms:()=>`<h1>Docs for LLMs</h1>${EZ?`<div class="lsrch"><input id="llmq" class="inp" type="search" placeholder="Search ${EZ.length} pages…" autocomplete="off" aria-label="Search the docs"><span id="llmn"></span></div><div id="llmres"></div><div id="llmall" class="ezb"></div><div id="llmmore" style="height:1px"></div>`:''}`,
- tokenomics:()=>`<h1>Tokenomics</h1><p class="lede">BLACKCAT has no token. Nothing in this app is tied to a coin, a chain or a sale.</p>
- <p>If you launch a token for a project built on BLACKCAT, this page is where its tokenomics would go. A complete page usually covers:</p>
- <ul><li>Token name, ticker, chain and contract address</li><li>Total and circulating supply</li><li>Allocation by group (team, community, liquidity, treasury), with percentages that add up to 100</li><li>Vesting and unlock schedule</li><li>What the token is used for inside the product</li><li>Risks, and a clear note that it is not investment advice</li></ul>
- <p>Only publish numbers that are final and verifiable on-chain.</p>`
+ llms:()=>`<h1>Docs for LLMs</h1>${EZ?`<div class="lsrch"><input id="llmq" class="inp" type="search" placeholder="Search ${EZ.length} pages…" autocomplete="off" aria-label="Search the docs"><span id="llmn"></span></div><div id="llmres"></div><div id="llmall" class="ezb"></div><div id="llmmore" style="height:1px"></div>`:''}`
 };
 function docText(){const a=A(),rt=RT[a.id];const d=document.createElement('div');d.style.cssText='position:absolute;left:-99999px;top:0;width:800px;white-space:normal';document.body.appendChild(d);const out=PAGES_FLAT.map(p=>{d.innerHTML=PAGES[p.k](a,rt);return '## '+p.g+' / '+p.n+'\n\n'+d.innerText.trim()}).join('\n\n');d.remove();return out}
 async function renderDocs(){
