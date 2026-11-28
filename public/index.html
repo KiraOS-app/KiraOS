@@ -134,7 +134,7 @@ main{position:relative;z-index:2}
 .nav .menu-btn{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(10,10,12,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .nav-wallet{min-height:46px;padding:0 18px;border-radius:999px;font-size:13.5px;font-weight:400;background:var(--blue);color:#000;letter-spacing:.01em}
 .nav-wallet.on{background:rgba(10,10,12,.55);border:1px solid rgba(255,255,255,.6);color:var(--fg);font-family:var(--mono);font-size:12.5px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.nav [data-dissolve].nav-wallet,.nav [data-dissolve].menu-btn{opacity:1}
+.nav [data-dissolve].nav-wallet,.nav [data-dissolve].menu-btn,.nav [data-dissolve].nav-x{opacity:1}
 .menu-panel{justify-content:center;align-items:stretch;gap:0;padding:110px var(--pad) 40px}
 .menu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,6vw,90px);max-width:1100px;width:100%;margin:0 auto}
 .menu-col{display:flex;flex-direction:column;gap:2px}
@@ -327,7 +327,7 @@ body{font-weight:400}
 <header class="nav" id="nav">
   <a href="#home" class="logo" data-dissolve aria-label="KIRA OS home"><span class="wm"><span class="wm-a" data-text style="font-size:42px">KIRA</span><svg class="wm-os" viewBox="0 0 15 7" height="29" width="62" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#f1f1ef" d="M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM5 1h1v1h-1zM6 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM13 3h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1z"/></svg></span></a>
   <div class="nav-right">
-    <a class="nav-x" href="https://x.com/getkiraOS" target="_blank" rel="noopener" aria-label="KIRA OS on X"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 20.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg></a>
+    <a class="nav-x" href="https://x.com/getkiraOS" target="_blank" rel="noopener" data-dissolve aria-label="KIRA OS on X"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 20.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg></a>
     <button type="button" class="menu-btn" id="menuBtn" data-dissolve aria-expanded="false" aria-controls="menu" aria-label="Open menu">
       <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="#f1f1ef" stroke-width="1.7" stroke-linecap="round"/></svg>
     </button>
