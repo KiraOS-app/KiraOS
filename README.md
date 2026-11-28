@@ -7,7 +7,7 @@ add plugins (actions, providers, evaluators, services, routes, events, models) a
 
 ## Pages
 - **`public/legal.html` — Terms & Privacy**, linked from the home footer.
-- **`public/index.html` — Home**: particle background of Kira, "Talk to Kira" chat, agent templates, how it works.
+- **`public/index.html` — Home**: particle background, "Ask BCAT" chat, agent templates, how it works.
 - **`public/studio.html` — Studio, Plugins, Docs**
   - Studio: agents (character, bio, traits, style, model type), chat, knowledge docs, memory, tasks, outbox drafts,
     character settings, `character.json` import/export, project import/export.
@@ -47,7 +47,7 @@ runs the agent runtime and its tools itself.
 | `X_CLIENT_ID` / `X_CLIENT_SECRET` | – | Turns on "Continue with X" |
 | `RESEND_API_KEY` / `EMAIL_FROM` | – | Turns on "Continue with email" (`EMAIL_FROM` like `BLACKCAT <login@tryblackcat.xyz>`) |
 | `SITE_URL` | request origin | e.g. `https://www.tryblackcat.xyz`, used for the X callback and wallet message |
-| `ALLOWED_ORIGINS` | `https://getkira.xyz,https://www.tryblackcat.xyz` | Sites allowed to call the API (localhost and `kira-os*.vercel.app` always allowed) |
+| `ALLOWED_ORIGINS` | `https://tryblackcat.xyz,https://www.tryblackcat.xyz` (+ old getkira.xyz) | Sites allowed to call the API (localhost and `kira-os*.vercel.app` always allowed) |
 | `STUDIO_DAILY_CAP` | 3000 | Total calls per day for all visitors together, per server instance |
 | `TG_DAILY_CAP` | 200 | Replies per live Telegram bot per day |
 | `SHARE_DAILY_CAP` | 30 | New agent share links per visitor per day |

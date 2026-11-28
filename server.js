@@ -1,4 +1,4 @@
-// KIRA OS — local server (npm start). On Vercel you don't need this file:
+// BLACKCAT — local server (npm start). On Vercel you don't need this file:
 // Vercel serves /public and runs the functions in /api automatically.
 //   GET  /            → files from ./public
 //   POST /api/studio  → one Claude call for the Studio and the home chat (needs ANTHROPIC_API_KEY)
@@ -24,7 +24,7 @@ const { handleShare, handleAgentChat, handleTelegram } = await import('./lib/age
 
 const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC = path.join(ROOT, 'public');
-const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.txt': 'text/plain; charset=utf-8', '.json': 'application/json' };
+const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.txt': 'text/plain; charset=utf-8', '.json': 'application/json', '.xml': 'application/xml', '.jpg': 'image/jpeg' };
 
 http.createServer(async (req, res) => {
   try {
@@ -62,11 +62,11 @@ http.createServer(async (req, res) => {
     if (/^\/a\/[A-Za-z0-9]+$/.test(p)) p = '/a.html'; // share links
     if (!path.extname(p)) p += '.html'; // clean URLs, like Vercel: /studio -> studio.html
     const file = path.join(PUBLIC, path.normalize(p).replace(/^([/\\])+/, ''));
-    if (!file.startsWith(PUBLIC) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404); return res.end('Not found'); }
+    if (!file.startsWith(PUBLIC) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404, { 'Content-Type': MIME['.html'] }); return fs.createReadStream(path.join(PUBLIC, '404.html')).pipe(res); }
     res.writeHead(200, { 'Content-Type': MIME[path.extname(file)] || 'application/octet-stream' });
     fs.createReadStream(file).pipe(res);
   } catch (e) {
     console.error('[server]', e);
     if (!res.headersSent) { res.writeHead(500); res.end('server error'); }
   }
-}).listen(PORT, () => console.log(`KIRA OS running at http://localhost:${PORT}`));
+}).listen(PORT, () => console.log(`BLACKCAT running at http://localhost:${PORT}`));

@@ -1,4 +1,4 @@
-# Deploys KIRA OS to Vercel on every push to main, without the Vercel GitHub integration.
+# Deploys BLACKCAT to Vercel on every push to main, without the Vercel GitHub integration.
 # Needs two repository secrets (GitHub → Settings → Secrets and variables → Actions):
 #   VERCEL_TOKEN       – from https://vercel.com/account/tokens
 #   ANTHROPIC_API_KEY  – from https://console.anthropic.com
@@ -48,6 +48,6 @@ jobs:
           done
           npx --yes vercel@latest deploy --prod --yes --token "$VERCEL_TOKEN" \
             --name kira-os \
-            --env ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY" --env SITE_URL=https://getkira.xyz "${ENVS[@]}" \
+            --env ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY" --env SITE_URL=https://www.tryblackcat.xyz "${ENVS[@]}" \
             --build-env ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY" | tee deploy.txt
           echo "### Deployed: $(tail -n1 deploy.txt)" >> "$GITHUB_STEP_SUMMARY"
