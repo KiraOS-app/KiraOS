@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /api/
-Disallow: /status
-
-Sitemap: https://www.tryblackcat.xyz/sitemap.xml

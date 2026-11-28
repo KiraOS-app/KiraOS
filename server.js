@@ -1,4 +1,4 @@
-// BLACKCAT — local server (npm start). On Vercel you don't need this file:
+// KIRA OS — local server (npm start). On Vercel you don't need this file:
 // Vercel serves /public and runs the functions in /api automatically.
 //   GET  /            → files from ./public
 //   POST /api/studio  → one Claude call for the Studio and the home chat (needs ANTHROPIC_API_KEY)
@@ -20,11 +20,10 @@ try {
 const { handleStudio } = await import('./lib/studio.js');
 const { handleAuth } = await import('./lib/auth.js');
 const { handleStatus } = await import('./lib/status.js');
-const { handleShare, handleAgentChat, handleTelegram } = await import('./lib/agents.js');
 
 const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC = path.join(ROOT, 'public');
-const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.txt': 'text/plain; charset=utf-8', '.json': 'application/json', '.xml': 'application/xml', '.jpg': 'image/jpeg' };
+const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.txt': 'text/plain; charset=utf-8', '.json': 'application/json' };
 
 http.createServer(async (req, res) => {
   try {
@@ -39,14 +38,6 @@ http.createServer(async (req, res) => {
       const r = await handleStatus(new Request('http://localhost/api/status', { headers }));
       res.writeHead(r.status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }); return res.end(await r.text());
     }
-    if (url.pathname === '/api/share' || url.pathname === '/api/agent-chat' || url.pathname.startsWith('/api/tg/')) {
-      const chunks = []; for await (const c of req) chunks.push(c);
-      const headers = new Headers(); for (const [k, v] of Object.entries(req.headers)) if (typeof v === 'string') headers.set(k, v);
-      const r2 = new Request('http://localhost' + req.url, { method: req.method, headers, body: req.method === 'GET' || req.method === 'HEAD' ? undefined : Buffer.concat(chunks) });
-      const ip = req.socket.remoteAddress || 'anon';
-      const r = url.pathname === '/api/share' ? await handleShare(r2, ip) : url.pathname === '/api/agent-chat' ? await handleAgentChat(r2, ip) : await handleTelegram(r2, url.pathname.split('/').pop(), ip);
-      res.writeHead(r.status, { 'Content-Type': r.headers.get('content-type') || 'text/plain', 'Cache-Control': 'no-store' }); return res.end(Buffer.from(await r.arrayBuffer()));
-    }
     const am = url.pathname.match(/^\/api\/auth\/([a-z-]+)$/), isData = url.pathname === '/api/data';
     if (am || isData) {
       const chunks = []; for await (const c of req) chunks.push(c);
@@ -59,14 +50,12 @@ http.createServer(async (req, res) => {
     }
     if (req.method !== 'GET' && req.method !== 'HEAD') { res.writeHead(405); return res.end(); }
     let p = decodeURIComponent(url.pathname); if (p.endsWith('/')) p += 'index.html';
-    if (/^\/a\/[A-Za-z0-9]+$/.test(p)) p = '/a.html'; // share links
-    if (!path.extname(p)) p += '.html'; // clean URLs, like Vercel: /studio -> studio.html
     const file = path.join(PUBLIC, path.normalize(p).replace(/^([/\\])+/, ''));
-    if (!file.startsWith(PUBLIC) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404, { 'Content-Type': MIME['.html'] }); return fs.createReadStream(path.join(PUBLIC, '404.html')).pipe(res); }
+    if (!file.startsWith(PUBLIC) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404); return res.end('Not found'); }
     res.writeHead(200, { 'Content-Type': MIME[path.extname(file)] || 'application/octet-stream' });
     fs.createReadStream(file).pipe(res);
   } catch (e) {
     console.error('[server]', e);
     if (!res.headersSent) { res.writeHead(500); res.end('server error'); }
   }
-}).listen(PORT, () => console.log(`BLACKCAT running at http://localhost:${PORT}`));
+}).listen(PORT, () => console.log(`KIRA OS running at http://localhost:${PORT}`));

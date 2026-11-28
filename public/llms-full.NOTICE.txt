@@ -3,8 +3,8 @@ llms-full.txt is the elizaOS documentation, downloaded from https://docs.elizaos
 Source: https://github.com/elizaOS/docs — part of the elizaOS project (https://github.com/elizaOS/eliza),
 licensed under the MIT License. Copyright (c) elizaOS contributors.
 
-BLACKCAT is an independent project and is not affiliated with elizaOS.
+KIRA OS is an independent project and is not affiliated with elizaOS.
 
-Modified by BLACKCAT: the project name was replaced with "BLACKCAT" in normal text (code, commands,
+Modified by KIRA OS: the project name was replaced with "KIRA OS" in normal text (code, commands,
 package names and links are unchanged), and the token, cloud deploy, login, containers and launch
 resources pages were removed.
