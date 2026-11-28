@@ -468,6 +468,45 @@ body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opa
 .pm-fcols a{color:var(--fg);text-decoration:none;font-size:14.5px;opacity:.85}.pm-fcols a:hover{color:var(--kira);opacity:1}
 .pm-fbot{grid-column:1/-1;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:24px;border-top:1px solid var(--pm-line);color:var(--mute);font-size:12.5px}
 @media (max-width:700px){.pm-foot{grid-template-columns:1fr}.pm-fcols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* features v2: product previews */
+.pv{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:18px}
+.pv-card{display:flex;flex-direction:column;padding:14px 14px 22px;border-radius:26px;border:1px solid transparent;background:linear-gradient(var(--pm-card),var(--pm-card)) padding-box,var(--pm-grad) border-box;transition:transform .3s,box-shadow .3s}
+.pv-card:hover{transform:translateY(-4px);box-shadow:0 30px 80px rgba(120,70,220,.22)}
+.pv-art{position:relative;height:170px;border-radius:18px;padding:18px;display:flex;flex-direction:column;justify-content:center;gap:10px;overflow:hidden;
+  background:radial-gradient(120% 90% at 50% 0%,rgba(179,136,255,.22),transparent 60%),linear-gradient(180deg,rgba(247,239,230,.04),rgba(0,0,0,.25));border:1px solid var(--pm-line)}
+.pv-card h3{margin:20px 8px 0;font-size:21px;font-weight:700}
+.pv-card p{margin:8px 8px 0;color:var(--dim);font-size:14.5px;line-height:1.6}
+.pv-prof{display:flex;align-items:center;gap:12px;padding:10px;border-radius:14px;background:rgba(11,7,16,.7);border:1px solid var(--pm-line)}
+.pv-prof img{width:42px;height:42px;border-radius:12px;object-fit:cover}
+.pv-prof b{display:block;font-size:15px}.pv-prof small{color:var(--mute);font-size:12.5px}
+.pv-pills{display:flex;gap:6px;flex-wrap:wrap}
+.pv-pills i{font-style:normal;font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;background:rgba(179,136,255,.12);border:1px solid rgba(179,136,255,.3)}
+.pv-row{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:12px;background:rgba(11,7,16,.65);border:1px solid var(--pm-line);font-size:13.5px;font-weight:600}
+.pv-sw{width:34px;height:20px;border-radius:999px;background:rgba(247,239,230,.15);position:relative;flex:none}
+.pv-sw i{position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:#f7efe6;transition:left .2s}
+.pv-sw.on{background:var(--kira)}.pv-sw.on i{left:17px;background:#0b0710}
+.pv-msg{align-self:flex-end;max-width:85%;padding:10px 14px;border-radius:16px 16px 4px 16px;background:linear-gradient(180deg,#c4a2ff,#a171ff);color:#0b0710;font-size:13.5px;font-weight:600}
+.pv-note{align-self:flex-start;padding:7px 12px;border-radius:999px;background:rgba(93,255,168,.1);border:1px solid rgba(93,255,168,.3);color:#5dffa8;font-size:12.5px;font-weight:700}
+.pv-doc{position:relative;z-index:1;width:78%;padding:14px;border-radius:14px;background:rgba(11,7,16,.85);border:1px solid rgba(179,136,255,.3)}
+.pv-doc.back{position:absolute;z-index:0;width:70%;right:16px;bottom:18px;opacity:.55;transform:rotate(4deg)}
+.pv-doc b{display:block;font-size:14px}.pv-doc small{color:var(--mute);font-size:12px}
+.pv-mono{font:12.5px/1.5 "JetBrains Mono",monospace;gap:8px}
+.pv-mono div{padding:7px 10px;border-radius:10px;background:rgba(11,7,16,.65);border:1px solid var(--pm-line)}
+.pv-mono b{color:#5dffa8;font-weight:600;margin-right:8px}
+.pv-btns{display:flex;flex-direction:column;gap:8px}
+.pv-btns span{padding:9px 14px;border-radius:12px;background:rgba(11,7,16,.65);border:1px solid var(--pm-line);font-size:13.5px;font-weight:600;text-align:center}
+.pv-btns span:first-child{background:var(--fg);color:#0b0710;border-color:var(--fg)}
+@media (max-width:900px){.pv{grid-template-columns:1fr!important}.pv-art{height:150px}}
+@media (min-width:600px) and (max-width:900px){.pv{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+/* hero spacing: text sits right under the cat */
+@media (min-width:901px){
+  .hero{height:auto!important;min-height:0!important;align-items:flex-start!important;padding-top:calc(-12vh + min(92vh,860px)*.6)!important;padding-bottom:90px!important}
+}
+@media (max-width:900px){
+  .hero{height:auto!important;min-height:0!important;align-items:flex-start!important;padding-top:calc(min(100vw,520px)*.62)!important;padding-bottom:70px!important}
+  .pm-h1{font-size:clamp(40px,12vw,60px)!important}
+}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -527,17 +566,26 @@ body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opa
       <h2 class="v3-h2">Everything an agent needs, <em>nothing it doesn't.</em></h2>
       <p class="body">BLACKCAT gives every agent the same clean set of parts. Mix them, watch them run, ship what works.</p>
     </div>
-    <div class="pm-bento">
-      <article class="pm-card pm-wide reveal"><span class="pm-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span><h3>Character</h3><p>Name, bio, traits and style rules give every agent its own voice, from calm analyst to sharp X persona.</p>
-        <div class="pm-code"><span>name</span>: "Akira"<br><span>traits</span>: ["precise", "skeptical"]<br><span>style</span>: "Lead with the answer."</div></article>
-      <article class="pm-card reveal d1"><span class="pm-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg></span><h3>Plugins</h3><p>Actions, providers, evaluators, services, routes and events. Dependencies load themselves.</p>
-        <div class="pm-tags"><i>actions</i><i>providers</i><i>evaluators</i><i>services</i></div></article>
-      <article class="pm-card reveal"><span class="pm-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a7 7 0 0 0-4 12.7V19h8v-3.3A7 7 0 0 0 12 3z"/><path d="M9 22h6"/></svg></span><h3>Memory</h3><p>Agents pick up the facts you share and bring them back when they matter.</p></article>
-      <article class="pm-card reveal d1"><span class="pm-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h12l4 4v12H4z"/><path d="M16 4v4h4M8 12h8M8 16h6"/></svg></span><h3>Knowledge</h3><p>Add your own documents. Agents answer from them and say where it came from.</p></article>
-      <article class="pm-card reveal d2"><span class="pm-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span><h3>Live runtime</h3><p>Watch every action, provider and event fire under each reply. No black box.</p>
-        <div class="pm-log"><b>ACTION</b> CREATE_TASK<br><b>EVAL</b> REFLECTION · 1 fact</div></article>
-      <article class="pm-card pm-wide reveal"><span class="pm-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><h3>Yours, everywhere</h3><p>Agents live in your browser. Sign in with X, a wallet or email to sync them, or back them all up in one file.</p>
-        <div class="pm-tags"><i>X</i><i>Wallet</i><i>Email</i><i>Backup</i></div></article>
+    <div class="pm-bento pv">
+      <article class="pv-card reveal"><div class="pv-art">
+          <div class="pv-prof"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCACgAKADASIAAhEBAxEB/8QAHAABAQACAwEBAAAAAAAAAAAAAAEFCAQGBwID/8QALBAAAgICAQMDAgYDAQAAAAAAAAECAwQRBQYHIQgSMUGREyIyUWFxQlJisf/EABkBAQADAQEAAAAAAAAAAAAAAAACBAUBA//EACQRAQACAQQBBAMBAAAAAAAAAAABAgMEESExEgUiMkETFBVR/9oADAMBAAIRAxEAPwDVQAAAUgAAAAAAAAAAAAAAAAAAAACgQAAAABSAAAAAAAAAAAAAAAAAAAAAAAAAoEAAAAoEAAApCsCAAACkAAoAhSAAAAAKfSrk/hNgfAPp1yXytE0BCkAAAAAUgAAugICpbOVj8Xl5Pt/CosmpfDS3s5MxHbk2iOZcQGSyOn+SxYKd2HdCL+ri9GPlBxemmmci0T1Llb1t8Z3fIAJJKCADncPRVlZ9VV3iEpJNm2nb3tR0vDiKMqfGU5U5x37ro7X2NQqbHTZGcfDi9m1/YfuJjcrxVXF5M4rIqWkm/lGfronifpkepVt5VtPxdd9R3S3T3SvTuC+L4jDx8vNyGpWVw04wjFNpf22jxvt90LmdwOZlxWFGSt/ClZ+IoNwhr/dr9Kfxv99GzvqC6LyurukKsnjqpX5HH2ux1wW3KDWpfbSZ5/6begeYxup7Ocya8nFwsatxe24K6T+I/wDSXz9jzxZYrjmInlDFnimKaxPP08l6w7YdQ9Fza5TBshVvUbordcv6Z1CUWno3x7pYuDndKZmPlqDrcdpS8+TR3m8SOJn2wr/QpPRY02om8zW3azpNVN7zjv3DHApC40QAvyBYxcmkjvPb/tVy/XeWq8WMaaI/rvs8Rj/H8s6pw+MsnMrhJ+GzcLsnj4GJwsa6YxU462v3/kp6rPNNq17lm63VzjtGOnctd+7/AG5xe3GTxvH411uRPIpd1ttkded6SS/bw/uej+lSrGyq+WxcrKxJP8s6sWxN2vX6px8a9vlJ+fn6Hc/UJ21zOteJwuU4jHlkZeCpRnTBfmnW/O4r6tNfH8mO9Ovbnkellm8zzGLPFndWqqKrV7Z63uUmvovCX3K85Iti8bcyrWzRbF+O3M7vRus+m+LyODyfx8eqKhBtP2Lx4NIOqY1R5e+NOvapa8G2Pe7uPi9P8Ddx9FylmZEXFKD8xizT3MveRfOyT25PbJaOnvm0dJaDHvlm9eunHZCg0mygAAqMpwfPZfB5leTiXTqsg9pxejFjZy1YtG0o3pW8eNo4bH9H+pWVVNdHM1Sk14dsPl/2dwyPUT01HHbruscmvhR0ahKTX1Hvl+7KU6Gu/E7M6fTa7+20xD2brvvfLnvdTjwmqfonI8hz82WbdK2Xjb3o4zeybPfFp6Y+ljT6PHh5r2EAPdbCogA/fGyZ41kbIS9sovaZ6D0v3f5Pp+1T98rNvcm5P839nnGxs8smGmT5Qr59LjzfOGz/ABvqgwXTFZWDbGaX+Ek//TD9T+pW7KonXxtLqb+JSfk153r6jbZ4fpU/2Vb+bT7tOzL8/wBR53P5c8nMunZOb23J7MQwQtVrFY2hepjrSPGscAICSYAAAAAvkgAFBAAAAAAACkAFGyACkAAAAAAAAKQAAAAAAAAAAAAAAAAAAAABQIAAAAAAAAUgAAAAAAAAAAAAUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//Z" alt=""><div><b>Akira</b><small>Research analyst</small></div></div>
+          <div class="pv-pills"><i>precise</i><i>skeptical</i><i>calm</i></div></div>
+        <h3>Character</h3><p>Name, bio, traits and style rules give every agent its own voice.</p></article>
+      <article class="pv-card reveal d1"><div class="pv-art">
+          <div class="pv-row"><span>knowledge</span><span class="pv-sw on"><i></i></span></div><div class="pv-row"><span>memory</span><span class="pv-sw on"><i></i></span></div><div class="pv-row"><span>telegram</span><span class="pv-sw"><i></i></span></div></div>
+        <h3>Plugins</h3><p>Switch abilities on and off. Plugins that need each other load together.</p></article>
+      <article class="pv-card reveal d2"><div class="pv-art">
+          <div class="pv-msg me">I trade on Base, mostly majors.</div><div class="pv-note">✓ Saved to memory</div></div>
+        <h3>Memory</h3><p>Agents pick up the facts you share and bring them back when they matter.</p></article>
+      <article class="pv-card reveal"><div class="pv-art">
+          <div class="pv-doc"><b>whitepaper.pdf</b><small>12 passages</small></div><div class="pv-doc back"><b>faq.md</b><small>8 passages</small></div></div>
+        <h3>Knowledge</h3><p>Add your own documents. Agents answer from them and show where it came from.</p></article>
+      <article class="pv-card reveal d1"><div class="pv-art pv-mono">
+          <div><b>ACTION</b> CREATE_TASK</div><div><b>PROVIDER</b> FACTS</div><div><b>EVAL</b> REFLECTION · 1 fact</div></div>
+        <h3>Live runtime</h3><p>Watch every action, provider and event fire under each reply.</p></article>
+      <article class="pv-card reveal d2"><div class="pv-art">
+          <div class="pv-btns"><span>𝕏 Continue with X</span><span>◆ Connect wallet</span><span>✉ Email code</span></div></div>
+        <h3>Yours, everywhere</h3><p>Sign in to sync your agents, or back them all up in one file.</p></article>
     </div>
   </section>
   <section class="section veil hs" id="talk" data-s="3">
