@@ -314,17 +314,6 @@ body{font-weight:400}
 .nav-x{display:grid;place-items:center;width:46px;height:46px;border:2px solid var(--fg);background:rgba(11,7,16,.6);color:var(--fg);box-shadow:3px 3px 0 var(--kira)}.nav-x:hover{background:var(--kira);color:#0b0710}
 .kfoot .kx{display:inline-flex;align-items:center;gap:8px}.kfoot .kx:hover{color:var(--kira)}
 
-.kca{display:flex;align-items:center;gap:10px;margin-top:16px;max-width:100%;padding:10px 12px;border:2px solid var(--fg);background:rgba(11,7,16,.78);color:var(--fg);font-family:var(--mono);font-size:12.5px;text-align:left;cursor:pointer;box-shadow:4px 4px 0 var(--kira);transition:transform .15s,box-shadow .15s}
-.kca:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--kira)}
-.kca b{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:14px;color:var(--kira);white-space:nowrap}
-.kca-l{color:var(--mute);letter-spacing:.12em}
-.kca code{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--mono)}
-.kca-c{flex:none;background:var(--kira);color:#0b0710;font-weight:600;padding:5px 9px;text-transform:uppercase;letter-spacing:.08em;font-size:11px}
-.kca.ok .kca-c{background:#5dffa8}
-.kca-m{margin:0;box-shadow:none;border-color:var(--faint)}
-.kca-f{background:none;border:0;color:var(--fg);font:inherit;letter-spacing:.02em;text-transform:none;cursor:pointer;overflow-wrap:anywhere;text-align:left;padding:0}
-.kca-f:hover{color:var(--kira)}
-@media (max-width:560px){.kca{font-size:11px;gap:8px}.kca-l{display:none}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -357,7 +346,6 @@ body{font-weight:400}
     <a href="studio.html#plugins"><span class="kt"><b>Plugins</b><small>Every plugin and its manifest</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
     <a href="studio.html#docs-overview"><span class="kt"><b>Docs</b><small>Guides, architecture and reference</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
   </div>
-  <button type="button" class="kca kca-m" data-ca="0x5e8c86c76058a646a2acfcedd358f117992fca69" aria-label="Copy contract address"><b>$KIRAOS</b><code>0x5e8c…ca69</code><span class="kca-c">Copy CA</span></button>
   <div class="kfoot"><a href="legal.html">Terms &amp; Privacy</a><a href="https://x.com/getkiraos" target="_blank" rel="noopener" class="kx"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg>@getkiraos</a></div>
 </nav>
 
@@ -376,9 +364,6 @@ body{font-weight:400}
           <a class="cta cta-blue" href="studio.html"><span>Open Studio</span><i></i></a>
           <a class="cta" href="studio.html#docs-overview"><span>Docs</span><i></i></a>
         </div>
-        <button type="button" class="kca" data-ca="0x5e8c86c76058a646a2acfcedd358f117992fca69" aria-label="Copy contract address">
-          <b>$KIRAOS</b><span class="kca-l">CA</span><code>0x5e8c86c76058a646a2acfcedd358f117992fca69</code><span class="kca-c">Copy</span>
-        </button>
       </div>
     </div>
   </section>
@@ -424,7 +409,6 @@ body{font-weight:400}
   <footer class="hfoot">
     <span>© <span id="yr">2026</span> KIRA OS</span>
     <nav><a href="studio.html">Studio</a><a href="studio.html#plugins">Plugins</a><a href="studio.html#docs-overview">Docs</a><a href="legal.html">Terms &amp; Privacy</a><a href="https://x.com/getkiraos" target="_blank" rel="noopener">X @getkiraos</a></nav>
-    <p>$KIRAOS CA: <button type="button" class="kca-f" data-ca="0x5e8c86c76058a646a2acfcedd358f117992fca69">0x5e8c86c76058a646a2acfcedd358f117992fca69</button></p>
     <p>AI answers can be wrong. Nothing here is financial advice.</p>
   </footer>
 </main>
@@ -1058,17 +1042,6 @@ function boot(){
 boot();
 })();
 
-/* copy contract address */
-(() => {
-  const copy = async t => { try { await navigator.clipboard.writeText(t); return true; } catch { const a = document.createElement('textarea'); a.value = t; a.setAttribute('readonly', ''); a.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(a); a.select(); let ok = false; try { ok = document.execCommand('copy'); } catch {} a.remove(); return ok; } };
-  document.addEventListener('click', async e => {
-    const b = e.target.closest('[data-ca]'); if (!b) return;
-    const ok = await copy(b.dataset.ca);
-    const lab = b.querySelector('.kca-c') || b, old = lab.dataset.old || lab.textContent; lab.dataset.old = old;
-    lab.textContent = ok ? 'Copied!' : 'Copy failed'; b.classList.toggle('ok', ok);
-    clearTimeout(b._t); b._t = setTimeout(() => { lab.textContent = old; b.classList.remove('ok'); }, 1600);
-  });
-})();
 </script>
 </body>
 </html>
