@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>KIRA OS Studio</title>
 <meta name="description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
-<link rel="canonical" href="https://www.getkira.xyz/studio.html">
+<link rel="canonical" href="https://www.getkira.xyz/studio">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KIRA OS">
 <meta property="og:title" content="KIRA OS Studio">
 <meta property="og:description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
-<meta property="og:url" content="https://www.getkira.xyz/studio.html">
+<meta property="og:url" content="https://www.getkira.xyz/studio">
 <meta property="og:image" content="https://www.getkira.xyz/og.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -272,13 +272,13 @@ code,.mono{font-family:"JetBrains Mono","IBM Plex Mono",ui-monospace,monospace}
 <body data-pane="chat" data-view="studio">
 <header class="top">
  <button class="menu" id="menu" aria-label="Menu" aria-expanded="false">☰</button>
- <a class="brand" href="index.html" style="color:inherit;text-decoration:none" aria-label="KIRA OS home"><span class="wm"><span class="wm-a" style="font-size:28px">KIRA</span><svg class="wm-os" viewBox="0 0 15 7" height="20" width="43" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#f1f1ef" d="M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM5 1h1v1h-1zM6 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM13 3h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1z"/></svg></span></a>
- <nav class="nav" id="nav"><button data-v="studio" class="on">Studio</button><button data-v="plugins">Plugins</button><button data-v="docs">Docs</button><a class="navlink" href="index.html">← Site</a></nav>
+ <a class="brand" href="/" style="color:inherit;text-decoration:none" aria-label="KIRA OS home"><span class="wm"><span class="wm-a" style="font-size:28px">KIRA</span><svg class="wm-os" viewBox="0 0 15 7" height="20" width="43" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#f1f1ef" d="M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM5 1h1v1h-1zM6 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM13 3h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1z"/></svg></span></a>
+ <nav class="nav" id="nav"><button data-v="studio" class="on">Studio</button><button data-v="plugins">Plugins</button><button data-v="docs">Docs</button><a class="navlink" href="/">← Site</a></nav>
  <a class="xlink" href="https://x.com/getkiraOS" target="_blank" rel="noopener" aria-label="KIRA OS on X" title="@getkiraOS on X"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg></a>
  <button class="acct" id="acct" hidden>Sign in</button>
  <span class="pill" id="status"><b></b>Connecting…</span>
 </header>
-<div class="drop" id="drop"><button data-v="studio" class="on">Studio<span>Agents, chat and setup</span></button><button data-v="plugins">Plugins<span>Every plugin and its manifest</span></button><button data-v="docs">Docs<span>Plugin architecture guide</span></button><a class="dlink" href="index.html">← Home<span>KIRA OS home page</span></a></div>
+<div class="drop" id="drop"><button data-v="studio" class="on">Studio<span>Agents, chat and setup</span></button><button data-v="plugins">Plugins<span>Every plugin and its manifest</span></button><button data-v="docs">Docs<span>Plugin architecture guide</span></button><a class="dlink" href="/">← Home<span>KIRA OS home page</span></a></div>
 <div class="view" id="vplugins"></div>
 <div class="view" id="vdocs"></div>
 <nav class="tabs" id="tabs"><button data-p="list">Agents</button><button data-p="chat" class="on">Chat</button><button data-p="cfg">Setup</button></nav>
@@ -627,7 +627,7 @@ const PAGES={
  <h3 style="margin-top:28px">Three parts of the app</h3><ul><li><b>Studio</b>: your agents, the chat and the Setup panel (character, plugins, knowledge, memory, tasks, outbox, runtime inspector).</li><li><b>Plugins</b>: every plugin's manifest on one page.</li><li><b>Docs</b>: this guide.</li></ul>
  ${live(`you have ${S.agents.length} agents and ${(S.custom||[]).length} custom plugins. The open agent, ${esc(a.name)}, loads ${rt.plugins.length} plugins.`)}`,
  installation:()=>`<h1>Installation</h1><p class="lede">KIRA OS ships with the website. If the site is running, the Studio is too.</p>
- <ol><li>Open <code>/studio.html</code> on the site, or pick <b>Agent Studio</b> from the site menu.</li><li>Send your first message. Replies come from the site's <code>/api/studio</code> endpoint.</li><li>Your agents, plugins and chats are kept in this browser.</li></ol>
+ <ol><li>Open <code>/studio</code> on the site, or pick <b>Agent Studio</b> from the site menu.</li><li>Send your first message. Replies come from the site's <code>/api/studio</code> endpoint.</li><li>Your agents, plugins and chats are kept in this browser.</li></ol>
  <h3>Server requirements</h3><ul><li><code>ANTHROPIC_API_KEY</code> set on the host (the same key the website chat and X bot use).</li><li>Optional: <code>STUDIO_MODEL</code> and <code>STUDIO_MODEL_REASONING</code> for the LARGE and REASONING model types, <code>STUDIO_PER_MINUTE</code> and <code>STUDIO_PER_DAY</code> for rate limits, <code>STUDIO_DISABLED=1</code> to switch it off.</li></ul>
  <p>If replies say the AI is not switched on, the host is missing <code>ANTHROPIC_API_KEY</code>.</p>`,
  quickstart:()=>`<h1>Quickstart</h1><p class="lede">From zero to a working agent in five steps.</p>
@@ -965,7 +965,7 @@ const Account=(()=>{
   body.innerHTML=`<button class="aopt" id="ax" ${methods.x?'':'disabled'}>${ICON.x}Continue with X${methods.x?'':'<span>not set up yet</span>'}</button>
   <button class="aopt" id="aw">${ICON.w}Connect wallet<span>${hasEth?'MetaMask, Rabby…':'open in wallet app'}</span></button>
   <button class="aopt" id="ae" ${methods.email?'':'disabled'}>${ICON.e}Continue with email${methods.email?'':'<span>not set up yet</span>'}</button>
-  <div class="aerr" id="aerr"></div><p class="note n0" style="margin-top:6px">By signing in you agree to the <a href="legal.html" style="color:inherit">Terms &amp; Privacy</a>.</p>`;
+  <div class="aerr" id="aerr"></div><p class="note n0" style="margin-top:6px">By signing in you agree to the <a href="/legal" style="color:inherit">Terms &amp; Privacy</a>.</p>`;
  }
  function open(){if(!methods)return;home();modal.hidden=false}
  function close(){modal.hidden=true}
