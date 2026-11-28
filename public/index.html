@@ -76,7 +76,9 @@ main{position:relative;z-index:2}
 .menu-btn{display:none;font-size:13px;letter-spacing:.02em}
 .nav .logo[data-dissolve]{opacity:1}
 .nav.is-hidden [data-dissolve]{opacity:0!important;filter:blur(6px);pointer-events:none;transition-duration:.25s}
-#navfx{position:fixed;top:0;left:0;z-index:31;pointer-events:none}
+#navfx{display:none}
+.nav{transition:transform .35s cubic-bezier(.2,.7,.2,1),opacity .3s}
+.nav.bar-off{transform:translateY(-110%);opacity:0;pointer-events:none}
 .menu-panel{position:fixed;inset:0;z-index:25;background:rgba(3,3,3,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad);gap:6px;opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s}
 .menu-panel a{font-size:clamp(40px,12vw,64px);font-weight:200;letter-spacing:-.04em;line-height:1.1;transform:translateY(20px);opacity:0;transition:transform .8s var(--ease),opacity .8s var(--ease)}
@@ -342,7 +344,7 @@ body{font-weight:400}
 <body>
 <canvas id="scene" aria-hidden="true" hidden></canvas>
 <div class="atmos" aria-hidden="true"></div>
-<div class="catbg" aria-hidden="true"><img src="cat.jpg" alt="" width="736" height="736" decoding="async" fetchpriority="high"><canvas class="catcv"></canvas><i class="eye e1"></i><i class="eye e2"></i></div>
+<div class="catbg" aria-hidden="true"><img src="cat.jpg" alt="" width="736" height="736" decoding="async" fetchpriority="high"><canvas class="catcv"></canvas></div>
 <div class="grain" aria-hidden="true"></div>
 <canvas id="navfx" aria-hidden="true"></canvas>
 <div class="cursor" aria-hidden="true"></div>
@@ -899,7 +901,8 @@ const NavFX = (() => {
   }
   function onScroll(y, d){
     if (document.body.classList.contains('menu-open')) return;
-    if (y < 80) reform(); else if (d > 3) dissolve(); else if (d < -5) reform();
+    // whole bar slides away once you scroll and comes back at the top; no particles
+    nav.classList.toggle('bar-off', y >= 80);
   }
   function draw(now){
     if (state === 'shown' || state === 'gone') return;
