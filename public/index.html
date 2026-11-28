@@ -507,6 +507,34 @@ body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opa
   .hero{height:auto!important;min-height:0!important;align-items:flex-start!important;padding-top:calc(min(100vw,520px)*.62)!important;padding-bottom:70px!important}
   .pm-h1{font-size:clamp(40px,12vw,60px)!important}
 }
+
+/* no dot after the wordmark in the home bar */
+.nav .wm-bc::after{display:none}
+/* menu v2 */
+.kmenu.mn{width:min(440px,100vw);gap:18px;padding:92px 20px 22px;background:linear-gradient(180deg,rgba(20,12,30,.96),rgba(11,7,16,.98));border-left:1px solid rgba(179,136,255,.25);border-radius:28px 0 0 28px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:-30px 0 80px rgba(0,0,0,.5);overflow-y:auto}
+.mn-hero{position:relative;height:150px;border-radius:22px;overflow:hidden;flex:none;border:1px solid rgba(179,136,255,.25)}
+.mn-hero img{width:100%;height:100%;object-fit:cover;object-position:50% 42%;transform:scale(1.25)}
+.mn-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(11,7,16,.9))}
+.mn-cap{position:absolute;left:18px;bottom:14px;z-index:1}
+.mn-cap b{display:block;font:800 24px/1 "Syne",sans-serif;letter-spacing:-.01em}
+.mn-cap span{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:13px;color:var(--dim)}
+.mn-cap i{width:7px;height:7px;border-radius:50%;background:#5dffa8;box-shadow:0 0 10px #5dffa8}
+.mn .klist{gap:0}
+.mn .klist a{display:flex;align-items:center;gap:14px;padding:16px 6px;border:0!important;border-bottom:1px solid rgba(247,239,230,.08)!important;border-radius:0!important;background:none!important;color:var(--fg)!important}
+.mn .klist a:last-child{border-bottom:0!important}
+.mn-n{font:600 12px "JetBrains Mono",monospace;color:var(--kira);width:22px;flex:none}
+.mn .klist b{font:700 22px/1.1 "Syne",sans-serif!important;transition:transform .25s}
+.mn .klist small{color:var(--mute)!important;font-size:13px;margin-top:4px}
+.mn-go{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;border:1px solid rgba(247,239,230,.14);color:var(--dim);flex:none;transition:all .25s}
+.mn .klist a:hover b{transform:translateX(4px);color:var(--kira)}
+.mn .klist a:hover .mn-go{background:var(--kira);border-color:var(--kira);color:#0b0710}
+.mn-cta{display:flex;justify-content:center;align-items:center;gap:10px;padding:16px;border-radius:999px;background:linear-gradient(180deg,#c4a2ff,#a171ff);color:#0b0710;font-weight:700;text-decoration:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 16px 40px rgba(160,112,255,.35);flex:none}
+.mn-foot{margin-top:auto;display:flex;justify-content:space-between;gap:10px;padding-top:8px;font-size:13px}
+.mn-foot a{color:var(--mute);text-decoration:none}.mn-foot a:hover{color:var(--fg)}
+@media (max-width:560px){.kmenu.mn{border-radius:0;padding-top:86px}}
+
+.nav .menu-btn,.nav .menu-btn:focus,.nav .menu-btn:focus-visible{outline:none!important;box-shadow:none!important;border-radius:999px!important}
+.menu-open .nav .menu-btn{background:var(--kira)!important;border-color:var(--kira)!important}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -530,26 +558,23 @@ body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opa
 </header>
 
 <div class="kback" id="kback" aria-hidden="true"></div>
-<nav class="kmenu" id="menu" aria-label="Menu" aria-hidden="true">
-  <div class="kme">
-    <img src="cat.jpg" width="56" height="56" alt="" style="object-fit:cover;object-position:35% 45%">
-    <div><b>BCAT</b><span>Your agent framework is online</span></div>
-  </div>
+<nav class="kmenu mn" id="menu" aria-label="Menu" aria-hidden="true">
+  <div class="mn-hero"><img src="cat.jpg" alt=""><div class="mn-cap"><b>BCAT</b><span><i></i>Online · ask me anything</span></div></div>
   <div class="klist">
-    <a href="#home"><span class="kt"><b>Home</b><small>Talk to BCAT and start from a template</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
-    <a href="studio.html"><span class="kt"><b>Agent Studio</b><small>Build, train and chat with your agents</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
-    <a href="studio.html#plugins"><span class="kt"><b>Plugins</b><small>Every plugin and its manifest</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
-    <a href="studio.html#docs-framework"><span class="kt"><b>Framework</b><small>How BLACKCAT is built</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h6v1h-6zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
-    <a href="studio.html#docs-overview"><span class="kt"><b>Docs</b><small>Guides, architecture and reference</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
+    <a href="#home"><span class="mn-n">01</span><span class="kt"><b>Home</b><small>Talk to BCAT and pick an agent</small></span><span class="mn-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+    <a href="studio.html"><span class="mn-n">02</span><span class="kt"><b>Agent Studio</b><small>Build, train and chat with agents</small></span><span class="mn-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+    <a href="studio.html#plugins"><span class="mn-n">03</span><span class="kt"><b>Plugins</b><small>Every plugin and what it adds</small></span><span class="mn-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+    <a href="studio.html#docs-framework"><span class="mn-n">04</span><span class="kt"><b>Framework</b><small>How BLACKCAT is built</small></span><span class="mn-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
+    <a href="studio.html#docs-overview"><span class="mn-n">05</span><span class="kt"><b>Docs</b><small>Guides and full reference</small></span><span class="mn-go" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></a>
   </div>
-  <div class="kfoot"><a href="legal.html">Terms &amp; Privacy</a><a href="https://x.com/getkiraos" target="_blank" rel="noopener" class="kx"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg>@getkiraos</a></div>
+  <a class="mn-cta" href="studio.html">Open Studio <span aria-hidden="true">→</span></a>
+  <div class="mn-foot"><a href="legal.html">Terms &amp; Privacy</a><a href="https://x.com/getkiraos" target="_blank" rel="noopener">𝕏 @getkiraos</a></div>
 </nav>
 
 <main>
   <section class="hero hs" id="home" data-s="0">
     <div class="hero-inner">
       <div>
-        <p class="v3-kick pm-pill"><i></i>AI agent framework</p>
         <h1 class="v3-h1 pm-h1">Agents that<br><em>see in the dark</em></h1>
         <p class="v3-sub">An AI agent framework in your browser. Give an agent a character, switch on plugins, and start talking. No install, no code.</p>
       </div>
