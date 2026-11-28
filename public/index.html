@@ -24,7 +24,7 @@
 <meta name="theme-color" content="#0b0710">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@300;400&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#030303;
@@ -338,6 +338,66 @@ body{font-weight:400}
   @keyframes catbreathm{0%,100%{transform:translateX(50%) scale(1)}50%{transform:translateX(50%) scale(1.025)}}
 }
 @media (prefers-reduced-motion:reduce){.catbg img,.catbg .eye{animation:none}}
+
+/* ================= v3 layer: soft editorial look (same colours) ================= */
+:root{--serif:"Instrument Serif",Georgia,serif;--sans:"Manrope","Space Grotesk",system-ui,sans-serif;--r:26px}
+body{font-family:var(--sans)}
+.atmos::after{display:none}
+/* nav: floating glass pill */
+.nav{top:14px;left:50%;right:auto;width:min(1100px,calc(100% - 28px));transform:translateX(-50%);padding:10px 12px 10px 20px;border-radius:999px;background:rgba(14,9,20,.55);border:1px solid rgba(247,239,230,.12);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.nav.bar-off{transform:translate(-50%,-140%)}
+.nav .wm-a{font-size:26px!important}.nav .wm-os{height:18px;width:39px}
+.nav .menu-btn,.nav-x{width:42px;height:42px;border-radius:999px;border:1px solid rgba(247,239,230,.18);box-shadow:none;background:rgba(247,239,230,.06)}
+.nav .menu-btn:hover,.nav-x:hover{background:var(--kira);color:#0b0710;border-color:var(--kira)}
+/* hero: centred */
+.hero{align-items:flex-end;justify-content:center;text-align:center}
+.hero-inner{display:flex;flex-direction:column;align-items:center;gap:22px;max-width:900px;margin:0 auto}
+.hero-side{justify-self:auto;align-items:center;max-width:none}
+.v3-kick{font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--kira)}
+.v3-h1{font-family:var(--serif);font-weight:400;font-size:clamp(58px,10vw,150px);line-height:.92;letter-spacing:-.02em;margin-top:14px;color:var(--fg)}
+.v3-h1 em,.v3-h2 em{font-style:italic;color:var(--kira)}
+.v3-sub{max-width:520px;margin:18px auto 0;font-size:clamp(16px,1.4vw,19px);line-height:1.55;color:var(--dim)}
+.v3-btn{display:inline-flex;align-items:center;gap:12px;padding:16px 28px;border-radius:999px;background:var(--kira);color:#0b0710;font-weight:700;font-size:16px;text-decoration:none;box-shadow:0 0 0 6px rgba(179,136,255,.14),0 18px 50px rgba(179,136,255,.35);transition:transform .2s,box-shadow .2s}
+.v3-btn:hover{transform:translateY(-2px);box-shadow:0 0 0 8px rgba(179,136,255,.18),0 22px 60px rgba(179,136,255,.45)}
+.catbg img{right:50%!important;transform:translateX(50%)!important}
+@media (min-width:901px){.catbg img{top:0!important;height:min(92vh,860px)!important;-webkit-mask-image:radial-gradient(closest-side,#000 55%,transparent 100%)!important;mask-image:radial-gradient(closest-side,#000 55%,transparent 100%)!important}}
+/* headings */
+.v3-h2{font-family:var(--serif);font-weight:400;font-size:clamp(42px,5.6vw,84px);line-height:.98;letter-spacing:-.015em;color:var(--fg)}
+.body{font-family:var(--sans)}
+/* chat: rounded glass */
+.split{align-items:center}
+.chat{border-radius:var(--r);border:1px solid rgba(247,239,230,.12);background:rgba(16,10,24,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 30px 80px rgba(0,0,0,.45),0 0 0 1px rgba(179,136,255,.06)}
+.v3-chead{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid rgba(247,239,230,.1)}
+.v3-chead img{width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:35% 45%}
+.v3-chead span{display:flex;flex-direction:column;line-height:1.2}.v3-chead b{font-weight:700}
+.v3-chead small{font-size:12px;color:#5dffa8}
+.cm{border-radius:18px!important;font-family:var(--sans)}
+.cm.ai{border-left:0;background:rgba(247,239,230,.06);border-bottom-left-radius:6px!important}
+.cm.me{border-bottom-right-radius:6px!important}
+.chat-sug button{border-radius:999px;border:1px solid rgba(247,239,230,.16);font-family:var(--sans);font-size:13px}
+.chat-sug button:hover{border-color:var(--kira);color:var(--kira)}
+.chat-form{border-radius:999px;border:1px solid rgba(247,239,230,.16);margin:12px;overflow:hidden}
+.chat-form button{border-radius:999px}
+/* templates: rounded cards with a photo banner */
+.section-head{align-items:flex-end}
+.tpl-grid{gap:18px}
+.tpl{border-radius:var(--r);border:1px solid rgba(247,239,230,.1);background:rgba(16,10,24,.7);padding:12px 12px 20px;overflow:hidden;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.tpl:hover{border-color:rgba(179,136,255,.5);transform:translateY(-4px);box-shadow:0 24px 60px rgba(179,136,255,.18)}
+.v3-ph{display:block;aspect-ratio:16/10;border-radius:18px;overflow:hidden;background:#000;margin-bottom:6px}
+.v3-ph img{width:100%;height:100%;object-fit:cover;border:0!important;border-radius:0!important;transition:transform .5s}
+.tpl:hover .v3-ph img{transform:scale(1.06)}
+.tpl em,.tpl b,.tpl p,.tpl .chips,.tpl .go{padding:0 8px}
+.tpl em{font-family:var(--sans);font-style:normal;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.tpl b{font-family:var(--serif);font-weight:400;font-size:38px;text-transform:none;line-height:1}
+.tpl .chips i{border-radius:999px;font-family:var(--sans);font-size:12px;text-transform:none;letter-spacing:0}
+.tpl .go{border-top:0;font-family:var(--sans);font-weight:700;text-transform:none;letter-spacing:0;font-size:14px;color:var(--kira)}
+/* menu + footer */
+.kmenu{border-left:1px solid rgba(179,136,255,.35);border-radius:28px 0 0 28px}
+.kme{border-radius:20px;border:0}
+.klist a{border-radius:18px;border:1px solid rgba(247,239,230,.1)}
+.hfoot{border-top:1px solid rgba(247,239,230,.1);font-family:var(--sans);letter-spacing:.02em;text-transform:none;font-size:13px}
+@media (min-width:901px){.hero-inner{max-width:1200px}.v3-h1{white-space:nowrap;font-size:clamp(70px,8vw,128px)}.catbg img{top:-8vh!important}}
+@media (max-width:900px){.hero{padding-bottom:clamp(48px,9vh,90px)}.v3-h1{font-size:clamp(56px,16vw,90px)}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -378,14 +438,13 @@ body{font-weight:400}
   <section class="hero hs" id="home" data-s="0">
     <div class="hero-inner">
       <div>
-        <h1 class="display" aria-label="Your agent studio">
-          <span class="line"><span><svg class="px" viewBox="0 0 75 7" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#f1f1ef" d="M0 0h1v1h-1zM1 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM5 1h1v1h-1zM6 1h1v1h-1zM1 2h1v1h-1zM2 2h1v1h-1zM4 2h1v1h-1zM5 2h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM2 5h1v1h-1zM3 5h1v1h-1zM4 5h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM13 1h1v1h-1zM14 1h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM13 2h1v1h-1zM14 2h1v1h-1zM8 3h1v1h-1zM9 3h1v1h-1zM13 3h1v1h-1zM14 3h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM8 5h1v1h-1zM9 5h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1zM16 0h1v1h-1zM17 0h1v1h-1zM21 0h1v1h-1zM22 0h1v1h-1zM16 1h1v1h-1zM17 1h1v1h-1zM21 1h1v1h-1zM22 1h1v1h-1zM16 2h1v1h-1zM17 2h1v1h-1zM21 2h1v1h-1zM22 2h1v1h-1zM16 3h1v1h-1zM17 3h1v1h-1zM21 3h1v1h-1zM22 3h1v1h-1zM16 4h1v1h-1zM17 4h1v1h-1zM21 4h1v1h-1zM22 4h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM21 5h1v1h-1zM22 5h1v1h-1zM17 6h1v1h-1zM18 6h1v1h-1zM19 6h1v1h-1zM20 6h1v1h-1zM21 6h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM29 0h1v1h-1zM24 1h1v1h-1zM25 1h1v1h-1zM29 1h1v1h-1zM30 1h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM29 2h1v1h-1zM30 2h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM26 3h1v1h-1zM27 3h1v1h-1zM28 3h1v1h-1zM29 3h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM27 4h1v1h-1zM28 4h1v1h-1zM24 5h1v1h-1zM25 5h1v1h-1zM28 5h1v1h-1zM29 5h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM29 6h1v1h-1zM30 6h1v1h-1zM37 0h1v1h-1zM38 0h1v1h-1zM39 0h1v1h-1zM40 0h1v1h-1zM41 0h1v1h-1zM36 1h1v1h-1zM37 1h1v1h-1zM41 1h1v1h-1zM42 1h1v1h-1zM36 2h1v1h-1zM37 2h1v1h-1zM41 2h1v1h-1zM42 2h1v1h-1zM36 3h1v1h-1zM37 3h1v1h-1zM38 3h1v1h-1zM39 3h1v1h-1zM40 3h1v1h-1zM41 3h1v1h-1zM42 3h1v1h-1zM36 4h1v1h-1zM37 4h1v1h-1zM41 4h1v1h-1zM42 4h1v1h-1zM36 5h1v1h-1zM37 5h1v1h-1zM41 5h1v1h-1zM42 5h1v1h-1zM36 6h1v1h-1zM37 6h1v1h-1zM41 6h1v1h-1zM42 6h1v1h-1zM45 0h1v1h-1zM46 0h1v1h-1zM47 0h1v1h-1zM48 0h1v1h-1zM49 0h1v1h-1zM50 0h1v1h-1zM44 1h1v1h-1zM45 1h1v1h-1zM44 2h1v1h-1zM45 2h1v1h-1zM44 3h1v1h-1zM45 3h1v1h-1zM48 3h1v1h-1zM49 3h1v1h-1zM50 3h1v1h-1zM44 4h1v1h-1zM45 4h1v1h-1zM49 4h1v1h-1zM50 4h1v1h-1zM44 5h1v1h-1zM45 5h1v1h-1zM49 5h1v1h-1zM50 5h1v1h-1zM45 6h1v1h-1zM46 6h1v1h-1zM47 6h1v1h-1zM48 6h1v1h-1zM49 6h1v1h-1zM52 0h1v1h-1zM53 0h1v1h-1zM54 0h1v1h-1zM55 0h1v1h-1zM56 0h1v1h-1zM57 0h1v1h-1zM58 0h1v1h-1zM52 1h1v1h-1zM53 1h1v1h-1zM52 2h1v1h-1zM53 2h1v1h-1zM52 3h1v1h-1zM53 3h1v1h-1zM54 3h1v1h-1zM55 3h1v1h-1zM56 3h1v1h-1zM57 3h1v1h-1zM52 4h1v1h-1zM53 4h1v1h-1zM52 5h1v1h-1zM53 5h1v1h-1zM52 6h1v1h-1zM53 6h1v1h-1zM54 6h1v1h-1zM55 6h1v1h-1zM56 6h1v1h-1zM57 6h1v1h-1zM58 6h1v1h-1zM60 0h1v1h-1zM61 0h1v1h-1zM65 0h1v1h-1zM66 0h1v1h-1zM60 1h1v1h-1zM61 1h1v1h-1zM62 1h1v1h-1zM65 1h1v1h-1zM66 1h1v1h-1zM60 2h1v1h-1zM61 2h1v1h-1zM62 2h1v1h-1zM63 2h1v1h-1zM65 2h1v1h-1zM66 2h1v1h-1zM60 3h1v1h-1zM61 3h1v1h-1zM63 3h1v1h-1zM64 3h1v1h-1zM65 3h1v1h-1zM66 3h1v1h-1zM60 4h1v1h-1zM61 4h1v1h-1zM64 4h1v1h-1zM65 4h1v1h-1zM66 4h1v1h-1zM60 5h1v1h-1zM61 5h1v1h-1zM65 5h1v1h-1zM66 5h1v1h-1zM60 6h1v1h-1zM61 6h1v1h-1zM65 6h1v1h-1zM66 6h1v1h-1zM68 0h1v1h-1zM69 0h1v1h-1zM70 0h1v1h-1zM71 0h1v1h-1zM72 0h1v1h-1zM73 0h1v1h-1zM74 0h1v1h-1zM70 1h1v1h-1zM71 1h1v1h-1zM72 1h1v1h-1zM70 2h1v1h-1zM71 2h1v1h-1zM72 2h1v1h-1zM70 3h1v1h-1zM71 3h1v1h-1zM72 3h1v1h-1zM70 4h1v1h-1zM71 4h1v1h-1zM72 4h1v1h-1zM70 5h1v1h-1zM71 5h1v1h-1zM72 5h1v1h-1zM70 6h1v1h-1zM71 6h1v1h-1zM72 6h1v1h-1z"/></svg></span></span>
-          <span class="line"><span><svg class="px" viewBox="0 0 46 7" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#c9c9c6" d="M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM1 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM5 3h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM10 1h1v1h-1zM11 1h1v1h-1zM12 1h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM12 2h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM10 4h1v1h-1zM11 4h1v1h-1zM12 4h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM16 0h1v1h-1zM17 0h1v1h-1zM21 0h1v1h-1zM22 0h1v1h-1zM16 1h1v1h-1zM17 1h1v1h-1zM21 1h1v1h-1zM22 1h1v1h-1zM16 2h1v1h-1zM17 2h1v1h-1zM21 2h1v1h-1zM22 2h1v1h-1zM16 3h1v1h-1zM17 3h1v1h-1zM21 3h1v1h-1zM22 3h1v1h-1zM16 4h1v1h-1zM17 4h1v1h-1zM21 4h1v1h-1zM22 4h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM21 5h1v1h-1zM22 5h1v1h-1zM17 6h1v1h-1zM18 6h1v1h-1zM19 6h1v1h-1zM20 6h1v1h-1zM21 6h1v1h-1zM24 0h1v1h-1zM25 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM29 0h1v1h-1zM24 1h1v1h-1zM25 1h1v1h-1zM29 1h1v1h-1zM30 1h1v1h-1zM24 2h1v1h-1zM25 2h1v1h-1zM29 2h1v1h-1zM30 2h1v1h-1zM24 3h1v1h-1zM25 3h1v1h-1zM29 3h1v1h-1zM30 3h1v1h-1zM24 4h1v1h-1zM25 4h1v1h-1zM29 4h1v1h-1zM30 4h1v1h-1zM24 5h1v1h-1zM25 5h1v1h-1zM29 5h1v1h-1zM30 5h1v1h-1zM24 6h1v1h-1zM25 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM29 6h1v1h-1zM32 0h1v1h-1zM33 0h1v1h-1zM34 0h1v1h-1zM35 0h1v1h-1zM36 0h1v1h-1zM37 0h1v1h-1zM34 1h1v1h-1zM35 1h1v1h-1zM34 2h1v1h-1zM35 2h1v1h-1zM34 3h1v1h-1zM35 3h1v1h-1zM34 4h1v1h-1zM35 4h1v1h-1zM34 5h1v1h-1zM35 5h1v1h-1zM32 6h1v1h-1zM33 6h1v1h-1zM34 6h1v1h-1zM35 6h1v1h-1zM36 6h1v1h-1zM37 6h1v1h-1zM40 0h1v1h-1zM41 0h1v1h-1zM42 0h1v1h-1zM43 0h1v1h-1zM44 0h1v1h-1zM39 1h1v1h-1zM40 1h1v1h-1zM44 1h1v1h-1zM45 1h1v1h-1zM39 2h1v1h-1zM40 2h1v1h-1zM44 2h1v1h-1zM45 2h1v1h-1zM39 3h1v1h-1zM40 3h1v1h-1zM44 3h1v1h-1zM45 3h1v1h-1zM39 4h1v1h-1zM40 4h1v1h-1zM44 4h1v1h-1zM45 4h1v1h-1zM39 5h1v1h-1zM40 5h1v1h-1zM44 5h1v1h-1zM45 5h1v1h-1zM40 6h1v1h-1zM41 6h1v1h-1zM42 6h1v1h-1zM43 6h1v1h-1zM44 6h1v1h-1z"/></svg></span></span>
-        </h1>
+        <p class="v3-kick">AI agent studio · in your browser</p>
+        <h1 class="v3-h1">Your agent <em>studio</em></h1>
+        <p class="v3-sub">Give it a character, switch on plugins, and start talking. No install, no code.</p>
       </div>
       <div class="hero-side">
         <div class="cta-row">
-          <a class="cta cta-blue" href="studio.html"><span>Open Studio</span><i></i></a>
+          <a class="v3-btn" href="studio.html">Open Studio <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
@@ -394,11 +453,11 @@ body{font-weight:400}
   <section class="section veil hs" id="talk" data-s="3">
     <div class="split">
       <div>
-        <h2 class="headline reveal d1" style="margin-top:20px">Ask the agent.<br>Right here.</h2>
+        <h2 class="v3-h2 reveal d1">Ask the agent, <em>right here.</em></h2>
         <p class="body reveal d2" style="margin-top:22px">Kira runs on KIRA OS. Ask what it can do, how plugins work, or how to build your own agent.</p>
       </div>
       <div class="chat reveal d2" id="chat">
-        <div class="kbar"><i></i><i></i><b>kira://chat</b><span>v1</span></div>
+        <div class="v3-chead"><img src="cat.jpg" alt="" width="34" height="34"><span><b>Kira</b><small>online</small></span></div>
         <div class="chat-log" id="chatLog" aria-live="polite"><div class="cm ai">Hi, I'm Kira. Ask me anything about building agents on KIRA OS.</div></div>
         <div class="chat-sug" id="chatSug"><button type="button">What can you do?</button><button type="button">How do plugins work?</button><button type="button">Help me design an X bot</button></div>
         <form class="chat-form" id="chatForm"><input id="chatIn" placeholder="Ask Kira…" autocomplete="off" maxlength="600" aria-label="Message"><button aria-label="Send">→</button></form>
@@ -409,7 +468,7 @@ body{font-weight:400}
   <section class="section veil hs" id="templates" data-s="4">
     <div class="section-head">
       <div>
-        <h2 class="headline reveal d1" style="margin-top:20px">One click.<br>A working agent.</h2>
+        <h2 class="v3-h2 reveal d1">One click, <em>a working agent.</em></h2>
       </div>
       <p class="body reveal d2">Pick a starting point. It opens in the Studio with the right plugins already switched on, ready to rename and shape.</p>
     </div>
@@ -1007,7 +1066,7 @@ const Home = (() => {
     busy = false; $('#chatForm button').disabled = false; $('#chatLog').scrollTop = 1e9;
   }
   function init(){
-    $('#tplGrid').innerHTML = TPL.map(([k, n, r, d, p]) => `<button type="button" class="tpl reveal" data-tpl="${k}"><img src="${TAV[k] || AV}" width="56" height="56" alt="" style="object-fit:cover;background:#000;border:1px solid rgba(255,255,255,.15);border-radius:14px"><em>${esc(r)}</em><b>${esc(n)}</b><p>${esc(d)}</p><span class="chips">${p.map(x => `<i>${esc(x)}</i>`).join('')}</span><span class="go">Create ${esc(n)} <span aria-hidden="true">→</span></span></button>`).join('');
+    $('#tplGrid').innerHTML = TPL.map(([k, n, r, d, p]) => `<button type="button" class="tpl reveal" data-tpl="${k}"><span class="v3-ph"><img src="${TAV[k] || AV}" alt=""></span><em>${esc(r)}</em><b>${esc(n)}</b><p>${esc(d)}</p><span class="chips">${p.map(x => `<i>${esc(x)}</i>`).join('')}</span><span class="go">Create ${esc(n)} <span aria-hidden="true">→</span></span></button>`).join('');
     $$('[data-tpl]').forEach(b => b.addEventListener('click', () => { try { localStorage.setItem('aiko-pending', b.dataset.tpl); } catch {} location.href = 'studio.html'; }));
     $('#chatForm').addEventListener('submit', e => { e.preventDefault(); const i = $('#chatIn'); const v = i.value; i.value = ''; ask(v); });
     $$('#chatSug button').forEach(b => b.addEventListener('click', () => ask(b.textContent)));
@@ -1078,6 +1137,15 @@ boot();
       g.save(); g.globalAlpha = Math.min(1, p*1.4); g.translate(cx, cy); g.rotate(t.rot*k); g.scale(.55 + .45*e, .55 + .45*e);
       g.drawImage(img, t.x*iw, t.y*iw, iw, iw, -sw/2 - .5, -sw/2 - .5, sw + 1, sw + 1); g.restore();
     }
+    // soft edge so the photo melts into the page
+    g.globalCompositeOperation = 'destination-in';
+    let m;
+    if (innerWidth > 900){ const cx = ox + ir.width/2, cy = oy + ir.height/2, rr = ir.width/2;
+      m = g.createRadialGradient(cx, cy, 0, cx, cy, rr); m.addColorStop(0, '#000'); m.addColorStop(.55, '#000'); m.addColorStop(1, 'rgba(0,0,0,0)'); }
+    else { m = g.createLinearGradient(0, oy, 0, oy + ir.height); m.addColorStop(0, '#000'); m.addColorStop(.55, '#000'); m.addColorStop(.98, 'rgba(0,0,0,0)');
+      const s2 = g.createLinearGradient(ox, 0, ox + ir.width, 0); }
+    g.fillStyle = m; g.fillRect(0, 0, W, H);
+    g.globalCompositeOperation = 'source-over';
     box.style.setProperty('--eyes', Math.max(0, (G - .9) / .1).toFixed(3));
     box.querySelectorAll('.eye').forEach((el, i) => { const [x, y, w] = E[i], s = ir.width*w;
       el.style.width = el.style.height = s + 'px'; el.style.left = (ox + ir.width*x - s/2) + 'px'; el.style.top = (oy + ir.height*y - s/2) + 'px'; });
