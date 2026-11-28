@@ -408,6 +408,66 @@ h1,h2,h3,.headline,.v3-h1,.v3-h2,.tpl b,.kme b,.klist b{font-family:"Syne",syste
 code,pre,kbd,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
 .wm-bc{font-family:"Syne",system-ui,sans-serif;font-weight:800;letter-spacing:-.01em;line-height:1;color:var(--fg,#f7efe6)}
 .wm-bc::after{content:"";display:inline-block;width:.22em;height:.22em;margin-left:.08em;border-radius:50%;background:#b388ff;vertical-align:.12em}
+
+/* ================= premium layer (same colours) ================= */
+:root{--pm-line:rgba(247,239,230,.09);--pm-card:rgba(17,11,25,.78);--pm-grad:linear-gradient(140deg,rgba(179,136,255,.55),rgba(247,239,230,.07) 38%,rgba(247,239,230,.04) 62%,rgba(179,136,255,.28))}
+body::before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.atmos{background:radial-gradient(60% 45% at 50% 0%,rgba(179,136,255,.16),transparent 70%),radial-gradient(40% 40% at 85% 75%,rgba(179,136,255,.07),transparent 70%)!important}
+/* nav */
+.nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:8px 8px 8px 22px;background:rgba(14,9,20,.5);border:1px solid var(--pm-line);box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(247,239,230,.06)}
+.nav .logo{justify-self:start}.nav-right{justify-self:end;display:flex;align-items:center;gap:8px}
+.pm-links{display:flex;gap:4px}
+.pm-links a{padding:9px 16px;border-radius:999px;color:var(--dim);font-size:14px;font-weight:600;text-decoration:none;transition:color .2s,background .2s}
+.pm-links a:hover{color:var(--fg);background:rgba(247,239,230,.06)}
+.pm-launch{padding:11px 18px;border-radius:999px;background:var(--fg);color:#0b0710;font-size:14px;font-weight:700;text-decoration:none;transition:background .2s,transform .2s}
+.pm-launch:hover{background:var(--kira);transform:translateY(-1px)}
+.nav .menu-btn,.nav-x{width:40px;height:40px}
+@media (max-width:900px){.nav{grid-template-columns:1fr auto;padding-left:18px}.pm-links,.pm-launch{display:none}}
+/* hero */
+.pm-pill{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 12px;border-radius:999px;border:1px solid rgba(179,136,255,.35);background:rgba(179,136,255,.08);letter-spacing:.12em;font-size:12px;color:var(--fg)}
+.pm-pill i{width:8px;height:8px;border-radius:50%;background:var(--kira);box-shadow:0 0 12px var(--kira)}
+.pm-h1{background:linear-gradient(180deg,#fffaf3 0%,#f7efe6 45%,rgba(247,239,230,.55) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700;letter-spacing:-.035em;line-height:.95;white-space:normal!important}
+.pm-h1 em{background:linear-gradient(90deg,#d9c6ff,#b388ff 45%,#8f5cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+@media (min-width:901px){.pm-h1{font-size:clamp(56px,5.8vw,100px)!important}.hero{padding-bottom:56px!important}.catbg img{top:-12vh!important}.hero-inner{gap:16px}.v3-sub{margin-top:8px}}
+.pm-wide:last-child{grid-column:1/-1}
+.pm-btn{position:relative;padding:17px 30px;background:linear-gradient(180deg,#c4a2ff,#a171ff);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 0 0 1px rgba(179,136,255,.5),0 20px 60px rgba(160,112,255,.45)}
+.pm-btn:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 0 0 1px rgba(179,136,255,.7),0 26px 70px rgba(160,112,255,.6)}
+/* section heads */
+.pm-head{max-width:760px;margin:0 auto clamp(40px,7vh,72px);text-align:center}
+.pm-head .body{margin:18px auto 0;max-width:560px}
+.v3-h2{font-weight:700;letter-spacing:-.03em}
+.v3-h2 em{background:linear-gradient(90deg,#d9c6ff,#b388ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+#talk .split > div:first-child{max-width:520px}
+#templates .section-head{flex-direction:column;align-items:center;text-align:center;gap:16px}
+#templates .section-head .body{max-width:560px}
+/* bento */
+.pm-bento{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:1180px;margin:0 auto}
+.pm-card{position:relative;padding:26px;border-radius:24px;border:1px solid transparent;background:linear-gradient(var(--pm-card),var(--pm-card)) padding-box,var(--pm-grad) border-box;box-shadow:inset 0 1px 0 rgba(247,239,230,.05);overflow:hidden;transition:transform .3s,box-shadow .3s}
+.pm-card::after{content:"";position:absolute;inset:-40% -20% auto auto;width:60%;height:80%;background:radial-gradient(closest-side,rgba(179,136,255,.14),transparent);pointer-events:none}
+.pm-card:hover{transform:translateY(-4px);box-shadow:0 30px 80px rgba(120,70,220,.22)}
+.pm-wide{grid-column:span 2}
+.pm-ic{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;color:var(--kira);background:rgba(179,136,255,.1);border:1px solid rgba(179,136,255,.25)}
+.pm-card h3{margin-top:18px;font-size:22px;font-weight:700}
+.pm-card p{margin-top:8px;color:var(--dim);font-size:15px;line-height:1.6;max-width:520px}
+.pm-code,.pm-log{margin-top:18px;padding:14px 16px;border-radius:14px;background:rgba(0,0,0,.35);border:1px solid var(--pm-line);font:13px/1.7 "JetBrains Mono",monospace;color:rgba(247,239,230,.82)}
+.pm-code span{color:var(--kira)}.pm-log b{color:#5dffa8;font-weight:600;margin-right:8px}
+.pm-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.pm-tags i{font-style:normal;font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid rgba(179,136,255,.3);color:var(--fg);background:rgba(179,136,255,.07)}
+@media (max-width:900px){.pm-bento{grid-template-columns:1fr}.pm-wide{grid-column:auto}}
+/* chat + templates get the gradient border too */
+.chat,.tpl{border:1px solid transparent!important;background:linear-gradient(var(--pm-card),var(--pm-card)) padding-box,var(--pm-grad) border-box!important}
+.chat{box-shadow:0 40px 120px rgba(110,60,210,.25),inset 0 1px 0 rgba(247,239,230,.05)!important}
+.cm.me{background:linear-gradient(180deg,#c4a2ff,#a171ff)!important;color:#0b0710}
+.tpl b{font-weight:700;letter-spacing:-.02em}
+/* footer */
+.pm-foot{display:grid;grid-template-columns:1.2fr 2fr;gap:40px;padding:64px var(--pad) 30px;background:rgba(10,6,15,.92)!important;border-top:1px solid var(--pm-line)!important;text-transform:none;letter-spacing:0;font-family:"Manrope",sans-serif}
+.pm-fbrand p{margin-top:12px;color:var(--dim);font-size:14px;max-width:280px;line-height:1.6}
+.pm-fcols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.pm-fcols div{display:flex;flex-direction:column;gap:10px}
+.pm-fcols b{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:700;margin-bottom:4px}
+.pm-fcols a{color:var(--fg);text-decoration:none;font-size:14.5px;opacity:.85}.pm-fcols a:hover{color:var(--kira);opacity:1}
+.pm-fbot{grid-column:1/-1;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:24px;border-top:1px solid var(--pm-line);color:var(--mute);font-size:12.5px}
+@media (max-width:700px){.pm-foot{grid-template-columns:1fr}.pm-fcols{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -421,7 +481,9 @@ code,pre,kbd,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
 
 <header class="nav" id="nav">
   <a href="#home" class="logo" data-dissolve aria-label="BLACKCAT home"><span class="wm"><span class="wm-bc" data-text style="font-size:26.04px">BLACKCAT</span></span></a>
+  <nav class="pm-links" aria-label="Main"><a href="studio.html">Studio</a><a href="studio.html#docs-framework">Framework</a><a href="studio.html#plugins">Plugins</a></nav>
   <div class="nav-right">
+    <a class="pm-launch" href="studio.html">Launch app</a>
     <a class="nav-x" href="https://x.com/getkiraos" target="_blank" rel="noopener" aria-label="BLACKCAT on X"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 20.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg></a>
     <button type="button" class="menu-btn" id="menuBtn" data-dissolve aria-expanded="false" aria-controls="menu" aria-label="Open menu">
       <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="#f1f1ef" stroke-width="1.7" stroke-linecap="round"/></svg>
@@ -449,18 +511,36 @@ code,pre,kbd,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
   <section class="hero hs" id="home" data-s="0">
     <div class="hero-inner">
       <div>
-        <p class="v3-kick">BLACKCAT · AI agent framework</p>
-        <h1 class="v3-h1">Agents that <em>see in the dark</em></h1>
+        <p class="v3-kick pm-pill"><i></i>AI agent framework</p>
+        <h1 class="v3-h1 pm-h1">Agents that<br><em>see in the dark</em></h1>
         <p class="v3-sub">An AI agent framework in your browser. Give an agent a character, switch on plugins, and start talking. No install, no code.</p>
       </div>
       <div class="hero-side">
         <div class="cta-row">
-          <a class="v3-btn" href="studio.html">Open Studio <span aria-hidden="true">→</span></a>
+          <a class="v3-btn pm-btn" href="studio.html">Open Studio <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
   </section>
 
+  <section class="section veil hs pm-feat" id="features" data-s="3">
+    <div class="pm-head reveal">
+      <h2 class="v3-h2">Everything an agent needs, <em>nothing it doesn't.</em></h2>
+      <p class="body">BLACKCAT gives every agent the same clean set of parts. Mix them, watch them run, ship what works.</p>
+    </div>
+    <div class="pm-bento">
+      <article class="pm-card pm-wide reveal"><span class="pm-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span><h3>Character</h3><p>Name, bio, traits and style rules give every agent its own voice, from calm analyst to sharp X persona.</p>
+        <div class="pm-code"><span>name</span>: "Akira"<br><span>traits</span>: ["precise", "skeptical"]<br><span>style</span>: "Lead with the answer."</div></article>
+      <article class="pm-card reveal d1"><span class="pm-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg></span><h3>Plugins</h3><p>Actions, providers, evaluators, services, routes and events. Dependencies load themselves.</p>
+        <div class="pm-tags"><i>actions</i><i>providers</i><i>evaluators</i><i>services</i></div></article>
+      <article class="pm-card reveal"><span class="pm-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a7 7 0 0 0-4 12.7V19h8v-3.3A7 7 0 0 0 12 3z"/><path d="M9 22h6"/></svg></span><h3>Memory</h3><p>Agents pick up the facts you share and bring them back when they matter.</p></article>
+      <article class="pm-card reveal d1"><span class="pm-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h12l4 4v12H4z"/><path d="M16 4v4h4M8 12h8M8 16h6"/></svg></span><h3>Knowledge</h3><p>Add your own documents. Agents answer from them and say where it came from.</p></article>
+      <article class="pm-card reveal d2"><span class="pm-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span><h3>Live runtime</h3><p>Watch every action, provider and event fire under each reply. No black box.</p>
+        <div class="pm-log"><b>ACTION</b> CREATE_TASK<br><b>EVAL</b> REFLECTION · 1 fact</div></article>
+      <article class="pm-card pm-wide reveal"><span class="pm-ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><h3>Yours, everywhere</h3><p>Agents live in your browser. Sign in with X, a wallet or email to sync them, or back them all up in one file.</p>
+        <div class="pm-tags"><i>X</i><i>Wallet</i><i>Email</i><i>Backup</i></div></article>
+    </div>
+  </section>
   <section class="section veil hs" id="talk" data-s="3">
     <div class="split">
       <div>
@@ -486,10 +566,14 @@ code,pre,kbd,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
     <div class="tpl-grid" id="tplGrid"></div>
   </section>
 
-  <footer class="hfoot">
-    <span>© <span id="yr">2026</span> BLACKCAT</span>
-    <nav><a href="studio.html">Studio</a><a href="studio.html#plugins">Plugins</a><a href="studio.html#docs-overview">Docs</a><a href="legal.html">Terms &amp; Privacy</a><a href="https://x.com/getkiraos" target="_blank" rel="noopener">X @getkiraos</a></nav>
-    <p>AI answers can be wrong. Nothing here is financial advice.</p>
+  <footer class="hfoot pm-foot">
+    <div class="pm-fbrand"><span class="wm-bc" style="font-size:24px">BLACKCAT</span><p>The AI agent framework that sees in the dark.</p></div>
+    <div class="pm-fcols">
+      <div><b>Product</b><a href="studio.html">Studio</a><a href="studio.html#plugins">Plugins</a><a href="studio.html#docs-framework">Framework</a></div>
+      <div><b>Learn</b><a href="studio.html#docs-overview">Docs</a><a href="studio.html#docs-llms">Docs for LLMs</a><a href="legal.html">Terms &amp; Privacy</a></div>
+      <div><b>Follow</b><a href="https://x.com/getkiraos" target="_blank" rel="noopener">X @getkiraos</a></div>
+    </div>
+    <div class="pm-fbot"><span>© <span id="yr">2026</span> BLACKCAT</span><span>AI answers can be wrong. Nothing here is financial advice.</span></div>
   </footer>
 </main>
 
