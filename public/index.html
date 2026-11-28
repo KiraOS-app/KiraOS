@@ -233,13 +233,13 @@ html.intro-lock{overflow:hidden}
 
 /* ================= KIRA identity layer: sakura terminal ================= */
 :root{--bg:#0b0710;--fg:#f7efe6;--dim:rgba(247,239,230,.66);--mute:rgba(247,239,230,.42);--faint:rgba(247,239,230,.14);
-  --kira:#ff4f8b;--kira-d:#c2185b;--kira-s:rgba(255,79,139,.16);--blue:#ff4f8b;
+  --kira:#b388ff;--kira-d:#6f3cc9;--kira-s:rgba(179,136,255,.16);--blue:#b388ff;
   --sans:"Space Grotesk","Inter Tight",Helvetica,Arial,sans-serif;--mono:"JetBrains Mono","IBM Plex Mono",ui-monospace,monospace;--px:"Silkscreen","JetBrains Mono",monospace}
 html,body{background:var(--bg)}
 body{font-weight:400}
 ::selection{background:var(--kira);color:#0b0710}
 .atmos{background:
-  radial-gradient(70% 55% at 50% 38%,rgba(255,79,139,.10),transparent 70%),
+  radial-gradient(70% 55% at 50% 38%,rgba(179,136,255,.10),transparent 70%),
   linear-gradient(rgba(247,239,230,.035) 1px,transparent 1px) 0 0/28px 28px,
   linear-gradient(90deg,rgba(247,239,230,.035) 1px,transparent 1px) 0 0/28px 28px!important}
 .atmos::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px);opacity:.5}
@@ -314,23 +314,31 @@ body{font-weight:400}
 .nav-x{display:grid;place-items:center;width:46px;height:46px;border:2px solid var(--fg);background:rgba(11,7,16,.6);color:var(--fg);box-shadow:3px 3px 0 var(--kira)}.nav-x:hover{background:var(--kira);color:#0b0710}
 .kfoot .kx{display:inline-flex;align-items:center;gap:8px}.kfoot .kx:hover{color:var(--kira)}
 
-.kca{display:flex;align-items:center;gap:10px;margin-top:16px;max-width:100%;padding:10px 12px;border:2px solid var(--fg);background:rgba(11,7,16,.78);color:var(--fg);font-family:var(--mono);font-size:12.5px;text-align:left;cursor:pointer;box-shadow:4px 4px 0 var(--kira);transition:transform .15s,box-shadow .15s}
-.kca:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--kira)}
-.kca b{font-family:"Archivo Black",sans-serif;font-weight:400;font-size:14px;color:var(--kira);white-space:nowrap}
-.kca-l{color:var(--mute);letter-spacing:.12em}
-.kca code{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--mono)}
-.kca-c{flex:none;background:var(--kira);color:#0b0710;font-weight:600;padding:5px 9px;text-transform:uppercase;letter-spacing:.08em;font-size:11px}
-.kca.ok .kca-c{background:#5dffa8}
-.kca-m{margin:0;box-shadow:none;border-color:var(--faint)}
-.kca-f{background:none;border:0;color:var(--fg);font:inherit;letter-spacing:.02em;text-transform:none;cursor:pointer;overflow-wrap:anywhere;text-align:left;padding:0}
-.kca-f:hover{color:var(--kira)}
-@media (max-width:560px){.kca{font-size:11px;gap:8px}.kca-l{display:none}}
+
+/* hero photo: the black cat */
+.catbg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:calc(var(--dim,1));transition:opacity .4s}
+.catbg img{position:absolute;right:max(4vw,calc(50vw - 640px));top:50%;height:min(100vh,820px);width:auto;aspect-ratio:1;transform:translateY(-50%);
+  -webkit-mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);
+  animation:catin 1.6s cubic-bezier(.2,.7,.2,1) both,catbreath 9s ease-in-out 1.6s infinite;filter:saturate(1.05)}
+.catbg .eye{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(205,160,255,.55),rgba(179,136,255,0) 70%);mix-blend-mode:screen;animation:eyeglow 4.5s ease-in-out infinite}
+@keyframes catin{from{opacity:0;transform:translateY(-50%) scale(1.06)}to{opacity:1;transform:translateY(-50%) scale(1)}}
+@keyframes catbreath{0%,100%{transform:translateY(-50%) scale(1)}50%{transform:translateY(-50%) scale(1.025)}}
+@keyframes eyeglow{0%,100%{opacity:.35}50%{opacity:1}}
+@media (max-width:900px){
+  .catbg img{right:50%;top:0;height:auto;width:min(100vw,520px);transform:translateX(50%);
+    -webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent 98%);mask-image:linear-gradient(to bottom,#000 55%,transparent 98%);
+    animation:catinm 1.6s cubic-bezier(.2,.7,.2,1) both,catbreathm 9s ease-in-out 1.6s infinite}
+  @keyframes catinm{from{opacity:0;transform:translateX(50%) scale(1.06)}to{opacity:1;transform:translateX(50%) scale(1)}}
+  @keyframes catbreathm{0%,100%{transform:translateX(50%) scale(1)}50%{transform:translateX(50%) scale(1.025)}}
+}
+@media (prefers-reduced-motion:reduce){.catbg img,.catbg .eye{animation:none}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-<canvas id="scene" aria-hidden="true"></canvas>
+<canvas id="scene" aria-hidden="true" hidden></canvas>
 <div class="atmos" aria-hidden="true"></div>
+<div class="catbg" aria-hidden="true"><img src="cat.jpg" alt="" width="736" height="736" decoding="async" fetchpriority="high"><i class="eye e1"></i><i class="eye e2"></i></div>
 <div class="grain" aria-hidden="true"></div>
 <canvas id="navfx" aria-hidden="true"></canvas>
 <div class="cursor" aria-hidden="true"></div>
@@ -357,7 +365,6 @@ body{font-weight:400}
     <a href="studio.html#plugins"><span class="kt"><b>Plugins</b><small>Every plugin and its manifest</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
     <a href="studio.html#docs-overview"><span class="kt"><b>Docs</b><small>Guides, architecture and reference</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
   </div>
-  <button type="button" class="kca kca-m" data-ca="0x5e8c86c76058a646a2acfcedd358f117992fca69" aria-label="Copy contract address"><b>$KIRAOS</b><code>0x5e8c…ca69</code><span class="kca-c">Copy CA</span></button>
   <div class="kfoot"><a href="legal.html">Terms &amp; Privacy</a><a href="https://x.com/getkiraos" target="_blank" rel="noopener" class="kx"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg>@getkiraos</a></div>
 </nav>
 
@@ -376,9 +383,6 @@ body{font-weight:400}
           <a class="cta cta-blue" href="studio.html"><span>Open Studio</span><i></i></a>
           <a class="cta" href="studio.html#docs-overview"><span>Docs</span><i></i></a>
         </div>
-        <button type="button" class="kca" data-ca="0x5e8c86c76058a646a2acfcedd358f117992fca69" aria-label="Copy contract address">
-          <b>$KIRAOS</b><span class="kca-l">CA</span><code>0x5e8c86c76058a646a2acfcedd358f117992fca69</code><span class="kca-c">Copy</span>
-        </button>
       </div>
     </div>
   </section>
@@ -424,7 +428,6 @@ body{font-weight:400}
   <footer class="hfoot">
     <span>© <span id="yr">2026</span> KIRA OS</span>
     <nav><a href="studio.html">Studio</a><a href="studio.html#plugins">Plugins</a><a href="studio.html#docs-overview">Docs</a><a href="legal.html">Terms &amp; Privacy</a><a href="https://x.com/getkiraos" target="_blank" rel="noopener">X @getkiraos</a></nav>
-    <p>$KIRAOS CA: <button type="button" class="kca-f" data-ca="0x5e8c86c76058a646a2acfcedd358f117992fca69">0x5e8c86c76058a646a2acfcedd358f117992fca69</button></p>
     <p>AI answers can be wrong. Nothing here is financial advice.</p>
   </footer>
 </main>
@@ -721,7 +724,7 @@ const Engine = (() => {
     cv = canvas; ctx = cv.getContext('2d', { alpha: true });
     sprite = document.createElement('canvas'); sprite.width = sprite.height = 64;
     const g = sprite.getContext('2d'), rg = g.createRadialGradient(32,32,0,32,32,32);
-    rg.addColorStop(0,'rgba(255,190,214,1)'); rg.addColorStop(.25,'rgba(255,79,139,.38)'); rg.addColorStop(1,'rgba(255,255,255,0)');
+    rg.addColorStop(0,'rgba(214,190,255,1)'); rg.addColorStop(.25,'rgba(179,136,255,.38)'); rg.addColorStop(1,'rgba(255,255,255,0)');
     g.fillStyle = rg; g.fillRect(0,0,64,64);
     resize();
   }
@@ -801,7 +804,7 @@ const Engine = (() => {
     ctx.globalCompositeOperation = 'lighter';
     // atmospheric bloom behind the form
     const hz = ctx.createRadialGradient(view.cx, view.cy, 0, view.cx, view.cy, view.U*2.8);
-    hz.addColorStop(0, 'rgba(255,79,139,.10)'); hz.addColorStop(.5, 'rgba(255,255,255,.03)'); hz.addColorStop(1, 'rgba(0,0,0,0)');
+    hz.addColorStop(0, 'rgba(179,136,255,.10)'); hz.addColorStop(.5, 'rgba(255,255,255,.03)'); hz.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.globalAlpha = gA; ctx.fillStyle = hz; ctx.fillRect(0, 0, W, H);
     const f = view.f, A = shapes[view.a], B = shapes[view.a+1];
     drawLinks(A, 1 - sstep(0, .55, f), gA); drawLinks(B, sstep(.55, 1, f), gA);
@@ -813,7 +816,7 @@ const Engine = (() => {
       ctx.globalAlpha = Math.min(1, a*.15 + glow[i]*.25); ctx.drawImage(sprite, x - s/2, y - s/2, s, s); }
     // crisp cores: white then silver
     for (let pass = 0; pass < 2; pass++){
-      ctx.fillStyle = pass ? '#ff5c94' : '#fff4f8';
+      ctx.fillStyle = pass ? '#9b6cff' : '#f6f0ff';
       for (let i = 0; i < active; i++){ if (tint[i] !== pass) continue;
         let a = al[i]*gA + glow[i]*.7; if (a < .02) continue; if (a > 1) a = 1;
         const x = sx[i], y = sy[i]; if (x < -4 || y < -4 || x > W+4 || y > H+4) continue;
@@ -1023,6 +1026,7 @@ const Home = (() => {
 
 const listeners = [];
 const add = (el, ev, fn, opt = { passive: true }) => { el.addEventListener(ev, fn, opt); listeners.push([el, ev, fn, opt]); };
+const PHOTO = true; // hero shows the cat photo instead of particles
 let raf = 0, running = false, last = 0, t = 0, intro = 0, perfT = 0, perfFrames = 0, perfAcc = 0, downgrades = 0;
 function frame(now){
   raf = requestAnimationFrame(frame);
@@ -1032,8 +1036,8 @@ function frame(now){
   updatePointer(t, ds);
   const y = scrollY, d = y - lastY; if (d) NavFX.onScroll(y, d); lastY = y;
   Scroll.update(ds);
-  Engine.step(t, ds, Scroll.s, Pointer, Cam, kRamp, Energy.v);
-  Engine.render(intro*(1 - Scroll.dim));
+  if (!PHOTO){ Engine.step(t, ds, Scroll.s, Pointer, Cam, kRamp, Energy.v); Engine.render(intro*(1 - Scroll.dim)); }
+  else { const cb = $('.catbg'); if (cb) cb.style.setProperty('--dim', (1 - .55*Scroll.dim).toFixed(3)); }
   NavFX.draw(now); UI.update();
   if (t > 2 && downgrades < 3){ perfFrames++; perfAcc += dt;
     if (now - perfT > 2000){ const avg = perfAcc/perfFrames; if (avg > 22){ Engine.active = Engine.active*.75; downgrades++; } perfT = now; perfFrames = 0; perfAcc = 0; } }
@@ -1058,16 +1062,15 @@ function boot(){
 boot();
 })();
 
-/* copy contract address */
+
+/* keep the eye glow on the photo's eyes */
 (() => {
-  const copy = async t => { try { await navigator.clipboard.writeText(t); return true; } catch { const a = document.createElement('textarea'); a.value = t; a.setAttribute('readonly', ''); a.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(a); a.select(); let ok = false; try { ok = document.execCommand('copy'); } catch {} a.remove(); return ok; } };
-  document.addEventListener('click', async e => {
-    const b = e.target.closest('[data-ca]'); if (!b) return;
-    const ok = await copy(b.dataset.ca);
-    const lab = b.querySelector('.kca-c') || b, old = lab.dataset.old || lab.textContent; lab.dataset.old = old;
-    lab.textContent = ok ? 'Copied!' : 'Copy failed'; b.classList.toggle('ok', ok);
-    clearTimeout(b._t); b._t = setTimeout(() => { lab.textContent = old; b.classList.remove('ok'); }, 1600);
-  });
+  const box = document.querySelector('.catbg'); if (!box) return;
+  const img = box.querySelector('img'), E = [[.348, .45, .12], [.596, .52, .12]]; // eye centre x,y and size, as parts of the photo
+  const place = () => { const r = img.getBoundingClientRect(), b = box.getBoundingClientRect();
+    box.querySelectorAll('.eye').forEach((el, i) => { const [x, y, w] = E[i], s = r.width*w;
+      el.style.cssText = `width:${s}px;height:${s}px;left:${r.left - b.left + r.width*x - s/2}px;top:${r.top - b.top + r.height*y - s/2}px`; }); };
+  addEventListener('resize', place, { passive: true }); img.complete ? place() : img.addEventListener('load', place); setTimeout(place, 1700); setTimeout(place, 3500);
 })();
 </script>
 </body>

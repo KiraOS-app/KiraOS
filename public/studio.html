@@ -29,7 +29,7 @@
    PICTURE: the working app itself; woven-thread avatars; a live runtime inspector with event log.
    COLOUR and TYPE: stone ground, black ink, brick accent, white panels; Schibsted Grotesk.
    LAYOUT: agents | chat | setup on wide screens; one pane with tabs on phones. */
-:root{color-scheme:dark;--bg:#0b0710;--ink:#f7efe6;--mute:#9a8f98;--panel:#120c18;--line:#2a2130;--brick:#ff4f8b;--brick2:#ff4f8b;--soft:#1a1220;--ok:#8fd6a3}
+:root{color-scheme:dark;--bg:#0b0710;--ink:#f7efe6;--mute:#9a8f98;--panel:#120c18;--line:#2a2130;--brick:#b388ff;--brick2:#b388ff;--soft:#1a1220;--ok:#8fd6a3}
 *{box-sizing:border-box;min-width:0}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Inter Tight",system-ui,sans-serif;overflow:hidden}
@@ -244,27 +244,27 @@ body[data-view=plugins] #vplugins,body[data-view=docs] #vdocs{display:block}
 .avrow{display:flex;align-items:center;gap:14px;margin-bottom:16px}
 
 /* KIRA identity layer */
-.xlink{margin-left:auto;display:grid;place-items:center;width:36px;height:36px;border-radius:99px;border:1px solid var(--line);color:var(--ink);flex:none}.xlink:hover{border-color:#ff4f8b;color:#ff4f8b}.xlink+.acct{margin-left:0}
+.xlink{margin-left:auto;display:grid;place-items:center;width:36px;height:36px;border-radius:99px;border:1px solid var(--line);color:var(--ink);flex:none}.xlink:hover{border-color:#b388ff;color:#b388ff}.xlink+.acct{margin-left:0}
 .bk{margin:14px 12px 0;padding:12px;border:2px dashed var(--line)}
 .bk p{margin:0 0 10px;font-size:13px;color:var(--mute);line-height:1.5}
 .bk .row{display:flex;flex-wrap:wrap;gap:6px}
 .bk .err{display:block;margin-top:8px;font-size:12.5px;color:var(--ok)}
 .lsrch{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:10px;padding:10px 0;margin:6px 0 14px;background:var(--bg)}
 .lsrch .inp{flex:1;margin:0;border:2px solid var(--line);border-radius:0;font-size:16px}
-.lsrch .inp:focus{border-color:#ff4f8b;outline:0}
+.lsrch .inp:focus{border-color:#b388ff;outline:0}
 .lsrch span{font-size:13px;color:var(--mute);white-space:nowrap}
 .lhit{display:block;padding:14px 16px;margin-bottom:8px;border:2px solid var(--line);text-decoration:none;color:var(--ink)}
-.lhit:hover{border-color:#ff4f8b}
+.lhit:hover{border-color:#b388ff}
 .lhit b{display:block;font-size:17px;color:var(--ink)}
-.lhit small{display:block;font-family:"JetBrains Mono",monospace;font-size:12px;color:#ff4f8b;margin:2px 0 6px}
+.lhit small{display:block;font-family:"JetBrains Mono",monospace;font-size:12px;color:#b388ff;margin:2px 0 6px}
 .lhit span{display:block;font-size:14px;color:var(--mute);line-height:1.5}
-.lhit mark{background:rgba(255,79,139,.25);color:var(--ink);padding:0 2px}
-.btn.pri{background:#ff4f8b;border-color:#ff4f8b;color:#0b0710}
-.btn.pri:hover{background:#ff6c9f;border-color:#ff6c9f}
+.lhit mark{background:rgba(179,136,255,.25);color:var(--ink);padding:0 2px}
+.btn.pri{background:#b388ff;border-color:#b388ff;color:#0b0710}
+.btn.pri:hover{background:#c7a6ff;border-color:#c7a6ff}
 body{font-family:"Space Grotesk","Inter Tight",system-ui,sans-serif}
 code,.mono{font-family:"JetBrains Mono","IBM Plex Mono",ui-monospace,monospace}
-::selection{background:#ff4f8b;color:#0b0710}
-.wm-os path{fill:#ff4f8b}
+::selection{background:#b388ff;color:#0b0710}
+.wm-os path{fill:#b388ff}
 .top{border-bottom:2px solid var(--line)}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -948,7 +948,7 @@ $('#bkfile').addEventListener('change',async e=>{const f=e.target.files[0];e.tar
   let n=0;o.agents.forEach(x=>{if(x&&typeof x==='object'&&typeof x.name==='string'){S.agents.push(migrate({...mk({}),...x,id:uid(),chat:[]}));n++}});
   let cn=0;(o.custom||[]).forEach(d=>{try{compileCustom(d);if(!(S.custom||[]).some(c=>c.name===d.name)){S.custom.push(d);cn++}}catch(err){}});
   save();RT={};renderAll();boot(A());m.style.color='';m.textContent='Restored '+n+' agents'+(cn?' and '+cn+' plugins':'')+'.'}
- catch(err){m.style.color='#ff8fb3';m.textContent=err.message||'Could not read that file'}});
+ catch(err){m.style.color='#d4b8ff';m.textContent=err.message||'Could not read that file'}});
 
 /* ============ ACCOUNTS: X · wallet · email (server: /api/auth/*, /api/data) ============ */
 const Account=(()=>{
