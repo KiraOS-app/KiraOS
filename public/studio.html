@@ -3,26 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KIRA OS Studio</title>
-<meta name="description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
+<title>BLACKCAT Studio</title>
+<meta name="description" content="BLACKCAT is an AI agent framework you run in the browser: characters, plugins, memory and docs in one place.">
 <link rel="canonical" href="https://www.getkira.xyz/studio.html">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="KIRA OS">
-<meta property="og:title" content="KIRA OS Studio">
-<meta property="og:description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
+<meta property="og:site_name" content="BLACKCAT">
+<meta property="og:title" content="BLACKCAT Studio">
+<meta property="og:description" content="BLACKCAT is an AI agent framework you run in the browser: characters, plugins, memory and docs in one place.">
 <meta property="og:url" content="https://www.getkira.xyz/studio.html">
 <meta property="og:image" content="https://www.getkira.xyz/og.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@getkiraos">
-<meta name="twitter:title" content="KIRA OS Studio">
-<meta name="twitter:description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
+<meta name="twitter:title" content="BLACKCAT Studio">
+<meta name="twitter:description" content="BLACKCAT is an AI agent framework you run in the browser: characters, plugins, memory and docs in one place.">
 <meta name="twitter:image" content="https://www.getkira.xyz/og.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* VOICE: a working agent runtime — calm, exact, ready to use.
    IDEA: a weaving loom: each agent is woven from plugins (actions, providers, evaluators, services).
@@ -266,19 +266,29 @@ code,.mono{font-family:"JetBrains Mono","IBM Plex Mono",ui-monospace,monospace}
 ::selection{background:#b388ff;color:#0b0710}
 .wm-os path{fill:#b388ff}
 .top{border-bottom:2px solid var(--line)}
+
+/* BLACKCAT type: Syne for display, Manrope for text, JetBrains Mono for code */
+:root{--serif:"Syne",system-ui,sans-serif;--sans:"Manrope",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;--px:"Syne",sans-serif}
+body,button,input,textarea,select{font-family:"Manrope",system-ui,sans-serif}
+h1,h2,h3,.headline,.v3-h1,.v3-h2,.tpl b,.kme b,.klist b{font-family:"Syne",system-ui,sans-serif!important;letter-spacing:-.02em}
+.v3-h1,.v3-h2{font-weight:700;font-style:normal}
+.v3-h1 em,.v3-h2 em{font-style:normal}
+code,pre,kbd,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.wm-bc{font-family:"Syne",system-ui,sans-serif;font-weight:800;letter-spacing:-.01em;line-height:1;color:var(--fg,#f7efe6)}
+.wm-bc::after{content:"";display:inline-block;width:.22em;height:.22em;margin-left:.08em;border-radius:50%;background:#b388ff;vertical-align:.12em}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body data-pane="chat" data-view="studio">
 <header class="top">
  <button class="menu" id="menu" aria-label="Menu" aria-expanded="false">☰</button>
- <a class="brand" href="index.html" style="color:inherit;text-decoration:none" aria-label="KIRA OS home"><span class="wm"><span class="wm-a" style="font-size:28px">KIRA</span><svg class="wm-os" viewBox="0 0 15 7" height="20" width="43" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#f1f1ef" d="M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM5 1h1v1h-1zM6 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM13 3h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1z"/></svg></span></a>
+ <a class="brand" href="index.html" style="color:inherit;text-decoration:none" aria-label="BLACKCAT home"><span class="wm"><span class="wm-bc" style="font-size:19.599999999999998px">BLACKCAT</span></span></a>
  <nav class="nav" id="nav"><button data-v="studio" class="on">Studio</button><button data-v="plugins">Plugins</button><button data-v="docs">Docs</button><a class="navlink" href="index.html">← Site</a></nav>
- <a class="xlink" href="https://x.com/getkiraos" target="_blank" rel="noopener" aria-label="KIRA OS on X" title="@getkiraos on X"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg></a>
+ <a class="xlink" href="https://x.com/getkiraos" target="_blank" rel="noopener" aria-label="BLACKCAT on X" title="@getkiraos on X"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg></a>
  <button class="acct" id="acct" hidden>Sign in</button>
  <span class="pill" id="status"><b></b>Connecting…</span>
 </header>
-<div class="drop" id="drop"><button data-v="studio" class="on">Studio<span>Agents, chat and setup</span></button><button data-v="plugins">Plugins<span>Every plugin and its manifest</span></button><button data-v="docs">Docs<span>Plugin architecture guide</span></button><a class="dlink" href="index.html">← Home<span>KIRA OS home page</span></a></div>
+<div class="drop" id="drop"><button data-v="studio" class="on">Studio<span>Agents, chat and setup</span></button><button data-v="plugins">Plugins<span>Every plugin and its manifest</span></button><button data-v="docs">Docs<span>Plugin architecture guide</span></button><a class="dlink" href="index.html">← Home<span>BLACKCAT home page</span></a></div>
 <div class="view" id="vplugins"></div>
 <div class="view" id="vdocs"></div>
 <nav class="tabs" id="tabs"><button data-p="list">Agents</button><button data-p="chat" class="on">Chat</button><button data-p="cfg">Setup</button></nav>
@@ -304,7 +314,7 @@ code,.mono{font-family:"JetBrains Mono","IBM Plex Mono",ui-monospace,monospace}
 <div class="amodal" id="amodal" hidden>
  <div class="abg" data-aclose></div>
  <div class="apanel" role="dialog" aria-modal="true" aria-labelledby="atitle">
-  <div class="ahead"><h2 id="atitle">Sign in to KIRA OS</h2><button class="x" data-aclose aria-label="Close">×</button></div>
+  <div class="ahead"><h2 id="atitle">Sign in to BLACKCAT</h2><button class="x" data-aclose aria-label="Close">×</button></div>
   <p class="note n0">Your agents are saved to your account and follow you to every device.</p>
   <div id="abody"></div>
  </div>
@@ -318,7 +328,7 @@ const uid=()=>Math.random().toString(36).slice(2,10);
 const clock=()=>new Date().toTimeString().slice(0,8);
 let sample=null;
 
-/* ============ RUNTIME (KIRA OS plugin architecture) ============ */
+/* ============ RUNTIME (BLACKCAT plugin architecture) ============ */
 const EVENTS=['WORLD_JOINED','WORLD_CONNECTED','WORLD_LEFT','ENTITY_JOINED','ENTITY_LEFT','ENTITY_UPDATED','ROOM_JOINED','ROOM_LEFT','MESSAGE_RECEIVED','MESSAGE_SENT','MESSAGE_DELETED','VOICE_MESSAGE_RECEIVED','VOICE_MESSAGE_SENT','RUN_STARTED','RUN_ENDED','RUN_TIMEOUT','ACTION_STARTED','ACTION_COMPLETED','EVALUATOR_STARTED','EVALUATOR_COMPLETED','MODEL_USED'];
 const TIER_MODEL={quick:'TEXT_SMALL',default:'TEXT_LARGE',complex:'TEXT_REASONING'};
 class Runtime{
@@ -597,7 +607,7 @@ function renderPlugins(){
 }
 /* ---- docs site ---- */
 const NAV=[
- ['Getting started',[['overview','Overview'],['installation','Installation'],['quickstart','Quickstart'],['build','What you can build']]],
+ ['Getting started',[['overview','Introduction'],['framework','Framework'],['installation','Installation'],['quickstart','Quickstart'],['build','What you can build']]],
  ['Guides',[['agent-config','Agent configuration'],['development','Development'],['deployment','Deployment']]],
  ['Projects',[['projects','Overview'],['env','Environment variables']]],
  ['Agents',[['character','Character interface'],['personality','Personality and behavior'],['memory-state','Memory and state'],['lifecycle','Runtime and lifecycle']]],
@@ -616,17 +626,35 @@ const TEMPLATES={
  assistant:{name:'Jhoe',avatar:'data:image/jpeg;base64,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',role:'Task assistant',bio:'Tracks tasks and reminders for you or your team.',traits:'organised, brief',style:'Confirm every task you create. Keep lists short.',plugins:['store','bootstrap','claude-models','memory']}
 };
 const code=s=>`<pre>${esc(s)}</pre>`;
-const live=s=>`<div class="live"><b>Live in KIRA OS</b> · ${s}</div>`;
+const live=s=>`<div class="live"><b>Live in BLACKCAT</b> · ${s}</div>`;
 const go=(k,t)=>`<a href="#docs-${k}" data-doc="${k}">${esc(t)}</a>`;
 const tbl=(head,rows)=>`<table class="stack"><thead><tr>${head.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,i)=>`<td data-l="${esc(head[i])}">${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
 function envRows(){const c=catalog(),rows=[['AUTO_REFLECT','memory','true','Turn the REFLECTION evaluator on or off'],['KNOWLEDGE_MAX_PASSAGES','knowledge','3','Passages the KNOWLEDGE provider adds to state']];
  Object.values(c).forEach(p=>{if(p.autoEnable)rows.push([p.autoEnable,p.name,'""','Presence auto-enables the plugin (draft mode here)']);if(p.custom)Object.entries(p.config||{}).forEach(([k,v])=>rows.push([k,p.name,String(v),'Custom plugin config']))});return rows}
 const PAGES={
- overview:(a,rt)=>`<div style="margin-bottom:18px">${LOGO(96)}</div><h1>Overview</h1><p class="lede">KIRA OS is a browser runtime for AI agents, built on a modular plugin architecture. You build an agent from a character and a set of plugins, then chat with it here.</p>
- <div class="grid" style="margin-top:20px">${[['quickstart','Quickstart','Talk to an agent in under a minute.'],['build','What you can build','Ready-made agents to start from.'],['architecture','Plugin architecture','How plugins are loaded and run.'],['character','Character interface','The fields that define an agent.']].map(([k,t,d])=>`<a class="pc" href="#docs-${k}" data-doc="${k}" style="text-decoration:none;color:inherit"><h3>${t}</h3><p style="margin:6px 0 0;color:var(--mute);font-size:14px">${d}</p></a>`).join('')}</div>
- <h3 style="margin-top:28px">Three parts of the app</h3><ul><li><b>Studio</b>: your agents, the chat and the Setup panel (character, plugins, knowledge, memory, tasks, outbox, runtime inspector).</li><li><b>Plugins</b>: every plugin's manifest on one page.</li><li><b>Docs</b>: this guide.</li></ul>
+ overview:(a,rt)=>`<div style="margin-bottom:18px">${LOGO(96)}</div><h1>Introduction</h1><p class="lede">BLACKCAT is an AI agent framework that runs in your browser. You describe an agent with a character, give it abilities with plugins, and talk to it right away. There is nothing to install.</p>
+ <p>Every BLACKCAT agent is made of the same parts: a <b>character</b> that sets its voice, <b>plugins</b> that add what it can do and know, a <b>runtime</b> that runs each message through those plugins, and a <b>model</b> that writes the reply. You can watch every step in the Studio, so nothing happens out of sight.</p>
+ <div class="grid" style="margin-top:20px">${[['framework','The framework','The parts of BLACKCAT and how they fit.'],['quickstart','Quickstart','Talk to an agent in under a minute.'],['build','What you can build','Akira, Revv, Leon and Jhoe to start from.'],['character','Character interface','The fields that define an agent.']].map(([k,t,d])=>`<a class="pc" href="#docs-${k}" data-doc="${k}" style="text-decoration:none;color:inherit"><h3>${t}</h3><p style="margin:6px 0 0;color:var(--mute);font-size:14px">${d}</p></a>`).join('')}</div>
+ <h3 style="margin-top:28px">Three parts of the app</h3><ul><li><b>Studio</b>: your agents, the chat and the Setup panel (character, plugins, knowledge, memory, tasks, outbox, runtime inspector).</li><li><b>Plugins</b>: every plugin's manifest on one page.</li><li><b>Docs</b>: this guide, plus the full reference in Docs for LLMs.</li></ul>
  ${live(`you have ${S.agents.length} agents and ${(S.custom||[]).length} custom plugins. The open agent, ${esc(a.name)}, loads ${rt.plugins.length} plugins.`)}`,
- installation:()=>`<h1>Installation</h1><p class="lede">KIRA OS ships with the website. If the site is running, the Studio is too.</p>
+ framework:(a,rt)=>`<h1>Framework</h1><p class="lede">BLACKCAT is built in layers. Each message goes in at the top, passes through the runtime and its plugins, and comes back out as a reply and a set of actions.</p>
+ <h3>The layers</h3><ol>
+ <li><b>Character</b>: name, role, bio, traits and style rules. This is who the agent is.</li>
+ <li><b>Runtime</b>: one per agent. It loads plugins in order, runs the message flow and keeps the agent's state.</li>
+ <li><b>Plugins</b>: the building blocks. A plugin can add any of the parts below, and can depend on other plugins.</li>
+ <li><b>Model</b>: writes the reply. Pick SMALL, LARGE or REASONING per agent.</li>
+ <li><b>Memory and knowledge</b>: facts the agent learned about you, and documents it can search.</li></ol>
+ <h3>What a plugin can add</h3><ul>
+ <li><b>Actions</b>: things the agent can do, like save a fact, create a task or do exact math. The model picks which one to run.</li>
+ <li><b>Providers</b>: context the agent reads before it answers, like the time, known facts or matching passages from your documents.</li>
+ <li><b>Evaluators</b>: checks that run after a reply, like the reflection evaluator that saves new facts to memory.</li>
+ <li><b>Services</b>: long-running helpers, like the task service that tracks reminders.</li>
+ <li><b>Routes and events</b>: small endpoints, and hooks for each step of the message flow.</li>
+ <li><b>Models</b>: handlers for the SMALL, LARGE and REASONING model types.</li></ul>
+ <h3>The message flow</h3><ol><li>A message arrives and the <code>MESSAGE_RECEIVED</code> event fires.</li><li>Providers add context.</li><li>The model writes a reply and may choose actions.</li><li>Actions run, and their results go back to the model.</li><li>Evaluators look at the exchange and update memory.</li></ol>
+ <p>Read more in ${go('architecture','Plugin architecture')}, ${go('components','Components')} and ${go('core-concepts','Core concepts')}.</p>
+ ${live(`${esc(a.name)} runs ${rt.plugins.length} plugins with ${rt.actions.length} actions, ${rt.providers.length} providers and ${rt.evaluators.length} evaluators.`)}`,
+ installation:()=>`<h1>Installation</h1><p class="lede">BLACKCAT ships with the website. If the site is running, the Studio is too.</p>
  <ol><li>Open <code>/studio.html</code> on the site, or pick <b>Agent Studio</b> from the site menu.</li><li>Send your first message. Replies come from the site's <code>/api/studio</code> endpoint.</li><li>Your agents, plugins and chats are kept in this browser.</li></ol>
  <h3>Server requirements</h3><ul><li><code>ANTHROPIC_API_KEY</code> set on the host (the same key the website chat and X bot use).</li><li>Optional: <code>STUDIO_MODEL</code> and <code>STUDIO_MODEL_REASONING</code> for the LARGE and REASONING model types, <code>STUDIO_PER_MINUTE</code> and <code>STUDIO_PER_DAY</code> for rate limits, <code>STUDIO_DISABLED=1</code> to switch it off.</li></ul>
  <p>If replies say the AI is not switched on, the host is missing <code>ANTHROPIC_API_KEY</code>.</p>`,
@@ -645,19 +673,19 @@ const PAGES={
  <p>Full manifest format: ${go('plugin-dev','Plugins → Development')}.</p>`,
  deployment:()=>`<h1>Deployment</h1><p class="lede">The Studio deploys with the website: Vercel serves <code>public/studio.html</code> and runs <code>api/studio.js</code>.</p>
  <h3>Costs and limits</h3><p>Every Studio message calls Claude on the site's API key, so it costs money. The endpoint is rate-limited per visitor (default 20 calls a minute, 300 a day) and capped at 1,024 output tokens per call. Tighten the limits or set <code>STUDIO_DISABLED=1</code> if usage grows.</p>
- <h3>Taking an agent elsewhere</h3><p>Use <b>Copy character.json</b> in Character to export a KIRA OS character file, or copy the whole project from ${go('projects','Projects')}.</p>
+ <h3>Taking an agent elsewhere</h3><p>Use <b>Copy character.json</b> in Character to export a BLACKCAT character file, or copy the whole project from ${go('projects','Projects')}.</p>
  <h3>What stays in the browser</h3><ul><li>Agents and chats live in each visitor's browser; nobody sees anyone else's.</li><li>Routes run in the page, and the X, Discord and Telegram plugins only draft posts. The live X bot is the separate service in <code>bot/</code>.</li></ul>`,
  projects:()=>`<h1>Projects</h1><p class="lede">A project is your whole workspace: every agent plus your custom plugins.</p>
  ${live(`${S.agents.length} agents · ${(S.custom||[]).length} custom plugins · ${S.agents.reduce((n,x)=>n+x.knowledge.length,0)} knowledge docs.`)}
  <h3>Export</h3><p>Copies the project as JSON: agents (without chat history) and custom plugins.</p><p><button class="btn pri" id="pcopy">Copy project JSON</button></p>
  <h3>Import</h3><p>Adds the agents and plugins from a project JSON to this one. Nothing existing is replaced.</p><textarea class="code" id="pimp" style="min-height:120px" placeholder='{"agents":[…],"custom":[…]}'></textarea><p class="row"><button class="btn" id="pimpb">Import project</button><span class="err" id="pimpm"></span></p>`,
- env:()=>`<h1>Environment variables</h1><p class="lede">KIRA OS has no server environment, so settings live on each agent and are read with <code>runtime.getSetting()</code>.</p>
+ env:()=>`<h1>Environment variables</h1><p class="lede">BLACKCAT has no server environment, so settings live on each agent and are read with <code>runtime.getSetting()</code>.</p>
  <p>Character settings win; otherwise the plugin's <code>config</code> default is used. Edit them in Setup → Character, one <code>KEY=value</code> per line.</p>
  ${tbl(['Key','Plugin','Default','Effect'],envRows().map(([k,p,d,e])=>[`<code>${esc(k)}</code>`,esc(p),`<code>${esc(d)}</code>`,esc(e)]))}
  <p class="note n0" style="margin-top:10px">Never paste real API keys: this page can't use them, and settings are stored with your agent.</p>`,
- character:(a)=>`<h1>Character interface</h1><p class="lede">A character is the JSON that defines an agent. KIRA OS exports and imports it as character.json.</p>
+ character:(a)=>`<h1>Character interface</h1><p class="lede">A character is the JSON that defines an agent. BLACKCAT exports and imports it as character.json.</p>
  ${code(JSON.stringify({name:a.name,bio:[a.bio],system:a.role,adjectives:a.traits.split(',').map(s=>s.trim()).filter(Boolean),style:{all:a.style.split(/\.\s+/).filter(Boolean)},plugins:a.plugins,settings:a.settings,knowledge:a.knowledge.map(d=>({title:d.title,text:d.text.slice(0,60)+'…'}))},null,2))}
- ${tbl(['Key','Maps to in KIRA OS'],[['<code>name</code>','Name'],['<code>bio</code> (string or list)','Bio'],['<code>system</code>','Role'],['<code>adjectives</code>','Personality traits'],['<code>style.all</code> / <code>style.chat</code>','Style rules'],['<code>plugins</code>','Plugins (the @elizaos/plugin- prefix is dropped on import)'],['<code>settings</code>','Character settings'],['<code>knowledge</code>','Knowledge docs']])}
+ ${tbl(['Key','Maps to in BLACKCAT'],[['<code>name</code>','Name'],['<code>bio</code> (string or list)','Bio'],['<code>system</code>','Role'],['<code>adjectives</code>','Personality traits'],['<code>style.all</code> / <code>style.chat</code>','Style rules'],['<code>plugins</code>','Plugins (the @elizaos/plugin- prefix is dropped on import)'],['<code>settings</code>','Character settings'],['<code>knowledge</code>','Knowledge docs']])}
  ${live(`the example above is ${esc(a.name)}'s character.`)}`,
  personality:(a,rt)=>`<h1>Personality and behavior</h1><p class="lede">Behaviour comes from three layers that are combined on every message.</p>
  <ol><li><b>Character</b>: the CHARACTER provider writes name, role, bio, traits and style into state first (position −50).</li><li><b>Context</b>: other providers add time, facts, tasks and knowledge.</li><li><b>Instructions</b>: the runtime asks the model to stay in character, use actions when useful, reply in the user's language and never claim a draft was published.</li></ol>
@@ -686,31 +714,31 @@ const PAGES={
  <h3>Evaluators</h3><p>Run after the reply to extract and store information. <code>alwaysRun</code> bypasses validate; use it sparingly.</p>
  <h3>Services</h3><p>Singletons for stateful connections: <code>serviceType</code>, <code>capabilityDescription</code>, <code>start()</code>, <code>stop()</code>. Reached with <code>runtime.getService()</code>.</p>
  ${live(`${rt.actions.length} actions (${rt.actions.map(x=>esc(x.name)).join(', ')}), ${rt.providers.length} providers, ${rt.evaluators.length} evaluators, ${rt.services.size} services.`)}`,
- 'plugin-dev':()=>`<h1>Plugin development</h1><p class="lede">Custom plugins are JSON manifests. KIRA OS compiles them into real runtime components.</p>
+ 'plugin-dev':()=>`<h1>Plugin development</h1><p class="lede">Custom plugins are JSON manifests. BLACKCAT compiles them into real runtime components.</p>
  ${code(JSON.stringify(CUSTOM_TEMPLATE,null,2))}
  ${tbl(['Key','Rules'],[['<code>name</code>','2–40 chars, a–z 0–9 and -; can\'t reuse a built-in name'],['<code>actions[].name</code>','VERB_NOUN in capitals'],['<code>actions[].mode</code>','<code>template</code>: fills <code>{{input}}</code> and <code>{{SETTING}}</code>. <code>prompt</code>: sends the filled template to TEXT_SMALL'],['<code>providers[]</code>','<code>text</code> template, <code>position</code>, <code>dynamic</code>, <code>private</code>'],['<code>evaluators[]</code>','<code>alwaysRun</code>, optional <code>mode: "prompt"</code> with a template that receives the reply as <code>{{input}}</code>'],['<code>routes[]</code>','<code>type</code>, <code>path</code>, <code>public</code>, fixed <code>json</code> response'],['<code>events</code>','Event name → <code>"log"</code> or a note; logged when fired'],['<code>autoEnable</code>','Setting name that turns the plugin on automatically']])}
  <p>Create one in Studio → Setup → Plugins → <b>New custom plugin</b>.</p>`,
- patterns:()=>`<h1>Patterns</h1><p class="lede">Shapes that come up again and again, each used by a KIRA OS plugin.</p>
+ patterns:()=>`<h1>Patterns</h1><p class="lede">Shapes that come up again and again, each used by a BLACKCAT plugin.</p>
  ${tbl(['Pattern','How','Example'],[['Provider + action pair','Provider adds context automatically; action searches on demand','knowledge: KNOWLEDGE + SEARCH_KNOWLEDGE'],['Service-backed action','Action stays thin and calls a service','SEND_DISCORD_MESSAGE → outbox service'],['Learning loop','Evaluator extracts facts, provider feeds them back','memory: REFLECTION + FACTS'],['Gated platform plugin','autoEnable on a token setting; service degrades without it','x, discord, telegram'],['Validate as guard','Hide actions that can\'t work right now','COMPLETE_TASK only with open tasks'],['Foundation first','High priority for storage and core','store 200, bootstrap 100']])}`,
- routes:(a,rt)=>`<h1>Webhooks and routes</h1><p class="lede">Routes are HTTP endpoints a plugin exposes. In KIRA OS they run inside the page.</p>
+ routes:(a,rt)=>`<h1>Webhooks and routes</h1><p class="lede">Routes are HTTP endpoints a plugin exposes. In BLACKCAT they run inside the page.</p>
  ${tbl(['Field','Meaning'],[['<code>type</code>','GET, POST, PUT, PATCH, DELETE or STATIC'],['<code>path</code>','Mounted under /api/&lt;plugin&gt;'],['<code>filePath</code>','File for STATIC routes'],['<code>public</code>','Reachable without auth'],['<code>name</code>','Label'],['<code>handler(req, res, runtime)</code>','Async; answer with res.json()'],['<code>isMultipart</code>','Accepts uploads']])}
  <h3>Routes for ${esc(a.name)}</h3>${tbl(['Type','Path','Public'],rt.routes.map(r=>[esc(r.type),`<code>/api/${esc(r.plugin)}${esc(r.path)}</code>`,r.public?'yes':'no']))}
  <p>Call them from Setup → Runtime → Routes console. Incoming webhooks from outside services need a real server.</p>`,
  schema:(a,rt)=>`<h1>Database schema</h1><p class="lede">The <code>store</code> plugin is the database adapter. It keeps everything in this browser's storage.</p>
  ${tbl(['Table','Columns','Rows now'],Object.entries(P.store.schema).map(([t,c])=>[`<code>${t}</code>`,esc(c),{memories:a.memory.length+a.chat.length,tasks:a.tasks.length,entities:2,rooms:1,cache:rt.cache.size,logs:rt.logs.length}[t]??'–']))}
  <h3>Adapter methods</h3><div class="chips">${Object.keys(rt.adapter||{}).map(k=>`<i>${esc(k)}</i>`).join('')}</div>`,
- migration:()=>`<h1>Migration</h1><p class="lede">Moving agents into KIRA OS, or between KIRA OS versions.</p>
- <h3>From an KIRA OS character file</h3><p>Paste it into Setup → Character → Import character.json. <code>bio</code> lists are joined, <code>adjectives</code> become traits, <code>style.all</code> and <code>style.chat</code> become style rules, and plugin names lose their <code>@elizaos/plugin-</code> prefix; plugins KIRA OS doesn't have are skipped.</p>
- <h3>From older KIRA OS versions</h3><p>Agents saved before the plugin architecture used on/off switches. They are converted automatically: knowledge → <code>knowledge</code>, memory → <code>memory</code>, calc → <code>calculator</code>, social → <code>x</code>, <code>discord</code>, <code>telegram</code>.</p>
+ migration:()=>`<h1>Migration</h1><p class="lede">Moving agents into BLACKCAT, or between BLACKCAT versions.</p>
+ <h3>From an BLACKCAT character file</h3><p>Paste it into Setup → Character → Import character.json. <code>bio</code> lists are joined, <code>adjectives</code> become traits, <code>style.all</code> and <code>style.chat</code> become style rules, and plugin names lose their <code>@elizaos/plugin-</code> prefix; plugins BLACKCAT doesn't have are skipped.</p>
+ <h3>From older BLACKCAT versions</h3><p>Agents saved before the plugin architecture used on/off switches. They are converted automatically: knowledge → <code>knowledge</code>, memory → <code>memory</code>, calc → <code>calculator</code>, social → <code>x</code>, <code>discord</code>, <code>telegram</code>.</p>
  <h3>Between accounts</h3><p>Use Copy project JSON and Import project on ${go('projects','Projects')}.</p>`,
  reference:()=>{const c=catalog();return `<h1>Plugin reference</h1><p class="lede">All ${Object.keys(c).length} plugins. Full manifests are on the <a href="#plugins" data-v="plugins">Plugins</a> page.</p>
  ${tbl(['Plugin','Priority','Actions','Providers','Other'],Object.values(c).sort((x,y)=>(y.priority||0)-(x.priority||0)).map(p=>[`<b>${esc(p.name)}</b>`,p.priority||0,(p.actions||[]).map(x=>`<code>${esc(x.name)}</code>`).join(' ')||'–',(p.providers||[]).map(x=>`<code>${esc(x.name)}</code>`).join(' ')||'–',[p.evaluators&&p.evaluators.length?'evaluators':'',p.services&&p.services.length?'services':'',p.routes&&p.routes.length?'routes':'',p.models?'models':'',p.adapter?'adapter':''].filter(Boolean).join(', ')||'–']))}`},
- 'core-concepts':()=>`<h1>Core concepts</h1>${tbl(['Term','Meaning in KIRA OS'],[['Runtime','The engine for one agent: plugins, services, state, events'],['Agent','A character plus its plugins'],['World','Where the agent lives; here, the KIRA OS web app'],['Room','A conversation; each agent has one web chat room'],['Entity','A participant: you or the agent'],['Message','One turn, with content.text and a source'],['State','What providers composed for the current message'],['Memory','What persists: facts, messages, tasks'],['Action','A step the agent can take during a reply'],['Model type','TEXT_SMALL, TEXT_LARGE, TEXT_REASONING, OBJECT_SMALL']])}`,
+ 'core-concepts':()=>`<h1>Core concepts</h1>${tbl(['Term','Meaning in BLACKCAT'],[['Runtime','The engine for one agent: plugins, services, state, events'],['Agent','A character plus its plugins'],['World','Where the agent lives; here, the BLACKCAT web app'],['Room','A conversation; each agent has one web chat room'],['Entity','A participant: you or the agent'],['Message','One turn, with content.text and a source'],['State','What providers composed for the current message'],['Memory','What persists: facts, messages, tasks'],['Action','A step the agent can take during a reply'],['Model type','TEXT_SMALL, TEXT_LARGE, TEXT_REASONING, OBJECT_SMALL']])}`,
  communication:()=>`<h1>Communication</h1><p class="lede">How messages move in and out.</p>
  <h3>In</h3><p>You type in the web chat. The runtime emits MESSAGE_RECEIVED and builds state.</p>
  <h3>Out</h3><p>The reply streams back into the chat and MESSAGE_SENT fires. Posts for X, Discord and Telegram go to the Outbox as drafts you copy by hand.</p>
  <h3>Between plugins</h3><p>Plugins talk through the runtime: events for broadcasts, services for shared connections, state for context, settings for configuration.</p>`,
- types:()=>`<h1>Types reference</h1><p class="lede">Shapes used by the KIRA OS runtime, written in TypeScript style.</p>${code(`interface Plugin {
+ types:()=>`<h1>Types reference</h1><p class="lede">Shapes used by the BLACKCAT runtime, written in TypeScript style.</p>${code(`interface Plugin {
   name: string; description?: string; priority?: number;
   init?(config: Record<string, string>, runtime: Runtime): Promise<void>;
   actions?: Action[]; providers?: Provider[]; evaluators?: Evaluator[];
@@ -745,8 +773,8 @@ interface Message { id: string; entityId: string; roomId: string; content: { tex
 interface State { text: string; values: object; data: Record<string, unknown> }
 type ModelType = "TEXT_SMALL" | "TEXT_LARGE" | "TEXT_REASONING" | "OBJECT_SMALL";`)}`,
  llms:()=>`<h1>Docs for LLMs</h1>${EZ?`<div class="lsrch"><input id="llmq" class="inp" type="search" placeholder="Search ${EZ.length} pages…" autocomplete="off" aria-label="Search the docs"><span id="llmn"></span></div><div id="llmres"></div><div id="llmall" class="ezb"></div><div id="llmmore" style="height:1px"></div>`:''}`,
- tokenomics:()=>`<h1>Tokenomics</h1><p class="lede">KIRA OS has no token. Nothing in this app is tied to a coin, a chain or a sale.</p>
- <p>If you launch a token for a project built on KIRA OS, this page is where its tokenomics would go. A complete page usually covers:</p>
+ tokenomics:()=>`<h1>Tokenomics</h1><p class="lede">BLACKCAT has no token. Nothing in this app is tied to a coin, a chain or a sale.</p>
+ <p>If you launch a token for a project built on BLACKCAT, this page is where its tokenomics would go. A complete page usually covers:</p>
  <ul><li>Token name, ticker, chain and contract address</li><li>Total and circulating supply</li><li>Allocation by group (team, community, liquidity, treasury), with percentages that add up to 100</li><li>Vesting and unlock schedule</li><li>What the token is used for inside the product</li><li>Risks, and a clear note that it is not investment advice</li></ul>
  <p>Only publish numbers that are final and verifiable on-chain.</p>`
 };
@@ -756,8 +784,8 @@ async function renderDocs(){
  const isEZ=/^ez-\d+$/.test(DOC)&&EZ&&EZ[+DOC.slice(3)];
  if(!PAGES[DOC]&&!isEZ)DOC='overview';
  let cur,prev,next,body;
- if(isEZ){const n=+DOC.slice(3),flat=ezNav().flatMap(([g,ps])=>ps.map(([k,t])=>({k,n:t,g}))),j=flat.findIndex(x=>x.k===DOC);cur={g:'KIRA OS · '+flat[j].g,n:flat[j].n};prev=flat[j-1];next=flat[j+1];const p=EZ[n];
-  body=`<h1>${esc(p.title)}</h1><p class="note n0">From the <a href="${esc(p.src)}" target="_blank" rel="noopener">KIRA OS documentation</a></p><div class="ezb">${renderMD(p.lines)}</div>`}
+ if(isEZ){const n=+DOC.slice(3),flat=ezNav().flatMap(([g,ps])=>ps.map(([k,t])=>({k,n:t,g}))),j=flat.findIndex(x=>x.k===DOC);cur={g:'BLACKCAT · '+flat[j].g,n:flat[j].n};prev=flat[j-1];next=flat[j+1];const p=EZ[n];
+  body=`<h1>${esc(p.title)}</h1><p class="note n0">From the <a href="${esc(p.src)}" target="_blank" rel="noopener">BLACKCAT documentation</a></p><div class="ezb">${renderMD(p.lines)}</div>`}
  else{const L=PAGES_FLAT_ALL(),i=L.findIndex(p=>p.k===DOC);cur=L[i];prev=DOC==='llms'?null:PAGES_FLAT[i-1];next=DOC==='llms'?PAGES_FLAT[0]:PAGES_FLAT[i+1];body=PAGES[DOC](a,rt)}
  let th='system';try{th=localStorage.getItem('loom-theme')||'system'}catch(e){}
  $('#vdocs').innerHTML=`<div class="dwrap"><div class="dbar"><button class="btn sm" id="dmenu" aria-expanded="false">☰ Menu</button><span>${esc(cur.g)} › <b>${esc(cur.n)}</b></span></div>
@@ -856,7 +884,7 @@ async function send(text){
     return{success:!!(r&&r.success),text:r&&r.text,data:r&&r.data}}}));
   let hist=a.chat.slice(0,-2).filter(x=>!x.err&&x.text).slice(-16);while(hist.length&&hist[0].role!=='user')hist.shift();
   const msgs=hist.map(x=>({role:x.role,content:x.text}));
-  msgs.push({role:'user',content:`You are ${a.name}, an AI agent on the KIRA OS runtime. Below is your composed state from providers. Stay in character, use actions (tools) when they help, never claim a draft was published, reply in the user's language, concisely, plain text with **bold** allowed.\n\n${state.text}\n\n---\nUser message:\n${text}`});
+  msgs.push({role:'user',content:`You are ${a.name}, an AI agent on the BLACKCAT runtime. Below is your composed state from providers. Stay in character, use actions (tools) when they help, never claim a draft was published, reply in the user's language, concisely, plain text with **bold** allowed.\n\n${state.text}\n\n---\nUser message:\n${text}`});
   const r=await rt.useModel(TIER_MODEL[a.tier]||'TEXT_LARGE',{messages:msgs,tools,signal:busy.signal,onText:({text})=>{m.text=text;renderMsgs()}});
   m.text=r.text||m.text||'(no reply)';renderMsgs();
   await rt.emit('MESSAGE_SENT',{detail:m.text.slice(0,80)});
@@ -885,7 +913,7 @@ document.addEventListener('click',async e=>{
  if(t.id==='llms'){openDoc('llms');return}
  if(t.id==='ezclear'){EZ=null;idb('del').catch(()=>{});renderDocs();return}
  if(t.dataset.rd){RD.i=Math.max(0,Math.min(RD.pages.length-1,RD.i+ +t.dataset.rd));renderReader();$('#reader').scrollIntoView();return}
- if(t.dataset.llm){const txt='# KIRA OS documentation\n\n'+docText();const old=t.textContent;navigator.clipboard.writeText(txt).then(()=>{t.textContent='Copied'},()=>{t.textContent='Copy blocked'});setTimeout(()=>{t.textContent=old},1600);return}
+ if(t.dataset.llm){const txt='# BLACKCAT documentation\n\n'+docText();const old=t.textContent;navigator.clipboard.writeText(txt).then(()=>{t.textContent='Copied'},()=>{t.textContent='Copy blocked'});setTimeout(()=>{t.textContent=old},1600);return}
  if(t.dataset.tpl){const n=mk(JSON.parse(JSON.stringify(TEMPLATES[t.dataset.tpl])));S.agents.push(n);S.active=n.id;save();renderAll();setView('studio');if(innerWidth<=1100)$('#tabs [data-p=chat]').click();return}
  if(t.id==='bkdl'){const j=JSON.stringify({kira:1,saved:new Date().toISOString(),agents:S.agents.map(x=>({...x,chat:[]})),custom:S.custom||[]},null,2);const u=URL.createObjectURL(new Blob([j],{type:'application/json'}));const l=document.createElement('a');l.href=u;l.download='kira-agents-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);$('#bkmsg').style.color='';$('#bkmsg').textContent='Backup downloaded ('+S.agents.length+' agents).';return}
  if(t.id==='bkup'){$('#bkfile').click();return}
@@ -929,7 +957,7 @@ document.addEventListener('change',e=>{
  const t=e.target,a=A();
  if(t.dataset.pl){const n=t.dataset.pl;a.plugins=t.checked?[...new Set([...a.plugins,n])]:a.plugins.filter(p=>p!==n);save();delete RT[a.id];renderCfg();renderHead();renderMsgs()}
  if(t.dataset.tdone){const k=a.tasks.find(x=>x.id===t.dataset.tdone);if(k){k.done=t.checked;save();renderCfg()}}
- if(t.id==='rdfile'&&t.files[0]){t.files[0].text().then(x=>{const pages=parseLLM(x);if(!pages.length){$('#rdmsg').textContent='No KIRA OS pages found in that file.';return}setEZ(pages,true);{const k=pages.findIndex(p=>p.seg==='index');openDoc('ez-'+Math.max(0,k))}})}
+ if(t.id==='rdfile'&&t.files[0]){t.files[0].text().then(x=>{const pages=parseLLM(x);if(!pages.length){$('#rdmsg').textContent='No BLACKCAT pages found in that file.';return}setEZ(pages,true);{const k=pages.findIndex(p=>p.seg==='index');openDoc('ez-'+Math.max(0,k))}})}
  if(t.id==='rdsel'){RD.i=+t.value;renderReader();$('#reader').scrollIntoView()}
  if(t.id==='file'){[...t.files].forEach(f=>{if(f.size>300000)return;f.text().then(x=>{a.knowledge.push({id:uid(),title:f.name,text:x});save();renderCfg()})})}
 });
@@ -944,7 +972,7 @@ $('#inp').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&innerW
 try{const k=localStorage.getItem('aiko-pending');if(k){localStorage.removeItem('aiko-pending');if(TEMPLATES[k]){const n=mk(JSON.parse(JSON.stringify(TEMPLATES[k])));S.agents.push(n);S.active=n.id;S.tab='char';save()}}}catch(e){}
 renderAll();boot(A());
 $('#bkfile').addEventListener('change',async e=>{const f=e.target.files[0];e.target.value='';const m=$('#bkmsg');if(!f)return;
- try{if(f.size>5e6)throw new Error('File is too big');const o=JSON.parse(await f.text());if(!o||!Array.isArray(o.agents))throw new Error('This is not a KIRA OS backup');
+ try{if(f.size>5e6)throw new Error('File is too big');const o=JSON.parse(await f.text());if(!o||!Array.isArray(o.agents))throw new Error('This is not a BLACKCAT backup');
   let n=0;o.agents.forEach(x=>{if(x&&typeof x==='object'&&typeof x.name==='string'){S.agents.push(migrate({...mk({}),...x,id:uid(),chat:[]}));n++}});
   let cn=0;(o.custom||[]).forEach(d=>{try{compileCustom(d);if(!(S.custom||[]).some(c=>c.name===d.name)){S.custom.push(d);cn++}}catch(err){}});
   save();RT={};renderAll();boot(A());m.style.color='';m.textContent='Restored '+n+' agents'+(cn?' and '+cn+' plugins':'')+'.'}

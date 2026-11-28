@@ -1,8 +1,8 @@
-# KIRA OS
+# BLACKCAT
 
 Live at **https://www.getkira.xyz**
 
-Build AI agents in the browser. KIRA OS is built on a modular plugin architecture: write a character,
+Build AI agents in the browser. BLACKCAT is built on a modular plugin architecture: write a character,
 add plugins (actions, providers, evaluators, services, routes, events, models) and talk to your agent.
 
 ## Pages
@@ -14,8 +14,8 @@ add plugins (actions, providers, evaluators, services, routes, events, models) a
   - Plugins: built-in store, bootstrap, claude-models, knowledge, memory, calculator, outbox, x, discord, telegram,
     plus custom plugins written as JSON manifests. Runtime tab with load order, services, models,
     composed state, routes console, event emitter and live event log.
-  - Docs: 25-page guide. The "Docs for LLMs" page shows `public/llms-full.txt` (KIRA OS documentation, MIT License,
-    © KIRA OS contributors — see `public/llms-full.NOTICE.txt`).
+  - Docs: 25-page guide. The "Docs for LLMs" page shows `public/llms-full.txt` (BLACKCAT documentation, MIT License,
+    © BLACKCAT contributors — see `public/llms-full.NOTICE.txt`).
 
 Agents and chats are stored in the visitor's browser and, after signing in, in their account.
 Each agent can have its own photo (resized to 128 px in the browser).
@@ -45,7 +45,7 @@ runs the agent runtime and its tools itself.
 | `SESSION_SECRET` | – | Required for accounts: a long random string |
 | `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` | – | Required for accounts (or `KV_REST_API_URL` / `KV_REST_API_TOKEN` from Vercel's Upstash integration) |
 | `X_CLIENT_ID` / `X_CLIENT_SECRET` | – | Turns on "Continue with X" |
-| `RESEND_API_KEY` / `EMAIL_FROM` | – | Turns on "Continue with email" (`EMAIL_FROM` like `KIRA OS <login@getkira.xyz>`) |
+| `RESEND_API_KEY` / `EMAIL_FROM` | – | Turns on "Continue with email" (`EMAIL_FROM` like `BLACKCAT <login@getkira.xyz>`) |
 | `SITE_URL` | request origin | e.g. `https://www.getkira.xyz`, used for the X callback and wallet message |
 | `ALLOWED_ORIGINS` | `https://getkira.xyz,https://www.getkira.xyz` | Sites allowed to call the API (localhost and `kira-os*.vercel.app` always allowed) |
 | `STUDIO_DAILY_CAP` | 3000 | Total calls per day for all visitors together, per server instance |

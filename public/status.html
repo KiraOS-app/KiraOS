@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Status · KIRA OS</title><meta name="robots" content="noindex"><meta name="theme-color" content="#0b0710">
+<title>Status · BLACKCAT</title><meta name="robots" content="noindex"><meta name="theme-color" content="#0b0710">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0b0710;--fg:#f7efe6;--dim:rgba(247,239,230,.66);--mute:rgba(247,239,230,.42);--line:rgba(247,239,230,.14);--kira:#b388ff;--ok:#5dffa8}
 *{box-sizing:border-box;margin:0}
@@ -32,8 +32,18 @@ td.c{font-family:"JetBrains Mono",monospace;color:var(--kira);white-space:nowrap
 .box p{color:var(--dim);margin-bottom:14px}
 .btn{display:inline-block;background:var(--kira);color:#0b0710;font:600 13px "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.08em;padding:12px 18px;text-decoration:none;border:2px solid var(--kira);box-shadow:4px 4px 0 var(--fg)}
 .scroll{overflow-x:auto}
+
+/* BLACKCAT type: Syne for display, Manrope for text, JetBrains Mono for code */
+:root{--serif:"Syne",system-ui,sans-serif;--sans:"Manrope",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;--px:"Syne",sans-serif}
+body,button,input,textarea,select{font-family:"Manrope",system-ui,sans-serif}
+h1,h2,h3,.headline,.v3-h1,.v3-h2,.tpl b,.kme b,.klist b{font-family:"Syne",system-ui,sans-serif!important;letter-spacing:-.02em}
+.v3-h1,.v3-h2{font-weight:700;font-style:normal}
+.v3-h1 em,.v3-h2 em{font-style:normal}
+code,pre,kbd,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.wm-bc{font-family:"Syne",system-ui,sans-serif;font-weight:800;letter-spacing:-.01em;line-height:1;color:var(--fg,#f7efe6)}
+.wm-bc::after{content:"";display:inline-block;width:.22em;height:.22em;margin-left:.08em;border-radius:50%;background:#b388ff;vertical-align:.12em}
 </style></head><body>
-<header><a class="wm" href="/"><span>KIRA</span><svg viewBox="0 0 15 7" height="18" width="39" shape-rendering="crispEdges" aria-hidden="true"><path fill="#f1f1ef" d="M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM5 1h1v1h-1zM6 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM13 3h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1z"/></svg></a><a class="b" href="/studio.html">Studio →</a></header>
+<header><a class="wm" href="/"><span class="wm-bc" style="font-size:20px">BLACKCAT</span></a><a class="b" href="/studio.html">Studio →</a></header>
 <main><h1>Status</h1><p class="meta" id="meta">Loading…</p><div id="out"></div></main>
 <script>
 const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);

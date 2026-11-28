@@ -3,28 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KIRA OS — build AI agents in your browser</title>
-<meta name="description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
+<title>BLACKCAT — AI agent framework</title>
+<meta name="description" content="BLACKCAT is an AI agent framework you run in the browser: characters, plugins, memory and docs in one place.">
 <link rel="canonical" href="https://www.getkira.xyz/">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="KIRA OS">
-<meta property="og:title" content="KIRA OS — build AI agents in your browser">
-<meta property="og:description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
+<meta property="og:site_name" content="BLACKCAT">
+<meta property="og:title" content="BLACKCAT — AI agent framework">
+<meta property="og:description" content="BLACKCAT is an AI agent framework you run in the browser: characters, plugins, memory and docs in one place.">
 <meta property="og:url" content="https://www.getkira.xyz/">
 <meta property="og:image" content="https://www.getkira.xyz/og.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@getkiraos">
-<meta name="twitter:title" content="KIRA OS — build AI agents in your browser">
-<meta name="twitter:description" content="Build AI agents in your browser. Characters, plugins, memory and docs, built on a modular plugin architecture.">
+<meta name="twitter:title" content="BLACKCAT — AI agent framework">
+<meta name="twitter:description" content="BLACKCAT is an AI agent framework you run in the browser: characters, plugins, memory and docs in one place.">
 <meta name="twitter:image" content="https://www.getkira.xyz/og.png?v=2">
 <meta name="theme-color" content="#0b0710">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#030303;
@@ -398,6 +398,16 @@ body{font-family:var(--sans)}
 .hfoot{border-top:1px solid rgba(247,239,230,.1);font-family:var(--sans);letter-spacing:.02em;text-transform:none;font-size:13px}
 @media (min-width:901px){.hero-inner{max-width:1200px}.v3-h1{white-space:nowrap;font-size:clamp(70px,8vw,128px)}.catbg img{top:-8vh!important}}
 @media (max-width:900px){.hero{padding-bottom:clamp(48px,9vh,90px)}.v3-h1{font-size:clamp(56px,16vw,90px)}}
+
+/* BLACKCAT type: Syne for display, Manrope for text, JetBrains Mono for code */
+:root{--serif:"Syne",system-ui,sans-serif;--sans:"Manrope",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;--px:"Syne",sans-serif}
+body,button,input,textarea,select{font-family:"Manrope",system-ui,sans-serif}
+h1,h2,h3,.headline,.v3-h1,.v3-h2,.tpl b,.kme b,.klist b{font-family:"Syne",system-ui,sans-serif!important;letter-spacing:-.02em}
+.v3-h1,.v3-h2{font-weight:700;font-style:normal}
+.v3-h1 em,.v3-h2 em{font-style:normal}
+code,pre,kbd,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.wm-bc{font-family:"Syne",system-ui,sans-serif;font-weight:800;letter-spacing:-.01em;line-height:1;color:var(--fg,#f7efe6)}
+.wm-bc::after{content:"";display:inline-block;width:.22em;height:.22em;margin-left:.08em;border-radius:50%;background:#b388ff;vertical-align:.12em}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -410,9 +420,9 @@ body{font-family:var(--sans)}
 <div class="cursor" aria-hidden="true"></div>
 
 <header class="nav" id="nav">
-  <a href="#home" class="logo" data-dissolve aria-label="KIRA OS home"><span class="wm"><span class="wm-a" data-text style="font-size:42px">KIRA</span><svg class="wm-os" viewBox="0 0 15 7" height="29" width="62" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#f1f1ef" d="M1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM0 1h1v1h-1zM1 1h1v1h-1zM5 1h1v1h-1zM6 1h1v1h-1zM0 2h1v1h-1zM1 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM0 3h1v1h-1zM1 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM0 4h1v1h-1zM1 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM0 5h1v1h-1zM1 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM13 0h1v1h-1zM14 0h1v1h-1zM8 1h1v1h-1zM9 1h1v1h-1zM8 2h1v1h-1zM9 2h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM13 3h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1z"/></svg></span></a>
+  <a href="#home" class="logo" data-dissolve aria-label="BLACKCAT home"><span class="wm"><span class="wm-bc" data-text style="font-size:26.04px">BLACKCAT</span></span></a>
   <div class="nav-right">
-    <a class="nav-x" href="https://x.com/getkiraos" target="_blank" rel="noopener" aria-label="KIRA OS on X"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 20.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg></a>
+    <a class="nav-x" href="https://x.com/getkiraos" target="_blank" rel="noopener" aria-label="BLACKCAT on X"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 20.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg></a>
     <button type="button" class="menu-btn" id="menuBtn" data-dissolve aria-expanded="false" aria-controls="menu" aria-label="Open menu">
       <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="#f1f1ef" stroke-width="1.7" stroke-linecap="round"/></svg>
     </button>
@@ -429,6 +439,7 @@ body{font-family:var(--sans)}
     <a href="#home"><span class="kt"><b>Home</b><small>Talk to Kira and start from a template</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
     <a href="studio.html"><span class="kt"><b>Agent Studio</b><small>Build, train and chat with your agents</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
     <a href="studio.html#plugins"><span class="kt"><b>Plugins</b><small>Every plugin and its manifest</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
+    <a href="studio.html#docs-framework"><span class="kt"><b>Framework</b><small>How BLACKCAT is built</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h6v1h-6zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
     <a href="studio.html#docs-overview"><span class="kt"><b>Docs</b><small>Guides, architecture and reference</small></span><svg class="ka" viewBox="0 0 7 7" width="14" height="14" shape-rendering="crispEdges" aria-hidden="true"><path fill="currentColor" d="M3 0h1v1h-1zM4 1h1v1h-1zM5 2h1v1h-1zM0 3h7v1h-7zM5 4h1v1h-1zM4 5h1v1h-1zM3 6h1v1h-1z"/></svg></a>
   </div>
   <div class="kfoot"><a href="legal.html">Terms &amp; Privacy</a><a href="https://x.com/getkiraos" target="_blank" rel="noopener" class="kx"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45z"/></svg>@getkiraos</a></div>
@@ -438,9 +449,9 @@ body{font-family:var(--sans)}
   <section class="hero hs" id="home" data-s="0">
     <div class="hero-inner">
       <div>
-        <p class="v3-kick">AI agent studio · in your browser</p>
-        <h1 class="v3-h1">Your agent <em>studio</em></h1>
-        <p class="v3-sub">Give it a character, switch on plugins, and start talking. No install, no code.</p>
+        <p class="v3-kick">BLACKCAT · AI agent framework</p>
+        <h1 class="v3-h1">Agents that <em>see in the dark</em></h1>
+        <p class="v3-sub">An AI agent framework in your browser. Give an agent a character, switch on plugins, and start talking. No install, no code.</p>
       </div>
       <div class="hero-side">
         <div class="cta-row">
@@ -454,11 +465,11 @@ body{font-family:var(--sans)}
     <div class="split">
       <div>
         <h2 class="v3-h2 reveal d1">Ask the agent, <em>right here.</em></h2>
-        <p class="body reveal d2" style="margin-top:22px">Kira runs on KIRA OS. Ask what it can do, how plugins work, or how to build your own agent.</p>
+        <p class="body reveal d2" style="margin-top:22px">Kira is the BLACKCAT cat. Ask what it can do, how plugins work, or how to build your own agent.</p>
       </div>
       <div class="chat reveal d2" id="chat">
         <div class="v3-chead"><img src="cat.jpg" alt="" width="34" height="34"><span><b>Kira</b><small>online</small></span></div>
-        <div class="chat-log" id="chatLog" aria-live="polite"><div class="cm ai">Hi, I'm Kira. Ask me anything about building agents on KIRA OS.</div></div>
+        <div class="chat-log" id="chatLog" aria-live="polite"><div class="cm ai">Hi, I'm Kira. Ask me anything about building agents on BLACKCAT.</div></div>
         <div class="chat-sug" id="chatSug"><button type="button">What can you do?</button><button type="button">How do plugins work?</button><button type="button">Help me design an X bot</button></div>
         <form class="chat-form" id="chatForm"><input id="chatIn" placeholder="Ask Kira…" autocomplete="off" maxlength="600" aria-label="Message"><button aria-label="Send">→</button></form>
       </div>
@@ -476,7 +487,7 @@ body{font-family:var(--sans)}
   </section>
 
   <footer class="hfoot">
-    <span>© <span id="yr">2026</span> KIRA OS</span>
+    <span>© <span id="yr">2026</span> BLACKCAT</span>
     <nav><a href="studio.html">Studio</a><a href="studio.html#plugins">Plugins</a><a href="studio.html#docs-overview">Docs</a><a href="legal.html">Terms &amp; Privacy</a><a href="https://x.com/getkiraos" target="_blank" rel="noopener">X @getkiraos</a></nav>
     <p>AI answers can be wrong. Nothing here is financial advice.</p>
   </footer>
@@ -1045,7 +1056,7 @@ const Home = (() => {
     ['xpersona', 'Leon', 'X persona', 'Writes posts and replies for a project account, in one consistent voice.', ['memory','x']],
     ['assistant', 'Jhoe', 'Task assistant', 'Tracks tasks and reminders for you or your team.', ['memory','task service']]
   ];
-  const SYS = `You are Kira, the guide agent on the KIRA OS home page. KIRA OS is a browser studio for AI agents built on the KIRA OS plugin architecture: you write a character (name, bio, traits, style), add plugins (actions, providers, evaluators, services, routes, events, models) and chat with the agent in the Studio; Docs explain the architecture. Templates: community moderator, X persona, research analyst, task assistant. X, Discord and Telegram plugins only draft posts into an Outbox; they never publish. There is no KIRA token. Be warm, sharp and brief (under 90 words), plain text, reply in the user's language. Never give financial advice. Point people to Open Studio or Docs when useful.`;
+  const SYS = `You are Kira, the black cat who guides people on the BLACKCAT home page. BLACKCAT is an AI agent framework that runs in the browser: you write a character (name, bio, traits, style), add plugins (actions, providers, evaluators, services, routes, events, models) and chat with the agent in the Studio; Docs explain the architecture. Templates: Akira (research analyst), Revv (community moderator), Leon (X persona), Jhoe (task assistant). X, Discord and Telegram plugins only draft posts into an Outbox; they never publish. Do not talk about token prices. Be warm, sharp and brief (under 90 words), plain text, reply in the user's language. Never give financial advice. Point people to Open Studio or Docs when useful.`;
   let sample = null, hist = [], busy = false;
   async function getSample(){
     if (sample) return sample;

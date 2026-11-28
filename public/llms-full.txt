@@ -25,7 +25,7 @@ That's it. Your agent now has a name, personality, and can chat. Everything else
 
 ## Overview
 
-In KIRA OS, the distinction between a **Character** and an **Agent** is fundamental:
+In BLACKCAT, the distinction between a **Character** and an **Agent** is fundamental:
 
 * **Character**: A configuration object that defines an agent's personality, capabilities, and settings
 * **Agent**: A runtime instance created from a Character, with additional status tracking and lifecycle management
@@ -554,11 +554,11 @@ export const character: Character = {
 # Memory and State
 Source: https://docs.elizaos.ai/agents/memory-and-state
 
-Understanding agent memory, context, and state management in KIRA OS
+Understanding agent memory, context, and state management in BLACKCAT
 
 ## Memory Architecture Overview
 
-In KIRA OS, memory and state management are core responsibilities of the `AgentRuntime`. The system provides a unified API for creating, storing, retrieving, and searching memories, enabling agents to maintain context and learn from interactions. For runtime details, see [Runtime and Lifecycle](/agents/runtime-and-lifecycle) and [Runtime Core](/runtime/core).
+In BLACKCAT, memory and state management are core responsibilities of the `AgentRuntime`. The system provides a unified API for creating, storing, retrieving, and searching memories, enabling agents to maintain context and learn from interactions. For runtime details, see [Runtime and Lifecycle](/agents/runtime-and-lifecycle) and [Runtime Core](/runtime/core).
 
 ```mermaid theme={null}
 flowchart TD
@@ -1571,7 +1571,7 @@ class MemoryMonitor {
 # Personality and Behavior
 Source: https://docs.elizaos.ai/agents/personality-and-behavior
 
-Crafting unique agent personalities and behavioral patterns in KIRA OS
+Crafting unique agent personalities and behavioral patterns in BLACKCAT
 
 ## Personality Design Principles
 
@@ -2473,7 +2473,7 @@ describe('Personality Consistency', () => {
 # Runtime and Lifecycle
 Source: https://docs.elizaos.ai/agents/runtime-and-lifecycle
 
-From Character configuration to live Agent execution in KIRA OS
+From Character configuration to live Agent execution in BLACKCAT
 
 ## Agent Lifecycle Overview
 
@@ -3931,7 +3931,7 @@ async function debugPluginLoading(runtime: IAgentRuntime, pluginName: string) {
 # Agent Command
 Source: https://docs.elizaos.ai/cli-reference/agent
 
-Managing KIRA OS agents through the CLI - list, configure, start, stop, and update agents
+Managing BLACKCAT agents through the CLI - list, configure, start, stop, and update agents
 
 <Tabs>
   <Tab title="Overview">
@@ -4450,7 +4450,7 @@ Initialize a new project, plugin, or agent with an interactive setup process
 
     ### Project (Default)
 
-    Creates a complete KIRA OS project with:
+    Creates a complete BLACKCAT project with:
 
     * Agent configuration and character files
     * Knowledge directory for RAG
@@ -4474,7 +4474,7 @@ Initialize a new project, plugin, or agent with an interactive setup process
 
     ### Plugin
 
-    Creates a plugin that extends KIRA OS functionality:
+    Creates a plugin that extends BLACKCAT functionality:
 
     ```bash theme={null}
     elizaos create -t plugin my-plugin
@@ -4645,7 +4645,7 @@ Initialize a new project, plugin, or agent with an interactive setup process
 # Development Mode
 Source: https://docs.elizaos.ai/cli-reference/dev
 
-Run KIRA OS projects in development mode with hot reloading and debugging
+Run BLACKCAT projects in development mode with hot reloading and debugging
 
 <Tabs>
   <Tab title="Overview">
@@ -4731,7 +4731,7 @@ Run KIRA OS projects in development mode with hot reloading and debugging
 
     ### Project Detection
 
-    * **Project Mode**: Automatically detects KIRA OS projects based on package.json configuration
+    * **Project Mode**: Automatically detects BLACKCAT projects based on package.json configuration
     * **Plugin Mode**: Detects and handles plugin development appropriately
     * **Monorepo Support**: Builds core packages when working in monorepo context
 
@@ -4943,7 +4943,7 @@ Run KIRA OS projects in development mode with hot reloading and debugging
 # Environment Configuration
 Source: https://docs.elizaos.ai/cli-reference/env
 
-Configure environment variables and API keys for KIRA OS projects
+Configure environment variables and API keys for BLACKCAT projects
 
 <Tabs>
   <Tab title="Overview">
@@ -5069,7 +5069,7 @@ Configure environment variables and API keys for KIRA OS projects
 
     ## Environment File Structure
 
-    KIRA OS uses local environment variables stored in `.env` files in your project directory:
+    BLACKCAT uses local environment variables stored in `.env` files in your project directory:
 
     * **Local variables** - Stored in `./.env` in your current project directory
 
@@ -5173,7 +5173,7 @@ Configure environment variables and API keys for KIRA OS projects
 # Monorepo Command
 Source: https://docs.elizaos.ai/cli-reference/monorepo
 
-Clone the KIRA OS monorepo for development or contribution
+Clone the BLACKCAT monorepo for development or contribution
 
 ## Usage
 
@@ -5379,14 +5379,14 @@ elizaos monorepo --branch main
 * [`dev`](/cli-reference/dev): Run development server for your projects
 
 
-# KIRA OS CLI Overview
+# BLACKCAT CLI Overview
 Source: https://docs.elizaos.ai/cli-reference/overview
 
-Comprehensive guide to the KIRA OS Command Line Interface (CLI) tools and commands
+Comprehensive guide to the BLACKCAT Command Line Interface (CLI) tools and commands
 
 ## Installation
 
-Install the KIRA OS CLI globally using Bun:
+Install the BLACKCAT CLI globally using Bun:
 
 ```bash theme={null}
 bun install -g @elizaos/cli
@@ -5401,12 +5401,12 @@ bun install -g @elizaos/cli
 | Command                                   | Description                                                                                                    |
 | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | [`create`](/cli-reference/create)         | Initialize a new project, plugin, or agent                                                                     |
-| [`monorepo`](/cli-reference/monorepo)     | Clone KIRA OS monorepo from a specific branch (defaults to develop)                                            |
-| [`plugins`](/cli-reference/plugins)       | Manage KIRA OS plugins                                                                                         |
-| [`agent`](/cli-reference/agent)           | Manage KIRA OS agents                                                                                          |
+| [`monorepo`](/cli-reference/monorepo)     | Clone BLACKCAT monorepo from a specific branch (defaults to develop)                                            |
+| [`plugins`](/cli-reference/plugins)       | Manage BLACKCAT plugins                                                                                         |
+| [`agent`](/cli-reference/agent)           | Manage BLACKCAT agents                                                                                          |
 | [`tee`](/cli-reference/tee)               | Manage TEE deployments                                                                                         |
 | [`start`](/cli-reference/start)           | Start the Eliza agent with configurable plugins and services                                                   |
-| [`update`](/cli-reference/update)         | Update KIRA OS CLI and project dependencies                                                                    |
+| [`update`](/cli-reference/update)         | Update BLACKCAT CLI and project dependencies                                                                    |
 | [`test`](/cli-reference/test)             | Run tests for Eliza agent projects and plugins                                                                 |
 | [`env`](/cli-reference/env)               | Manage environment variables and secrets                                                                       |
 | [`dev`](/cli-reference/dev)               | Start the project or plugin in development mode with auto-rebuild, detailed logging, and file change detection |
@@ -5489,7 +5489,7 @@ elizaos env interactive
 
 ## Development vs Production
 
-KIRA OS supports two main modes of operation:
+BLACKCAT supports two main modes of operation:
 
 <CardGroup>
   <Card title="Development Mode" icon="code" href="/cli-reference/dev">
@@ -5503,7 +5503,7 @@ KIRA OS supports two main modes of operation:
 
 ## Quick Start
 
-For a complete guide to getting started with KIRA OS, see the [Quickstart Guide](/quickstart).
+For a complete guide to getting started with BLACKCAT, see the [Quickstart Guide](/quickstart).
 
 ### Creating a new project
 
@@ -5534,7 +5534,7 @@ elizaos dev
 
 ## Working with Projects
 
-KIRA OS organizes work into projects, which can contain one or more agents along with their configurations, knowledge files, and dependencies. The CLI provides commands to manage the entire lifecycle of a project:
+BLACKCAT organizes work into projects, which can contain one or more agents along with their configurations, knowledge files, and dependencies. The CLI provides commands to manage the entire lifecycle of a project:
 
 1. **Create** a new project with `create`
 2. **Configure** settings with `env`
@@ -5565,7 +5565,7 @@ elizaos publish --test
 
 <CardGroup>
   <Card title="Quickstart Guide" icon="rocket" href="/quickstart">
-    Complete workflow guide to get started with KIRA OS
+    Complete workflow guide to get started with BLACKCAT
   </Card>
 
   <Card title="Environment Configuration" icon="gear" href="/cli-reference/env">
@@ -5577,7 +5577,7 @@ elizaos publish --test
 # Plugin Management
 Source: https://docs.elizaos.ai/cli-reference/plugins
 
-Manage KIRA OS plugins within a project - list, add, remove
+Manage BLACKCAT plugins within a project - list, add, remove
 
 <Tabs>
   <Tab title="Overview">
@@ -5911,9 +5911,9 @@ Manage KIRA OS plugins within a project - list, add, remove
 # Publish Command
 Source: https://docs.elizaos.ai/cli-reference/publish
 
-Publish a plugin to npm, create a GitHub repository, and submit to the KIRA OS registry
+Publish a plugin to npm, create a GitHub repository, and submit to the BLACKCAT registry
 
-The `elizaos publish` command is the all-in-one tool for releasing your plugin. It handles packaging, publishing to npm, creating a source repository, and submitting your plugin to the official KIRA OS registry for discovery.
+The `elizaos publish` command is the all-in-one tool for releasing your plugin. It handles packaging, publishing to npm, creating a source repository, and submitting your plugin to the official BLACKCAT registry for discovery.
 
 <Tabs>
   <Tab title="Overview">
@@ -5924,7 +5924,7 @@ The `elizaos publish` command is the all-in-one tool for releasing your plugin. 
     * **Validates Your Plugin:** Checks your `package.json` and directory structure against registry requirements
     * **Publishes Your Package:** Pushes your plugin to npm
     * **Creates GitHub Repository:** Initializes a public GitHub repository for your plugin's source code
-    * **Submits to Registry:** Opens a Pull Request to the official [KIRA OS Plugin Registry](https://github.com/elizaos-plugins/registry)
+    * **Submits to Registry:** Opens a Pull Request to the official [BLACKCAT Plugin Registry](https://github.com/elizaos-plugins/registry)
 
     ## Usage
 
@@ -6048,7 +6048,7 @@ The `elizaos publish` command is the all-in-one tool for releasing your plugin. 
     git push && git push --tags
     ```
 
-    The KIRA OS registry automatically detects new npm versions.
+    The BLACKCAT registry automatically detects new npm versions.
   </Tab>
 
   <Tab title="Requirements">
@@ -6121,7 +6121,7 @@ The `elizaos publish` command is the all-in-one tool for releasing your plugin. 
     ```
 
     <Note>
-      The `agentConfig` section tells KIRA OS agents how to load your plugin.
+      The `agentConfig` section tells BLACKCAT agents how to load your plugin.
     </Note>
   </Tab>
 
@@ -6357,7 +6357,7 @@ output/matrix-YYYYMMDD-HHMM/
 # Scenario Command
 Source: https://docs.elizaos.ai/cli-reference/scenario
 
-Manage and execute KIRA OS scenarios for testing and evaluation
+Manage and execute BLACKCAT scenarios for testing and evaluation
 
 ## Usage
 
@@ -6598,7 +6598,7 @@ Default plugins (`plugin-sql`, `plugin-bootstrap`, `plugin-openai`) are always l
 # Start Command
 Source: https://docs.elizaos.ai/cli-reference/start
 
-Launch and manage KIRA OS projects and agents in production mode
+Launch and manage BLACKCAT projects and agents in production mode
 
 <Tabs>
   <Tab title="Overview">
@@ -6691,7 +6691,7 @@ Launch and manage KIRA OS projects and agents in production mode
   <Tab title="Features">
     ## Production Features
 
-    When you run `start`, KIRA OS provides production-ready features:
+    When you run `start`, BLACKCAT provides production-ready features:
 
     1. **Optimized Performance**: Runs with production optimizations
     2. **Stable Configuration**: Uses saved configuration by default
@@ -6701,7 +6701,7 @@ Launch and manage KIRA OS projects and agents in production mode
 
     ## Startup Process
 
-    When you run the `start` command, KIRA OS:
+    When you run the `start` command, BLACKCAT:
 
     1. **Project Detection**: Detects whether you're in a project or plugin directory
     2. **Configuration Loading**: Loads and validates the configuration
@@ -6715,10 +6715,10 @@ Launch and manage KIRA OS projects and agents in production mode
 
     ## Project Detection
 
-    KIRA OS automatically detects the type of directory you're in and adjusts its behavior accordingly:
+    BLACKCAT automatically detects the type of directory you're in and adjusts its behavior accordingly:
 
-    * **KIRA OS Projects**: Loads project configuration and starts defined agents
-    * **KIRA OS Plugins**: Runs in plugin test mode with the default character
+    * **BLACKCAT Projects**: Loads project configuration and starts defined agents
+    * **BLACKCAT Plugins**: Runs in plugin test mode with the default character
     * **Other Directories**: Uses the default Eliza character
 
     ## Configuration Management
@@ -6769,7 +6769,7 @@ Launch and manage KIRA OS projects and agents in production mode
 
     ### Character Loading Errors
 
-    If character files fail to load, KIRA OS will:
+    If character files fail to load, BLACKCAT will:
 
     1. **Log Errors**: Display detailed error messages for each failed character
     2. **Continue Starting**: Use any successfully loaded characters
@@ -6921,7 +6921,7 @@ Launch and manage KIRA OS projects and agents in production mode
 # TEE Command
 Source: https://docs.elizaos.ai/cli-reference/tee
 
-Manage TEE deployments on KIRA OS
+Manage TEE deployments on BLACKCAT
 
 The `tee` command provides access to Trusted Execution Environment (TEE) deployment and management capabilities through integrated vendor CLIs.
 
@@ -6945,7 +6945,7 @@ elizaos tee <vendor> [vendor-specific-commands]
 
 ### Phala Cloud
 
-The `phala` subcommand provides a wrapper for the official Phala Cloud CLI, allowing you to manage TEE deployments on Phala Cloud directly through KIRA OS.
+The `phala` subcommand provides a wrapper for the official Phala Cloud CLI, allowing you to manage TEE deployments on Phala Cloud directly through BLACKCAT.
 
 ```bash theme={null}
 elizaos tee phala [phala-cli-commands]
@@ -7024,7 +7024,7 @@ elizaos tee phala nodes get <id>     # Get details about a specific node
 
 ### TEE Agent Deployment
 
-For deploying KIRA OS agents to TEE environments:
+For deploying BLACKCAT agents to TEE environments:
 
 1. First, create a TEE-compatible project:
 
@@ -7109,7 +7109,7 @@ For detailed output when troubleshooting:
 LOG_LEVEL=debug elizaos tee phala cvms list
 ```
 
-## Integration with KIRA OS
+## Integration with BLACKCAT
 
 TEE deployments enable:
 
@@ -7136,7 +7136,7 @@ When deploying agents to TEE:
 # Test Command
 Source: https://docs.elizaos.ai/cli-reference/test
 
-Run and manage tests for KIRA OS projects and plugins
+Run and manage tests for BLACKCAT projects and plugins
 
 <Tabs>
   <Tab title="Overview">
@@ -7225,14 +7225,14 @@ Run and manage tests for KIRA OS projects and plugins
     ### End-to-End Tests
 
     **Location**: `e2e/` directory\
-    **Framework**: Custom KIRA OS test runner\
+    **Framework**: Custom BLACKCAT test runner\
     **Purpose**: Runtime behavior testing with full agent context
   </Tab>
 
   <Tab title="Writing Tests">
     ## Test Structure
 
-    KIRA OS follows standard testing conventions with two main categories:
+    BLACKCAT follows standard testing conventions with two main categories:
 
     ### Component Tests (`__tests__/`)
 
@@ -7537,7 +7537,7 @@ Run and manage tests for KIRA OS projects and plugins
 # Update Command
 Source: https://docs.elizaos.ai/cli-reference/update
 
-Update your project's KIRA OS dependencies and CLI to the latest published versions
+Update your project's BLACKCAT dependencies and CLI to the latest published versions
 
 <Tabs>
   <Tab title="Overview">
@@ -7614,7 +7614,7 @@ Update your project's KIRA OS dependencies and CLI to the latest published versi
 
     When you run `elizaos update`, it performs the following steps:
 
-    1. **Detects Project Type**: Determines if you're in an KIRA OS project or plugin.
+    1. **Detects Project Type**: Determines if you're in an BLACKCAT project or plugin.
     2. **Checks CLI Version**: Compares your installed CLI version with the latest available on npm.
     3. **Scans Dependencies**: Finds all `@elizaos/*` packages in your project's `package.json`.
     4. **Shows Update Plan**: Lists the packages and/or CLI that have available updates.
@@ -7642,9 +7642,9 @@ Update your project's KIRA OS dependencies and CLI to the latest published versi
 
     The update command automatically detects:
 
-    * **KIRA OS Projects**: Updates project dependencies and rebuilds
-    * **KIRA OS Plugins**: Updates plugin dependencies and rebuilds
-    * **Non-KIRA OS Projects**: Shows error message
+    * **BLACKCAT Projects**: Updates project dependencies and rebuilds
+    * **BLACKCAT Plugins**: Updates plugin dependencies and rebuilds
+    * **Non-BLACKCAT Projects**: Shows error message
 
     ## Workspace Support
 
@@ -7673,7 +7673,7 @@ Update your project's KIRA OS dependencies and CLI to the latest published versi
 
     * Update regularly to get latest features and fixes
     * Use `--check` to monitor available updates
-    * Subscribe to KIRA OS release notes
+    * Subscribe to BLACKCAT release notes
 
     ### Stability Considerations
 
@@ -7791,12 +7791,12 @@ Simple agents can do one thing at a time. But real tasks are complex:
 Each of these requires **multiple actions** executed in sequence, with results from one feeding into the next.
 
 <Tip>
-  **Action planning lets your agent think in steps.** The LLM decides the sequence, and KIRA OS executes each action, passing results forward automatically.
+  **Action planning lets your agent think in steps.** The LLM decides the sequence, and BLACKCAT executes each action, passing results forward automatically.
 </Tip>
 
 ## How It Works
 
-When the LLM returns multiple actions, KIRA OS creates an **ActionPlan**:
+When the LLM returns multiple actions, BLACKCAT creates an **ActionPlan**:
 
 ```typescript theme={null}
 interface ActionPlan {
@@ -8397,7 +8397,7 @@ Now that you know how to add multiple agents to a single project, you can add as
   </Card>
 
   <Card title="Publish a Plugin" icon="upload" href="/guides/publish-a-plugin">
-    Learn how to publish your plugins to the KIRA OS registry
+    Learn how to publish your plugins to the BLACKCAT registry
   </Card>
 </CardGroup>
 
@@ -8419,7 +8419,7 @@ Some operations take too long for a request/response cycle:
 Blocking the main thread kills responsiveness. Polling wastes resources.
 
 <Tip>
-  **Task workers handle the heavy lifting.** Register a worker, create tasks, and KIRA OS executes them in the background with built-in persistence and scheduling.
+  **Task workers handle the heavy lifting.** Register a worker, create tasks, and BLACKCAT executes them in the background with built-in persistence and scheduling.
 </Tip>
 
 ## Quick Start
@@ -8805,15 +8805,15 @@ const step1Worker: TaskWorker = {
 # Contribute to Core
 Source: https://docs.elizaos.ai/guides/contribute-to-core
 
-How to contribute to the KIRA OS core project and plugin ecosystem
+How to contribute to the BLACKCAT core project and plugin ecosystem
 
 <Note>
-  This guide covers contributing to the main KIRA OS monorepo and the KIRA OS plugin ecosystem.
+  This guide covers contributing to the main BLACKCAT monorepo and the BLACKCAT plugin ecosystem.
 </Note>
 
 ## Understanding the Ecosystem
 
-KIRA OS open source contribution happens across these main areas:
+BLACKCAT open source contribution happens across these main areas:
 
 ### Main Repository (Monorepo)
 
@@ -8830,7 +8830,7 @@ KIRA OS open source contribution happens across these main areas:
 
 ### Plugin Ecosystem
 
-**[github.com/elizaos-plugins](https://github.com/elizaos-plugins)** - Official plugins maintained by the KIRA OS team:
+**[github.com/elizaos-plugins](https://github.com/elizaos-plugins)** - Official plugins maintained by the BLACKCAT team:
 
 * `plugin-discord` - Discord integration
 * `plugin-twitter` - Twitter/X integration
@@ -8856,11 +8856,11 @@ Focus on labels like:
   The best way to start contributing is fixing reported bugs rather than writing new features.
 </Note>
 
-### KIRA OS-Maintained Plugin Issues
+### BLACKCAT-Maintained Plugin Issues
 
-Find issues in KIRA OS-maintained plugins (often more focused for first contributions):
+Find issues in BLACKCAT-maintained plugins (often more focused for first contributions):
 
-**Official KIRA OS plugins:**
+**Official BLACKCAT plugins:**
 
 * [plugin-twitter/issues](https://github.com/elizaos-plugins/plugin-twitter/issues)
 * [plugin-discord/issues](https://github.com/elizaos-plugins/plugin-discord/issues)
@@ -8885,7 +8885,7 @@ If you discover a bug without an existing issue:
    * Clear description of the problem
    * Steps to reproduce
    * Expected vs actual behavior
-   * Environment details (OS, Node/Bun version, KIRA OS version)
+   * Environment details (OS, Node/Bun version, BLACKCAT version)
    * Error messages or logs
 
 ```markdown Issue Template Example theme={null}
@@ -8920,18 +8920,18 @@ Beyond code contributions, you can help in these important areas:
 
 * **Answer questions** in [GitHub Discussions](https://github.com/orgs/elizaOS/discussions) Q\&A section
 * **Help with troubleshooting** - Setup issues, configuration problems, etc.
-* **Share knowledge** in general discussions about KIRA OS development
+* **Share knowledge** in general discussions about BLACKCAT development
 * **Showcase projects** in show and tell or participate in feature discussions
 
 <Tip>
-  Community contributions like answering questions and writing tutorials are often the most impactful ways to help other developers succeed with KIRA OS.
+  Community contributions like answering questions and writing tutorials are often the most impactful ways to help other developers succeed with BLACKCAT.
 </Tip>
 
 ***
 
 ## Step 2: Contribution Workflow
 
-KIRA OS follows standard open source contribution practices for all repositories.
+BLACKCAT follows standard open source contribution practices for all repositories.
 
 ### Clone and Set Up Repository
 
@@ -9005,7 +9005,7 @@ KIRA OS follows standard open source contribution practices for all repositories
 
 Connect with core developers and other contributors:
 
-**[Join KIRA OS Discord](https://discord.gg/ai16z)**
+**[Join BLACKCAT Discord](https://discord.gg/ai16z)**
 
 Key channels for contributors:
 
@@ -9144,7 +9144,7 @@ Create a project with a plugin inside using CLI commands:
 
 <Steps>
   <Step title="Build plugin and test connection">
-    The plugin needs to be built first to create the `dist/` folder that KIRA OS loads from:
+    The plugin needs to be built first to create the `dist/` folder that BLACKCAT loads from:
 
     ```bash Terminal theme={null}
     # Build the plugin first
@@ -9476,11 +9476,11 @@ The possibilities are endless!
 
 <CardGroup>
   <Card title="Publish a Plugin" icon="upload" href="/guides/publish-a-plugin">
-    Share your plugin with the KIRA OS community
+    Share your plugin with the BLACKCAT community
   </Card>
 
   <Card title="Contribute to Core" icon="heart" href="/guides/contribute-to-core">
-    Help improve KIRA OS by contributing to the core framework
+    Help improve BLACKCAT by contributing to the core framework
   </Card>
 
   <Card title="Plugin Registry" icon="book" href="/plugin-registry/overview">
@@ -9488,7 +9488,7 @@ The possibilities are endless!
   </Card>
 
   <Card title="CLI Reference" icon="terminal" href="/cli-reference/overview">
-    Master all KIRA OS CLI commands for plugin development
+    Master all BLACKCAT CLI commands for plugin development
   </Card>
 </CardGroup>
 
@@ -9496,10 +9496,10 @@ The possibilities are endless!
 # Customize an Agent
 Source: https://docs.elizaos.ai/guides/customize-an-agent
 
-As a jumping-off point, we will create a custom Shakespeare KIRA OS agent with a custom personality and Discord integration
+As a jumping-off point, we will create a custom Shakespeare BLACKCAT agent with a custom personality and Discord integration
 
 <Note>
-  This guide assumes you have an KIRA OS project set up. If you don't, follow the [quickstart guide](/quickstart)
+  This guide assumes you have an BLACKCAT project set up. If you don't, follow the [quickstart guide](/quickstart)
 </Note>
 
 ## Step 1: Customize the personality
@@ -9694,7 +9694,7 @@ Go to `http://localhost:3000` in your browser and start chatting with Shakespear
   To use a different port, run `elizaos dev --port 8080` (or any port number).
 </Note>
 
-<img alt="Shakespeare agent responding in Shakespearean style in the KIRA OS web interface" />
+<img alt="Shakespeare agent responding in Shakespearean style in the BLACKCAT web interface" />
 
 <Note>
   You can also modify agent settings using the rightmost panel in the GUI, but these changes are runtime-only and won't persist after restarting the server.
@@ -9776,7 +9776,7 @@ Here are some logical next-steps to continue your agent dev journey:
   </Card>
 
   <Card title="Deploy a Project" icon="rocket" href="/guides/deploy-a-project">
-    Ready to go live? Deploy your KIRA OS agent to production environments
+    Ready to go live? Deploy your BLACKCAT agent to production environments
   </Card>
 
   <Card title="Create a Plugin" icon="code" href="/guides/create-a-plugin">
@@ -9784,7 +9784,7 @@ Here are some logical next-steps to continue your agent dev journey:
   </Card>
 
   <Card title="CLI Reference" icon="terminal" href="/cli-reference/overview">
-    Master all KIRA OS CLI commands for efficient agent development
+    Master all BLACKCAT CLI commands for efficient agent development
   </Card>
 
   <Card title="Plugin Registry" icon="puzzle-piece" href="/plugin-registry/overview">
@@ -9805,7 +9805,7 @@ From localhost to production in 5 minutes
 </Tip>
 
 <Note>
-  **For Advanced Users:** If you're experienced with server administration and networking, you can deploy KIRA OS like any Node.js application using your preferred infrastructure setup. The sections below are for developers looking for guided deployment paths.
+  **For Advanced Users:** If you're experienced with server administration and networking, you can deploy BLACKCAT like any Node.js application using your preferred infrastructure setup. The sections below are for developers looking for guided deployment paths.
 </Note>
 
 ***
@@ -10060,7 +10060,7 @@ Deploy on your own Virtual Private Server (VPS) for more control and predictable
 
 [Phala website](https://phala.network) | [Phala docs](https://docs.phala.network) | [Video Tutorial](https://www.youtube.com/watch?v=paoryBje404\&t=8s)
 
-Phala offers secure deployment with excellent KIRA OS integration and a good CLI. Perfect for production agents requiring a good mix of cost-effective and good security.
+Phala offers secure deployment with excellent BLACKCAT integration and a good CLI. Perfect for production agents requiring a good mix of cost-effective and good security.
 
 <Steps>
   <Step title="Create your project">
@@ -10207,7 +10207,7 @@ Phala offers secure deployment with excellent KIRA OS integration and a good CLI
   </Card>
 
   <Card title="Publish a Plugin" icon="upload" href="/guides/publish-a-plugin">
-    Share your custom plugins with the KIRA OS community
+    Share your custom plugins with the BLACKCAT community
   </Card>
 </CardGroup>
 
@@ -10215,7 +10215,7 @@ Phala offers secure deployment with excellent KIRA OS integration and a good CLI
 # Publish a Plugin
 Source: https://docs.elizaos.ai/guides/publish-a-plugin
 
-Publish your KIRA OS plugin to the KIRA OS registry
+Publish your BLACKCAT plugin to the BLACKCAT registry
 
 <Tip>
   **Video Tutorial**: [**Create + Publish Your Own Plugin**](https://www.youtube.com/watch?v=3wVxXMwSzX4\&list=PLrjBjP4nU8ehOgKAa0-XddHzE0KK0nNvS\&index=6)
@@ -10417,7 +10417,7 @@ You will be asked for a scoped Github token and given these instructions:
   <Step title="Create GitHub Personal Access Token (when prompted)">
     1. Go to [GitHub Settings → Developer settings → Personal access tokens](https://github.com/settings/tokens)
     2. Click **"Generate new token (classic)"**
-    3. Name it **"KIRA OS Publishing"**
+    3. Name it **"BLACKCAT Publishing"**
     4. Select these scopes:
        * `repo` (Full control of private repositories)
        * `read:org` (Read organization membership)
@@ -10457,7 +10457,7 @@ GitHub: https://github.com/yourusername/plugin-fal-ai
 
 ### Registry approval
 
-An KIRA OS core team member will review your registry pull request to ensure all requirements are met, the plugin is free of malicious code, and it functions as intended with proper images and a quality description.
+An BLACKCAT core team member will review your registry pull request to ensure all requirements are met, the plugin is free of malicious code, and it functions as intended with proper images and a quality description.
 
 **Typical review time:** 1-3 business days
 
@@ -10503,7 +10503,7 @@ git commit -m "Update to version x.y.z"
 git push origin main
 ```
 
-The KIRA OS registry automatically syncs with npm updates, so you don't need to manually update the registry.
+The BLACKCAT registry automatically syncs with npm updates, so you don't need to manually update the registry.
 
 ***
 
@@ -10511,7 +10511,7 @@ The KIRA OS registry automatically syncs with npm updates, so you don't need to 
 
 <CardGroup>
   <Card title="Contribute to Core" icon="heart" href="/guides/contribute-to-core">
-    Help improve KIRA OS by contributing to the core framework
+    Help improve BLACKCAT by contributing to the core framework
   </Card>
 
   <Card title="Plugin Registry" icon="book" href="/plugin-registry/overview">
@@ -10519,7 +10519,7 @@ The KIRA OS registry automatically syncs with npm updates, so you don't need to 
   </Card>
 
   <Card title="CLI Reference" icon="terminal" href="/cli-reference/overview">
-    Master all KIRA OS CLI commands for development
+    Master all BLACKCAT CLI commands for development
   </Card>
 
   <Card title="Join Discord Community" icon="users" href="https://discord.gg/ai16z">
@@ -10545,7 +10545,7 @@ Traditional request/response patterns make your agent feel sluggish, even when t
 
 ## Quick Start
 
-KIRA OS supports three response modes out of the box:
+BLACKCAT supports three response modes out of the box:
 
 | Mode          | Latency                    | Use Case                              |
 | ------------- | -------------------------- | ------------------------------------- |
@@ -10657,7 +10657,7 @@ The streaming API emits these event types:
 
 ## Custom Stream Extractors
 
-KIRA OS uses **stream extractors** to filter LLM output for streaming. The framework provides several built-in extractors:
+BLACKCAT uses **stream extractors** to filter LLM output for streaming. The framework provides several built-in extractors:
 
 ### PassthroughExtractor
 
@@ -10849,7 +10849,7 @@ Your agent handles API keys, user data, maybe crypto wallets. How do users know 
 
 ## What TEE Gives You
 
-TEE integration allows your KIRA OS agents to run in secure enclaves with:
+TEE integration allows your BLACKCAT agents to run in secure enclaves with:
 
 * **Remote attestation**: Cryptographic proof of code integrity
 * **Secure key derivation**: Keys derived within the enclave
@@ -10961,7 +10961,7 @@ interface DeriveKeyAttestationData {
 
 ## TEE Providers
 
-KIRA OS supports multiple TEE providers. See the [TEE CLI Reference](/cli-reference/tee) for complete deployment commands.
+BLACKCAT supports multiple TEE providers. See the [TEE CLI Reference](/cli-reference/tee) for complete deployment commands.
 
 ### Phala Network
 
@@ -11080,10 +11080,10 @@ Keys derived in TEE:
 # Test a Project
 Source: https://docs.elizaos.ai/guides/test-a-project
 
-Write tests for your multi-agent KIRA OS project
+Write tests for your multi-agent BLACKCAT project
 
 <Tip>
-  **Video Tutorial**: [**Testing Projects and Plugins with KIRA OS**](https://www.youtube.com/watch?v=HHbY9a27b6A\&list=PLrjBjP4nU8ehOgKAa0-XddHzE0KK0nNvS\&index=5)
+  **Video Tutorial**: [**Testing Projects and Plugins with BLACKCAT**](https://www.youtube.com/watch?v=HHbY9a27b6A\&list=PLrjBjP4nU8ehOgKAa0-XddHzE0KK0nNvS\&index=5)
 </Tip>
 
 <Note>
@@ -11100,7 +11100,7 @@ We added a bunch of new features to our project. In addition to the default test
 | **Multi-agent runtime**       | E2E       | Both agents initialize and run simultaneously                 |
 
 <Note>
-  KIRA OS projects ship with comprehensive built-in tests for core functionality (character config, plugin loading, runtime behavior). For details on the default test structure, see [Testing Projects](/projects/overview#testing-projects).
+  BLACKCAT projects ship with comprehensive built-in tests for core functionality (character config, plugin loading, runtime behavior). For details on the default test structure, see [Testing Projects](/projects/overview#testing-projects).
 </Note>
 
 ### Create component tests
@@ -11229,11 +11229,11 @@ For complete test runner options, see the [CLI Test Reference](/cli-reference/te
   </Card>
 
   <Card title="Publish a Plugin" icon="upload" href="/guides/publish-a-plugin">
-    Learn how to publish your plugins to the KIRA OS registry
+    Learn how to publish your plugins to the BLACKCAT registry
   </Card>
 
   <Card title="Contribute to Core" icon="heart" href="/guides/contribute-to-core">
-    Help improve KIRA OS by contributing to the core framework
+    Help improve BLACKCAT by contributing to the core framework
   </Card>
 </CardGroup>
 
@@ -11253,7 +11253,7 @@ elizaos create            # Create your project
 elizaos start             # Your agent is live
 ```
 
-KIRA OS is the TypeScript framework for building AI agents that think, learn, and act autonomously. Define a personality, add plugins, deploy anywhere.
+BLACKCAT is the TypeScript framework for building AI agents that think, learn, and act autonomously. Define a personality, add plugins, deploy anywhere.
 
 <CardGroup>
   <Card title="Quickstart" icon="rocket" href="/quickstart" />
@@ -11266,7 +11266,7 @@ KIRA OS is the TypeScript framework for building AI agents that think, learn, an
 
 ***
 
-## Why KIRA OS?
+## Why BLACKCAT?
 
 <CardGroup>
   <Card title="90+ Plugins" icon="puzzle-piece">
@@ -11315,40 +11315,40 @@ Your agents can trade onchain, manage social media, create content, analyze data
 # Installation
 Source: https://docs.elizaos.ai/installation
 
-Install KIRA OS on macOS, Linux, or Windows
+Install BLACKCAT on macOS, Linux, or Windows
 
 ## Prerequisites
 
-Before installing KIRA OS, ensure you have the following:
+Before installing BLACKCAT, ensure you have the following:
 
 * **Node.js 23.3+**: Install Node.js version 23.3 or higher from [nodejs.org](https://nodejs.org/)
 * **Bun**: Install the latest Bun runtime from [bun.sh](https://bun.sh/)
 
 <Note>
-  **Windows Users:** You have two options for installing KIRA OS:
+  **Windows Users:** You have two options for installing BLACKCAT:
 
   **Option 1:** Use WSL2 ([Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install)) for a Linux environment on Windows
 
-  **Option 2:** Install natively on Windows, but first install [Git Bash](https://git-scm.com/downloads) and use it as your terminal for installing and running Node.js, Bun, and the KIRA OS CLI
+  **Option 2:** Install natively on Windows, but first install [Git Bash](https://git-scm.com/downloads) and use it as your terminal for installing and running Node.js, Bun, and the BLACKCAT CLI
 </Note>
 
-## Installing KIRA OS
+## Installing BLACKCAT
 
-Once you have Node.js and Bun installed, you can install the KIRA OS CLI globally:
+Once you have Node.js and Bun installed, you can install the BLACKCAT CLI globally:
 
 ```bash Terminal theme={null}
 bun i -g @elizaos/cli
 ```
 
-This installs the `elizaos` command globally on your system, allowing you to create and manage KIRA OS projects from anywhere.
+This installs the `elizaos` command globally on your system, allowing you to create and manage BLACKCAT projects from anywhere.
 
 <Note>
-  **Important:** You don't need to clone the KIRA OS repository to build agents. The CLI handles everything for you. Only clone the monorepo if you're [contributing to core](/guides/contribute-to-core).
+  **Important:** You don't need to clone the BLACKCAT repository to build agents. The CLI handles everything for you. Only clone the monorepo if you're [contributing to core](/guides/contribute-to-core).
 </Note>
 
 ## Verify Installation
 
-After installation, verify that KIRA OS CLI is properly installed:
+After installation, verify that BLACKCAT CLI is properly installed:
 
 ```bash Terminal theme={null}
 elizaos --version
@@ -11418,7 +11418,7 @@ You should see the version number of the installed CLI.
   </Accordion>
 
   <Accordion icon="windows" title="Windows Installation Issues">
-    If you're installing KIRA OS natively on Windows (not using WSL2), follow these steps ( or watch the tutorial video [here](https://youtu.be/QiRg0C1zDjU?si=akR0bIbbiWYVxEQd)):
+    If you're installing BLACKCAT natively on Windows (not using WSL2), follow these steps ( or watch the tutorial video [here](https://youtu.be/QiRg0C1zDjU?si=akR0bIbbiWYVxEQd)):
 
     **Step 1: Install Git Bash**
 
@@ -11459,7 +11459,7 @@ You should see the version number of the installed CLI.
     powershell -c "irm bun.sh/install.ps1 | iex"
     ```
 
-    **Step 6: Install KIRA OS CLI**
+    **Step 6: Install BLACKCAT CLI**
 
     * In Git Bash, run:
 
@@ -11475,7 +11475,7 @@ You should see the version number of the installed CLI.
   </Accordion>
 
   <Accordion icon="wrench" title="CLI Installation Issues">
-    **If KIRA OS CLI fails to install:**
+    **If BLACKCAT CLI fails to install:**
 
     * Clear Bun cache: `bun pm cache rm`
     * Try reinstalling: `bun i -g @elizaos/cli`
@@ -11500,7 +11500,7 @@ You should see the version number of the installed CLI.
   <Accordion icon="gear" title="CLI Version Conflicts/Mismatches">
     **If `elizaos --version` shows an older version despite installing a newer one:**
 
-    This usually happens when KIRA OS CLI was installed with different package managers (npm, pnpm, bun), creating version conflicts.
+    This usually happens when BLACKCAT CLI was installed with different package managers (npm, pnpm, bun), creating version conflicts.
 
     **Solution - Clean install with bun only:**
 
@@ -11533,7 +11533,7 @@ You should see the version number of the installed CLI.
     source ~/.bashrc  # or source ~/.zshrc
     ```
 
-    **Important:** Always use bun for KIRA OS CLI installation to avoid conflicts. Don't mix package managers.
+    **Important:** Always use bun for BLACKCAT CLI installation to avoid conflicts. Don't mix package managers.
   </Accordion>
 </AccordionGroup>
 
@@ -11541,9 +11541,9 @@ You should see the version number of the installed CLI.
 # Message Processing Core
 Source: https://docs.elizaos.ai/plugin-registry/bootstrap
 
-Comprehensive documentation for @elizaos/plugin-bootstrap - the core message handler and event system for KIRA OS agents
+Comprehensive documentation for @elizaos/plugin-bootstrap - the core message handler and event system for BLACKCAT agents
 
-Welcome to the comprehensive documentation for the `@elizaos/plugin-bootstrap` package - the core message handler and event system for KIRA OS agents.
+Welcome to the comprehensive documentation for the `@elizaos/plugin-bootstrap` package - the core message handler and event system for BLACKCAT agents.
 
 ## 📚 Documentation Structure
 
@@ -11569,9 +11569,9 @@ Comprehensive technical documentation for the bootstrap plugin's architecture, c
 
 ## Overview
 
-The `@elizaos/plugin-bootstrap` package is the **core message handler** for KIRA OS agents. It provides the fundamental event handlers, actions, providers, evaluators, and services that enable agents to process messages from any communication platform (Discord, Telegram, message bus server, etc.) and generate intelligent responses.
+The `@elizaos/plugin-bootstrap` package is the **core message handler** for BLACKCAT agents. It provides the fundamental event handlers, actions, providers, evaluators, and services that enable agents to process messages from any communication platform (Discord, Telegram, message bus server, etc.) and generate intelligent responses.
 
-This plugin is essential for any KIRA OS agent as it contains the core logic for:
+This plugin is essential for any BLACKCAT agent as it contains the core logic for:
 
 * Processing incoming messages
 * Determining whether to respond
@@ -12473,7 +12473,7 @@ await runtime.createTask({
 
 ## Summary
 
-The `@elizaos/plugin-bootstrap` package is the heart of KIRA OS's message processing system. It provides a complete framework for:
+The `@elizaos/plugin-bootstrap` package is the heart of BLACKCAT's message processing system. It provides a complete framework for:
 
 * Receiving and processing messages from any platform
 * Making intelligent response decisions
@@ -12482,7 +12482,7 @@ The `@elizaos/plugin-bootstrap` package is the heart of KIRA OS's message proces
 * Learning from interactions
 * Managing background tasks
 
-Understanding this plugin is essential for developing effective KIRA OS agents and extending the platform's capabilities.
+Understanding this plugin is essential for developing effective BLACKCAT agents and extending the platform's capabilities.
 
 
 # Implementation Examples
@@ -17152,9 +17152,9 @@ Before production use:
 # Knowledge & RAG System
 Source: https://docs.elizaos.ai/plugin-registry/knowledge
 
-The core RAG (Retrieval-Augmented Generation) system for KIRA OS agents
+The core RAG (Retrieval-Augmented Generation) system for BLACKCAT agents
 
-The Knowledge Plugin is KIRA OS's core RAG system, providing intelligent document management and retrieval capabilities. It enables agents to maintain long-term memory, answer questions from uploaded documents, and learn from conversations.
+The Knowledge Plugin is BLACKCAT's core RAG system, providing intelligent document management and retrieval capabilities. It enables agents to maintain long-term memory, answer questions from uploaded documents, and learn from conversations.
 
 ## Key Features
 
@@ -17198,7 +17198,7 @@ The Knowledge Plugin is KIRA OS's core RAG system, providing intelligent documen
 
 ## What is the Knowledge Plugin?
 
-The Knowledge Plugin transforms your KIRA OS agent into an intelligent knowledge base that can:
+The Knowledge Plugin transforms your BLACKCAT agent into an intelligent knowledge base that can:
 
 * **Store and retrieve documents** in multiple formats
 * **Answer questions** using semantic search
@@ -17748,7 +17748,7 @@ Source: https://docs.elizaos.ai/plugin-registry/knowledge/complete-documentation
 
 Comprehensive technical reference for the Knowledge plugin
 
-The `@elizaos/plugin-knowledge` package provides Retrieval Augmented Generation (RAG) capabilities for KIRA OS agents. It enables agents to store, search, and automatically use knowledge from uploaded documents and text.
+The `@elizaos/plugin-knowledge` package provides Retrieval Augmented Generation (RAG) capabilities for BLACKCAT agents. It enables agents to store, search, and automatically use knowledge from uploaded documents and text.
 
 ## Key Features
 
@@ -18619,7 +18619,7 @@ Key features:
 * Support for contextual embeddings
 * Provider-agnostic embedding support
 
-The plugin seamlessly integrates with KIRA OS agents to provide them with a searchable knowledge base that enhances their ability to provide accurate, contextual responses.
+The plugin seamlessly integrates with BLACKCAT agents to provide them with a searchable knowledge base that enhances their ability to provide accurate, contextual responses.
 
 
 # Contextual Embeddings
@@ -18960,7 +18960,7 @@ Contextual embeddings significantly improve retrieval accuracy by:
 * Preserving the original text while enriching with context
 * Leveraging caching for cost-efficient processing
 
-The implementation is based on Anthropic's proven approach and integrates seamlessly with KIRA OS's existing infrastructure. Simply set `CTX_KNOWLEDGE_ENABLED=true` and configure your text generation provider to get started!
+The implementation is based on Anthropic's proven approach and integrates seamlessly with BLACKCAT's existing infrastructure. Simply set `CTX_KNOWLEDGE_ENABLED=true` and configure your text generation provider to get started!
 
 
 # Examples & Recipes
@@ -19318,7 +19318,7 @@ Give your AI agent the ability to learn from documents and answer questions base
 
 ### Step 1: Add the Plugin
 
-The Knowledge plugin works automatically with any KIRA OS agent. Just add it to your agent's plugin list:
+The Knowledge plugin works automatically with any BLACKCAT agent. Just add it to your agent's plugin list:
 
 ```typescript theme={null}
 // In your character file (e.g., character.ts)
@@ -19563,15 +19563,15 @@ Now that you have the basics working:
 # Language Model Configuration
 Source: https://docs.elizaos.ai/plugin-registry/llm
 
-Understanding and configuring Language Model plugins in KIRA OS
+Understanding and configuring Language Model plugins in BLACKCAT
 
-KIRA OS uses a plugin-based architecture for integrating different Language Model providers. This guide explains how to configure and use LLM plugins, including fallback mechanisms for embeddings and model registration.
+BLACKCAT uses a plugin-based architecture for integrating different Language Model providers. This guide explains how to configure and use LLM plugins, including fallback mechanisms for embeddings and model registration.
 
 ## Key Concepts
 
 ### Model Types
 
-KIRA OS supports many types of AI operations. Here are the most common ones:
+BLACKCAT supports many types of AI operations. Here are the most common ones:
 
 1. **TEXT\_GENERATION** (`TEXT_SMALL`, `TEXT_LARGE`) - Having conversations and generating responses
 2. **TEXT\_EMBEDDING** - Converting text into numbers for memory and search
@@ -19635,7 +19635,7 @@ Think of it like choosing team players - you pick specialists first, then all-ro
 
 ### Why This Order Matters
 
-When you ask KIRA OS to do something, it looks for the best model in order:
+When you ask BLACKCAT to do something, it looks for the best model in order:
 
 * **Generate text?** → Anthropic gets first shot (if loaded)
 * **Create embeddings?** → Anthropic can't, so OpenAI steps in
@@ -19679,9 +19679,9 @@ runtime.registerModel(
 );
 ```
 
-### How KIRA OS Picks the Right Model
+### How BLACKCAT Picks the Right Model
 
-When you ask KIRA OS to do something, it:
+When you ask BLACKCAT to do something, it:
 
 1. **Checks what type of work it is** (text? embeddings? objects?)
 2. **Looks at who signed up** for that job
@@ -19702,15 +19702,15 @@ But for embeddings:
 
 ## Embedding Fallback Strategy
 
-Remember: Not all plugins can create embeddings! Here's how KIRA OS handles this:
+Remember: Not all plugins can create embeddings! Here's how BLACKCAT handles this:
 
 **The Problem**:
 
 * You're using Anthropic (great at chat, can't do embeddings)
-* But KIRA OS needs embeddings for memory and search
+* But BLACKCAT needs embeddings for memory and search
 
 **The Solution**:
-KIRA OS automatically finds another plugin that CAN do embeddings!
+BLACKCAT automatically finds another plugin that CAN do embeddings!
 
 ```typescript theme={null}
 // What happens behind the scenes:
@@ -19915,7 +19915,7 @@ The `modelProvider` field is now ignored. All model configuration happens throug
 # Anthropic Plugin
 Source: https://docs.elizaos.ai/plugin-registry/llm/anthropic
 
-Claude models integration for KIRA OS
+Claude models integration for BLACKCAT
 
 The Anthropic plugin provides access to Claude models for text generation. Note that it does not support embeddings, so you'll need a fallback plugin.
 
@@ -20015,7 +20015,7 @@ You can use any available Claude model, including:
 # Google GenAI Plugin
 Source: https://docs.elizaos.ai/plugin-registry/llm/google-genai
 
-Google Gemini models integration for KIRA OS
+Google Gemini models integration for BLACKCAT
 
 ## Features
 
@@ -20126,7 +20126,7 @@ Control content filtering:
 # Ollama Plugin
 Source: https://docs.elizaos.ai/plugin-registry/llm/ollama
 
-Local model execution via Ollama for KIRA OS
+Local model execution via Ollama for BLACKCAT
 
 The Ollama plugin provides local model execution and can serve as a fallback option when cloud-based LLM providers are not configured. It requires running an Ollama server locally.
 
@@ -20258,7 +20258,7 @@ ollama serve
 # OpenAI Plugin
 Source: https://docs.elizaos.ai/plugin-registry/llm/openai
 
-OpenAI GPT models integration for KIRA OS
+OpenAI GPT models integration for BLACKCAT
 
 The OpenAI plugin provides access to GPT models and supports all model types: text generation, embeddings, and object generation.
 
@@ -20464,27 +20464,27 @@ OpenRouter charges a small markup (usually \~10%) on top of provider prices:
 # Plugin System Overview
 Source: https://docs.elizaos.ai/plugin-registry/overview
 
-Comprehensive guide to the KIRA OS plugin system architecture and implementation
+Comprehensive guide to the BLACKCAT plugin system architecture and implementation
 
 ## Overview
 
-The KIRA OS plugin system is a comprehensive extension mechanism that allows developers to add functionality to agents through a well-defined interface. This analysis examines the complete plugin architecture by analyzing the source code and comparing it with the documentation.
+The BLACKCAT plugin system is a comprehensive extension mechanism that allows developers to add functionality to agents through a well-defined interface. This analysis examines the complete plugin architecture by analyzing the source code and comparing it with the documentation.
 
 ## Core Plugins
 
-KIRA OS includes essential core plugins that provide foundational functionality:
+BLACKCAT includes essential core plugins that provide foundational functionality:
 
 <CardGroup>
   <Card title="Bootstrap Plugin" icon="rocket" href="/plugin-registry/bootstrap">
-    The core message handler and event system for KIRA OS agents. Provides essential functionality for message processing, knowledge management, and basic agent operations.
+    The core message handler and event system for BLACKCAT agents. Provides essential functionality for message processing, knowledge management, and basic agent operations.
   </Card>
 
   <Card title="SQL Plugin" icon="database" href="/plugin-registry/sql">
-    Database integration and management for KIRA OS. Features automatic schema migrations, multi-database support, and a sophisticated plugin architecture.
+    Database integration and management for BLACKCAT. Features automatic schema migrations, multi-database support, and a sophisticated plugin architecture.
   </Card>
 
   <Card title="Knowledge Plugin" icon="brain" href="/plugin-registry/knowledge">
-    Advanced knowledge base and RAG system for KIRA OS. Provides semantic search, contextual embeddings, and intelligent document processing.
+    Advanced knowledge base and RAG system for BLACKCAT. Provides semantic search, contextual embeddings, and intelligent document processing.
   </Card>
 </CardGroup>
 
@@ -20547,7 +20547,7 @@ Choose from various language model providers:
 Explore the complete collection of community-contributed plugins in our dedicated registry.
 
 <Card title="Browse Plugin Registry" icon="puzzle-piece" href="/plugin-registry/registry">
-  Access the full plugin registry with real-time updates, detailed plugin information, version tracking, and easy installation instructions for all v1 compatible KIRA OS plugins.
+  Access the full plugin registry with real-time updates, detailed plugin information, version tracking, and easy installation instructions for all v1 compatible BLACKCAT plugins.
 </Card>
 
 ## 1. Complete Plugin Interface
@@ -20858,7 +20858,7 @@ Source: https://docs.elizaos.ai/plugin-registry/platform/discord
 
 Welcome to the comprehensive documentation for the @elizaos/plugin-discord package. This index provides organized access to all documentation resources.
 
-The @elizaos/plugin-discord enables your KIRA OS agent to operate as a Discord bot with full support for messages, voice channels, slash commands, and media processing.
+The @elizaos/plugin-discord enables your BLACKCAT agent to operate as a Discord bot with full support for messages, voice channels, slash commands, and media processing.
 
 ## 📚 Documentation
 
@@ -20883,11 +20883,11 @@ The @elizaos/plugin-discord enables your KIRA OS agent to operate as a Discord b
 # Developer Guide
 Source: https://docs.elizaos.ai/plugin-registry/platform/discord/developer-guide
 
-Comprehensive Discord integration for KIRA OS agents. It enables agents to operate as fully-featured Discord bots with advanced features and capabilities.
+Comprehensive Discord integration for BLACKCAT agents. It enables agents to operate as fully-featured Discord bots with advanced features and capabilities.
 
 ## Overview
 
-The `@elizaos/plugin-discord` package provides comprehensive Discord integration for KIRA OS agents. It enables agents to operate as fully-featured Discord bots with support for text channels, voice channels, direct messages, slash commands, and media processing.
+The `@elizaos/plugin-discord` package provides comprehensive Discord integration for BLACKCAT agents. It enables agents to operate as fully-featured Discord bots with support for text channels, voice channels, direct messages, slash commands, and media processing.
 
 This plugin handles all Discord-specific functionality including:
 
@@ -21923,12 +21923,12 @@ flowchart TD
 | `error`             | Client error         | Error handler        |
 | `disconnect`        | Lost connection      | Reconnection handler |
 
-### KIRA OS Events Emitted
+### BLACKCAT Events Emitted
 
 | Event                    | When Emitted       | Payload                |
 | ------------------------ | ------------------ | ---------------------- |
 | `WORLD_JOINED`           | Bot joins server   | World, rooms, entities |
-| `MESSAGE_RECEIVED`       | Message processed  | KIRA OS message format |
+| `MESSAGE_RECEIVED`       | Message processed  | BLACKCAT message format |
 | `VOICE_MESSAGE_RECEIVED` | Voice transcribed  | Transcribed message    |
 | `REACTION_RECEIVED`      | Reaction added     | Reaction details       |
 | `INTERACTION_RECEIVED`   | Slash command used | Interaction data       |
@@ -22645,7 +22645,7 @@ runtime.registerAction(customDiscordAction);
 
 ### With Other Plugins
 
-Integrate Discord with other KIRA OS plugins:
+Integrate Discord with other BLACKCAT plugins:
 
 ```typescript theme={null}
 import { discordPlugin } from '@elizaos/plugin-discord';
@@ -23528,7 +23528,7 @@ Source: https://docs.elizaos.ai/plugin-registry/platform/farcaster
 
 Welcome to the comprehensive documentation for the @elizaos/plugin-farcaster package. This index provides organized access to all documentation resources.
 
-The @elizaos/plugin-farcaster enables your KIRA OS agent to interact with the Farcaster social network through casting, replying, and engaging with the decentralized social protocol.
+The @elizaos/plugin-farcaster enables your BLACKCAT agent to interact with the Farcaster social network through casting, replying, and engaging with the decentralized social protocol.
 
 ## 📚 Documentation
 
@@ -23897,7 +23897,7 @@ Comprehensive technical reference for the @elizaos/plugin-farcaster package
 
 ## Overview
 
-The @elizaos/plugin-farcaster plugin enables KIRA OS agents to interact with the Farcaster protocol through the Neynar API. This plugin provides comprehensive functionality for casting, replying, and engaging with the Farcaster ecosystem.
+The @elizaos/plugin-farcaster plugin enables BLACKCAT agents to interact with the Farcaster protocol through the Neynar API. This plugin provides comprehensive functionality for casting, replying, and engaging with the Farcaster ecosystem.
 
 ## Core Features
 
@@ -24304,7 +24304,7 @@ runtime.on("farcaster:error", (error: FarcasterError) => {
 
 ### Memory System
 
-The plugin uses KIRA OS's memory system for persistence rather than direct database tables:
+The plugin uses BLACKCAT's memory system for persistence rather than direct database tables:
 
 ```typescript theme={null}
 // Cast metadata stored when sending
@@ -24454,7 +24454,7 @@ const character = {
 ## Support
 
 * **GitHub**: [elizaos-plugins/plugin-farcaster](https://github.com/elizaos-plugins/plugin-farcaster)
-* **Discord**: Join the KIRA OS community
+* **Discord**: Join the BLACKCAT community
 * **Documentation**: [elizaos.ai/docs](https://elizaos.ai/docs)
 
 ## License
@@ -24987,7 +24987,7 @@ These examples demonstrate the flexibility and power of the Farcaster plugin. Ke
 
 The plugin uses the Neynar API for all Farcaster interactions, requiring proper API key and signer configuration.
 
-For more advanced use cases, combine these patterns with the KIRA OS agent framework's other capabilities.
+For more advanced use cases, combine these patterns with the BLACKCAT agent framework's other capabilities.
 
 
 # Testing Guide
@@ -25627,7 +25627,7 @@ Source: https://docs.elizaos.ai/plugin-registry/platform/telegram
 
 Welcome to the comprehensive documentation for the @elizaos/plugin-telegram package. This index provides organized access to all documentation resources.
 
-The @elizaos/plugin-telegram enables your KIRA OS agent to operate as a Telegram bot with support for messages, media, interactive buttons, and group management.
+The @elizaos/plugin-telegram enables your BLACKCAT agent to operate as a Telegram bot with support for messages, media, interactive buttons, and group management.
 
 ## 📚 Documentation
 
@@ -25651,11 +25651,11 @@ The @elizaos/plugin-telegram enables your KIRA OS agent to operate as a Telegram
 # Developer Guide
 Source: https://docs.elizaos.ai/plugin-registry/platform/telegram/developer-guide
 
-Comprehensive Telegram Bot API integration for KIRA OS agents. It enables agents to operate as Telegram bots with advanced features and capabilities.
+Comprehensive Telegram Bot API integration for BLACKCAT agents. It enables agents to operate as Telegram bots with advanced features and capabilities.
 
 ## Overview
 
-The `@elizaos/plugin-telegram` package provides comprehensive Telegram Bot API integration for KIRA OS agents. It enables agents to operate as Telegram bots with support for private chats, groups, channels, media processing, interactive buttons, and forum topics.
+The `@elizaos/plugin-telegram` package provides comprehensive Telegram Bot API integration for BLACKCAT agents. It enables agents to operate as Telegram bots with support for private chats, groups, channels, media processing, interactive buttons, and forum topics.
 
 This plugin handles all Telegram-specific functionality including:
 
@@ -28696,7 +28696,7 @@ Source: https://docs.elizaos.ai/plugin-registry/platform/twitter
 
 Welcome to the comprehensive documentation for the @elizaos/plugin-twitter package. This index provides organized access to all documentation resources.
 
-The @elizaos/plugin-twitter enables your KIRA OS agent to interact with Twitter/X through autonomous posting, timeline monitoring, and intelligent engagement.
+The @elizaos/plugin-twitter enables your BLACKCAT agent to interact with Twitter/X through autonomous posting, timeline monitoring, and intelligent engagement.
 
 ## Documentation
 
@@ -28724,11 +28724,11 @@ The @elizaos/plugin-twitter enables your KIRA OS agent to interact with Twitter/
 # Developer Guide
 Source: https://docs.elizaos.ai/plugin-registry/platform/twitter/developer-guide
 
-Comprehensive Twitter/X API v2 integration for KIRA OS agents. It enables agents to operate as fully autonomous Twitter bots with advanced capabilities.
+Comprehensive Twitter/X API v2 integration for BLACKCAT agents. It enables agents to operate as fully autonomous Twitter bots with advanced capabilities.
 
 ## Overview
 
-The `@elizaos/plugin-twitter` package provides comprehensive Twitter/X API v2 integration for KIRA OS agents. It enables agents to operate as fully autonomous Twitter bots with capabilities including tweet posting, timeline monitoring, interaction handling, direct messaging, and advanced features like weighted timeline algorithms.
+The `@elizaos/plugin-twitter` package provides comprehensive Twitter/X API v2 integration for BLACKCAT agents. It enables agents to operate as fully autonomous Twitter bots with capabilities including tweet posting, timeline monitoring, interaction handling, direct messaging, and advanced features like weighted timeline algorithms.
 
 This plugin handles all Twitter-specific functionality including:
 
@@ -31724,17 +31724,17 @@ graph LR
 # Plugin Registry
 Source: https://docs.elizaos.ai/plugin-registry/registry
 
-Browse the complete collection of available KIRA OS plugins. This registry is updated in real-time with the latest 1.x compatible plugins from the community.
+Browse the complete collection of available BLACKCAT plugins. This registry is updated in real-time with the latest 1.x compatible plugins from the community.
 
 <Info>
-  This registry automatically syncs with the official [KIRA OS Plugin Registry](https://github.com/elizaos-plugins/registry) to show you the most up-to-date plugins available for your KIRA OS agents.
+  This registry automatically syncs with the official [BLACKCAT Plugin Registry](https://github.com/elizaos-plugins/registry) to show you the most up-to-date plugins available for your BLACKCAT agents.
 </Info>
 
 ## Available Plugins
 
 ## How to Use Plugins
 
-To install and use any of these plugins in your KIRA OS project:
+To install and use any of these plugins in your BLACKCAT project:
 
 1. **Install the plugin** using bun or elizaos cli:
    ```bash theme={null}
@@ -31760,8 +31760,8 @@ To install and use any of these plugins in your KIRA OS project:
 The plugin registry is community-driven. To add your plugin:
 
 1. **Publish your plugin** to npm with the `@elizaos/plugin-` prefix
-2. **Submit a pull request** to the [KIRA OS Plugin Registry](https://github.com/elizaos-plugins/registry)
-3. **Ensure compatibility** with KIRA OS v1.x
+2. **Submit a pull request** to the [BLACKCAT Plugin Registry](https://github.com/elizaos-plugins/registry)
+3. **Ensure compatibility** with BLACKCAT v1.x
 
 <Tip>
   For detailed guidance on creating and publishing plugins, check out our [Create a Plugin](/guides/create-a-plugin) and [Publish a Plugin](/guides/publish-a-plugin) guides.
@@ -31769,7 +31769,7 @@ The plugin registry is community-driven. To add your plugin:
 
 ## Registry Status
 
-This registry automatically updates every few hours to reflect the latest plugins available in the KIRA OS ecosystem. If you don't see a recently published plugin, please wait a few hours for the next sync.
+This registry automatically updates every few hours to reflect the latest plugins available in the BLACKCAT ecosystem. If you don't see a recently published plugin, please wait a few hours for the next sync.
 
 <Warning>
   Always review plugin documentation and source code before installation, especially for plugins that handle sensitive operations like wallet management or external API calls.
@@ -31779,9 +31779,9 @@ This registry automatically updates every few hours to reflect the latest plugin
 # Database Management
 Source: https://docs.elizaos.ai/plugin-registry/sql
 
-Database integration and management for KIRA OS
+Database integration and management for BLACKCAT
 
-The `@elizaos/plugin-sql` provides comprehensive database management for KIRA OS agents, featuring automatic schema migrations, multi-database support, and a sophisticated plugin architecture.
+The `@elizaos/plugin-sql` provides comprehensive database management for BLACKCAT agents, featuring automatic schema migrations, multi-database support, and a sophisticated plugin architecture.
 
 ## Key Features
 
@@ -31866,7 +31866,7 @@ elizaos plugins add @elizaos/plugin-sql
 
 ## Configuration
 
-The SQL plugin is automatically included by the KIRA OS runtime and configured via environment variables.
+The SQL plugin is automatically included by the BLACKCAT runtime and configured via environment variables.
 
 ### Environment Setup
 
@@ -32245,7 +32245,7 @@ Source: https://docs.elizaos.ai/plugin-registry/sql/examples
 
 Practical code examples and patterns
 
-This document provides practical examples of common database patterns and operations using the KIRA OS plugin-sql system.
+This document provides practical examples of common database patterns and operations using the BLACKCAT plugin-sql system.
 
 ## Basic Operations
 
@@ -32890,11 +32890,11 @@ Source: https://docs.elizaos.ai/plugin-registry/sql/plugin-tables
 
 How plugins can define their own database tables
 
-This guide shows plugin developers how to add database tables to their KIRA OS plugins. The plugin-sql system automatically handles schema creation, migrations, and namespacing.
+This guide shows plugin developers how to add database tables to their BLACKCAT plugins. The plugin-sql system automatically handles schema creation, migrations, and namespacing.
 
 ## Overview
 
-Any KIRA OS plugin can define its own database tables by:
+Any BLACKCAT plugin can define its own database tables by:
 
 1. Creating table definitions using Drizzle ORM
 2. Exporting a `schema` property from the plugin
@@ -33651,7 +33651,7 @@ const myPlugin: Plugin = {
 
 ## Overview
 
-The KIRA OS plugin system is a modular extension mechanism that allows developers to add functionality to agents through a well-defined interface. Plugins enhance AI agents with new capabilities, integrations, and behaviors.
+The BLACKCAT plugin system is a modular extension mechanism that allows developers to add functionality to agents through a well-defined interface. Plugins enhance AI agents with new capabilities, integrations, and behaviors.
 
 ### What Can Plugins Do?
 
@@ -33930,11 +33930,11 @@ const plugins = [
 
 ## Core Plugins
 
-KIRA OS includes two essential core plugins that provide foundational functionality:
+BLACKCAT includes two essential core plugins that provide foundational functionality:
 
 ### Bootstrap Plugin
 
-The core message handler and event system for KIRA OS agents. Provides essential functionality for message processing, knowledge management, and basic agent operations. It includes:
+The core message handler and event system for BLACKCAT agents. Provides essential functionality for message processing, knowledge management, and basic agent operations. It includes:
 
 * 13 essential actions (REPLY, SEND\_MESSAGE, etc.)
 * Core providers (time, character, recent messages)
@@ -33943,7 +33943,7 @@ The core message handler and event system for KIRA OS agents. Provides essential
 
 ### SQL Plugin
 
-Database integration and management for KIRA OS. Features:
+Database integration and management for BLACKCAT. Features:
 
 * Automatic schema migrations
 * Multi-database support (PostgreSQL, PGLite)
@@ -34730,12 +34730,12 @@ That's it. No complex setup, no boilerplate to maintain.
 </Tip>
 
 <Note>
-  This guide uses `bun` as the package manager, which is the preferred tool for KIRA OS development. Bun provides faster installation times and built-in TypeScript support.
+  This guide uses `bun` as the package manager, which is the preferred tool for BLACKCAT development. Bun provides faster installation times and built-in TypeScript support.
 </Note>
 
 ## Quick Start: Scaffolding Plugins with CLI
 
-The easiest way to create a new plugin is using the KIRA OS CLI, which provides interactive scaffolding with pre-configured templates.
+The easiest way to create a new plugin is using the BLACKCAT CLI, which provides interactive scaffolding with pre-configured templates.
 
 ### Using `elizaos create`
 
@@ -34834,7 +34834,7 @@ The scaffolded plugin includes:
 * ✅ Basic tests structure
 
 <Tip>
-  The CLI templates follow all KIRA OS conventions and best practices, making it easy to get started without worrying about configuration.
+  The CLI templates follow all BLACKCAT conventions and best practices, making it easy to get started without worrying about configuration.
 </Tip>
 
 ## Manual Plugin Creation
@@ -34951,7 +34951,7 @@ export default myPlugin;
 
 ### Option 1: Plugin Inside the Monorepo
 
-If developing within the KIRA OS monorepo:
+If developing within the BLACKCAT monorepo:
 
 1. Add your plugin to the root `package.json` as a workspace dependency:
 
@@ -34978,7 +34978,7 @@ const agent = {
 
 ### Option 2: Plugin Outside the Monorepo
 
-For plugins outside the KIRA OS monorepo:
+For plugins outside the BLACKCAT monorepo:
 
 1. In your plugin directory, build and link it:
 
@@ -35557,9 +35557,9 @@ Create `.vscode/launch.json`:
 # Migration
 Source: https://docs.elizaos.ai/plugins/migration
 
-Complete guide for migrating KIRA OS plugins from version 0.x to 1.x
+Complete guide for migrating BLACKCAT plugins from version 0.x to 1.x
 
-> **Important**: This comprehensive guide will walk you through migrating your KIRA OS plugins from version 0.x to 1.x. The migration process involves several key changes to architecture, APIs, and best practices.
+> **Important**: This comprehensive guide will walk you through migrating your BLACKCAT plugins from version 0.x to 1.x. The migration process involves several key changes to architecture, APIs, and best practices.
 
 ## Migration Overview
 
@@ -35609,7 +35609,7 @@ rm -rf biome.json
 rm -f *.lock.json *.yml.lock
 ```
 
-> **Why?** The KIRA OS ecosystem has standardized on:
+> **Why?** The BLACKCAT ecosystem has standardized on:
 >
 > * **Bun's built-in test runner** (replacing Vitest)
 > * **Prettier** for code formatting (replacing Biome)
@@ -37045,7 +37045,7 @@ The action chaining system provides a powerful way to build complex, multi-step 
 
 ## Real-World Implementation Patterns
 
-This section documents actual patterns and structures used in production KIRA OS plugins based on examination of real implementations.
+This section documents actual patterns and structures used in production BLACKCAT plugins based on examination of real implementations.
 
 ### Basic Plugin Structure Pattern
 
@@ -37302,7 +37302,7 @@ const myPlugin: Plugin = {
 # Reference
 Source: https://docs.elizaos.ai/plugins/reference
 
-Complete TypeScript interface reference for KIRA OS plugins
+Complete TypeScript interface reference for BLACKCAT plugins
 
 ## Core Interfaces
 
@@ -37929,11 +37929,11 @@ CHANNEL_IDS?: string;
 # Database Schema
 Source: https://docs.elizaos.ai/plugins/schemas
 
-Learn how to add custom database schemas to KIRA OS plugins for shared data access
+Learn how to add custom database schemas to BLACKCAT plugins for shared data access
 
 ## Overview
 
-KIRA OS uses Drizzle ORM with PostgreSQL and automatically handles migrations from your schema definitions. This guide demonstrates how to add custom tables that can be shared across all agents (no `agentId` field), along with actions to write data and providers to read it.
+BLACKCAT uses Drizzle ORM with PostgreSQL and automatically handles migrations from your schema definitions. This guide demonstrates how to add custom tables that can be shared across all agents (no `agentId` field), along with actions to write data and providers to read it.
 
 ## Database Adapter Interface
 
@@ -37996,7 +37996,7 @@ export const customSchema = {
 **Key Points:**
 
 * No `agentId` field means data is shared across all agents
-* KIRA OS will automatically create migrations from this schema
+* BLACKCAT will automatically create migrations from this schema
 * Use appropriate indexes for query performance
 
 ### Creating Agent-Specific Tables
@@ -38023,7 +38023,7 @@ export const agentDataTable = pgTable(
 
 ### Repository Pattern
 
-Create a repository class to handle database operations. This follows the pattern used throughout KIRA OS:
+Create a repository class to handle database operations. This follows the pattern used throughout BLACKCAT:
 
 ```typescript theme={null}
 // In your plugin's repositories/user-preferences-repository.ts
@@ -38531,15 +38531,15 @@ export class MetricsRepository {
 
 ## Summary
 
-To add custom schema to an KIRA OS plugin:
+To add custom schema to an BLACKCAT plugin:
 
 1. **Define schema** without `agentId` for shared data
-2. **Create repository** classes following KIRA OS's pattern
+2. **Create repository** classes following BLACKCAT's pattern
 3. **Create actions** to write data using `parseKeyValueXml` for structure
 4. **Create providers** to read data and supply to agent context
 5. **Register everything** in your plugin configuration
 
-KIRA OS handles the rest - migrations, database connections, and making your data available across all agents in the system.
+BLACKCAT handles the rest - migrations, database connections, and making your data available across all agents in the system.
 
 ## See Also
 
@@ -38569,7 +38569,7 @@ How to expose HTTP endpoints and send messages as agents using plugin routes
 
 ## Overview
 
-Plugins in KIRA OS can expose HTTP routes that act as webhooks, allowing external services to trigger agent actions and send messages on behalf of agents. This enables powerful integrations with third-party services, automated workflows, and custom APIs.
+Plugins in BLACKCAT can expose HTTP routes that act as webhooks, allowing external services to trigger agent actions and send messages on behalf of agents. This enables powerful integrations with third-party services, automated workflows, and custom APIs.
 
 ## Defining Routes in Plugins
 
@@ -39019,7 +39019,7 @@ curl -X POST http://localhost:3000/webhook?agentId=YOUR_AGENT_ID \
 
 ### Testing Webhook Routes
 
-KIRA OS provides two types of tests for validating webhook functionality: component tests and e2e tests.
+BLACKCAT provides two types of tests for validating webhook functionality: component tests and e2e tests.
 
 #### Component Tests
 
@@ -39233,7 +39233,7 @@ export const webhookPlugin: Plugin = {
 
 #### Running Tests
 
-Use the KIRA OS test command to run your webhook tests:
+Use the BLACKCAT test command to run your webhook tests:
 
 ```bash theme={null}
 # Run component tests only
@@ -39273,15 +39273,15 @@ elizaos test --name "Webhook Integration"
 # Environment Variables
 Source: https://docs.elizaos.ai/projects/environment-variables
 
-Server configuration environment variables for KIRA OS
+Server configuration environment variables for BLACKCAT
 
-This document describes the server configuration environment variables for KIRA OS.
+This document describes the server configuration environment variables for BLACKCAT.
 
 ## Server Security & Authentication
 
 ### ELIZA\_SERVER\_AUTH\_TOKEN
 
-Controls API authentication for the KIRA OS server.
+Controls API authentication for the BLACKCAT server.
 
 ```bash .env theme={null}
 ELIZA_SERVER_AUTH_TOKEN=your-secret-token
@@ -39427,7 +39427,7 @@ For a complete list of all available environment variables including database co
 
 <CardGroup>
   <Card title="Deploy a Project" icon="rocket" href="/guides/deploy-a-project">
-    Learn to deploy your KIRA OS project securely
+    Learn to deploy your BLACKCAT project securely
   </Card>
 
   <Card title="CLI Environment Commands" icon="terminal" href="/cli-reference/env">
@@ -39447,15 +39447,15 @@ For a complete list of all available environment variables including database co
 # Overview
 Source: https://docs.elizaos.ai/projects/overview
 
-Understanding and building with KIRA OS projects
+Understanding and building with BLACKCAT projects
 
 <Info>
-  **Projects** are the primary deployable unit in KIRA OS. Each project contains one or more agents, and plugins can be managed either at the agent level or shared across the project. A project is container template that you develop locally and ship to production.
+  **Projects** are the primary deployable unit in BLACKCAT. Each project contains one or more agents, and plugins can be managed either at the agent level or shared across the project. A project is container template that you develop locally and ship to production.
 </Info>
 
 ## What is a Project?
 
-A project in KIRA OS is your **development workspace and deployment unit**. It's where you:
+A project in BLACKCAT is your **development workspace and deployment unit**. It's where you:
 
 * Configure and run one or more agents
 * Develop and test plugins
@@ -39470,7 +39470,7 @@ Projects can include a fully customizable chat interface for user interaction, o
 
 ## Development Pattern
 
-The KIRA OS development workflow centers around projects:
+The BLACKCAT development workflow centers around projects:
 
 <Steps>
   <Step title="Create a project">
@@ -39494,7 +39494,7 @@ The KIRA OS development workflow centers around projects:
   </Step>
 </Steps>
 
-This pattern gives you access to all KIRA OS core features without managing the entire framework codebase.
+This pattern gives you access to all BLACKCAT core features without managing the entire framework codebase.
 
 ## Project Structure
 
@@ -39562,7 +39562,7 @@ This pattern gives you access to all KIRA OS core features without managing the 
   <Accordion title="node_modules/ - Installed dependencies">
     **Created by:** `bun install` or `npm install`
 
-    Contains all the packages your project depends on, including KIRA OS core and plugins.
+    Contains all the packages your project depends on, including BLACKCAT core and plugins.
 
     * Safe to delete (reinstall with `bun install`)
     * Not committed to version control
@@ -39603,7 +39603,7 @@ This pattern gives you access to all KIRA OS core features without managing the 
 
 Projects are flexible containers you can design to fit your use case. The default entry point for every project is `src/index.ts`, where you define your agents, their character files, and any custom plugins or services. You might configure a single agent with specialized plugins, or coordinate multiple agents with distinct personalities and capabilities.
 
-Build your project structure to match your needs and goals, whether that's organizing agents by function, separating character configurations, or creating shared utilities. The KIRA OS runtime will orchestrate everything once you define your project configuration.
+Build your project structure to match your needs and goals, whether that's organizing agents by function, separating character configurations, or creating shared utilities. The BLACKCAT runtime will orchestrate everything once you define your project configuration.
 
 <CodeGroup>
   ```typescript src/index.ts (Single Agent) theme={null}
@@ -39695,7 +39695,7 @@ NODE_ENV=production
 
 ## Running Projects Locally
 
-Start your project with the KIRA OS CLI:
+Start your project with the BLACKCAT CLI:
 
 ```bash theme={null}
 # Start your project
@@ -39714,7 +39714,7 @@ elizaos start --character ./custom-character.ts
 
 ## Advanced Project Examples
 
-Explore these real-world projects showcasing different KIRA OS capabilities:
+Explore these real-world projects showcasing different BLACKCAT capabilities:
 
 <CardGroup>
   <Card title="Spartan" icon="github" href="https://github.com/elizaos/spartan">
@@ -39828,7 +39828,7 @@ See the [Deploy a Project](/guides/deploy-a-project) guide for detailed instruct
     See the [Create a Plugin](/guides/create-a-plugin) guide for details.
   </Accordion>
 
-  <Accordion title="Do I need the entire KIRA OS monorepo to develop?">
+  <Accordion title="Do I need the entire BLACKCAT monorepo to develop?">
     No! That's the beauty of projects. When you create a project with `elizaos create`, you get a standalone workspace with just what you need. The CLI and core packages provide all the framework functionality without the monorepo complexity.
   </Accordion>
 
@@ -39884,7 +39884,7 @@ See the [Deploy a Project](/guides/deploy-a-project) guide for detailed instruct
 # Quickstart
 Source: https://docs.elizaos.ai/quickstart
 
-Create and run your first KIRA OS agent in 3 minutes
+Create and run your first BLACKCAT agent in 3 minutes
 
 **3 minutes.** That's all it takes to go from zero to a running AI agent with memory, actions, and a web interface.
 
@@ -39900,14 +39900,14 @@ Let's create a project with our default Eliza character that can chat and take a
 
 <Steps>
   <Step title="Create Your Project">
-    Create a new KIRA OS project using the interactive CLI:
+    Create a new BLACKCAT project using the interactive CLI:
 
     ```bash Terminal theme={null}
     elizaos create
     ```
 
     <Note>
-      The CLI is for building agents and projects. The monorepo is only for contributing to KIRA OS core. See [CLI vs Monorepo](https://www.youtube.com/watch?v=tSO4wpQs2OA\&list=PLrjBjP4nU8ehOgKAa0-XddHzE0KK0nNvS).
+      The CLI is for building agents and projects. The monorepo is only for contributing to BLACKCAT core. See [CLI vs Monorepo](https://www.youtube.com/watch?v=tSO4wpQs2OA\&list=PLrjBjP4nU8ehOgKAa0-XddHzE0KK0nNvS).
     </Note>
   </Step>
 
@@ -39935,7 +39935,7 @@ Let's create a project with our default Eliza character that can chat and take a
   </Step>
 
   <Step title="Start Your Agent">
-    Launch your KIRA OS project:
+    Launch your BLACKCAT project:
 
     ```bash Terminal theme={null}
     elizaos start
@@ -41583,7 +41583,7 @@ Get the public system configuration. This endpoint returns non-sensitive configu
 ## Response
 
 <ResponseField name="version" type="string">
-  KIRA OS version
+  BLACKCAT version
 </ResponseField>
 
 <ResponseField name="environment" type="string">
@@ -41645,7 +41645,7 @@ Source: https://docs.elizaos.ai/rest-reference/system/get-version
 
 GET /api/system/version
 
-Get the KIRA OS version information.
+Get the BLACKCAT version information.
 
 ## Response
 
@@ -41832,7 +41832,7 @@ Most frameworks give you primitives. You still wire everything together yourself
   **5 minutes to your first agent.** No infrastructure setup, no config files to manage. Just code.
 </Tip>
 
-## Quick Start with KIRA OS
+## Quick Start with BLACKCAT
 
 The `ElizaOS` class handles configuration, plugin resolution, and multi-agent orchestration automatically.
 
@@ -41973,7 +41973,7 @@ const team = elizaOS.getAgentsByNames(['Researcher', 'Writer']);
 
 ### Events
 
-KIRA OS extends `EventTarget` for lifecycle events:
+BLACKCAT extends `EventTarget` for lifecycle events:
 
 ```typescript theme={null}
 elizaOS.addEventListener('agent:started', (e) => {
@@ -42008,7 +42008,7 @@ const keyStatus = await elizaOS.validateApiKeys();
 
 ## What You Get
 
-| Feature                  | Without KIRA OS                   | With KIRA OS                        |
+| Feature                  | Without BLACKCAT                   | With BLACKCAT                        |
 | ------------------------ | --------------------------------- | ----------------------------------- |
 | **Plugin resolution**    | Manual imports, version conflicts | Auto-discovery, dependency ordering |
 | **Database setup**       | 50+ lines boilerplate             | Zero-config SQLite or Postgres      |
@@ -42021,7 +42021,7 @@ const keyStatus = await elizaOS.validateApiKeys();
 
 ## System Architecture
 
-The KIRA OS runtime follows a modular, plugin-based architecture that orchestrates all agent functionality. For lifecycle details, see [Runtime and Lifecycle](/agents/runtime-and-lifecycle). For extension architecture, see [Plugin Architecture](/plugins/architecture).
+The BLACKCAT runtime follows a modular, plugin-based architecture that orchestrates all agent functionality. For lifecycle details, see [Runtime and Lifecycle](/agents/runtime-and-lifecycle). For extension architecture, see [Plugin Architecture](/plugins/architecture).
 
 ```mermaid theme={null}
 flowchart TD
@@ -42544,9 +42544,9 @@ const types = runtime.getRegisteredServiceTypes();
 // ['DATABASE', 'SPEECH', 'VIDEO', 'TRANSCRIPTION', ...]
 ```
 
-### KIRA OS Type Guard
+### BLACKCAT Type Guard
 
-Check if the runtime has an KIRA OS instance attached:
+Check if the runtime has an BLACKCAT instance attached:
 
 ```typescript theme={null}
 hasElizaOS(): this is IAgentRuntime & { elizaOS: IElizaOS };
@@ -44067,11 +44067,11 @@ Real-time messaging infrastructure and Socket.IO integration
 
 ## Overview
 
-The messaging infrastructure provides real-time communication between clients and the KIRA OS server using Socket.IO. This enables instant message delivery, presence tracking, and bidirectional communication.
+The messaging infrastructure provides real-time communication between clients and the BLACKCAT server using Socket.IO. This enables instant message delivery, presence tracking, and bidirectional communication.
 
 ## Architecture
 
-### How WebSockets Work in KIRA OS
+### How WebSockets Work in BLACKCAT
 
 The project uses **Socket.IO** (not raw WebSockets) for real-time communication between clients and the Eliza server.
 
@@ -44731,7 +44731,7 @@ Response:
 
 ### Stream Extractors (Advanced)
 
-For plugin developers, KIRA OS provides stream extractors to control what content is streamed from LLM responses.
+For plugin developers, BLACKCAT provides stream extractors to control what content is streamed from LLM responses.
 
 ```typescript theme={null}
 import { IStreamExtractor } from '@elizaos/core';
@@ -46685,7 +46685,7 @@ async stop() {
 
 ## Model Context Protocol (MCP) Services
 
-MCP (Model Context Protocol) allows your KIRA OS agent to use external tools and services. Think of it as giving your agent abilities like web search, file access, or API connections.
+MCP (Model Context Protocol) allows your BLACKCAT agent to use external tools and services. Think of it as giving your agent abilities like web search, file access, or API connections.
 
 ### MCP Plugin Setup
 
@@ -48486,7 +48486,7 @@ const agentConfig = {
 
 ## Complete API Reference
 
-The Sessions API provides a comprehensive set of endpoints for managing stateful conversations with KIRA OS agents. This reference covers all available endpoints, request/response schemas, and error handling.
+The Sessions API provides a comprehensive set of endpoints for managing stateful conversations with BLACKCAT agents. This reference covers all available endpoints, request/response schemas, and error handling.
 
 ### Base URL
 
@@ -49086,7 +49086,7 @@ class SessionsAPIClient:
   </Card>
 
   <Card title="Core Concepts" icon="lightbulb" href="/agents/runtime-and-lifecycle">
-    Understand KIRA OS runtime architecture
+    Understand BLACKCAT runtime architecture
   </Card>
 
   <Card title="Create a Plugin" icon="puzzle" href="/guides/create-a-plugin">
@@ -49102,11 +49102,11 @@ class SessionsAPIClient:
 # Types Reference
 Source: https://docs.elizaos.ai/runtime/types-reference
 
-Complete TypeScript types and interfaces reference for KIRA OS
+Complete TypeScript types and interfaces reference for BLACKCAT
 
 ## Overview
 
-This page documents the core TypeScript types and interfaces used throughout KIRA OS. For usage examples, see the relevant feature documentation.
+This page documents the core TypeScript types and interfaces used throughout BLACKCAT. For usage examples, see the relevant feature documentation.
 
 <Tip>
   All types are exported from `@elizaos/core`. Import what you need:
@@ -49618,7 +49618,7 @@ interface TeePluginConfig {
 
 ***
 
-## KIRA OS Orchestrator
+## BLACKCAT Orchestrator
 
 ### IElizaOS
 
