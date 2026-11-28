@@ -1059,7 +1059,8 @@ const Account=(()=>{
  async function init(){
   const h=location.hash.slice(1),msgs={'signed-in':'','auth-failed':'Sign-in with X failed. Try again.','auth-cancelled':'Sign-in with X was cancelled.','auth-x-off':'Sign-in with X is not set up on this site yet.'};
   if(h in msgs){try{history.replaceState(null,'',location.pathname)}catch(e){}if(msgs[h])toast(msgs[h])}
-  try{const r=await api('/api/auth/me');methods=r.methods&&r.methods.on?r.methods:null;user=r.user;paint();if(user)await pull(h==='signed-in')}catch(e){methods=null;paint()}
+  try{const r=await api('/api/auth/me');methods=r.methods&&r.methods.on?r.methods:null;user=r.user;paint();if(user)await pull(h==='signed-in');else if(/[?&]login=1/.test(location.search))open()}catch(e){methods=null;paint()}
+  if(/[?&]login=1/.test(location.search))try{history.replaceState(null,'',location.pathname+location.hash)}catch(e){}
   ready=true;
  }
  return{init,push,get user(){return user}};
