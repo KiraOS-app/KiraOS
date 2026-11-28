@@ -321,17 +321,38 @@ pre{border-radius:14px!important;border:1px solid var(--line)}
 .aopt{border-radius:16px!important}
 
 @media (max-width:700px){.top .wm-bc{font-size:17px!important}.acct{padding:6px 12px!important;font-size:13px!important;max-width:none!important}.navlink{padding:6px 8px;font-size:13px}.top .pill{display:none}}
+
+.backst{display:none;position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:30;padding:12px 22px;border-radius:999px;border:0;background:linear-gradient(180deg,#c4a2ff,#a171ff);color:#0b0710;font-weight:700;font-size:14.5px;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 14px 40px rgba(160,112,255,.45);cursor:pointer}
+body[data-view=plugins] .backst,body[data-view=docs] .backst{display:block}
+
+.bc-mark{display:inline-block;height:1.35em;width:1.35em;margin-right:.42em;vertical-align:-.3em;border-radius:50%;object-fit:cover;border:1px solid rgba(179,136,255,.45);box-shadow:0 0 12px rgba(179,136,255,.35)}
+
+.hbtns{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.hbtns .btn{margin-left:0!important;min-width:0!important;min-height:36px!important;padding:6px 14px!important;font-size:13px!important}
+.lrow{display:flex;gap:8px;margin:12px 0}
+.lrow input{flex:1;margin:0}
+.lstep{display:flex;gap:12px;margin:12px 0;color:var(--mute);font-size:14.5px;line-height:1.55}
+.lstep b{display:grid;place-items:center;flex:none;width:26px;height:26px;border-radius:50%;background:rgba(179,136,255,.15);color:#b388ff;font-size:13px}
+.lstep code{color:var(--ink)}
+.lnet{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;border:1px solid var(--line);margin-top:8px;font-weight:600}
+.lnet small{margin-left:auto;color:var(--mute);font-weight:500}
+.lbot{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;background:rgba(93,255,168,.07);border:1px solid rgba(93,255,168,.25);margin-top:10px}
+.lbot a{color:#5dffa8;font-weight:700;text-decoration:none}
+.lbot .btn{margin-left:auto}
+.lmsg{margin-top:10px;font-size:14px;color:var(--mute)}.lmsg.bad{color:#ff9ec4}
+@media (max-width:700px){.hbtns .btn{padding:6px 10px!important}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body data-pane="chat" data-view="studio">
 <header class="top">
- <a class="brand" href="/" style="color:inherit;text-decoration:none" aria-label="BLACKCAT home"><span class="wm"><span class="wm-bc" style="font-size:19.599999999999998px">BLACKCAT</span></span></a>
+ <a class="brand" href="/" style="color:inherit;text-decoration:none" aria-label="BLACKCAT home"><span class="wm"><img class="bc-mark" src="/logo-mark.jpg" alt="" width="30" height="30"><span class="wm-bc" style="font-size:19.599999999999998px">BLACKCAT</span></span></a>
  <nav class="nav" id="nav"><a class="navlink" href="/">← Site</a></nav>
  <button class="acct" id="acct" hidden>Sign in</button>
  <span class="pill" id="status"><b></b>Connecting…</span>
 </header>
 <div class="drop" id="drop" hidden></div>
+<button class="backst" data-v="studio">← Back to Studio</button>
 <div class="view" id="vplugins"></div>
 <div class="view" id="vdocs"></div>
 <nav class="tabs" id="tabs"><button data-p="list">Agents</button><button data-p="chat" class="on">Chat</button><button data-p="cfg">Setup</button></nav>
@@ -354,6 +375,13 @@ pre{border-radius:14px!important;border:1px solid var(--line)}
   <div class="sb" id="sbody"></div>
  </aside>
 </main>
+<div class="amodal" id="lmodal" hidden>
+ <div class="abg" data-lclose></div>
+ <div class="apanel" role="dialog" aria-modal="true" aria-labelledby="ltitle">
+  <div class="ahead"><h2 id="ltitle">Share</h2><button class="x" data-lclose aria-label="Close">×</button></div>
+  <div id="lbody"></div>
+ </div>
+</div>
 <div class="amodal" id="amodal" hidden>
  <div class="abg" data-aclose></div>
  <div class="apanel" role="dialog" aria-modal="true" aria-labelledby="atitle">
@@ -563,7 +591,7 @@ const AVATAR='cat.jpg';
 function weave(name,sz=40,av){return `<img src="${av&&/^data:image\/(png|jpeg|webp);base64,/.test(av)?av:AVATAR}" width="${sz}" height="${sz}" alt="" style="border:1px solid #242424;border-radius:9px;flex:none;background:#000;object-fit:cover">`}
 function fmt(t){return esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\n/g,'<br>')}
 function renderList(){$('#agents').innerHTML=S.agents.map(a=>`<button class="ag ${a.id===S.active?'act':''}" data-id="${esc(a.id)}">${weave(a.name,40,a.avatar)}<div><b>${esc(a.name)}</b><span>${esc(a.role||'No role yet')}</span></div></button>`).join('')}
-function renderHead(){const a=A();$('#chead').innerHTML=`${weave(a.name,44,a.avatar)}<div><h1>${esc(a.name)}</h1><p>${esc(a.role||'Set a role in Setup')} · ${esc(TIER_MODEL[a.tier])} · ${a.plugins.length} plugins</p></div><button class="btn sm" id="clear" ${a.chat.length?'':'disabled'}>Clear chat</button>`}
+function renderHead(){const a=A();$('#chead').innerHTML=`${weave(a.name,44,a.avatar)}<div><h1>${esc(a.name)}</h1><p>${esc(a.role||'Set a role in Setup')} · ${esc(TIER_MODEL[a.tier])} · ${a.plugins.length} plugins</p></div><div class="hbtns"><button class="btn sm" id="shareag">Share</button><button class="btn sm pri" id="goliv">Go live</button><button class="btn sm" id="clear" ${a.chat.length?'':'disabled'}>Clear chat</button></div>`}
 function renderMsgs(){
  const a=A(),box=$('#msgs');
  if(!a.chat.length){
@@ -1146,6 +1174,57 @@ sample=(()=>{
 })();
 setStatus();updSend();
 (async()=>{try{if(window.claude&&typeof window.claude.use==='function'){const cs=await window.claude.use('sample');if(cs){sample=cs;AIOFF=false;setStatus();updSend()}}}catch(e){}})();
+/* ============ SHARE LINKS + GO LIVE (Telegram) ============ */
+(()=>{
+ const modal=$('#lmodal'),body=$('#lbody'),title=$('#ltitle');
+ const call=async(path,opt={})=>{const r=await fetch(path,{credentials:'same-origin',...opt,headers:{'content-type':'application/json'}});const j=await r.json().catch(()=>({}));if(!r.ok){const e=new Error(j.reply||'This needs the BLACKCAT website (it does not work in a preview).');e.code=j.error;throw e}return j};
+ const pack=a=>({name:a.name,role:a.role,bio:a.bio,traits:a.traits,style:a.style,avatar:a.avatar||'',knowledge:(a.knowledge||[]).map(k=>({title:k.title,text:k.text}))});
+ const show=(t,h)=>{title.textContent=t;body.innerHTML=h;modal.hidden=false};
+ const close=()=>{modal.hidden=true};
+ const msg=(t,bad)=>{let m=body.querySelector('.lmsg');if(!m){m=document.createElement('p');m.className='lmsg';body.appendChild(m)}m.textContent=t;m.classList.toggle('bad',!!bad)};
+ async function share(){
+  const a=A();show('Share '+a.name,`<p class="note n0">Anyone with the link can chat with ${esc(a.name)}. They see its name, photo, role and bio, and it answers with its character and knowledge docs. Your chats and memory stay private.</p><p class="lmsg">Making the link…</p>`);
+  try{const j=await call('/api/share',{method:'POST',body:JSON.stringify({agent:pack(a)})});const url=location.origin+j.path;
+   body.innerHTML=`<p class="note n0">Anyone with this link can chat with ${esc(a.name)}. Your chats and memory stay private. Changes you make later need a new link.</p><div class="lrow"><input class="inp" id="lurl" readonly value="${esc(url)}"><button class="btn pri" id="lcopy">Copy</button></div><p><a class="btn" href="${esc(url)}" target="_blank" rel="noopener">Open the page ↗</a></p>`;
+  }catch(e){msg(e.message,true)}
+ }
+ async function live(){
+  const a=A();
+  show('Go live',`<p class="note n0">Put ${esc(a.name)} on a real app. It answers with its character and knowledge docs, and keeps the last few messages of each chat.</p>
+   <div class="lnet">✈️ Telegram <small>ready</small></div>
+   <div class="lstep"><b>1</b><span>Open <a href="https://t.me/BotFather" target="_blank" rel="noopener">@BotFather</a> in Telegram, send <code>/newbot</code> and pick a name.</span></div>
+   <div class="lstep"><b>2</b><span>Copy the token it gives you and paste it here. Only paste it into BLACKCAT, never in a chat.</span></div>
+   <div class="lrow"><input class="inp" id="ltok" placeholder="123456789:AA…" autocomplete="off" spellcheck="false"><button class="btn pri" id="lconn">Connect</button></div>
+   <div id="lbots"></div>
+   <div class="lnet">Discord <small>coming soon</small></div><div class="lnet">𝕏 <small>coming soon</small></div>`);
+  listBots();
+ }
+ async function listBots(){
+  const box=$('#lbots');if(!box)return;
+  try{const j=await call('/api/tg/list');box.innerHTML=j.bots.map(b=>`<div class="lbot">● <a href="https://t.me/${esc(b.username)}" target="_blank" rel="noopener">@${esc(b.username)}</a> <span class="note n0" style="padding:0">${esc(b.agent)}</span><button class="btn sm" data-ldisc="${esc(b.botId)}">Disconnect</button></div>`).join('')}
+  catch(e){if(e.code==='sign_in')box.innerHTML=`<p class="lmsg">Sign in first, so the bot is linked to your account. <button class="btn sm" id="lsign">Sign in</button></p>`}
+ }
+ async function connect(){
+  const tok=($('#ltok').value||'').trim();if(!tok)return msg('Paste the token from @BotFather first.',true);
+  const b=$('#lconn');b.disabled=true;msg('Connecting…');
+  try{const j=await call('/api/tg/connect',{method:'POST',body:JSON.stringify({token:tok,agent:pack(A())})});$('#ltok').value='';msg(`@${j.username} is live. Open it in Telegram and say hi.`);listBots()}
+  catch(e){msg(e.message,true);if(e.code==='sign_in')listBots()}
+  b.disabled=false;
+ }
+ async function disconnect(id){try{await call('/api/tg/disconnect',{method:'POST',body:JSON.stringify({botId:id})});msg('Bot disconnected.');listBots()}catch(e){msg(e.message,true)}}
+ document.addEventListener('click',e=>{
+  const t=e.target.closest('button,a,[data-lclose]');if(!t)return;
+  if(t.id==='shareag')return share();
+  if(t.id==='goliv')return live();
+  if(t.hasAttribute&&t.hasAttribute('data-lclose'))return close();
+  if(t.id==='lcopy'){const i=$('#lurl');i.select();(navigator.clipboard?navigator.clipboard.writeText(i.value):Promise.reject()).catch(()=>document.execCommand('copy'));t.textContent='Copied!';setTimeout(()=>t.textContent='Copy',1500);return}
+  if(t.id==='lconn')return connect();
+  if(t.id==='lsign'){close();$('#acct').click();return}
+  if(t.dataset&&t.dataset.ldisc)return disconnect(t.dataset.ldisc);
+ });
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)close()});
+})();
+
 }
 </script>
 </body>

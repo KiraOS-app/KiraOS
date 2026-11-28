@@ -49,6 +49,8 @@ runs the agent runtime and its tools itself.
 | `SITE_URL` | request origin | e.g. `https://www.getkira.xyz`, used for the X callback and wallet message |
 | `ALLOWED_ORIGINS` | `https://getkira.xyz,https://www.getkira.xyz` | Sites allowed to call the API (localhost and `kira-os*.vercel.app` always allowed) |
 | `STUDIO_DAILY_CAP` | 3000 | Total calls per day for all visitors together, per server instance |
+| `TG_DAILY_CAP` | 200 | Replies per live Telegram bot per day |
+| `SHARE_DAILY_CAP` | 30 | New agent share links per visitor per day |
 
 Every message costs API usage on your key (each tool step is one call, max 1,024 output tokens).
 
@@ -61,3 +63,8 @@ Every message costs API usage on your key (each tool step is one call, max 1,024
 ## Notes
 - X, Discord and Telegram plugins only write drafts to the Outbox; nothing is posted.
 - The wordmark uses Archivo Black (Google Fonts, SIL Open Font License).
+
+## Share links and live Telegram bots
+
+- **Share**: in the Studio, *Share* saves the agent's character (no chats or memory) and gives a link like `/a/abc123`. Anyone with the link can chat with it.
+- **Go live → Telegram**: create a bot with @BotFather, paste the token in the Studio while signed in. The server stores the token encrypted with `SESSION_SECRET`, sets the webhook to `/api/tg/hook`, and answers with the agent's character. Needs Upstash Redis.

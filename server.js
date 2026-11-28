@@ -20,6 +20,7 @@ try {
 const { handleStudio } = await import('./lib/studio.js');
 const { handleAuth } = await import('./lib/auth.js');
 const { handleStatus } = await import('./lib/status.js');
+const { handleShare, handleAgentChat, handleTelegram } = await import('./lib/agents.js');
 
 const PORT = Number(process.env.PORT) || 3000;
 const PUBLIC = path.join(ROOT, 'public');
@@ -38,6 +39,14 @@ http.createServer(async (req, res) => {
       const r = await handleStatus(new Request('http://localhost/api/status', { headers }));
       res.writeHead(r.status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }); return res.end(await r.text());
     }
+    if (url.pathname === '/api/share' || url.pathname === '/api/agent-chat' || url.pathname.startsWith('/api/tg/')) {
+      const chunks = []; for await (const c of req) chunks.push(c);
+      const headers = new Headers(); for (const [k, v] of Object.entries(req.headers)) if (typeof v === 'string') headers.set(k, v);
+      const r2 = new Request('http://localhost' + req.url, { method: req.method, headers, body: req.method === 'GET' || req.method === 'HEAD' ? undefined : Buffer.concat(chunks) });
+      const ip = req.socket.remoteAddress || 'anon';
+      const r = url.pathname === '/api/share' ? await handleShare(r2, ip) : url.pathname === '/api/agent-chat' ? await handleAgentChat(r2, ip) : await handleTelegram(r2, url.pathname.split('/').pop(), ip);
+      res.writeHead(r.status, { 'Content-Type': r.headers.get('content-type') || 'text/plain', 'Cache-Control': 'no-store' }); return res.end(Buffer.from(await r.arrayBuffer()));
+    }
     const am = url.pathname.match(/^\/api\/auth\/([a-z-]+)$/), isData = url.pathname === '/api/data';
     if (am || isData) {
       const chunks = []; for await (const c of req) chunks.push(c);
@@ -50,6 +59,7 @@ http.createServer(async (req, res) => {
     }
     if (req.method !== 'GET' && req.method !== 'HEAD') { res.writeHead(405); return res.end(); }
     let p = decodeURIComponent(url.pathname); if (p.endsWith('/')) p += 'index.html';
+    if (/^\/a\/[A-Za-z0-9]+$/.test(p)) p = '/a.html'; // share links
     if (!path.extname(p)) p += '.html'; // clean URLs, like Vercel: /studio -> studio.html
     const file = path.join(PUBLIC, path.normalize(p).replace(/^([/\\])+/, ''));
     if (!file.startsWith(PUBLIC) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404); return res.end('Not found'); }
