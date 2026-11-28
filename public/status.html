@@ -43,13 +43,13 @@ code,pre,kbd,.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
 .wm-bc{font-family:"Syne",system-ui,sans-serif;font-weight:800;letter-spacing:-.01em;line-height:1;color:var(--fg,#f7efe6)}
 .wm-bc::after{content:"";display:inline-block;width:.22em;height:.22em;margin-left:.08em;border-radius:50%;background:#b388ff;vertical-align:.12em}
 </style></head><body>
-<header><a class="wm" href="/"><span class="wm-bc" style="font-size:20px">BLACKCAT</span></a><a class="b" href="/studio.html">Studio →</a></header>
+<header><a class="wm" href="/"><span class="wm-bc" style="font-size:20px">BLACKCAT</span></a><a class="b" href="/studio">Studio →</a></header>
 <main><h1>Status</h1><p class="meta" id="meta">Loading…</p><div id="out"></div></main>
 <script>
 const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
 const WHY={400:'Bad request',401:'API key not valid',403:'API key not allowed',404:'Model not found',429:'Too many requests',500:'Anthropic error',529:'Model busy',0:'Network or timeout'};
 (async()=>{let r,j;try{r=await fetch('/api/status',{credentials:'same-origin'});j=await r.json()}catch(e){j={reply:'Could not reach the server.'}}
- if(!r||!r.ok){$('#meta').textContent='Owner only';$('#out').innerHTML=`<div class="box"><p>${esc(j.reply||'Not available.')}</p><a class="btn" href="/studio.html">Open Studio</a></div>`;return}
+ if(!r||!r.ok){$('#meta').textContent='Owner only';$('#out').innerHTML=`<div class="box"><p>${esc(j.reply||'Not available.')}</p><a class="btn" href="/studio">Open Studio</a></div>`;return}
  const d=j.days,today=d[0],week=d.slice(0,7),sum=(a,k)=>a.reduce((n,x)=>n+x[k],0);
  $('#meta').textContent='Signed in as '+j.user+' · daily cap '+j.cap;
  const max=Math.max(1,...d.map(x=>x.ok+x.err)),rev=[...d].reverse();

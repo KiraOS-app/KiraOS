@@ -50,6 +50,7 @@ http.createServer(async (req, res) => {
     }
     if (req.method !== 'GET' && req.method !== 'HEAD') { res.writeHead(405); return res.end(); }
     let p = decodeURIComponent(url.pathname); if (p.endsWith('/')) p += 'index.html';
+    if (!path.extname(p)) p += '.html'; // clean URLs, like Vercel: /studio -> studio.html
     const file = path.join(PUBLIC, path.normalize(p).replace(/^([/\\])+/, ''));
     if (!file.startsWith(PUBLIC) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) { res.writeHead(404); return res.end('Not found'); }
     res.writeHead(200, { 'Content-Type': MIME[path.extname(file)] || 'application/octet-stream' });
