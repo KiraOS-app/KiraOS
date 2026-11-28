@@ -1,6 +1,6 @@
 # BLACKCAT
 
-Live at **https://www.getkira.xyz**
+Live at **https://www.tryblackcat.xyz**
 
 Build AI agents in the browser. BLACKCAT is built on a modular plugin architecture: write a character,
 add plugins (actions, providers, evaluators, services, routes, events, models) and talk to your agent.
@@ -25,7 +25,7 @@ Each agent can have its own photo (resized to 128 px in the browser).
 - **Wallet**: EIP-191 `personal_sign` of a one-time message; checked on the server with a built-in secp256k1/keccak
   implementation (`lib/eth.js`), no gas, no transaction.
 - **X**: OAuth 2.0 with PKCE. Create an app at developer.x.com, type *Web App*, callback URL
-  `https://www.getkira.xyz/api/auth/x-callback`, scopes `users.read tweet.read`.
+  `https://www.tryblackcat.xyz/api/auth/x-callback`, scopes `users.read tweet.read`.
 - **Email**: a 6-digit code sent through Resend (resend.com); codes expire after 10 minutes, 5 tries max.
 - Sessions are signed HTTP-only cookies (30 days). Saved agents live in Upstash Redis under `kira:data:<user>`.
   When someone signs in, the account's saved agents replace the browser copy; a new account receives the browser copy.
@@ -45,9 +45,9 @@ runs the agent runtime and its tools itself.
 | `SESSION_SECRET` | – | Required for accounts: a long random string |
 | `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` | – | Required for accounts (or `KV_REST_API_URL` / `KV_REST_API_TOKEN` from Vercel's Upstash integration) |
 | `X_CLIENT_ID` / `X_CLIENT_SECRET` | – | Turns on "Continue with X" |
-| `RESEND_API_KEY` / `EMAIL_FROM` | – | Turns on "Continue with email" (`EMAIL_FROM` like `BLACKCAT <login@getkira.xyz>`) |
-| `SITE_URL` | request origin | e.g. `https://www.getkira.xyz`, used for the X callback and wallet message |
-| `ALLOWED_ORIGINS` | `https://getkira.xyz,https://www.getkira.xyz` | Sites allowed to call the API (localhost and `kira-os*.vercel.app` always allowed) |
+| `RESEND_API_KEY` / `EMAIL_FROM` | – | Turns on "Continue with email" (`EMAIL_FROM` like `BLACKCAT <login@tryblackcat.xyz>`) |
+| `SITE_URL` | request origin | e.g. `https://www.tryblackcat.xyz`, used for the X callback and wallet message |
+| `ALLOWED_ORIGINS` | `https://getkira.xyz,https://www.tryblackcat.xyz` | Sites allowed to call the API (localhost and `kira-os*.vercel.app` always allowed) |
 | `STUDIO_DAILY_CAP` | 3000 | Total calls per day for all visitors together, per server instance |
 | `TG_DAILY_CAP` | 200 | Replies per live Telegram bot per day |
 | `SHARE_DAILY_CAP` | 30 | New agent share links per visitor per day |
